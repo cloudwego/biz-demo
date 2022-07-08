@@ -1,1 +1,1 @@
-# .github
+# CloudWeGo Demo for Business
