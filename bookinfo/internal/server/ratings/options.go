@@ -13,28 +13,33 @@
 // limitations under the License.
 //
 
-package reviews
+package ratings
 
 import (
-	"context"
-
-	"github.com/cloudwego/biz-demo/bookinfo/internal/server/reviews"
-	"github.com/spf13/cobra"
+	"github.com/cloudwego/biz-demo/bookinfo/pkg/configparser"
 )
 
-func NewCommand() *cobra.Command {
-	return &cobra.Command{
-		Use:   "reviews",
-		Short: "start reviews server",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			ctx, cancel := context.WithCancel(context.Background())
-			defer cancel()
+type Options struct {
+	Server *ServerOptions `mapstructure:"server"`
+}
 
-			server, err := reviews.NewServer(ctx)
-			if err != nil {
-				return err
-			}
-			return server.Run(ctx)
-		},
+func DefaultOptions() *Options {
+	return &Options{
+		Server: DefaultServerOptions(),
 	}
+}
+
+func Configure(configProvider configparser.Provider) (*Options, error) {
+	opt := DefaultOptions()
+
+	cp, err := configProvider.Get()
+	if err != nil {
+		return nil, err
+	}
+
+	if err = cp.UnmarshalExact(opt); err != nil {
+		return nil, err
+	}
+
+	return opt, nil
 }

@@ -13,23 +13,29 @@
 // limitations under the License.
 //
 
-package main
+//go:build wireinject
+// +build wireinject
+
+package ratings
 
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings"
+	"github.com/cloudwego/biz-demo/bookinfo/internal/service/ratings"
+	"github.com/cloudwego/biz-demo/bookinfo/pkg/configparser"
+	"github.com/google/wire"
 )
 
-type impl struct {
-}
+func NewServer(ctx context.Context) (*Server, error) {
+	panic(wire.Build(
+		configparser.Default,
+		Configure,
 
-func (i *impl) Ratings(ctx context.Context, req *ratings.RatingReq) (r *ratings.RatingResp, err error) {
-	return &ratings.RatingResp{
-		Rating: 4,
-	}, nil
-}
+		ratings.New,
 
-func NewHandler() ratings.RatingService {
-	return &impl{}
+		wire.FieldsOf(new(*Options),
+			"Server",
+		),
+		wire.Struct(new(Server), "*"),
+	))
 }

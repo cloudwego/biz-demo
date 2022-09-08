@@ -13,24 +13,24 @@
 // limitations under the License.
 //
 
-package reviews
+package details
 
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/bookinfo/internal/server/reviews"
+	"github.com/cloudwego/biz-demo/bookinfo/internal/server/details"
 	"github.com/spf13/cobra"
 )
 
 func NewCommand() *cobra.Command {
 	return &cobra.Command{
-		Use:   "reviews",
-		Short: "start reviews server",
+		Use:   "details",
+		Short: "start details server",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			server, err := reviews.NewServer(ctx)
+			server, err := details.NewServer(ctx)
 			if err != nil {
 				return err
 			}

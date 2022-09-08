@@ -13,28 +13,29 @@
 // limitations under the License.
 //
 
-package reviews
+//go:build wireinject
+// +build wireinject
+
+package details
 
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/bookinfo/internal/server/reviews"
-	"github.com/spf13/cobra"
+	"github.com/cloudwego/biz-demo/bookinfo/internal/service/details"
+	"github.com/cloudwego/biz-demo/bookinfo/pkg/configparser"
+	"github.com/google/wire"
 )
 
-func NewCommand() *cobra.Command {
-	return &cobra.Command{
-		Use:   "reviews",
-		Short: "start reviews server",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			ctx, cancel := context.WithCancel(context.Background())
-			defer cancel()
+func NewServer(ctx context.Context) (*Server, error) {
+	panic(wire.Build(
+		configparser.Default,
+		Configure,
 
-			server, err := reviews.NewServer(ctx)
-			if err != nil {
-				return err
-			}
-			return server.Run(ctx)
-		},
-	}
+		details.New,
+
+		wire.FieldsOf(new(*Options),
+			"Server",
+		),
+		wire.Struct(new(Server), "*"),
+	))
 }

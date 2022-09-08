@@ -13,37 +13,64 @@
 // limitations under the License.
 //
 
-package main
+package details
 
 import (
 	"context"
 	"net"
 
-	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings/ratingservice"
+	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details"
+	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details/detailsservice"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
+	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/server"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	"github.com/kitex-contrib/xds"
 )
 
-func main() {
-	p := provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(constants.RatingsServiceName),
-		provider.WithInsecure(),
-	)
-	defer p.Shutdown(context.Background())
+type Server struct {
+	opts *ServerOptions
+	svc  details.DetailsService
+}
 
-	addr, err := net.ResolveTCPAddr("tcp", ":8083")
-	if err != nil {
-		return
+type ServerOptions struct {
+	Addr      string `mapstructure:"addr"`
+	EnableXDS bool   `mapstructure:"enableXDS"`
+}
+
+func DefaultServerOptions() *ServerOptions {
+	return &ServerOptions{
+		Addr:      ":8084",
+		EnableXDS: false,
+	}
+}
+
+func (s *Server) Run(ctx context.Context) error {
+	if s.opts.EnableXDS {
+		if err := xds.Init(); err != nil {
+			klog.Fatal(err)
+		}
 	}
 
-	svr := ratingservice.NewServer(
-		NewHandler(),
+	p := provider.NewOpenTelemetryProvider(
+		provider.WithServiceName(constants.DetailsServiceName),
+		provider.WithInsecure(),
+	)
+	defer p.Shutdown(ctx)
+
+	addr, err := net.ResolveTCPAddr("tcp", s.opts.Addr)
+	if err != nil {
+		klog.Fatal(err)
+	}
+	svr := detailsservice.NewServer(
+		s.svc,
 		server.WithServiceAddr(addr),
 		server.WithSuite(tracing.NewServerSuite()),
 	)
 	if err := svr.Run(); err != nil {
-		return
+		klog.Fatal(err)
 	}
+
+	return nil
 }

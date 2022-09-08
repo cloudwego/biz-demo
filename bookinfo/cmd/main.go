@@ -20,13 +20,20 @@ import (
 	goflag "flag"
 	"fmt"
 
+	"github.com/cloudwego/biz-demo/bookinfo/cmd/details"
 	"github.com/cloudwego/biz-demo/bookinfo/cmd/productpage"
+	"github.com/cloudwego/biz-demo/bookinfo/cmd/ratings"
 	"github.com/cloudwego/biz-demo/bookinfo/cmd/reviews"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/configparser"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/version"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/spf13/cobra"
 )
+
+// Runnable server interface
+type Runnable interface {
+	Run(ctx context.Context)
+}
 
 var (
 	moduleName = version.Get().Module
@@ -36,16 +43,13 @@ var (
 	}
 )
 
-// Runnable server interface
-type Runnable interface {
-	Run(ctx context.Context)
-}
-
 func main() {
 	rootCmd.PersistentFlags().AddGoFlagSet(goflag.CommandLine)
 	rootCmd.AddCommand(
 		productpage.NewCommand(),
 		reviews.NewCommand(),
+		ratings.NewCommand(),
+		details.NewCommand(),
 	)
 
 	configparser.Flags(rootCmd.PersistentFlags())
