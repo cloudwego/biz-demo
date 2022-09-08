@@ -1,0 +1,21 @@
+clients:
+- idl:
+    type: local
+    path: ./idl/productpage.thrift
+  args:
+    module: github.com/cloudwego/biz-demo/bookinfo
+- idl:
+    type: local
+    path: ./idl/ratings.thrift
+  args:
+    module: github.com/cloudwego/biz-demo/bookinfo
+- idl:
+    type: local
+    path: ./idl/reviews.thrift
+  args:
+    module: github.com/cloudwego/biz-demo/bookinfo
+- idl:
+    type: local
+    path: ./idl/details.thrift
+  args:
+    module: github.com/cloudwego/biz-demo/bookinfo
