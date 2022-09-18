@@ -19,8 +19,10 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings/ratingservice"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
 	kclient "github.com/cloudwego/kitex/client"
+	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/xds"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	xdsmanager "github.com/kitex-contrib/xds"
 	"github.com/kitex-contrib/xds/xdssuite"
 )
 
@@ -31,16 +33,18 @@ type RatingsClientOptions struct {
 
 func DefaultRatingsClientOptions() *RatingsClientOptions {
 	return &RatingsClientOptions{
-		Endpoint:  ":8083",
+		Endpoint:  "ratings:8083",
 		EnableXDS: false,
 	}
 }
 
 func ProvideRatingsClient(opts *RatingsClientOptions) (ratingservice.Client, error) {
 	if opts.EnableXDS {
+		if err := xdsmanager.Init(); err != nil {
+			klog.Fatal(err)
+		}
 		return ratingservice.NewClient(
-			constants.RatingsServiceName,
-			kclient.WithHostPorts(opts.Endpoint),
+			opts.Endpoint,
 			kclient.WithSuite(tracing.NewClientSuite()),
 			kclient.WithXDSSuite(xds.ClientSuite{
 				RouterMiddleware: xdssuite.NewXDSRouterMiddleware(),

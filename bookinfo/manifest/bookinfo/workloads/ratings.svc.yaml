@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: ratings
+    app.kubernetes.io/name: ratings
+  name: ratings
+
+spec:
+  ports:
+  - name: thrift
+    port: 8083
+    protocol: TCP
+    targetPort: thrift
+  selector:
+    app.kubernetes.io/instance: ratings
+    app.kubernetes.io/name: ratings
+  type: ClusterIP

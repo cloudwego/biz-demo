@@ -20,6 +20,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details"
 	"github.com/cloudwego/kitex/pkg/klog"
+	"go.opentelemetry.io/otel/baggage"
 )
 
 type impl struct {
@@ -31,6 +32,10 @@ func New() details.DetailsService {
 
 func (i *impl) GetProduct(ctx context.Context, req *details.GetProductReq) (r *details.GetProductResp, err error) {
 	klog.CtxInfof(ctx, "get product details %s", req.ID)
+	bags := baggage.FromContext(ctx)
+	env := bags.Member("env")
+	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
+
 	return &details.GetProductResp{
 		Product: &details.Product{
 			ID:          req.GetID(),

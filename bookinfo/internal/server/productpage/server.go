@@ -21,10 +21,8 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/internal/handler/productpage"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
 	hertzserver "github.com/cloudwego/hertz/pkg/app/server"
-	"github.com/cloudwego/kitex/pkg/klog"
 	hertztracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/xds"
 )
 
 type Server struct {
@@ -33,24 +31,16 @@ type Server struct {
 }
 
 type ServerOptions struct {
-	Addr      string `mapstructure:"addr"`
-	EnableXDS bool   `mapstructure:"enableXDS"`
+	Addr string `mapstructure:"addr"`
 }
 
 func DefaultServerOptions() *ServerOptions {
 	return &ServerOptions{
-		Addr:      ":8081",
-		EnableXDS: false,
+		Addr: ":8081",
 	}
 }
 
 func (s *Server) Run(ctx context.Context) error {
-	if s.opts.EnableXDS {
-		if err := xds.Init(); err != nil {
-			klog.Fatal(err)
-		}
-	}
-
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(constants.ProductpageServiceName),
 		provider.WithInsecure(),

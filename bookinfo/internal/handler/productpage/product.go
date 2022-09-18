@@ -26,6 +26,8 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/reviews"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/reviews/reviewsservice"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/kitex/pkg/klog"
+	"go.opentelemetry.io/otel/baggage"
 )
 
 type Handler struct {
@@ -40,8 +42,13 @@ func New(reviewsClient reviewsservice.Client, detailsClient detailsservice.Clien
 func (h *Handler) GetProduct(ctx context.Context, c *app.RequestContext) {
 	productID := c.Param("productID")
 
+	bags := baggage.FromContext(ctx)
+	env := bags.Member("env")
+	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
+
 	reviewsResp, err := h.reviewsClient.ReviewProduct(ctx, &reviews.ReviewReq{ProductID: productID})
 	if err != nil {
+		klog.CtxErrorf(ctx, "call reviews error: %s", err.Error())
 		c.JSON(http.StatusInternalServerError, &base.BaseResp{
 			StatusMessage: "internal error",
 			StatusCode:    http.StatusInternalServerError,
@@ -52,6 +59,7 @@ func (h *Handler) GetProduct(ctx context.Context, c *app.RequestContext) {
 
 	detailsResp, err := h.detailsClient.GetProduct(ctx, &details.GetProductReq{ID: productID})
 	if err != nil {
+		klog.CtxErrorf(ctx, "call details error: %s", err.Error())
 		return
 	}
 	p := detailsResp.GetProduct()

@@ -26,7 +26,6 @@ import (
 	"github.com/cloudwego/kitex/server"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
-	"github.com/kitex-contrib/xds"
 )
 
 type Server struct {
@@ -36,23 +35,15 @@ type Server struct {
 
 type ServerOptions struct {
 	Addr      string `mapstructure:"addr"`
-	EnableXDS bool   `mapstructure:"enableXDS"`
 }
 
 func DefaultServerOptions() *ServerOptions {
 	return &ServerOptions{
 		Addr:      ":8084",
-		EnableXDS: false,
 	}
 }
 
 func (s *Server) Run(ctx context.Context) error {
-	if s.opts.EnableXDS {
-		if err := xds.Init(); err != nil {
-			klog.Fatal(err)
-		}
-	}
-
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(constants.DetailsServiceName),
 		provider.WithInsecure(),

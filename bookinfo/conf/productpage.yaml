@@ -2,3 +2,5 @@ server:
   addr: 0.0.0.0:8081
 reviews:
   endpoint: :8082
+details:
+  endpoint: :8084

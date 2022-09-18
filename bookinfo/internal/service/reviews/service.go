@@ -23,6 +23,8 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings/ratingservice"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/reviews"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
+	"github.com/cloudwego/kitex/pkg/klog"
+	"go.opentelemetry.io/otel/baggage"
 )
 
 type impl struct {
@@ -34,7 +36,12 @@ func New(ratingsClient ratingservice.Client) reviews.ReviewsService {
 }
 
 func (i *impl) ReviewProduct(ctx context.Context, req *reviews.ReviewReq) (r *reviews.ReviewResp, err error) {
-	if os.Getenv(constants.EnableRatingsEnvKey) == constants.Disable {
+
+	bags := baggage.FromContext(ctx)
+	env := bags.Member("env")
+	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
+
+	if os.Getenv(constants.EnableRatingsEnvKey) == constants.Disable || env.Value() == "dev" {
 		return &reviews.ReviewResp{
 			Review: &reviews.Review{
 				Type:   reviews.ReviewType_Local,
@@ -45,6 +52,7 @@ func (i *impl) ReviewProduct(ctx context.Context, req *reviews.ReviewReq) (r *re
 
 	ratingResp, err := i.ratingsClient.Ratings(ctx, &ratings.RatingReq{ProductID: req.GetProductID()})
 	if err != nil {
+		klog.CtxErrorf(ctx, "call ratings error: %s", err.Error())
 		return nil, err
 	}
 

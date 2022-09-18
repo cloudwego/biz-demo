@@ -19,8 +19,10 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details/detailsservice"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
 	kclient "github.com/cloudwego/kitex/client"
+	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/xds"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	xdsmanager "github.com/kitex-contrib/xds"
 	"github.com/kitex-contrib/xds/xdssuite"
 )
 
@@ -31,16 +33,18 @@ type DetailsClientOptions struct {
 
 func DefaultDetailsClientOptions() *DetailsClientOptions {
 	return &DetailsClientOptions{
-		Endpoint:  ":8084",
+		Endpoint:  "details:8084",
 		EnableXDS: false,
 	}
 }
 
 func ProvideDetailsClient(opts *DetailsClientOptions) (detailsservice.Client, error) {
 	if opts.EnableXDS {
+		if err := xdsmanager.Init(); err != nil {
+			klog.Fatal(err)
+		}
 		return detailsservice.NewClient(
-			constants.DetailsServiceName,
-			kclient.WithHostPorts(opts.Endpoint),
+			opts.Endpoint,
 			kclient.WithSuite(tracing.NewClientSuite()),
 			kclient.WithXDSSuite(xds.ClientSuite{
 				RouterMiddleware: xdssuite.NewXDSRouterMiddleware(),

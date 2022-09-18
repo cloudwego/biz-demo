@@ -19,6 +19,8 @@ import (
 	"context"
 
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings"
+	"github.com/cloudwego/kitex/pkg/klog"
+	"go.opentelemetry.io/otel/baggage"
 )
 
 type impl struct {
@@ -29,6 +31,10 @@ func New() ratings.RatingService {
 }
 
 func (i *impl) Ratings(ctx context.Context, req *ratings.RatingReq) (r *ratings.RatingResp, err error) {
+	bags := baggage.FromContext(ctx)
+	env := bags.Member("env")
+	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
+
 	return &ratings.RatingResp{
 		Rating: 4,
 	}, nil

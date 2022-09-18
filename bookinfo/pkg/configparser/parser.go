@@ -21,18 +21,13 @@ import (
 	"github.com/spf13/viper"
 )
 
-const (
-	// KeyDelimiter is used as the default key delimiter in the default viper instance.
-	KeyDelimiter = "::"
-)
-
 // Parser loads configuration.
 type Parser struct {
 	v *viper.Viper
 }
 
 func newViper() *viper.Viper {
-	return viper.NewWithOptions(viper.KeyDelimiter(KeyDelimiter))
+	return viper.NewWithOptions()
 }
 
 // UnmarshalExact unmarshals the config into a struct, erroring if a field is nonexistent.
@@ -40,16 +35,8 @@ func (l *Parser) UnmarshalExact(intoCfg interface{}) error {
 	return l.v.UnmarshalExact(intoCfg)
 }
 
-// NewParser creates a new empty Parser instance.
-func NewParser() *Parser {
-	return &Parser{
-		v: newViper(),
-	}
-}
-
 // NewParserFromFile creates a new Parser by reading the given file.
 func NewParserFromFile(fileName string) (*Parser, error) {
-	// Read yaml config from file
 	v := newViper()
 	v.SetConfigFile(fileName)
 	if err := v.ReadInConfig(); err != nil {
