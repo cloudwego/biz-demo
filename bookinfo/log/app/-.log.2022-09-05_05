@@ -1,6 +1,0 @@
-Info 2022-09-05 05:38:08,232 v1(7) tracer_option.go:523 192.168.0.104 - - default - 0 [bytedtrace] The reporter is agent reporter as default.
-Info 2022-09-05 05:38:09,005 v1(7) debug.go:113 192.168.0.104 - - default - 0 starting debug server
-Info 2022-09-05 05:38:09,006 v1(7) server.go:63 192.168.0.104 - - default - 0 debug server listen at: [::]:18888
-Warn 2022-09-05 05:38:08,226 v1(7) config_center.go:465 192.168.0.104 - - default - 0 KITEX: get remote config category=GlobalStress failed, error=KITEX: dump remote config failed, cannot connect remote config center, error [consul: connection refused (try set CONSUL_HTTP_HOST in dev env)]. 
-Theoretically, it does not affect service invocation. If it's very frequent, please find help from oncall.
-Info 2022-09-05 05:38:08,996 v1(7) server.go:81 192.168.0.104 - - default - 0 KITEX: server listen at addr=[::]:8888
