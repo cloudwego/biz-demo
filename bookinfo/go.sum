@@ -164,6 +164,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/toml v0.4.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/BurntSushi/toml v1.0.0/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
+github.com/CoderPoet/xds v0.0.0-20220919022741-2dad1ba232f1 h1:CBcPhqHaEYOwKhKnsCEpT/PARpFlqLyKX95Km/kDkA4=
+github.com/CoderPoet/xds v0.0.0-20220919022741-2dad1ba232f1/go.mod h1:9iasHikQ8L2oGFe3JqxTsWknGrElyX0kC4NlT2ER8UU=
 github.com/DATA-DOG/go-sqlmock v1.5.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
 github.com/Djarvur/go-err113 v0.0.0-20200410182137-af658d038157/go.mod h1:4UJr5HIiMZrwgkSPdsjy2uOQExX/WEILpIrO9UPGuXs=
@@ -1317,8 +1319,6 @@ github.com/kisielk/errcheck v1.6.0/go.mod h1:pFxgyoBC7bSaBwPgfKdkLd5X25qrDl4LWUI
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
 github.com/kitex-contrib/obs-opentelemetry v0.1.0 h1:A8DUzKSujPb21ORn+DuFM2jLdsrQ/fM3o4r8yXLd5k4=
 github.com/kitex-contrib/obs-opentelemetry v0.1.0/go.mod h1:l5Opsj8BtfHrsRJCw9PRKiidwWvOtGumijm+9odf2E8=
-github.com/kitex-contrib/xds v0.0.0-20220825123131-e4b331610f97 h1:tjborW1UtdpfIN43M7Axex4sZYbkXitMUtSVs1P+iJ8=
-github.com/kitex-contrib/xds v0.0.0-20220825123131-e4b331610f97/go.mod h1:UNS3NB14dn4hvl+ZYIH+ttaSGYAj2k8eGjFnvoATd9s=
 github.com/klauspost/compress v1.4.0/go.mod h1:RyIbtBH6LamlWaDj8nUwkbUhJ87Yi3uG0guNDohfE1A=
 github.com/klauspost/compress v1.4.1/go.mod h1:RyIbtBH6LamlWaDj8nUwkbUhJ87Yi3uG0guNDohfE1A=
 github.com/klauspost/compress v1.11.3/go.mod h1:aoV0uJVorq1K+umq18yTdKaF57EivdYsUV+/s2qKfXs=

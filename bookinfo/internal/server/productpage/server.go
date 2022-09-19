@@ -53,7 +53,7 @@ func (s *Server) Run(ctx context.Context) error {
 	)
 	h.Use(hertztracing.ServerMiddleware(cfg))
 
-	h.GET("/products/:productID", s.handler.GetProduct)
+	h.GET("/api/v1/products/:productID", s.handler.GetProduct)
 
 	h.Spin()
 

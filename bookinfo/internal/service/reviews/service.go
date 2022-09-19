@@ -41,7 +41,7 @@ func (i *impl) ReviewProduct(ctx context.Context, req *reviews.ReviewReq) (r *re
 	env := bags.Member("env")
 	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
 
-	if os.Getenv(constants.EnableRatingsEnvKey) == constants.Disable || env.Value() == "dev" {
+	if os.Getenv(constants.EnableRatingsEnvKey) == constants.Disable {
 		return &reviews.ReviewResp{
 			Review: &reviews.Review{
 				Type:   reviews.ReviewType_Local,

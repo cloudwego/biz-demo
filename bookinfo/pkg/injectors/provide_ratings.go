@@ -29,18 +29,20 @@ import (
 type RatingsClientOptions struct {
 	Endpoint  string `mapstructure:"endpoint"`
 	EnableXDS bool   `mapstructure:"enableXDS"`
+	XDSAddr   string `mapstructure:"xdsAddr"`
 }
 
 func DefaultRatingsClientOptions() *RatingsClientOptions {
 	return &RatingsClientOptions{
 		Endpoint:  "ratings:8083",
 		EnableXDS: false,
+		XDSAddr:   "istiod.istio-system.svc:15010",
 	}
 }
 
 func ProvideRatingsClient(opts *RatingsClientOptions) (ratingservice.Client, error) {
 	if opts.EnableXDS {
-		if err := xdsmanager.Init(); err != nil {
+		if err := xdsmanager.Init(xdsmanager.WithXDSServerAddress(opts.XDSAddr)); err != nil {
 			klog.Fatal(err)
 		}
 		return ratingservice.NewClient(

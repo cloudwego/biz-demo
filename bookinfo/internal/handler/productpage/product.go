@@ -19,6 +19,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/bytedance/gopkg/cloud/metainfo"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/base"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details/detailsservice"
@@ -45,6 +46,8 @@ func (h *Handler) GetProduct(ctx context.Context, c *app.RequestContext) {
 	bags := baggage.FromContext(ctx)
 	env := bags.Member("env")
 	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
+
+	ctx = metainfo.WithValue(ctx, "baggage", bags.String())
 
 	reviewsResp, err := h.reviewsClient.ReviewProduct(ctx, &reviews.ReviewReq{ProductID: productID})
 	if err != nil {

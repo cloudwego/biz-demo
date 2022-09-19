@@ -29,18 +29,20 @@ import (
 type ReviewClientOptions struct {
 	Endpoint  string `mapstructure:"endpoint"`
 	EnableXDS bool   `mapstructure:"enableXDS"`
+	XDSAddr   string `mapstructure:"xdsAddr"`
 }
 
 func DefaultReviewClientOptions() *ReviewClientOptions {
 	return &ReviewClientOptions{
 		Endpoint:  "reviews:8082",
 		EnableXDS: false,
+		XDSAddr:   "istiod.istio-system.svc:15010",
 	}
 }
 
 func ProvideReviewClient(opts *ReviewClientOptions) (reviewsservice.Client, error) {
 	if opts.EnableXDS {
-		if err := xdsmanager.Init(); err != nil {
+		if err := xdsmanager.Init(xdsmanager.WithXDSServerAddress(opts.XDSAddr)); err != nil {
 			klog.Fatal(err)
 		}
 		return reviewsservice.NewClient(
