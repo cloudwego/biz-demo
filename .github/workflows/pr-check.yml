@@ -1,46 +1,43 @@
 name: Pull Request Check
 
-on: [pull_request]
+on: [ pull_request ]
 
 jobs:
   compliant:
-    runs-on: self-hosted
+    runs-on: [ self-hosted, X64 ]
     steps:
       - uses: actions/checkout@v3
 
       - name: Check License Header
-        uses: apache/skywalking-eyes@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: apache/skywalking-eyes/header@501a28d2fb4a9b962661987e50cf0219631b32ff
 
       - name: typos-action
         uses: crate-ci/typos@master
 
-  staticcheck:
-    runs-on: self-hosted
+  resolve-modules:
+    name: resolve module
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - id: set-matrix
+        run: ./hack/resolve-modules.sh
+
+  lint:
+    name: lint module
+    runs-on: ubuntu-latest
+    needs: resolve-modules
+    strategy:
+      matrix: ${{ fromJson(needs.resolve-modules.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v3
+      - name: Lint
+        uses: golangci/golangci-lint-action@v3
         with:
-          go-version: 1.18
-
-      - uses: actions/cache@v3
-        with:
-          path: ~/go/pkg/mod
-          key: reviewdog-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            reviewdog-${{ runner.os }}-go-
-
-      - uses: reviewdog/action-staticcheck@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if you need [github-pr-check,github-check,github-pr-review].
-          reporter: github-pr-review
-          # Report all results.
-          filter_mode: nofilter
-          # Exit with 1 when it find at least one finding.
-          fail_on_error: true
-          # Set staticcheck flags
-          staticcheck_flags: -checks=inherit,-SA1029
+          version: latest
+          working-directory: ${{ matrix.workdir }}
+          args: -E gofumpt
+          skip-pkg-cache: true
