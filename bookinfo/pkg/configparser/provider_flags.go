@@ -23,9 +23,7 @@ const (
 	configFlagName = "config"
 )
 
-var (
-	configFlag *string
-)
+var configFlag *string
 
 // Flags adds flags related to basic configuration's parser loader to the flags.
 func Flags(flags *pflag.FlagSet) {

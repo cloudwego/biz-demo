@@ -26,8 +26,7 @@ import (
 	"go.opentelemetry.io/otel/baggage"
 )
 
-type impl struct {
-}
+type impl struct{}
 
 func New() ratings.RatingService {
 	return &impl{}

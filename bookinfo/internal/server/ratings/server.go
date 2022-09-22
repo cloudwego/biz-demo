@@ -47,7 +47,7 @@ func DefaultServerOptions() *ServerOptions {
 func (s *Server) Run(ctx context.Context) error {
 	klog.SetLogger(kitexlogrus.NewLogger())
 	klog.SetLevel(klog.LevelDebug)
-	
+
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(constants.RatingsServiceName),
 		provider.WithInsecure(),

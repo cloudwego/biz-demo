@@ -36,7 +36,6 @@ func New(ratingsClient ratingservice.Client) reviews.ReviewsService {
 }
 
 func (i *impl) ReviewProduct(ctx context.Context, req *reviews.ReviewReq) (r *reviews.ReviewResp, err error) {
-
 	klog.CtxInfof(ctx, "baggage: %s", baggage.FromContext(ctx).String())
 
 	if os.Getenv(constants.EnableRatingsEnvKey) == constants.Disable {
