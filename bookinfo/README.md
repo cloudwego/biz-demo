@@ -34,7 +34,12 @@ spec:
     - route:
         - destination:
             host: reviews
-          weight: 100
+            subset: v1
+          weight: 80
+        - destination:
+            host: reviews
+            subset: v3
+          weight: 20
 
 ---
 
@@ -58,18 +63,19 @@ spec:
     - route:
         - destination:
             host: ratings
+            subset: v1
           weight: 100
 ```
 
 #### Request base lane service, rating `0` or `1` randomly
-![bookinfo_1.png](docs/bookinfo_1.png)
-![bookinfo_2.png](docs/bookinfo_2.png)
+![bookinfo_1.png](docs/bookinfo_rating_1.png)
+![bookinfo_2.png](docs/bookinfo_without_rating.png)
 
 #### Set the request coloring flag through the browser mod-header plugin
-![bookinfo_3.png](docs/bookinfo_3.png)
+![bookinfo_3.png](docs/bookinfo_header.png)
 
 #### Click the refresh button again, you can find that the request hits the branch lane, and the rating becomes `5`
-![bookinfo_4.png](docs/bookinfo_4.png)
+![bookinfo_4.png](docs/bookinfo_canary.png)
 
 
 ### View Tracing

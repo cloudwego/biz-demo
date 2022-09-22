@@ -34,7 +34,12 @@ spec:
     - route:
         - destination:
             host: reviews
-          weight: 100
+            subset: v1
+          weight: 80
+        - destination:
+            host: reviews
+            subset: v3
+          weight: 20
 
 ---
 
@@ -58,18 +63,19 @@ spec:
     - route:
         - destination:
             host: ratings
+            subset: v1
           weight: 100
 ```
 
 #### 请求基准泳道服务，评分为 0 或 1 随机
-![bookinfo_1.png](docs/bookinfo_1.png)
-![bookinfo_2.png](docs/bookinfo_2.png)
+![bookinfo_1.png](docs/bookinfo_rating_1.png)
+![bookinfo_2.png](docs/bookinfo_without_rating.png)
 
 #### 通过浏览器 mod-header 插件，设置灰度标识 header
-![bookinfo_3.png](docs/bookinfo_3.png)
+![bookinfo_3.png](docs/bookinfo_header.png)
 
 #### 再点击刷新按钮，可以发现请求打到了分支泳道
-![bookinfo_4.png](docs/bookinfo_4.png)
+![bookinfo_4.png](docs/bookinfo_canary.png)
 
 
 ### 查看 Tracing 
