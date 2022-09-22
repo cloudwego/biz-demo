@@ -52,7 +52,9 @@ func (s *Server) Run(ctx context.Context) error {
 		provider.WithServiceName(constants.DetailsServiceName),
 		provider.WithInsecure(),
 	)
-	defer p.Shutdown(ctx)
+	defer func(p provider.OtelProvider, ctx context.Context) {
+		_ = p.Shutdown(ctx)
+	}(p, ctx)
 
 	addr, err := net.ResolveTCPAddr("tcp", s.opts.Addr)
 	if err != nil {
