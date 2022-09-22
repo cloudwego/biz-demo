@@ -1,40 +1,17 @@
 # Bookinfo
->
+
+> Rewrite **[Bookinfo](https://istio.io/latest/en/docs/examples/bookinfo/)** project using `hertz`, `kitex`
 
 ## Architecture
+
 ![img.png](./docs/bookinfo-arch.png)
 
+## Lane
+![lane.png](./docs/lane.png)
 
+## Traffic routing example
 
-
-### Traffic Routing Example
-
-### Configure Weight Routing
-```yaml
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: reviews
-spec:
-  hosts:
-    - reviews
-  http:
-  - route:
-    - destination:
-        host: reviews
-        subset: v1
-      weight: 80
-    - destination:
-        host: reviews
-        subset: v2
-      weight: 20
-
-```
-
-### Weight routing takes effect
-![weight](./docs/weight-routing.png)
-
-### Configuring canary Traffic Routing Rules
+#### Define routing rules
 
 ```yaml
 apiVersion: networking.istio.io/v1alpha3
@@ -54,12 +31,50 @@ spec:
             host: reviews
             subset: v2
           weight: 100
+    - route:
+        - destination:
+            host: reviews
+          weight: 100
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+    - ratings
+  http:
+    - match:
+        - headers:
+            baggage:
+              exact: "env=dev"
+      route:
+        - destination:
+            host: ratings
+            subset: v2
+          weight: 100
+    - route:
+        - destination:
+            host: ratings
+          weight: 100
 ```
 
-### Make a request with baggage
-```shell
-curl -H "baggage: env=dev" http://localhost/api/v1/products/1
-```
+#### Request base lane service, rating `0` or `1` randomly
+![bookinfo_1.png](docs/bookinfo_1.png)
+![bookinfo_2.png](docs/bookinfo_2.png)
 
-### Route has taken effect
-![img_1.png](./docs/canary-routing.png)
+#### Set the request coloring flag through the browser mod-header plugin
+![bookinfo_3.png](docs/bookinfo_3.png)
+
+#### Click the refresh button again, you can find that the request hits the branch lane, and the rating becomes `5`
+![bookinfo_4.png](docs/bookinfo_4.png)
+
+
+### View Tracing
+![tracing-topo](docs/coa-tracing-topo.png)
+![tracing](docs/coa-tracing.png)
+
+### View Topology
+![operation-topo](docs/upstream-operation-topo.png)

@@ -4,7 +4,8 @@ data:
     server:
       addr: 0.0.0.0:8082
     ratings:
-      endpoint: ratings:8083
+      endpoint: ratings.default.svc.cluster.local:8083
+      enableXDS: true
 kind: ConfigMap
 metadata:
   name: reviews

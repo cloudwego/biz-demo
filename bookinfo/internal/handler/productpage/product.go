@@ -19,7 +19,6 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/bytedance/gopkg/cloud/metainfo"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/base"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/details/detailsservice"
@@ -28,7 +27,7 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/reviews/reviewsservice"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"go.opentelemetry.io/otel/baggage"
+	"golang.org/x/sync/errgroup"
 )
 
 type Handler struct {
@@ -43,15 +42,35 @@ func New(reviewsClient reviewsservice.Client, detailsClient detailsservice.Clien
 func (h *Handler) GetProduct(ctx context.Context, c *app.RequestContext) {
 	productID := c.Param("productID")
 
-	bags := baggage.FromContext(ctx)
-	env := bags.Member("env")
-	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
+	var (
+		reviewsResp *reviews.ReviewResp
+		detailsResp *details.GetProductResp
+	)
 
-	ctx = metainfo.WithValue(ctx, "baggage", bags.String())
+	eg, ctx := errgroup.WithContext(ctx)
 
-	reviewsResp, err := h.reviewsClient.ReviewProduct(ctx, &reviews.ReviewReq{ProductID: productID})
-	if err != nil {
-		klog.CtxErrorf(ctx, "call reviews error: %s", err.Error())
+	eg.Go(func() error {
+		res, err := h.reviewsClient.ReviewProduct(ctx, &reviews.ReviewReq{ProductID: productID})
+		if err != nil {
+			klog.CtxErrorf(ctx, "call reviews error: %s", err.Error())
+			return err
+		}
+		reviewsResp = res
+		return nil
+	})
+
+	eg.Go(func() error {
+		res, err := h.detailsClient.GetProduct(ctx, &details.GetProductReq{ID: productID})
+		if err != nil {
+			klog.CtxErrorf(ctx, "call details error: %s", err.Error())
+			return err
+		}
+
+		detailsResp = res
+		return nil
+	})
+
+	if err := eg.Wait(); err != nil {
 		c.JSON(http.StatusInternalServerError, &base.BaseResp{
 			StatusMessage: "internal error",
 			StatusCode:    http.StatusInternalServerError,
@@ -60,13 +79,7 @@ func (h *Handler) GetProduct(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	detailsResp, err := h.detailsClient.GetProduct(ctx, &details.GetProductReq{ID: productID})
-	if err != nil {
-		klog.CtxErrorf(ctx, "call details error: %s", err.Error())
-		return
-	}
 	p := detailsResp.GetProduct()
-
 	resp := &product.Product{
 		ID:          productID,
 		Title:       p.GetTitle(),

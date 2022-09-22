@@ -7,4 +7,7 @@ header:
     - '**/*.go'
     - '**/*.s'
 
+  paths-ignore:
+    - biz-demo/bookinfo/kitex_gen/**
+
   comment: on-failure

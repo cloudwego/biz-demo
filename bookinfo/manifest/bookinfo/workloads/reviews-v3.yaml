@@ -22,53 +22,59 @@ spec:
         version: v3
     spec:
       containers:
-      - args:
-        - reviews
-        - --config=config/reviews.yaml
-        env:
-        - name: TZ
-          value: Asia/Shanghai
-        - name: ENABLE_RATINGS
-          value: "enable"
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.name
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: metadata.namespace
-        - name: CONSUL_HTTP_HOST
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: status.hostIP
-        - name: METRICS_LOG_LEVEL
-          value: err
-        image: cr-cn-beijing.volces.com/coa-samples/bookinfo
-        imagePullPolicy: Always
-        name: server
-        ports:
-        - containerPort: 8082
-          name: thrift
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 100m
-            memory: 128Mi
-        volumeMounts:
-        - mountPath: /app/config
-          name: config-volume
+        - args:
+            - reviews
+            - --config=config/reviews.yaml
+          env:
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: service.version=v3
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://host.docker.internal:4317
+            - name: ENABLE_RATINGS
+              value: "disable"
+            - name: TZ
+              value: Asia/Shanghai
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: INSTANCE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: METRICS_LOG_LEVEL
+              value: err
+            - name: CONSUL_HTTP_HOST
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.hostIP
+          image: cr-cn-beijing.volces.com/coa-samples/bookinfo
+          imagePullPolicy: Always
+          name: server
+          ports:
+            - containerPort: 8082
+              name: thrift
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - mountPath: /app/config
+              name: config-volume
       restartPolicy: Always
       serviceAccountName: default
       volumes:
-      - configMap:
-          defaultMode: 420
-          name: reviews
-        name: config-volume
+        - configMap:
+            defaultMode: 420
+            name: reviews
+          name: config-volume
 

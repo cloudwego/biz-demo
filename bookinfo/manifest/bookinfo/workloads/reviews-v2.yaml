@@ -26,27 +26,33 @@ spec:
             - reviews
             - --config=config/reviews.yaml
           env:
-            - name: TZ
-              value: Asia/Shanghai
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: service.version=v2
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://host.docker.internal:4317
             - name: ENABLE_RATINGS
               value: "enable"
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  apiVersion: v1
-                  fieldPath: metadata.name
+            - name: TZ
+              value: Asia/Shanghai
             - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
-                  apiVersion: v1
                   fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: INSTANCE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: METRICS_LOG_LEVEL
+              value: err
             - name: CONSUL_HTTP_HOST
               valueFrom:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: status.hostIP
-            - name: METRICS_LOG_LEVEL
-              value: err
           image: cr-cn-beijing.volces.com/coa-samples/bookinfo
           imagePullPolicy: Always
           name: server

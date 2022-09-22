@@ -2,36 +2,38 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: reviews
-    app.kubernetes.io/name: reviews
-  name: reviews-v1
+    app.kubernetes.io/instance: ratings
+    app.kubernetes.io/name: ratings
+  name: ratings-v2
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: reviews
-      app.kubernetes.io/name: reviews
-      version: v1
+      app.kubernetes.io/instance: ratings
+      app.kubernetes.io/name: ratings
+      version: v2
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: "false"
       labels:
-        app.kubernetes.io/instance: reviews
-        app.kubernetes.io/name: reviews
-        version: v1
+        app.kubernetes.io/instance: ratings
+        app.kubernetes.io/name: ratings
+        version: v2
     spec:
       containers:
         - args:
-            - reviews
-            - --config=config/reviews.yaml
+            - ratings
+            - --config=config/ratings.yaml
           env:
             - name: OTEL_RESOURCE_ATTRIBUTES
-              value: service.version=v1
+              value: service.version=v2
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://host.docker.internal:4317
-            - name: ENABLE_RATINGS
-              value: "enable"
+            - name: RATINGS_VALUE
+              value: "5"
             - name: TZ
               value: Asia/Shanghai
             - name: POD_NAMESPACE
@@ -57,7 +59,7 @@ spec:
           imagePullPolicy: Always
           name: server
           ports:
-            - containerPort: 8082
+            - containerPort: 8083
               name: thrift
               protocol: TCP
           resources:
@@ -75,6 +77,6 @@ spec:
       volumes:
         - configMap:
             defaultMode: 420
-            name: reviews
+            name: ratings
           name: config-volume
 

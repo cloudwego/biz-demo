@@ -93,7 +93,7 @@ NIRVANA := $(OUTPUT_DIR)/nirvana
 # -mod=vendor: force go to use the vendor files instead of using the `$GOPATH/pkg/mod`
 # -p: the number of programs that can be run in parallel
 # -count: run each test and benchmark 1 times. Set this flag to disable test cache
-export GOFLAGS ?= -mod=vendor -count=1
+export GOFLAGS ?= -count=1
 
 #
 # Define all targets. At least the following commands are required:
@@ -191,4 +191,5 @@ container-multi-arch:
          --label $(DOCKER_LABELS)                                             \
          --platform=linux/arm64,linux/amd64                                   \
          -f $(BUILD_DIR)/Dockerfile.multiarch . --push;
+
 

@@ -17,6 +17,7 @@ package constants
 
 const (
 	EnableRatingsEnvKey = "ENABLE_RATINGS"
+	RatingsValueEnvKey  = "RATINGS_VALUE"
 )
 
 const (

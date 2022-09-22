@@ -24,6 +24,7 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/server"
+	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 )
@@ -44,6 +45,9 @@ func DefaultServerOptions() *ServerOptions {
 }
 
 func (s *Server) Run(ctx context.Context) error {
+	klog.SetLogger(kitexlogrus.NewLogger())
+	klog.SetLevel(klog.LevelDebug)
+	
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(constants.RatingsServiceName),
 		provider.WithInsecure(),

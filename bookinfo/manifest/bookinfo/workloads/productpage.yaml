@@ -25,48 +25,52 @@ spec:
         version: v1
     spec:
       containers:
-      - args:
-        - productpage
-        - --config=config/productpage.yaml
-        env:
-        - name: TZ
-          value: Asia/Shanghai
-        - name: POD_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: INSTANCE_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
-        - name: METRICS_LOG_LEVEL
-          value: err
-        image: cr-cn-beijing.volces.com/coa-samples/bookinfo
-        imagePullPolicy: Always
-        name: server
-        ports:
-        - containerPort: 8081
-          name: http
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 1Gi
-          requests:
-            cpu: 100m
-            memory: 128Mi
-        volumeMounts:
-        - mountPath: /app/config
-          name: config-volume
+        - args:
+            - productpage
+            - --config=config/productpage.yaml
+          env:
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: service.version=v1
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: http://host.docker.internal:4317
+            - name: TZ
+              value: Asia/Shanghai
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: INSTANCE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: METRICS_LOG_LEVEL
+              value: err
+          image: cr-cn-beijing.volces.com/coa-samples/bookinfo
+          imagePullPolicy: Always
+          name: server
+          ports:
+            - containerPort: 8081
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - mountPath: /app/config
+              name: config-volume
       restartPolicy: Always
       serviceAccountName: default
       volumes:
-      - configMap:
-          defaultMode: 420
-          name: productpage
-        name: config-volume
+        - configMap:
+            defaultMode: 420
+            name: productpage
+          name: config-volume
 

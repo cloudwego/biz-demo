@@ -1,10 +1,10 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: reviews
+  name: ratings
 spec:
   hosts:
-    - reviews
+    - ratings
   http:
     - match:
         - headers:
@@ -12,10 +12,10 @@ spec:
               exact: "env=dev"
       route:
         - destination:
-            host: reviews
+            host: ratings
             subset: v2
           weight: 100
     - route:
         - destination:
-            host: reviews
+            host: ratings
           weight: 100

@@ -21,7 +21,9 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/internal/handler/productpage"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
 	hertzserver "github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/kitex/pkg/klog"
 	hertztracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
+	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 )
 
@@ -41,6 +43,9 @@ func DefaultServerOptions() *ServerOptions {
 }
 
 func (s *Server) Run(ctx context.Context) error {
+	klog.SetLogger(kitexlogrus.NewLogger())
+	klog.SetLevel(klog.LevelDebug)
+
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(constants.ProductpageServiceName),
 		provider.WithInsecure(),

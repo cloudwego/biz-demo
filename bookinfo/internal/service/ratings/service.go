@@ -17,8 +17,11 @@ package ratings
 
 import (
 	"context"
+	"os"
+	"strconv"
 
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings"
+	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"go.opentelemetry.io/otel/baggage"
 )
@@ -31,11 +34,14 @@ func New() ratings.RatingService {
 }
 
 func (i *impl) Ratings(ctx context.Context, req *ratings.RatingReq) (r *ratings.RatingResp, err error) {
-	bags := baggage.FromContext(ctx)
-	env := bags.Member("env")
-	klog.CtxInfof(ctx, "env from baggage: %s", env.String())
+	klog.CtxInfof(ctx, "get product details %s", req.ProductID)
+	klog.CtxInfof(ctx, "baggage: %s", baggage.FromContext(ctx).String())
 
+	ratingValue, err := strconv.ParseInt(os.Getenv(constants.RatingsValueEnvKey), 10, 8)
+	if err != nil {
+		ratingValue = 1
+	}
 	return &ratings.RatingResp{
-		Rating: 4,
+		Rating: int8(ratingValue),
 	}, nil
 }
