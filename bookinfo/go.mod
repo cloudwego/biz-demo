@@ -21,6 +21,6 @@ require (
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f
 )
 
-//replace github.com/kitex-contrib/xds => github.com/CoderPoet/xds v0.0.0-20220919022741-2dad1ba232f1
+replace github.com/kitex-contrib/xds => github.com/CoderPoet/xds v0.0.0-20220922034504-1c202ce4027b
 
-replace github.com/kitex-contrib/xds => /Users/bytedance/opensource/cloudwego/kitex-contrib/xds
+//replace github.com/kitex-contrib/xds => /Users/bytedance/opensource/cloudwego/kitex-contrib/xds

@@ -9,5 +9,6 @@ header:
 
   paths-ignore:
     - biz-demo/bookinfo/kitex_gen/**
+    - biz-demo/bookinfo/internal/server/**/wire_gen.go
 
   comment: on-failure
