@@ -1330,6 +1330,8 @@ github.com/kitex-contrib/obs-opentelemetry v0.1.0 h1:A8DUzKSujPb21ORn+DuFM2jLdsr
 github.com/kitex-contrib/obs-opentelemetry v0.1.0/go.mod h1:l5Opsj8BtfHrsRJCw9PRKiidwWvOtGumijm+9odf2E8=
 github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20220920095052-ad45e03480eb h1:ezop+uSccXt0PT2bKSTy3AuYm2hDMkUDe/5dgO/rC4c=
 github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20220920095052-ad45e03480eb/go.mod h1:Eml/0Z+CqgGIPf9JXzLGu+N9NJoy2x5pqypN+hmKArE=
+github.com/kitex-contrib/xds v0.0.0-20220924093903-072df26c066f h1:CT2aZweWR2spPjImnidoKWDJyKiVrNChZsaOhZzATVw=
+github.com/kitex-contrib/xds v0.0.0-20220924093903-072df26c066f/go.mod h1:9iasHikQ8L2oGFe3JqxTsWknGrElyX0kC4NlT2ER8UU=
 github.com/klauspost/compress v1.4.0/go.mod h1:RyIbtBH6LamlWaDj8nUwkbUhJ87Yi3uG0guNDohfE1A=
 github.com/klauspost/compress v1.4.1/go.mod h1:RyIbtBH6LamlWaDj8nUwkbUhJ87Yi3uG0guNDohfE1A=
 github.com/klauspost/compress v1.11.3/go.mod h1:aoV0uJVorq1K+umq18yTdKaF57EivdYsUV+/s2qKfXs=

@@ -13,14 +13,10 @@ require (
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.1.1
 	github.com/kitex-contrib/obs-opentelemetry v0.1.0
 	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20220920095052-ad45e03480eb
-	github.com/kitex-contrib/xds v0.0.0-00010101000000-000000000000
+	github.com/kitex-contrib/xds v0.0.0-20220924093903-072df26c066f
 	github.com/spf13/cobra v1.5.0
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.13.0
 	go.opentelemetry.io/otel v1.9.0
 	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f
 )
-
-replace github.com/kitex-contrib/xds => github.com/CoderPoet/xds v0.0.0-20220924084202-b7c7c1d3a97e
-
-//replace github.com/kitex-contrib/xds => /Users/bytedance/opensource/cloudwego/kitex-contrib/xds
