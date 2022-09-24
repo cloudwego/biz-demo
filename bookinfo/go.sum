@@ -166,6 +166,8 @@ github.com/BurntSushi/toml v1.0.0/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbi
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/CoderPoet/xds v0.0.0-20220922034504-1c202ce4027b h1:AujZLj2xsUBsynh8FAgIoIbo5vAsK0OPudsExkRJYsw=
 github.com/CoderPoet/xds v0.0.0-20220922034504-1c202ce4027b/go.mod h1:9iasHikQ8L2oGFe3JqxTsWknGrElyX0kC4NlT2ER8UU=
+github.com/CoderPoet/xds v0.0.0-20220924084202-b7c7c1d3a97e h1:CQWH8MA3zLnsjohnDbnhCeK7ACJS2ynNr76IMBgRVxY=
+github.com/CoderPoet/xds v0.0.0-20220924084202-b7c7c1d3a97e/go.mod h1:9iasHikQ8L2oGFe3JqxTsWknGrElyX0kC4NlT2ER8UU=
 github.com/DATA-DOG/go-sqlmock v1.5.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
 github.com/Djarvur/go-err113 v0.0.0-20200410182137-af658d038157/go.mod h1:4UJr5HIiMZrwgkSPdsjy2uOQExX/WEILpIrO9UPGuXs=

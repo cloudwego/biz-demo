@@ -51,7 +51,7 @@ func ProvideReviewClient(opts *ReviewClientOptions) (reviewsservice.Client, erro
 			kclient.WithSuite(tracing.NewClientSuite()),
 			kclient.WithXDSSuite(xds.ClientSuite{
 				RouterMiddleware: xdssuite.NewXDSRouterMiddleware(
-					xdssuite.WithMetadataExtract(metadata.ExtractFromPropagator),
+					xdssuite.WithRouterMetaExtractor(metadata.ExtractFromPropagator),
 				),
 				Resolver: xdssuite.NewXDSResolver(),
 			}),

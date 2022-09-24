@@ -51,7 +51,7 @@ func ProvideRatingsClient(opts *RatingsClientOptions) (ratingservice.Client, err
 			kclient.WithSuite(tracing.NewClientSuite()),
 			kclient.WithXDSSuite(xds.ClientSuite{
 				RouterMiddleware: xdssuite.NewXDSRouterMiddleware(
-					xdssuite.WithMetadataExtract(metadata.ExtractFromPropagator),
+					xdssuite.WithRouterMetaExtractor(metadata.ExtractFromPropagator),
 				),
 				Resolver: xdssuite.NewXDSResolver(),
 			}),
