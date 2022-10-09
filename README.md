@@ -10,9 +10,13 @@ Each demo should/may contain multiple CloudWeGo subprojects, e.g. Kitex & Hertz,
 
 #### Description
 // What is it about and what problem does it solve?
+
 // What is the business scenario?
+
 // What is the business logic?
+
 // Which CloudWeGo subprojects are used? List all technologies used.
+
 // Provide a link to detailed documentation(readme in subdirectory).
 
 #### Contributors & Maintainers
