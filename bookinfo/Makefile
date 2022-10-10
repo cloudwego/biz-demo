@@ -169,13 +169,13 @@ update-chart-version:
 push-chart:
 	@find manifests -maxdepth 1 -mindepth 1 -type d -exec helm push {} $(CHART_REPO) \;
 
-.PHONY: kx
-kx:
+.PHONY: kitex
+kitex:
 	@rm -rf kitex_gen/
-	@kx -module $(ROOT) ./idl/productpage.thrift
-	@kx -module $(ROOT) ./idl/reviews.thrift
-	@kx -module $(ROOT) ./idl/ratings.thrift
-	@kx -module $(ROOT) ./idl/details.thrift
+	@kitex -module $(ROOT) ./idl/productpage.thrift
+	@kitex -module $(ROOT) ./idl/reviews.thrift
+	@kitex -module $(ROOT) ./idl/ratings.thrift
+	@kitex -module $(ROOT) ./idl/details.thrift
 
 run-server: build-local
 	@bash hack/run_server.sh
@@ -183,7 +183,7 @@ run-server: build-local
 run-measure: build-local
 	@bash hack/run_measure.sh
 
-run-side-server: kx build-local
+run-side-server: kitex build-local
 	@bash hack/run_side_server.sh
 
 container-multi-arch:
