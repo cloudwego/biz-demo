@@ -17,11 +17,11 @@ package constants
 
 const (
 	// RatingsServiceName ratings service name
-	RatingsServiceName     = "ratings"
+	RatingsServiceName = "ratings"
 	// ProductpageServiceName productpage service name
 	ProductpageServiceName = "productpage"
 	// ReviewsServiceName reviews service name
-	ReviewsServiceName     = "reviews"
+	ReviewsServiceName = "reviews"
 	// DetailsServiceName details service name
-	DetailsServiceName     = "details"
+	DetailsServiceName = "details"
 )

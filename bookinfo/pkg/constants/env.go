@@ -19,7 +19,7 @@ const (
 	// EnableRatingsEnvKey enable ratings env key
 	EnableRatingsEnvKey = "ENABLE_RATINGS"
 	// RatingsValueEnvKey ratings value env key
-	RatingsValueEnvKey  = "RATINGS_VALUE"
+	RatingsValueEnvKey = "RATINGS_VALUE"
 )
 
 const (
