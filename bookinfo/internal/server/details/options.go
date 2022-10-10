@@ -15,15 +15,17 @@
 
 package details
 
-import "github.com/cloudwego/biz-demo/bookinfo/pkg/configparser"
+import (
+	"github.com/cloudwego/biz-demo/bookinfo/pkg/configparser"
+)
 
 type Options struct {
-	Server *ServerOptions `mapstructure:"server"`
+	Server   *ServerOptions `mapstructure:"server"`
 }
 
 func DefaultOptions() *Options {
 	return &Options{
-		Server: DefaultServerOptions(),
+		Server:   DefaultServerOptions(),
 	}
 }
 

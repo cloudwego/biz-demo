@@ -1,5 +1,6 @@
 server:
   addr: 0.0.0.0:8081
+  logLevel: debug
 reviews:
 #  endpoint: reviews.default.svc.cluster.local:8082
   endpoint: :8082

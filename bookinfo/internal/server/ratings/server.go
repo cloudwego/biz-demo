@@ -22,6 +22,7 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings"
 	"github.com/cloudwego/biz-demo/bookinfo/kitex_gen/cwg/bookinfo/ratings/ratingservice"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
+	"github.com/cloudwego/biz-demo/bookinfo/pkg/utils/logutils"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
@@ -35,18 +36,20 @@ type Server struct {
 }
 
 type ServerOptions struct {
-	Addr string `mapstructure:"addr"`
+	Addr     string         `mapstructure:"addr"`
+	LogLevel logutils.Level `mapstructure:"logLevel"`
 }
 
 func DefaultServerOptions() *ServerOptions {
 	return &ServerOptions{
-		Addr: ":8083",
+		Addr:     ":8083",
+		LogLevel: logutils.LevelInfo,
 	}
 }
 
 func (s *Server) Run(ctx context.Context) error {
 	klog.SetLogger(kitexlogrus.NewLogger())
-	klog.SetLevel(klog.LevelDebug)
+	klog.SetLevel(s.opts.LogLevel.KitexLogLevel())
 
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(constants.RatingsServiceName),

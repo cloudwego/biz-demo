@@ -20,6 +20,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/bookinfo/internal/handler/productpage"
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/constants"
+	"github.com/cloudwego/biz-demo/bookinfo/pkg/utils/logutils"
 	hertzserver "github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/kitex/pkg/klog"
 	hertztracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
@@ -33,18 +34,20 @@ type Server struct {
 }
 
 type ServerOptions struct {
-	Addr string `mapstructure:"addr"`
+	Addr     string         `mapstructure:"addr"`
+	LogLevel logutils.Level `mapstructure:"logLevel"`
 }
 
 func DefaultServerOptions() *ServerOptions {
 	return &ServerOptions{
-		Addr: ":8081",
+		Addr:     ":8081",
+		LogLevel: logutils.LevelInfo,
 	}
 }
 
 func (s *Server) Run(ctx context.Context) error {
 	klog.SetLogger(kitexlogrus.NewLogger())
-	klog.SetLevel(klog.LevelDebug)
+	klog.SetLevel(s.opts.LogLevel.KitexLogLevel())
 
 	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(constants.ProductpageServiceName),
