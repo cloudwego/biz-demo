@@ -3,7 +3,6 @@
 > Rewrite **[Bookinfo](https://istio.io/latest/en/docs/examples/bookinfo/)** project using `hertz`, `kitex`
 
 ## Architecture
-
 ![img.png](./docs/bookinfo-arch.png)
 
 ## Lane
