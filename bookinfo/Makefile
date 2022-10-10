@@ -172,10 +172,10 @@ push-chart:
 .PHONY: kx
 kx:
 	@rm -rf kitex_gen/
-	@kx -c true -m $(ROOT) ./idl/productpage.thrift
-	@kx -c true -m $(ROOT) ./idl/reviews.thrift
-	@kx -c true -m $(ROOT) ./idl/ratings.thrift
-	@kx -c true -m $(ROOT) ./idl/details.thrift
+	@kx -module $(ROOT) ./idl/productpage.thrift
+	@kx -module $(ROOT) ./idl/reviews.thrift
+	@kx -module $(ROOT) ./idl/ratings.thrift
+	@kx -module $(ROOT) ./idl/details.thrift
 
 run-server: build-local
 	@bash hack/run_server.sh

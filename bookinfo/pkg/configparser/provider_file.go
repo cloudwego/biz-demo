@@ -22,10 +22,12 @@ import (
 
 type fileProvider struct{}
 
+// NewFile create file provider
 func NewFile() Provider {
 	return &fileProvider{}
 }
 
+// Get file provider
 func (fl *fileProvider) Get() (*Parser, error) {
 	fileName := getConfigFlag()
 	if fileName == "" {

@@ -28,16 +28,19 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 )
 
+// Server hertz server
 type Server struct {
 	opts    *ServerOptions
 	handler *productpage.Handler
 }
 
+// ServerOptions server opts
 type ServerOptions struct {
 	Addr     string         `mapstructure:"addr"`
 	LogLevel logutils.Level `mapstructure:"logLevel"`
 }
 
+// DefaultServerOptions default opts
 func DefaultServerOptions() *ServerOptions {
 	return &ServerOptions{
 		Addr:     ":8081",
@@ -45,6 +48,7 @@ func DefaultServerOptions() *ServerOptions {
 	}
 }
 
+// Run hertz server
 func (s *Server) Run(ctx context.Context) error {
 	klog.SetLogger(kitexlogrus.NewLogger())
 	klog.SetLevel(s.opts.LogLevel.KitexLogLevel())

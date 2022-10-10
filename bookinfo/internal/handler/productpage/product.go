@@ -30,15 +30,18 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+// Handler productpage hertz handler
 type Handler struct {
 	reviewsClient reviewsservice.Client
 	detailsClient detailsservice.Client
 }
 
+// New create handler
 func New(reviewsClient reviewsservice.Client, detailsClient detailsservice.Client) *Handler {
 	return &Handler{reviewsClient: reviewsClient, detailsClient: detailsClient}
 }
 
+// GetProduct get product info
 func (h *Handler) GetProduct(ctx context.Context, c *app.RequestContext) {
 	productID := c.Param("productID")
 

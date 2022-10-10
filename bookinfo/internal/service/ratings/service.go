@@ -28,13 +28,15 @@ import (
 
 type impl struct{}
 
+// New create service impl
 func New() ratings.RatingService {
 	return &impl{}
 }
 
+// Ratings get ratings
 func (i *impl) Ratings(ctx context.Context, req *ratings.RatingReq) (r *ratings.RatingResp, err error) {
 	klog.CtxInfof(ctx, "get product details %s", req.ProductID)
-	klog.CtxInfof(ctx, "baggage: %s", baggage.FromContext(ctx).String())
+	klog.CtxDebugf(ctx, "baggage: %s", baggage.FromContext(ctx).String())
 
 	ratingValue, err := strconv.ParseInt(os.Getenv(constants.RatingsValueEnvKey), 10, 8)
 	if err != nil {

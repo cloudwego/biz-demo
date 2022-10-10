@@ -27,6 +27,7 @@ import (
 	"github.com/kitex-contrib/xds/xdssuite"
 )
 
+// RatingsClientOptions client options
 type RatingsClientOptions struct {
 	Endpoint  string `mapstructure:"endpoint"`
 	EnableXDS bool   `mapstructure:"enableXDS"`
@@ -41,6 +42,10 @@ func DefaultRatingsClientOptions() *RatingsClientOptions {
 	}
 }
 
+// ProvideRatingsClient provide ratings client
+// 1、init xds manager: only init once
+// 2、enable xds
+// 3、enable opentelemetry
 func ProvideRatingsClient(opts *RatingsClientOptions) (ratingservice.Client, error) {
 	if opts.EnableXDS {
 		if err := xdsmanager.Init(xdsmanager.WithXDSServerAddress(opts.XDSAddr)); err != nil {

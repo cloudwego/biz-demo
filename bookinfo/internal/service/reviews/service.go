@@ -31,12 +31,14 @@ type impl struct {
 	ratingsClient ratingservice.Client
 }
 
+// New create service impl
 func New(ratingsClient ratingservice.Client) reviews.ReviewsService {
 	return &impl{ratingsClient: ratingsClient}
 }
 
+// ReviewProduct review product
 func (i *impl) ReviewProduct(ctx context.Context, req *reviews.ReviewReq) (r *reviews.ReviewResp, err error) {
-	klog.CtxInfof(ctx, "baggage: %s", baggage.FromContext(ctx).String())
+	klog.CtxDebugf(ctx, "baggage: %s", baggage.FromContext(ctx).String())
 
 	if os.Getenv(constants.EnableRatingsEnvKey) == constants.Disable {
 		return &reviews.ReviewResp{

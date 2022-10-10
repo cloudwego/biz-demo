@@ -27,12 +27,14 @@ import (
 	"github.com/kitex-contrib/xds/xdssuite"
 )
 
+// ReviewClientOptions client options
 type ReviewClientOptions struct {
 	Endpoint  string `mapstructure:"endpoint"`
 	EnableXDS bool   `mapstructure:"enableXDS"`
 	XDSAddr   string `mapstructure:"xdsAddr"`
 }
 
+// DefaultReviewClientOptions default options
 func DefaultReviewClientOptions() *ReviewClientOptions {
 	return &ReviewClientOptions{
 		Endpoint:  "reviews:8082",
@@ -41,6 +43,10 @@ func DefaultReviewClientOptions() *ReviewClientOptions {
 	}
 }
 
+// ProvideReviewClient Provide review client
+// 1、init xds manager: only init once
+// 2、enable xds
+// 3、enable opentelemetry
 func ProvideReviewClient(opts *ReviewClientOptions) (reviewsservice.Client, error) {
 	if opts.EnableXDS {
 		if err := xdsmanager.Init(xdsmanager.WithXDSServerAddress(opts.XDSAddr)); err != nil {

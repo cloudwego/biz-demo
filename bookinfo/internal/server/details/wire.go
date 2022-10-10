@@ -26,6 +26,7 @@ import (
 	"github.com/google/wire"
 )
 
+// NewServer build server with wire
 func NewServer(ctx context.Context) (*Server, error) {
 	panic(wire.Build(
 		configparser.Default,

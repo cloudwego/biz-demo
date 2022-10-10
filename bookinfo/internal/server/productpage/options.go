@@ -20,12 +20,14 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/injectors"
 )
 
+// Options server opts
 type Options struct {
 	Server  *ServerOptions                  `mapstructure:"server"`
 	Reviews *injectors.ReviewClientOptions  `mapstructure:"reviews"`
 	Details *injectors.DetailsClientOptions `mapstructure:"details"`
 }
 
+// DefaultOptions default opts
 func DefaultOptions() *Options {
 	return &Options{
 		Server:  DefaultServerOptions(),
@@ -34,6 +36,7 @@ func DefaultOptions() *Options {
 	}
 }
 
+// Configure inject config
 func Configure(configProvider configparser.Provider) (*Options, error) {
 	opt := DefaultOptions()
 

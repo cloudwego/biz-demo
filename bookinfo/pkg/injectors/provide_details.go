@@ -27,12 +27,14 @@ import (
 	"github.com/kitex-contrib/xds/xdssuite"
 )
 
+// DetailsClientOptions detail client options
 type DetailsClientOptions struct {
 	Endpoint  string `mapstructure:"endpoint"`
 	EnableXDS bool   `mapstructure:"enableXDS"`
 	XDSAddr   string `mapstructure:"xdsAddr"`
 }
 
+// DefaultDetailsClientOptions default options
 func DefaultDetailsClientOptions() *DetailsClientOptions {
 	return &DetailsClientOptions{
 		Endpoint:  "details:8084",
@@ -41,6 +43,10 @@ func DefaultDetailsClientOptions() *DetailsClientOptions {
 	}
 }
 
+// ProvideDetailsClient provide details client
+// 1、init xds manager: only init once
+// 2、enable xds
+// 3、enable opentelemetry
 func ProvideDetailsClient(opts *DetailsClientOptions) (detailsservice.Client, error) {
 	if opts.EnableXDS {
 		if err := xdsmanager.Init(xdsmanager.WithXDSServerAddress(opts.XDSAddr)); err != nil {

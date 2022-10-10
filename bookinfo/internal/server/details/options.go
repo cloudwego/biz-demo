@@ -19,16 +19,19 @@ import (
 	"github.com/cloudwego/biz-demo/bookinfo/pkg/configparser"
 )
 
+// Options server opts
 type Options struct {
-	Server   *ServerOptions `mapstructure:"server"`
+	Server *ServerOptions `mapstructure:"server"`
 }
 
+// DefaultOptions default opts
 func DefaultOptions() *Options {
 	return &Options{
-		Server:   DefaultServerOptions(),
+		Server: DefaultServerOptions(),
 	}
 }
 
+// Configure inject config
 func Configure(configProvider configparser.Provider) (*Options, error) {
 	opt := DefaultOptions()
 

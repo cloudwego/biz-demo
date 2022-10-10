@@ -25,13 +25,15 @@ import (
 
 type impl struct{}
 
+// New create service impl instance
 func New() details.DetailsService {
 	return &impl{}
 }
 
+// GetProduct get product detail info
 func (i *impl) GetProduct(ctx context.Context, req *details.GetProductReq) (r *details.GetProductResp, err error) {
 	klog.CtxInfof(ctx, "get product details %s", req.ID)
-	klog.CtxInfof(ctx, "baggage: %s", baggage.FromContext(ctx).String())
+	klog.CtxDebugf(ctx, "baggage: %s", baggage.FromContext(ctx).String())
 
 	return &details.GetProductResp{
 		Product: &details.Product{

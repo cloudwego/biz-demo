@@ -30,16 +30,19 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 )
 
+// Server kitex server
 type Server struct {
 	opts *ServerOptions
 	svc  details.DetailsService
 }
 
+// ServerOptions server options
 type ServerOptions struct {
 	Addr     string         `mapstructure:"addr"`
 	LogLevel logutils.Level `mapstructure:"logLevel"`
 }
 
+// DefaultServerOptions default opts
 func DefaultServerOptions() *ServerOptions {
 	return &ServerOptions{
 		Addr:     ":8084",
@@ -47,6 +50,7 @@ func DefaultServerOptions() *ServerOptions {
 	}
 }
 
+// Run kitex server
 func (s *Server) Run(ctx context.Context) error {
 	klog.SetLogger(kitexlogrus.NewLogger())
 	klog.SetLevel(s.opts.LogLevel.KitexLogLevel())
