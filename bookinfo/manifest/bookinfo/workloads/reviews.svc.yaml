@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: reviews
+    app.kubernetes.io/name: reviews
+  name: reviews
+
+spec:
+  ports:
+  - name: thrift
+    port: 8082
+    protocol: TCP
+    targetPort: thrift
+  selector:
+    app.kubernetes.io/instance: reviews
+    app.kubernetes.io/name: reviews
+  type: ClusterIP
