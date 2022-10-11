@@ -38,9 +38,9 @@ func (i *impl) GetProduct(ctx context.Context, req *details.GetProductReq) (r *d
 	return &details.GetProductResp{
 		Product: &details.Product{
 			ID:          req.GetID(),
-			Title:       "《查拉图斯特拉如是说》",
-			Author:      "尼采",
-			Description: `《查拉图斯特拉如是说》是哲学家、思想家弗里德里希·威廉·尼采创作的散文诗体哲学著作。该书在20世纪被很多人看做是“未来人类的《圣经》”，对弗洛依德、里尔克、托马斯·曼、茨威格、海德格尔、福柯、德里达、米兰·昆德拉、鲁迅等人物的思想和创作产生过重大影响。`,
+			Title:       "《Also sprach Zarathustra》",
+			Author:      "Friedrich Nietzsche",
+			Description: `Thus Spoke Zarathustra: A Book for All and None, also translated as Thus Spake Zarathustra, is a work of philosophical fiction written by German philosopher Friedrich Nietzsche between 1883 and 1885.`,
 		},
 	}, nil
 }
