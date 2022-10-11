@@ -33,9 +33,9 @@ func NewServer(ctx context.Context) (*Server, error) {
 		configparser.Default,
 		Configure,
 
-		reviews.New,
-
 		injectors.ProvideRatingsClient,
+
+		reviews.New,
 
 		wire.FieldsOf(new(*Options),
 			"Server",

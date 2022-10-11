@@ -33,10 +33,10 @@ func NewServer(ctx context.Context) (*Server, error) {
 		configparser.Default,
 		Configure,
 
-		productpage.New,
-
 		injectors.ProvideReviewClient,
 		injectors.ProvideDetailsClient,
+
+		productpage.New,
 
 		wire.FieldsOf(new(*Options),
 			"Server",
