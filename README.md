@@ -16,8 +16,6 @@ Each demo should/may contain multiple CloudWeGo subprojects, e.g. Kitex & Hertz,
 ##### What is the business scenario?
 Rewrite **[Bookinfo](https://istio.io/latest/docs/examples/bookinfo/)** project using `hertz`, `kitex`, same as the **[Bookinfo](https://istio.io/latest/docs/examples/bookinfo/)**
 
-![bookinfo_4.png](bookinfo/docs/bookinfo_canary.png)
-
 > The application displays information about a book, similar to a single catalog entry of an online book store. Displayed on the page is a description of the book, book details (ISBN, number of pages, and so on), and a few book reviews.
 
 The Bookinfo application is broken into four separate microservices:
@@ -34,8 +32,6 @@ The Bookinfo application is broken into four separate microservices:
 - [x] Implement proxyless `flow lane` with [`Kitex-xds`](https://github.com/kitex-contrib/xds) and `opentelemetry baggage`
 - [x] Implement a bookinfo ui using arco-design react
 
-![lane.png](./bookinfo/docs/lane.png)
-
 ##### Which CloudWeGo subprojects are used? List all technologies used.
 - [kitex](https://github.com/cloudwego/kitex)
 - [hertz](https://github.com/cloudwego/hertz)
@@ -43,7 +39,7 @@ The Bookinfo application is broken into four separate microservices:
 - [kitex-opentelemetry](https://github.com/kitex-contrib/obs-opentelemetry)
 - [hertz-opentelemetry](https://github.com/hertz-contrib/obs-opentelemetry)
 
-##### Provide a link to detailed documentation(readme in subdirectory).
+##### Detailed documentation
 [bookinfo](./bookinfo/README.md)
 
 #### Contributors & Maintainers
