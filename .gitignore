@@ -21,3 +21,5 @@
 */vendor
 */bin
 */log
+*/output
+*/.idea
