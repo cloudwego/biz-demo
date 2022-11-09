@@ -25,12 +25,13 @@ The Bookinfo application is broken into four separate microservices:
 - **reviews**. The reviews microservice contains book reviews. It also calls the ratings microservice.
 - **ratings**. The ratings microservice contains book ranking information that accompanies a book review.
 
-##### What is the business logic?
+##### What are the core technologies/projects used?
 
+- [x] Use `istiod` as xDS server for CRD configuration and distribution
 - [x] Use `wire` for dependency injection
 - [x] Use `opentelemetry` for tracing
 - [x] Implement proxyless `flow lane` with [`Kitex-xds`](https://github.com/kitex-contrib/xds) and `opentelemetry baggage`
-- [x] Implement a bookinfo ui using arco-design react
+- [x] Implement a bookinfo ui using `arco-design` react
 
 ##### Which CloudWeGo subprojects are used? List all technologies used.
 - [kitex](https://github.com/cloudwego/kitex)
