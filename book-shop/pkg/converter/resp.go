@@ -13,20 +13,29 @@
 // limitations under the License.
 //
 
-package conf
+package converter
 
-const (
-	UserTableName    = "t_user"
-	ProductTableName = "t_product"
-	OrderTableName   = "t_order"
-
-	SecretKey   = "secret key"
-	IdentityKey = "id"
-
-	MySQLDefaultDSN = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
-	EtcdAddress     = "127.0.0.1:2379"
-
-	UserRpcServiceName    = "cwg.bookshop.user"
-	OrderRpcServiceName   = "cwg.bookshop.order"
-	ProductRpcServiceName = "cwg.bookshop.item"
+import (
+	"errors"
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/base"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 )
+
+// BuildBaseResp build baseResp from error
+func BuildBaseResp(err error) *base.BaseResp {
+	if err == nil {
+		return baseResp(errno.Success)
+	}
+
+	e := errno.ErrNo{}
+	if errors.As(err, &e) {
+		return baseResp(e)
+	}
+
+	s := errno.ServiceErr.WithMessage(err.Error())
+	return baseResp(s)
+}
+
+func baseResp(err errno.ErrNo) *base.BaseResp {
+	return &base.BaseResp{StatusCode: int32(err.ErrCode), StatusMessage: err.ErrMsg}
+}

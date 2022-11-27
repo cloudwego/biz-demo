@@ -55,3 +55,21 @@ func (s *ItemServiceImpl) List(ctx context.Context, req *item.ListReq) (resp *it
 	// TODO: Your code here...
 	return
 }
+
+// MGet2C implements the ItemServiceImpl interface.
+func (s *ItemServiceImpl) MGet2C(ctx context.Context, req *item.MGet2CReq) (resp *item.MGet2CResp, err error) {
+	// TODO: Your code here...
+	return
+}
+
+// DecrStock implements the ItemServiceImpl interface.
+func (s *ItemServiceImpl) DecrStock(ctx context.Context, req *item.DecrStockReq) (resp *item.DecrStockResp, err error) {
+	// TODO: Your code here...
+	return
+}
+
+// DecrStockRevert implements the ItemServiceImpl interface.
+func (s *ItemServiceImpl) DecrStockRevert(ctx context.Context, req *item.DecrStockReq) (resp *item.DecrStockResp, err error) {
+	// TODO: Your code here...
+	return
+}
