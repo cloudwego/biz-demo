@@ -3,11 +3,14 @@
 package main
 
 import (
+	"context"
+	"net/http"
 	"os"
 	"strings"
 
 	handler "github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/handler"
 	"github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/middleware"
+	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client"
@@ -20,7 +23,12 @@ import (
 
 // customizeRegister registers customize routers.
 func customizedRegister(r *server.Hertz) {
+	r.GET("/", func(ctx context.Context, c *app.RequestContext) {
+		c.JSON(http.StatusOK, "hertz-gateway is running")
+	})
+
 	r.GET("/ping", handler.Ping)
+
 	registerGateway(r)
 }
 

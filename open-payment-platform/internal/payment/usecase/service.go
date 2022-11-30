@@ -40,11 +40,7 @@ func (s *Service) UnifyPay(ctx context.Context, req *payment.UnifyPayReq) (r *pa
 }
 
 func (s *Service) uniqueOutOrderNo(ctx context.Context, outOrderNo string) (bool, error) {
-	obj, err := s.repo.GetByOutOrderNo(ctx, outOrderNo)
-	if err != nil {
-		return false, err
-	}
-	return obj.ID > 0, nil
+	return true, nil
 }
 
 func (s *Service) QRPay(ctx context.Context, req *payment.QRPayReq) (r *payment.QRPayResp, err error) {
@@ -54,8 +50,7 @@ func (s *Service) QRPay(ctx context.Context, req *payment.QRPayReq) (r *payment.
 		return nil, err
 	}
 	if !onlyOne {
-		klog.Warn("订单号重复")
-		return nil, kerrors.NewBizStatusError(20000111, "订单号重复¬")
+		return nil, kerrors.NewBizStatusError(20000111, "订单号重复")
 	}
 	o := entity.NewOrder()
 	o.PayWay = req.OutOrderNo
@@ -92,11 +87,6 @@ func (s *Service) CloseOrder(ctx context.Context, req *payment.CloseOrderReq) (r
 		return nil, err
 	}
 	return &payment.CloseOrderResp{}, nil
-}
-
-func (s *Service) CallBack(ctx context.Context, req *payment.CallBackReq) (r *payment.CallBackResp, err error) {
-	// TODO implement me
-	panic("implement me")
 }
 
 // NewService create new service

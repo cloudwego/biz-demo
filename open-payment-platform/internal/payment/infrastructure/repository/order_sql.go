@@ -11,6 +11,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/wire"
+	"github.com/pkg/errors"
 )
 
 const (
@@ -45,7 +46,11 @@ func (o *OrderRepository) GetByOutOrderNo(ctx context.Context, outOrderNo string
 		Limit(1).
 		All(ctx)
 	if err != nil {
+		klog.Error(err)
 		return nil, err
+	}
+	if len(ret) == 0 {
+		return nil, errors.New("OrdersNoFound")
 	}
 	row := ret[0]
 	return &entity.Order{

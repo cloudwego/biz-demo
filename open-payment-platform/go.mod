@@ -12,6 +12,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/kitex-contrib/registry-nacos v0.0.1
+	github.com/pkg/errors v0.9.1
 )
 
 require (
@@ -53,7 +54,6 @@ require (
 	github.com/nacos-group/nacos-sdk-go v1.1.2-0.20220407143335-bff55a2174fc // indirect
 	github.com/nyaruka/phonenumbers v1.0.55 // indirect
 	github.com/oleiade/lane v1.0.1 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/tidwall/gjson v1.13.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
