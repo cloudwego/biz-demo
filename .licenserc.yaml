@@ -7,4 +7,8 @@ header:
     - '**/*.go'
     - '**/*.s'
 
+  paths-ignore:
+    - bookinfo/kitex_gen/**
+    - bookinfo/internal/server/**/wire_gen.go
+
   comment: on-failure

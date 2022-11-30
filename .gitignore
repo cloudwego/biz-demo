@@ -17,3 +17,7 @@
 # IDE config
 .vscode
 .idea
+
+*/vendor
+*/bin
+*/log

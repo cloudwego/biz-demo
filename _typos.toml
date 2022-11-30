@@ -1,23 +1,6 @@
 # Typo check: https://github.com/crate-ci/typos
 
 [files]
-extend-exclude = ["go.sum", "check_branch_name.sh"]
+extend-exclude = ["hack/*", "check_branch_name.sh", "*/licenses/*"]
 
 [default.extend-identifiers]
-# *sigh* this just isn't worth the cost of fixing
-ConnTLSer = "ConnTLSer"
-flate = "flate"
-TestCompressFlateSerial = "TestCompressFlateSerial"
-testCompressFlate = "testCompressFlate"
-TestCompressFlateConcurrent = "TestCompressFlateConcurrent"
-trUe = "trUe"
-OPTIO = "OPTIO"
-contant = "contant"
-referer = "referer"
-HeaderReferer = "HeaderReferer"
-expectedReferer = "expectedReferer"
-Referer = "Referer"
-flateWriterPools = "flateWriterPools"
-flateReaderPool = "flateReaderPool"
-flateWriteWrapper = "flateWriteWrapper"
-flateReadWrapper = "flateReadWrapper"
