@@ -28,10 +28,10 @@ import (
 )
 
 type AuthParam struct {
-	Sign       string `form:"sign,required" json:"sign,required"`
-	SignType   string `form:"sign_type,required" json:"sign_type,required"`
-	MerchantId string `form:"merchant_id" json:"merchant_id,required"`
-	NonceStr   string `form:"nonce_str,required" json:"nonce_str,required"`
+	Sign       string `form:"sign,required" json:"sign"`
+	SignType   string `form:"sign_type,required" json:"sign_type"`
+	MerchantId string `form:"merchant_id,required" json:"merchant_id"`
+	NonceStr   string `form:"nonce_str,required" json:"nonce_str"`
 }
 
 func GatewayAuth() []app.HandlerFunc {
@@ -63,7 +63,7 @@ func GatewayAuth() []app.HandlerFunc {
 
 		c.Next(ctx)
 
-		var data = make(utils.H)
+		data := make(utils.H)
 		if err = json.Unmarshal(c.Response.Body(), &data); err != nil {
 			dataJson, _ := json.Marshal(errors.ErrCodeResponseUnableParse)
 			c.Response.SetBody(dataJson)

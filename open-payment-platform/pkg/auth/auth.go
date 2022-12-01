@@ -23,9 +23,7 @@ import (
 
 type SignType string
 
-var (
-	SM3 SignType = "SM3"
-)
+var SM3 SignType = "SM3"
 
 type IAuth interface {
 	GetSignType() SignType

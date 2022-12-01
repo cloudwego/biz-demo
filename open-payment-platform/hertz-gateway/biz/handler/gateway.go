@@ -35,9 +35,7 @@ type requiredParams struct {
 	BizParams  string `form:"biz_params,required" json:"biz_params"`
 }
 
-var (
-	SvcMap = make(map[string]genericclient.Client)
-)
+var SvcMap = make(map[string]genericclient.Client)
 
 func Gateway(ctx context.Context, c *app.RequestContext) {
 	svcName := c.Param("svc")
