@@ -70,6 +70,8 @@ The Bookinfo application is broken into four separate microservices:
 - [x] Use `Clean Structure` for design pkg and code layout.
 - [x] Use `ent` entity framework for implementing repository.
 - [x] Use `wire` for dependency injection
+- [x] Use `Nacos` as service discovery.
+- [x] Use `MySQL` as RDBMS.
 
 ##### Which CloudWeGo subprojects are used? List all technologies used.
 - [kitex](https://github.com/cloudwego/kitex)
