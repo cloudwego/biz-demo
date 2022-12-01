@@ -78,8 +78,9 @@ curl --location --request POST 'http://127.0.0.1/gateway/payment' \
 --data-urlencode 'sign_type=SM3' \
 --data-urlencode 'biz_params={"out_order_no":"111222333","merchant_id":"OPP9993338844"}' \
 --data-urlencode 'nonce_str=439FJDF98HUFHSUGNFDIUSHF'
-
-# {"err_code":0,"err_message":"ok","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","order_status":0,"sign":"19944bf5576669fcfc08","sign_type":"SM3"}
+```
+```shell
+{"err_code":0,"err_message":"ok","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","order_status":0,"sign":"19944bf5576669fcfc08","sign_type":"SM3"}
 ```
 
 - Close Order
@@ -92,9 +93,12 @@ curl --location --request POST 'http://127.0.0.1/gateway/payment' \
 --data-urlencode 'sign_type=SM3' \
 --data-urlencode 'biz_params={"out_order_no":"111222333","merchant_id":"OPP9993338844"}' \
 --data-urlencode 'nonce_str=439FJDF98HUFHSUGNFDIUSHF'
-
-# {"err_code":0,"err_message":"ok","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","sign":"2fa66cf2c59cdcd02f4b","sign_type":"SM3"}
-
+```
+```shell
+{"err_code":0,"err_message":"ok","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","sign":"2fa66cf2c59cdcd02f4b","sign_type":"SM3"}
+```
+check order status
+```shell
 curl --location --request POST 'http://127.0.0.1/gateway/payment' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'method=queryorder' \
@@ -103,7 +107,7 @@ curl --location --request POST 'http://127.0.0.1/gateway/payment' \
 --data-urlencode 'sign_type=SM3' \
 --data-urlencode 'biz_params={"out_order_no":"111222333","merchant_id":"OPP9993338844"}' \
 --data-urlencode 'nonce_str=439FJDF98HUFHSUGNFDIUSHF'
-
-# {"err_code":0,"err_message":"ok","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","order_status":9,"sign":"36f9ac0a04d7c9d8e093","sign_type":"SM3"}
-
+```
+```shell
+{"err_code":0,"err_message":"ok","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","order_status":9,"sign":"36f9ac0a04d7c9d8e093","sign_type":"SM3"}
 ```

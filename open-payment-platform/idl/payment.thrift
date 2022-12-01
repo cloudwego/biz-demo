@@ -13,8 +13,6 @@
 // limitations under the License.
 //
 
-include "base.thrift"
-
 namespace go payment
 
 struct UnifyPayReq {
