@@ -1,4 +1,3 @@
-
 .PHONY: ent
 ent:
 	go generate ./infrastructure/ent
