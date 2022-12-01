@@ -30,9 +30,9 @@ import (
 )
 
 type requiredParams struct {
-	Method     string `form:"method,required" json:"method,required"`
-	MerchantId string `form:"merchant_id,required" json:"merchant_id,required"`
-	BizParams  string `form:"biz_params,required" json:"biz_params,required"`
+	Method     string `form:"method,required" json:"method"`
+	MerchantId string `form:"merchant_id,required" json:"merchant_id"`
+	BizParams  string `form:"biz_params,required" json:"biz_params"`
 }
 
 var (
