@@ -34,8 +34,8 @@ The Bookinfo application is broken into four separate microservices:
 - [x] Implement a bookinfo ui using `arco-design` react
 
 ##### Which CloudWeGo subprojects are used? List all technologies used.
-- [kitex](https://github.com/cloudwego/kitex)
-- [hertz](https://github.com/cloudwego/hertz)
+- [Kitex](https://github.com/cloudwego/kitex)
+- [Hertz](https://github.com/cloudwego/hertz)
 - [kitex-xds](https://github.com/kitex-contrib/xds)
 - [kitex-opentelemetry](https://github.com/kitex-contrib/obs-opentelemetry)
 - [hertz-opentelemetry](https://github.com/hertz-contrib/obs-opentelemetry)
@@ -66,16 +66,16 @@ The Bookinfo application is broken into four separate microservices:
 
 - [x] Use `Hertz` as Gateway.
 - [x] Use `Kitex` generic call client route requests.
-- [x] Use `Kitex` for microservice.
+- [x] Use `Kitex` as RPC framework to build micro-services.
 - [x] Use `Clean Structure` for design pkg and code layout.
 - [x] Use `ent` entity framework for implementing repository.
 - [x] Use `wire` for dependency injection
-- [x] Use `Nacos` as service discovery.
+- [x] Use `Nacos` as service registry.
 - [x] Use `MySQL` as RDBMS.
 
 ##### Which CloudWeGo subprojects are used? List all technologies used.
-- [kitex](https://github.com/cloudwego/kitex)
-- [hertz](https://github.com/cloudwego/hertz)
+- [Kitex](https://github.com/cloudwego/kitex)
+- [Hertz](https://github.com/cloudwego/hertz)
 - kitex-layout(coming soon)
 
 ##### Detailed documentation

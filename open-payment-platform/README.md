@@ -6,7 +6,7 @@
 ![img.png](./docs/open-payment-platform.png)
 
 ## How to Run
-
+> root directory is `open-payment-platform`.
 #### Prepare
 
 - start docker env with mysql and nacos
@@ -110,4 +110,10 @@ curl --location --request POST 'http://127.0.0.1/gateway/payment' \
 ```
 ```shell
 {"err_code":0,"err_message":"ok","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","order_status":9,"sign":"36f9ac0a04d7c9d8e093","sign_type":"SM3"}
+```
+
+#### Clean up
+```shell
+# root directory
+make stop
 ```
