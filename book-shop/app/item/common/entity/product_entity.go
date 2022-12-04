@@ -13,19 +13,27 @@
 // limitations under the License.
 //
 
-package main
+package entity
 
-import (
-	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
-	"log"
+type ProductEntity struct {
+	ProductId   int64
+	Name        string
+	Pic         string
+	Description string
+	Property    *PropertyEntity
+	Price       int64
+	Stock       int64
+	Status      int64
+}
+
+const (
+	Status_Online int64 = iota
+	Status_Offline
+	Status_Delete
 )
 
-func main() {
-	svr := order.NewServer(new(OrderServiceImpl))
-
-	err := svr.Run()
-
-	if err != nil {
-		log.Println(err.Error())
-	}
+type PropertyEntity struct {
+	ISBN     string
+	SpuName  string
+	SpuPrice int64
 }

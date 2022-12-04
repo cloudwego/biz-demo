@@ -13,19 +13,27 @@
 // limitations under the License.
 //
 
-package main
+package po
 
 import (
-	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
-	"log"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
+	"gorm.io/gorm"
 )
 
-func main() {
-	svr := order.NewServer(new(OrderServiceImpl))
+type Product struct {
+	gorm.Model
+	ProductId   int64  `json:"product_id"`
+	Name        string `json:"name"`
+	Pic         string `json:"pic"`
+	Description string `json:"description"`
+	ISBN        string `json:"isbn"`
+	SpuName     string `json:"spu_name"`
+	SpuPrice    int64  `json:"spu_price"`
+	Price       int64  `json:"price"`
+	Stock       int64  `json:"stock"`
+	Status      int64  `json:"status"`
+}
 
-	err := svr.Run()
-
-	if err != nil {
-		log.Println(err.Error())
-	}
+func (p *Product) TableName() string {
+	return conf.ProductTableName
 }

@@ -13,19 +13,22 @@
 // limitations under the License.
 //
 
-package main
+package repository
 
-import (
-	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
-	"log"
-)
+type RepositoryRegistry struct {
+	productRepository ProductRepository
+}
 
-func main() {
-	svr := order.NewServer(new(OrderServiceImpl))
+var inst = &RepositoryRegistry{}
 
-	err := svr.Run()
+func GetRegistry() *RepositoryRegistry {
+	return inst
+}
 
-	if err != nil {
-		log.Println(err.Error())
-	}
+func (r *RepositoryRegistry) GetProductRepository() ProductRepository {
+	return r.productRepository
+}
+
+func (r *RepositoryRegistry) SetProductRepository(productRepositoryIns ProductRepository) {
+	r.productRepository = productRepositoryIns
 }

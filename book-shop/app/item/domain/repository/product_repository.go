@@ -13,19 +13,19 @@
 // limitations under the License.
 //
 
-package main
+package repository
 
 import (
-	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
-	"log"
+	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 )
 
-func main() {
-	svr := order.NewServer(new(OrderServiceImpl))
+type ProductRepository interface {
+	AddProduct(ctx context.Context, product *entity.ProductEntity) error
 
-	err := svr.Run()
+	UpdateProduct(ctx context.Context, productId int64, changeMap map[string]interface{}) error
 
-	if err != nil {
-		log.Println(err.Error())
-	}
+	GetProductById(ctx context.Context, productId int64) (*entity.ProductEntity, error)
+
+	ListProducts(ctx context.Context, filterParam map[string]interface{}) ([]*entity.ProductEntity, error)
 }

@@ -19,6 +19,7 @@ import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
+	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -32,7 +33,7 @@ import (
 func Init() {
 	client.Init()
 
-	handlers.AuthMiddleware, _ = jwt.New(&jwt.HertzJWTMiddleware{
+	model.UserAuthMiddleware, _ = jwt.New(&jwt.HertzJWTMiddleware{
 		Key:        []byte(conf.SecretKey),
 		Timeout:    time.Hour,
 		MaxRefresh: time.Hour,
@@ -45,7 +46,7 @@ func Init() {
 			return jwt.MapClaims{}
 		},
 		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
-			var loginVar handlers.UserParam
+			var loginVar model.UserParam
 			if err := c.Bind(&loginVar); err != nil {
 				return "", jwt.ErrMissingLoginValues
 			}
@@ -55,6 +56,35 @@ func Init() {
 			}
 
 			return client.CheckUser(context.Background(), &user.CheckUserReq{UserName: loginVar.UserName, Password: loginVar.PassWord})
+		},
+		TokenLookup:   "header: Authorization, query: token, cookie: jwt",
+		TokenHeadName: "Bearer",
+		TimeFunc:      time.Now,
+	})
+
+	model.ShopAuthMiddleware, _ = jwt.New(&jwt.HertzJWTMiddleware{
+		Key:        []byte(conf.SecretKey),
+		Timeout:    time.Hour,
+		MaxRefresh: time.Hour,
+		PayloadFunc: func(data interface{}) jwt.MapClaims {
+			if v, ok := data.(int64); ok {
+				return jwt.MapClaims{
+					conf.IdentityKey: v,
+				}
+			}
+			return jwt.MapClaims{}
+		},
+		Authenticator: func(ctx context.Context, c *app.RequestContext) (interface{}, error) {
+			var loginVar model.UserParam
+			if err := c.Bind(&loginVar); err != nil {
+				return "", jwt.ErrMissingLoginValues
+			}
+
+			if loginVar.UserName != conf.ShopLoginName || loginVar.PassWord != conf.ShopLoginPassword {
+				return "", jwt.ErrMissingLoginValues
+			}
+
+			return conf.ShopLoginName, nil
 		},
 		TokenLookup:   "header: Authorization, query: token, cookie: jwt",
 		TokenHeadName: "Bearer",
@@ -81,7 +111,14 @@ func Init() {
 // @schemes http
 func main() {
 	Init()
-	h := server.Default(server.WithHostPorts("localhost:8080"))
+	h := server.Default(server.WithHostPorts(conf.FacadeServiceAddress))
+
+	userGroup := h.Group("/user")
+	userGroup.POST("/register", handlers.UserRegister)
+	userGroup.POST("/login", handlers.UserLogin)
+
+	shopGroup := h.Group("/shop")
+	shopGroup.POST("/login", handlers.ShopLogin)
 
 	url := swagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
 	h.GET("/swagger/*any", swagger.WrapHandler(swaggerFiles.Handler, url))

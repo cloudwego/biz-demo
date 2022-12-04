@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 
-package handlers
+package model
 
 import (
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
@@ -23,7 +23,8 @@ import (
 	"github.com/hertz-contrib/jwt"
 )
 
-var AuthMiddleware *jwt.HertzJWTMiddleware
+var UserAuthMiddleware *jwt.HertzJWTMiddleware
+var ShopAuthMiddleware *jwt.HertzJWTMiddleware
 
 type Response struct {
 	Code    int64       `json:"code"`

@@ -13,19 +13,23 @@
 // limitations under the License.
 //
 
-package main
+package handlers
 
 import (
-	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
-	"log"
+	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
+	"github.com/cloudwego/hertz/pkg/app"
 )
 
-func main() {
-	svr := order.NewServer(new(OrderServiceImpl))
-
-	err := svr.Run()
-
-	if err != nil {
-		log.Println(err.Error())
-	}
+// ShopLogin godoc
+// @Summary 商家登录
+// @Description 商家登录
+// @Tags 商家模块
+// @Accept json
+// @Produce json
+// @Param userParam body handlers.UserParam true "店铺账号信息"
+// @Success 200 {object} handlers.LoginResponse
+// @Router /shop/login [post]
+func ShopLogin(ctx context.Context, c *app.RequestContext) {
+	model.UserAuthMiddleware.LoginHandler(ctx, c)
 }

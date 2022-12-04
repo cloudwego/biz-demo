@@ -13,19 +13,10 @@
 // limitations under the License.
 //
 
-package main
+package infras
 
-import (
-	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
-	"log"
-)
+import "github.com/cloudwego/biz-demo/book-shop/app/item/infras/repository"
 
-func main() {
-	svr := order.NewServer(new(OrderServiceImpl))
-
-	err := svr.Run()
-
-	if err != nil {
-		log.Println(err.Error())
-	}
+func Init() {
+	repository.Init()
 }
