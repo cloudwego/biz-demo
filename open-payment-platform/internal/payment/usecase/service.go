@@ -19,6 +19,7 @@ import (
 	"context"
 
 	"github.com/cloudwego/biz-demo/open-payment-platform/internal/payment/entity"
+	"github.com/cloudwego/biz-demo/open-payment-platform/kitex_gen/common"
 	"github.com/cloudwego/biz-demo/open-payment-platform/kitex_gen/payment"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -65,7 +66,7 @@ func (s *Service) QRPay(ctx context.Context, req *payment.QRPayReq) (r *payment.
 		return nil, err
 	}
 	if !onlyOne {
-		return nil, kerrors.NewBizStatusError(20000111, "订单号重复")
+		return nil, kerrors.NewBizStatusError(int32(common.Err_DuplicateOutOrderNo), common.Err_DuplicateOutOrderNo.String())
 	}
 	o := entity.NewOrder()
 	o.PayWay = req.OutOrderNo

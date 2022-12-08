@@ -21,7 +21,7 @@ import (
 	"os"
 	"strings"
 
-	handler "github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/handler"
+	"github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/handler"
 	"github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/middleware"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -60,7 +60,7 @@ func registerGateway(r *server.Hertz) {
 	}
 
 	for _, entry := range c {
-		if entry.IsDir() || entry.Name() == "base.thrift" {
+		if entry.IsDir() || entry.Name() == "common.thrift" {
 			continue
 		}
 		svcName := strings.ReplaceAll(entry.Name(), ".thrift", "")

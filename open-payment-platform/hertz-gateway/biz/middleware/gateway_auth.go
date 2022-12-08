@@ -21,6 +21,8 @@ import (
 	"net/http"
 
 	"github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/errors"
+	"github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/types"
+	"github.com/cloudwego/biz-demo/open-payment-platform/kitex_gen/common"
 	"github.com/cloudwego/biz-demo/open-payment-platform/pkg/auth"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -40,23 +42,24 @@ func GatewayAuth() []app.HandlerFunc {
 
 		if err := c.BindAndValidate(&authParam); err != nil {
 			hlog.Error(err)
-			c.JSON(http.StatusOK, errors.New(errors.ErrCodeBadRequest))
+			c.JSON(http.StatusOK, errors.New(common.Err_BadRequest))
 			c.Abort()
 			return
 		}
 		// TODO get key in the right way
+		// actual business, the key should be different depending on merchant
 		key := "123"
 		p, err := auth.NewSignProvider(authParam.SignType, key)
 		if err != nil {
 			hlog.Error(err)
-			c.JSON(http.StatusOK, errors.New(errors.ErrCodeUnauthorized))
+			c.JSON(http.StatusOK, errors.New(common.Err_Unauthorized))
 			c.Abort()
 			return
 		}
 
 		if !p.Verify(authParam.Sign, map[string]interface{}{}) {
 			hlog.Error(err)
-			c.JSON(http.StatusOK, errors.New(errors.ErrCodeUnauthorized))
+			c.JSON(http.StatusOK, errors.New(common.Err_Unauthorized))
 			c.Abort()
 			return
 		}
@@ -65,13 +68,13 @@ func GatewayAuth() []app.HandlerFunc {
 
 		data := make(utils.H)
 		if err = json.Unmarshal(c.Response.Body(), &data); err != nil {
-			dataJson, _ := json.Marshal(errors.ErrCodeResponseUnableParse)
+			dataJson, _ := json.Marshal(errors.New(common.Err_RequestServerFail))
 			c.Response.SetBody(dataJson)
 			return
 		}
-		data["nonce_str"] = authParam.NonceStr
-		data["sign_type"] = authParam.SignType
-		data["sign"] = p.Sign(data)
+		data[types.ResponseNonceStr] = authParam.NonceStr
+		data[types.ResponseSignType] = authParam.SignType
+		data[types.ResponseSign] = p.Sign(data)
 		dataJson, _ := json.Marshal(data)
 		c.Response.SetBody(dataJson)
 	}}

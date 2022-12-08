@@ -11,6 +11,7 @@ stop:
 .PHONY: gen
 gen:
 	kitex -module $(MODULE) idl/payment.thrift
+	kitex -module $(MODULE) idl/common.thrift
 
 gateway:
 	  go run hertz-gateway/*.go

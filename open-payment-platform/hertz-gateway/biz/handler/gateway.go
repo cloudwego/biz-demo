@@ -22,6 +22,8 @@ import (
 	"net/http"
 
 	"github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/errors"
+	"github.com/cloudwego/biz-demo/open-payment-platform/hertz-gateway/biz/types"
+	"github.com/cloudwego/biz-demo/open-payment-platform/kitex_gen/common"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/kitex/client/genericclient"
@@ -41,26 +43,28 @@ func Gateway(ctx context.Context, c *app.RequestContext) {
 	svcName := c.Param("svc")
 	cli, ok := SvcMap[svcName]
 	if !ok {
-		c.JSON(http.StatusOK, errors.New(errors.ErrCodeServerNotFound))
+		c.JSON(http.StatusOK, errors.New(common.Err_BadRequest))
 		return
 	}
 	var params requiredParams
 	if err := c.BindAndValidate(&params); err != nil {
 		hlog.Error(err)
-		c.JSON(http.StatusOK, errors.New(errors.ErrCodeServerMethodNotFound))
+		c.JSON(http.StatusOK, errors.New(common.Err_ServerMethodNotFound))
 		return
 	}
 
 	req, err := http.NewRequest(http.MethodPost, "", bytes.NewBuffer([]byte(params.BizParams)))
 	if err != nil {
-		hlog.Fatalf("new http request failed: %v", err)
+		hlog.Warnf("new http request failed: %v", err)
+		c.JSON(http.StatusOK, errors.New(common.Err_RequestServerFail))
+		return
 	}
 	req.URL.Path = fmt.Sprintf("/%s/%s", svcName, params.Method)
 
 	customReq, err := generic.FromHTTPRequest(req)
 	if err != nil {
 		hlog.Errorf("convert request failed: %v", err)
-		c.JSON(http.StatusOK, errors.New(errors.ErrCodeServerHandleFail))
+		c.JSON(http.StatusOK, errors.New(common.Err_ServerHandleFail))
 		return
 	}
 	resp, err := cli.GenericCall(ctx, "", customReq)
@@ -69,20 +73,20 @@ func Gateway(ctx context.Context, c *app.RequestContext) {
 		hlog.Errorf("GenericCall err:%v", err)
 		bizErr, ok := kerrors.FromBizStatusError(err)
 		if !ok {
-			c.JSON(http.StatusOK, errors.New(errors.ErrCodeServerHandleFail))
+			c.JSON(http.StatusOK, errors.New(common.Err_ServerHandleFail))
 			return
 		}
-		respMap["err_code"] = bizErr.BizStatusCode()
-		respMap["err_message"] = bizErr.BizMessage()
+		respMap[types.ResponseErrCode] = bizErr.BizStatusCode()
+		respMap[types.ResponseErrMessage] = bizErr.BizMessage()
 		c.JSON(http.StatusOK, respMap)
 		return
 	}
 	realResp, ok := resp.(*generic.HTTPResponse)
 	if !ok {
-		c.JSON(http.StatusOK, errors.New(errors.ErrCodeServerHandleFail))
+		c.JSON(http.StatusOK, errors.New(common.Err_ServerHandleFail))
 		return
 	}
-	realResp.Body["err_code"] = 0
-	realResp.Body["err_message"] = "ok"
+	realResp.Body[types.ResponseErrCode] = 0
+	realResp.Body[types.ResponseErrMessage] = "ok"
 	c.JSON(http.StatusOK, realResp.Body)
 }
