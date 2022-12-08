@@ -4,6 +4,7 @@ package paymentsvc
 
 import (
 	"context"
+
 	payment "github.com/cloudwego/biz-demo/open-payment-platform/kitex_gen/payment"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
