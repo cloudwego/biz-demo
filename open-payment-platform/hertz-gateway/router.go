@@ -43,6 +43,7 @@ func customizedRegister(r *server.Hertz) {
 	registerGateway(r)
 }
 
+// registerGateway registers the router of gateway
 func registerGateway(r *server.Hertz) {
 	group := r.Group("/gateway").Use(middleware.GatewayAuth()...)
 

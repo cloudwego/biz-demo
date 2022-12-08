@@ -21,6 +21,8 @@ import (
 	"github.com/cloudwego/biz-demo/open-payment-platform/internal/payment/entity"
 )
 
+// Repository is the interface of usecase dependent on.
+// the interface is the part of usecase logic,so we put it here.
 type Repository interface {
 	GetByOutOrderNo(ctx context.Context, outOrderNo string) (*entity.Order, error)
 	UpdateOrderStatus(ctx context.Context, outOrderNo string, orderStatus int8) error

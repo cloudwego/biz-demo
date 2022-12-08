@@ -6,5 +6,6 @@ ent:
 wire:
 	cd ../../cmd/payment/ && wire
 
+.PHONY: run
 run:
 	cd  ../../cmd/payment/ && go run .

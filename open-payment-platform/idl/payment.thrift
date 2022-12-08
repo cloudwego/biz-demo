@@ -72,12 +72,6 @@ struct CloseOrderReq {
 struct CloseOrderResp {
 }
 
-struct CallBackReq {
-}
-
-struct CallBackResp {
-}
-
 service PaymentSvc {
     UnifyPayResp UnifyPay(1: UnifyPayReq req)( api.post = '/payment/unifypay', api.param = 'true')
 

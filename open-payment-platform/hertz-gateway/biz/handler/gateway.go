@@ -39,6 +39,7 @@ type requiredParams struct {
 
 var SvcMap = make(map[string]genericclient.Client)
 
+// Gateway handle the request with the query path of prefix `/gateway`.
 func Gateway(ctx context.Context, c *app.RequestContext) {
 	svcName := c.Param("svc")
 	cli, ok := SvcMap[svcName]

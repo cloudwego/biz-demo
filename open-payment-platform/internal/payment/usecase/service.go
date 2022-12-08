@@ -34,6 +34,7 @@ type Service struct {
 	repo Repository
 }
 
+// UnifyPay implements payment.PaymentSvc.UnifyPay
 func (s *Service) UnifyPay(ctx context.Context, req *payment.UnifyPayReq) (r *payment.UnifyPayResp, err error) {
 	o := entity.NewOrder()
 	o.PayWay = req.PayWay
@@ -59,6 +60,7 @@ func (s *Service) uniqueOutOrderNo(ctx context.Context, outOrderNo string) (bool
 	return true, nil
 }
 
+// QRPay implements payment.PaymentSvc.QRPay
 func (s *Service) QRPay(ctx context.Context, req *payment.QRPayReq) (r *payment.QRPayResp, err error) {
 	onlyOne, err := s.uniqueOutOrderNo(ctx, req.OutOrderNo)
 	if err != nil {
@@ -87,6 +89,7 @@ func (s *Service) QRPay(ctx context.Context, req *payment.QRPayReq) (r *payment.
 	}, nil
 }
 
+// QueryOrder implements payment.PaymentSvc.QueryOrder
 func (s *Service) QueryOrder(ctx context.Context, req *payment.QueryOrderReq) (r *payment.QueryOrderResp, err error) {
 	order, err := s.repo.GetByOutOrderNo(ctx, req.OutOrderNo)
 	if err != nil {
@@ -98,6 +101,7 @@ func (s *Service) QueryOrder(ctx context.Context, req *payment.QueryOrderReq) (r
 	}, nil
 }
 
+// CloseOrder implements payment.PaymentSvc.CloseOrder
 func (s *Service) CloseOrder(ctx context.Context, req *payment.CloseOrderReq) (r *payment.CloseOrderResp, err error) {
 	if err = s.repo.UpdateOrderStatus(ctx, req.OutOrderNo, 9); err != nil {
 		return nil, err

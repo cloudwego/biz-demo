@@ -41,6 +41,7 @@ var SQLProviderSet = wire.NewSet(NewEntClient, NewOrderSQL)
 
 var _ usecase.Repository = (*OrderRepository)(nil)
 
+// NewEntClient create an ent client with default config
 func NewEntClient() *ent.Client {
 	entClient, err := ent.Open(
 		"mysql",
@@ -55,6 +56,7 @@ func NewEntClient() *ent.Client {
 	return entClient
 }
 
+// GetByOutOrderNo implements usecase.Repository.GetByOutOrderNo
 func (o *OrderRepository) GetByOutOrderNo(ctx context.Context, outOrderNo string) (*entity.Order, error) {
 	ret, err := o.db.Order.Query().
 		Where(order.OutOrderNo(outOrderNo)).
@@ -89,6 +91,7 @@ func (o *OrderRepository) GetByOutOrderNo(ctx context.Context, outOrderNo string
 	}, nil
 }
 
+// Create implements usecase.Repository.Create
 func (o *OrderRepository) Create(ctx context.Context, order *entity.Order) error {
 	ret, err := o.db.Order.Create().
 		SetMerchantID(order.MerchantID).
@@ -115,10 +118,13 @@ func (o *OrderRepository) Create(ctx context.Context, order *entity.Order) error
 	return nil
 }
 
+// UpdateOrderStatus implements usecase.Repository.UpdateOrderStatus
 func (o *OrderRepository) UpdateOrderStatus(ctx context.Context, outOrderNo string, orderStatus int8) error {
 	return o.db.Order.Update().Where(order.OutOrderNo(outOrderNo)).SetOrderStatus(orderStatus).Exec(ctx)
 }
 
+// NewOrderSQL creates a new OrderRepository.
+// This is the concrete implementation of Repository with SQL.
 func NewOrderSQL(dbClient *ent.Client) usecase.Repository {
 	return &OrderRepository{
 		db: dbClient,
