@@ -62,12 +62,10 @@ curl --location --request POST 'http://127.0.0.1/gateway/payment' \
 ```
 
 - Response
+> You should find a new data row in orders table.
 ```shell
 {"err_code":0,"err_message":"ok","merchant_id":"OPP9993338844","nonce_str":"439FJDF98HUFHSUGNFDIUSHF","open_id":"","order_status":0,"out_order_no":"111222333","out_transaction_id":"","pay_way":"111222333","sign":"2cadb64844d0b665faf1","sign_type":"SM3","sub_merchant_id":"","sub_openid":""}
 ```
-- Query Order
-> You should find a new data row in orders table.
-
 - Query Order
 ```shell
 curl --location --request POST 'http://127.0.0.1/gateway/payment' \
