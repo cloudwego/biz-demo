@@ -67,7 +67,7 @@ The Bookinfo application is broken into four separate microservices:
 - [x] Use `Hertz` as Gateway.
 - [x] Use `Kitex` generic call client route requests.
 - [x] Use `Kitex` as RPC framework to build micro-services.
-- [x] Use `Clean Structure` for design pkg and code layout.
+- [x] Use `Clean Architecture` for design pkg and code layout.
 - [x] Use `ent` entity framework for implementing repository.
 - [x] Use `wire` for dependency injection
 - [x] Use `Nacos` as service registry.
