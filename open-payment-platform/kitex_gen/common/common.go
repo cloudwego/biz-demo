@@ -11,8 +11,7 @@ import (
 type Err int64
 
 const (
-	Err_BadRequest           Err = 0
-	Err_i32                  Err = 10001
+	Err_BadRequest           Err = 10001
 	Err_Unauthorized         Err = 10002
 	Err_ServerNotFound       Err = 10003
 	Err_ServerMethodNotFound Err = 10004
@@ -26,8 +25,6 @@ func (p Err) String() string {
 	switch p {
 	case Err_BadRequest:
 		return "BadRequest"
-	case Err_i32:
-		return "i32"
 	case Err_Unauthorized:
 		return "Unauthorized"
 	case Err_ServerNotFound:
@@ -50,8 +47,6 @@ func ErrFromString(s string) (Err, error) {
 	switch s {
 	case "BadRequest":
 		return Err_BadRequest, nil
-	case "i32":
-		return Err_i32, nil
 	case "Unauthorized":
 		return Err_Unauthorized, nil
 	case "ServerNotFound":
