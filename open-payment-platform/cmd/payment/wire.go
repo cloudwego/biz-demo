@@ -25,7 +25,7 @@ import (
 	"github.com/google/wire"
 )
 
-// initHandler initializes payment sevice handler
+// initHandler initializes payment service handler
 // wire dependency injection
 func initHandler() payment.PaymentSvc {
 	panic(wire.Build(
