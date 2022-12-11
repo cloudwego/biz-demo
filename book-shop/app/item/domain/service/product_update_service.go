@@ -14,3 +14,27 @@
 //
 
 package service
+
+import (
+	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
+)
+
+// ProductUpdateService 商品更新服务
+type ProductUpdateService struct {
+}
+
+var productUpdateService ProductUpdateService
+
+// GetProductUpdateServiceInstance 单例
+func GetProductUpdateServiceInstance() *ProductUpdateService {
+	return &productUpdateService
+}
+
+func (s *ProductUpdateService) AddProduct(ctx context.Context, entity *entity.ProductEntity) error {
+	return nil
+}
+
+func (s *ProductUpdateService) EditProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error {
+	return nil
+}

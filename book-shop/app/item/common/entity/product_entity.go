@@ -15,6 +15,8 @@
 
 package entity
 
+import "github.com/jinzhu/copier"
+
 type ProductEntity struct {
 	ProductId   int64
 	Name        string
@@ -26,11 +28,11 @@ type ProductEntity struct {
 	Status      int64
 }
 
-const (
-	Status_Online int64 = iota
-	Status_Offline
-	Status_Delete
-)
+func (entity *ProductEntity) Clone() (*ProductEntity, error) {
+	ret := &ProductEntity{}
+	err := copier.Copy(ret, entity)
+	return ret, err
+}
 
 type PropertyEntity struct {
 	ISBN     string

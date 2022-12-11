@@ -12,7 +12,9 @@ require (
 require (
 	github.com/cloudwego/hertz v0.3.2
 	github.com/hertz-contrib/jwt v1.0.1
+	github.com/jinzhu/copier v0.3.5
 	github.com/kitex-contrib/registry-etcd v0.0.0-20220727025923-a9f1171fda3f
+	github.com/r3labs/diff/v2 v2.15.1
 	gorm.io/driver/mysql v1.4.4
 	gorm.io/gorm v1.24.2
 )

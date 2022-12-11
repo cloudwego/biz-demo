@@ -14,3 +14,23 @@
 //
 
 package service
+
+import "context"
+
+type ProductStockService struct {
+}
+
+var productStockService ProductStockService
+
+// GetProductStockServiceInstance 单例
+func GetProductStockServiceInstance() *ProductStockService {
+	return &productStockService
+}
+
+func (s *ProductStockService) IncreaseStockNum(ctx context.Context, productId int64, incrNum int64) error {
+	return nil
+}
+
+func (s *ProductStockService) DecreaseStockNum(ctx context.Context, productId int64, decrNum int64) error {
+	return nil
+}

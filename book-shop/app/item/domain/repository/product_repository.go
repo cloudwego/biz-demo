@@ -23,7 +23,7 @@ import (
 type ProductRepository interface {
 	AddProduct(ctx context.Context, product *entity.ProductEntity) error
 
-	UpdateProduct(ctx context.Context, productId int64, changeMap map[string]interface{}) error
+	UpdateProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error
 
 	GetProductById(ctx context.Context, productId int64) (*entity.ProductEntity, error)
 

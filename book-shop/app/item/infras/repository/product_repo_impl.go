@@ -21,6 +21,7 @@ import (
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/po"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/repository/converter"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/repository/differ"
 )
 
 type ProductRepositoryImpl struct {
@@ -37,7 +38,17 @@ func (i ProductRepositoryImpl) AddProduct(ctx context.Context, product *entity.P
 	return DB.WithContext(ctx).Create(po).Error
 }
 
-func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, productId int64, changeMap map[string]interface{}) error {
+func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error {
+	productId := target.ProductId
+	originPO, err := converter.ProductDO2POConverter.Convert2po(ctx, origin)
+	if err != nil {
+		return err
+	}
+	targetPO, err := converter.ProductDO2POConverter.Convert2po(ctx, target)
+	if err != nil {
+		return err
+	}
+	changeMap := differ.ProductPODiffer.GetChangedMap(originPO, targetPO)
 	return DB.WithContext(ctx).Model(&po.Product{}).Where("product_id = ?", productId).
 		Updates(changeMap).Error
 }

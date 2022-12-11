@@ -14,3 +14,46 @@
 //
 
 package service
+
+import (
+	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
+)
+
+// ProductQueryService 商品查询服务
+type ProductQueryService struct {
+}
+
+var productQueryService ProductQueryService
+
+// GetProductQueryServiceInstance 单例
+func GetProductQueryServiceInstance() *ProductQueryService {
+	return &productQueryService
+}
+
+func (s *ProductQueryService) GetProduct(ctx context.Context, productId int64) (*entity.ProductEntity, error) {
+	do, err := repository.GetRegistry().GetProductRepository().GetProductById(ctx, productId)
+	if err != nil {
+		return nil, err
+	}
+	return do, nil
+}
+
+func (s *ProductQueryService) ListProducts(ctx context.Context, name, spuName *string, status *int64) ([]*entity.ProductEntity, error) {
+	filterParam := make(map[string]interface{})
+	if name != nil {
+		filterParam["name"] = *name
+	}
+	if spuName != nil {
+		filterParam["spu_name"] = *spuName
+	}
+	if status != nil {
+		filterParam["status"] = *status
+	}
+	entities, err := repository.GetRegistry().GetProductRepository().ListProducts(ctx, filterParam)
+	if err != nil {
+		return nil, err
+	}
+	return entities, nil
+}
