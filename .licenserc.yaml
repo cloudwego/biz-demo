@@ -10,5 +10,9 @@ header:
   paths-ignore:
     - bookinfo/kitex_gen/**
     - bookinfo/internal/server/**/wire_gen.go
+    - easy_note/kitex_gen/**
+    - easy_note/cmd/api/model/**
+    - easy_note/cmd/api/router/**
+    - easy_note/cmd/api/router_gen.go
 
   comment: on-failure
