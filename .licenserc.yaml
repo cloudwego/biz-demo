@@ -10,6 +10,9 @@ header:
   paths-ignore:
     - bookinfo/kitex_gen/**
     - bookinfo/internal/server/**/wire_gen.go
+    - open-payment-platform/kitex_gen/**
+    - open-payment-platform/cmd/**/wire_gen.go
+    - open-payment-platform/internal/**/infrastructure/ent/**
     - easy_note/kitex_gen/**
     - easy_note/cmd/api/model/**
     - easy_note/cmd/api/router/**
