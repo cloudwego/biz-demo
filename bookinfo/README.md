@@ -3,10 +3,10 @@
 > Rewrite **[Bookinfo](https://istio.io/latest/docs/examples/bookinfo/)** project using `hertz`, `kitex`
 
 ## Architecture
-![img.png](./docs/bookinfo-arch.png)
+![img.png](./docs/bookinfo-arch.svg)
 
 ## Lane
-![lane.png](./docs/lane.png)
+![lane.png](./docs/lane.svg)
 
 ## Traffic routing example
 
@@ -67,14 +67,14 @@ spec:
 ```
 
 #### Request base lane service, rating `0` or `1` randomly
-![bookinfo_1.png](docs/bookinfo_rating_1.png)
-![bookinfo_2.png](docs/bookinfo_without_rating.png)
+![bookinfo_1.png](docs/bookinfo_rating_1.jpeg)
+![bookinfo_2.png](docs/bookinfo_without_rating.jpeg)
 
 #### Set the request coloring flag through the browser mod-header plugin
 ![bookinfo_3.png](docs/bookinfo_header.png)
 
 #### Click the refresh button again, you can find that the request hits the branch lane, and the rating becomes `5`
-![bookinfo_4.png](docs/bookinfo_canary.png)
+![bookinfo_4.png](docs/bookinfo_canary.jpeg)
 
 
 ### View Tracing
