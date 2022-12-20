@@ -26,6 +26,7 @@ func Register(r *server.Hertz) {
 		_note.GET("/query", append(_querynoteMw(), demoapi.QueryNote)...)
 		{
 			_user := _v2.Group("/user", _userMw()...)
+			_user.POST("/login", append(_checkuserMw(), demoapi.CheckUser)...)
 			_user.POST("/register", append(_createuserMw(), demoapi.CreateUser)...)
 		}
 	}

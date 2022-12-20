@@ -21,13 +21,42 @@ import (
 	"context"
 
 	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/model/demoapi"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/mw"
 	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/rpc"
 	"github.com/cloudwego/biz-demo/easy_note/kitex_gen/demonote"
+	"github.com/cloudwego/biz-demo/easy_note/kitex_gen/demouser"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/consts"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )
+
+// CreateUser .
+// @router /v2/user/register [POST]
+func CreateUser(_ context.Context, c *app.RequestContext) {
+	var err error
+	var req demoapi.CreateUserRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	err = rpc.CreateUser(context.Background(), &demouser.CreateUserRequest{
+		Username: req.Username,
+		Password: req.Password,
+	})
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+	SendResponse(c, errno.Success, nil)
+}
+
+// CheckUser .
+// @router /v2/user/login [POST]
+func CheckUser(ctx context.Context, c *app.RequestContext) {
+	mw.JwtMiddleware.LoginHandler(ctx, c)
+}
 
 // CreateNote .
 // @router /v2/note [POST]

@@ -22,7 +22,6 @@ import (
 
 	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/handler"
 	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/handler/demoapi"
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/mw"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -33,7 +32,6 @@ func customizedRegister(r *server.Hertz) {
 	r.GET("/ping", handler.Ping)
 
 	// your code ...
-	r.POST("/v2/user/login", mw.JwtMiddleware.LoginHandler)
 	r.NoRoute(func(ctx context.Context, c *app.RequestContext) { // used for HTTP 404
 		demoapi.SendResponse(c, errno.ServiceErr, nil)
 	})

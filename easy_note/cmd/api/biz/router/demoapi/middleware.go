@@ -85,6 +85,11 @@ func _userMw() []app.HandlerFunc {
 	return nil
 }
 
+func _checkuserMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
 func _createuserMw() []app.HandlerFunc {
 	// your code...
 	return nil

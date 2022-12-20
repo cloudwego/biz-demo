@@ -31,7 +31,7 @@ type UserServiceImpl struct{}
 func (s *UserServiceImpl) CreateUser(ctx context.Context, req *demouser.CreateUserRequest) (resp *demouser.CreateUserResponse, err error) {
 	resp = new(demouser.CreateUserResponse)
 
-	if len(req.Username) == 0 || len(req.Password) == 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
@@ -50,7 +50,7 @@ func (s *UserServiceImpl) CreateUser(ctx context.Context, req *demouser.CreateUs
 func (s *UserServiceImpl) MGetUser(ctx context.Context, req *demouser.MGetUserRequest) (resp *demouser.MGetUserResponse, err error) {
 	resp = new(demouser.MGetUserResponse)
 
-	if len(req.UserIds) == 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
@@ -70,7 +70,7 @@ func (s *UserServiceImpl) MGetUser(ctx context.Context, req *demouser.MGetUserRe
 func (s *UserServiceImpl) CheckUser(ctx context.Context, req *demouser.CheckUserRequest) (resp *demouser.CheckUserResponse, err error) {
 	resp = new(demouser.CheckUserResponse)
 
-	if len(req.Username) == 0 || len(req.Password) == 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}

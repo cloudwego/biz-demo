@@ -32,7 +32,7 @@ type NoteServiceImpl struct{}
 func (s *NoteServiceImpl) CreateNote(ctx context.Context, req *demonote.CreateNoteRequest) (resp *demonote.CreateNoteResponse, err error) {
 	resp = new(demonote.CreateNoteResponse)
 
-	if req.UserId <= 0 || len(req.Title) == 0 || len(req.Content) == 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
@@ -50,7 +50,7 @@ func (s *NoteServiceImpl) CreateNote(ctx context.Context, req *demonote.CreateNo
 func (s *NoteServiceImpl) DeleteNote(ctx context.Context, req *demonote.DeleteNoteRequest) (resp *demonote.DeleteNoteResponse, err error) {
 	resp = new(demonote.DeleteNoteResponse)
 
-	if req.NoteId <= 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
@@ -68,7 +68,7 @@ func (s *NoteServiceImpl) DeleteNote(ctx context.Context, req *demonote.DeleteNo
 func (s *NoteServiceImpl) UpdateNote(ctx context.Context, req *demonote.UpdateNoteRequest) (resp *demonote.UpdateNoteResponse, err error) {
 	resp = new(demonote.UpdateNoteResponse)
 
-	if req.NoteId <= 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
@@ -86,10 +86,11 @@ func (s *NoteServiceImpl) UpdateNote(ctx context.Context, req *demonote.UpdateNo
 func (s *NoteServiceImpl) QueryNote(ctx context.Context, req *demonote.QueryNoteRequest) (resp *demonote.QueryNoteResponse, err error) {
 	resp = new(demonote.QueryNoteResponse)
 
-	if req.UserId <= 0 || req.Limit < 0 || req.Offset < 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
+
 	if req.Limit == 0 {
 		req.Limit = consts.DefaultLimit
 	}
@@ -109,7 +110,7 @@ func (s *NoteServiceImpl) QueryNote(ctx context.Context, req *demonote.QueryNote
 func (s *NoteServiceImpl) MGetNote(ctx context.Context, req *demonote.MGetNoteRequest) (resp *demonote.MGetNoteResponse, err error) {
 	resp = new(demonote.MGetNoteResponse)
 
-	if len(req.NoteIds) == 0 {
+	if err = req.IsValid(); err != nil {
 		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}

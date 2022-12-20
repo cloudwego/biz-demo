@@ -36,6 +36,10 @@ struct CheckUserRequest {
     2: string password (api.form="password", api.vd="len($) > 0")
 }
 
+struct CheckUserResponse {
+    1: BaseResp base_resp
+}
+
 struct CreateNoteRequest {
     1: string title (api.form="title", api.vd="len($) > 0")
     2: string content (api.form="content", api.vd="len($) > 0")
@@ -79,11 +83,9 @@ struct DeleteNoteResponse {
     1: BaseResp base_resp
 }
 
-service UserService {
+service ApiService {
     CreateUserResponse CreateUser(1: CreateUserRequest req) (api.post="/v2/user/register")
-}
-
-service NoteService {
+    CheckUserResponse CheckUser(1: CheckUserRequest req) (api.post="/v2/user/login")
     CreateNoteResponse CreateNote(1: CreateNoteRequest req) (api.post="/v2/note")
     QueryNoteResponse QueryNote(1: QueryNoteRequest req) (api.get="/v2/note/query")
     UpdateNoteResponse UpdateNote(1: UpdateNoteRequest req) (api.put="/v2/note/:note_id")

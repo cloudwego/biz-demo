@@ -1,2 +1,2 @@
 server:
-	kitex -service demouser ../../idl/user.thrift
+	kitex --thrift-plugin validator -service demouser ../../idl/user.thrift

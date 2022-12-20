@@ -1390,6 +1390,151 @@ func (p *CheckUserRequest) String() string {
 	return fmt.Sprintf("CheckUserRequest(%+v)", *p)
 }
 
+type CheckUserResponse struct {
+	BaseResp *BaseResp `thrift:"base_resp,1" form:"base_resp" json:"base_resp" query:"base_resp"`
+}
+
+func NewCheckUserResponse() *CheckUserResponse {
+	return &CheckUserResponse{}
+}
+
+var CheckUserResponse_BaseResp_DEFAULT *BaseResp
+
+func (p *CheckUserResponse) GetBaseResp() (v *BaseResp) {
+	if !p.IsSetBaseResp() {
+		return CheckUserResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+
+var fieldIDToName_CheckUserResponse = map[int16]string{
+	1: "base_resp",
+}
+
+func (p *CheckUserResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *CheckUserResponse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CheckUserResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CheckUserResponse) ReadField1(iprot thrift.TProtocol) error {
+	p.BaseResp = NewBaseResp()
+	if err := p.BaseResp.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *CheckUserResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CheckUserResponse"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CheckUserResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("base_resp", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.BaseResp.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CheckUserResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CheckUserResponse(%+v)", *p)
+}
+
 type CreateNoteRequest struct {
 	Title   string `thrift:"title,1" form:"title" json:"title" vd:"len($) > 0"`
 	Content string `thrift:"content,2" form:"content" json:"content" vd:"len($) > 0"`
@@ -3076,47 +3221,11 @@ func (p *DeleteNoteResponse) String() string {
 	return fmt.Sprintf("DeleteNoteResponse(%+v)", *p)
 }
 
-type UserService interface {
+type ApiService interface {
 	CreateUser(ctx context.Context, req *CreateUserRequest) (r *CreateUserResponse, err error)
-}
 
-type UserServiceClient struct {
-	c thrift.TClient
-}
+	CheckUser(ctx context.Context, req *CheckUserRequest) (r *CheckUserResponse, err error)
 
-func NewUserServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *UserServiceClient {
-	return &UserServiceClient{
-		c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
-	}
-}
-
-func NewUserServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *UserServiceClient {
-	return &UserServiceClient{
-		c: thrift.NewTStandardClient(iprot, oprot),
-	}
-}
-
-func NewUserServiceClient(c thrift.TClient) *UserServiceClient {
-	return &UserServiceClient{
-		c: c,
-	}
-}
-
-func (p *UserServiceClient) Client_() thrift.TClient {
-	return p.c
-}
-
-func (p *UserServiceClient) CreateUser(ctx context.Context, req *CreateUserRequest) (r *CreateUserResponse, err error) {
-	var _args UserServiceCreateUserArgs
-	_args.Req = req
-	var _result UserServiceCreateUserResult
-	if err = p.Client_().Call(ctx, "CreateUser", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-type NoteService interface {
 	CreateNote(ctx context.Context, req *CreateNoteRequest) (r *CreateNoteResponse, err error)
 
 	QueryNote(ctx context.Context, req *QueryNoteRequest) (r *QueryNoteResponse, err error)
@@ -3126,93 +3235,116 @@ type NoteService interface {
 	DeleteNote(ctx context.Context, req *DeleteNoteRequest) (r *DeleteNoteResponse, err error)
 }
 
-type NoteServiceClient struct {
+type ApiServiceClient struct {
 	c thrift.TClient
 }
 
-func NewNoteServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *NoteServiceClient {
-	return &NoteServiceClient{
+func NewApiServiceClientFactory(t thrift.TTransport, f thrift.TProtocolFactory) *ApiServiceClient {
+	return &ApiServiceClient{
 		c: thrift.NewTStandardClient(f.GetProtocol(t), f.GetProtocol(t)),
 	}
 }
 
-func NewNoteServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *NoteServiceClient {
-	return &NoteServiceClient{
+func NewApiServiceClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot thrift.TProtocol) *ApiServiceClient {
+	return &ApiServiceClient{
 		c: thrift.NewTStandardClient(iprot, oprot),
 	}
 }
 
-func NewNoteServiceClient(c thrift.TClient) *NoteServiceClient {
-	return &NoteServiceClient{
+func NewApiServiceClient(c thrift.TClient) *ApiServiceClient {
+	return &ApiServiceClient{
 		c: c,
 	}
 }
 
-func (p *NoteServiceClient) Client_() thrift.TClient {
+func (p *ApiServiceClient) Client_() thrift.TClient {
 	return p.c
 }
 
-func (p *NoteServiceClient) CreateNote(ctx context.Context, req *CreateNoteRequest) (r *CreateNoteResponse, err error) {
-	var _args NoteServiceCreateNoteArgs
+func (p *ApiServiceClient) CreateUser(ctx context.Context, req *CreateUserRequest) (r *CreateUserResponse, err error) {
+	var _args ApiServiceCreateUserArgs
 	_args.Req = req
-	var _result NoteServiceCreateNoteResult
+	var _result ApiServiceCreateUserResult
+	if err = p.Client_().Call(ctx, "CreateUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ApiServiceClient) CheckUser(ctx context.Context, req *CheckUserRequest) (r *CheckUserResponse, err error) {
+	var _args ApiServiceCheckUserArgs
+	_args.Req = req
+	var _result ApiServiceCheckUserResult
+	if err = p.Client_().Call(ctx, "CheckUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *ApiServiceClient) CreateNote(ctx context.Context, req *CreateNoteRequest) (r *CreateNoteResponse, err error) {
+	var _args ApiServiceCreateNoteArgs
+	_args.Req = req
+	var _result ApiServiceCreateNoteResult
 	if err = p.Client_().Call(ctx, "CreateNote", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *NoteServiceClient) QueryNote(ctx context.Context, req *QueryNoteRequest) (r *QueryNoteResponse, err error) {
-	var _args NoteServiceQueryNoteArgs
+func (p *ApiServiceClient) QueryNote(ctx context.Context, req *QueryNoteRequest) (r *QueryNoteResponse, err error) {
+	var _args ApiServiceQueryNoteArgs
 	_args.Req = req
-	var _result NoteServiceQueryNoteResult
+	var _result ApiServiceQueryNoteResult
 	if err = p.Client_().Call(ctx, "QueryNote", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *NoteServiceClient) UpdateNote(ctx context.Context, req *UpdateNoteRequest) (r *UpdateNoteResponse, err error) {
-	var _args NoteServiceUpdateNoteArgs
+func (p *ApiServiceClient) UpdateNote(ctx context.Context, req *UpdateNoteRequest) (r *UpdateNoteResponse, err error) {
+	var _args ApiServiceUpdateNoteArgs
 	_args.Req = req
-	var _result NoteServiceUpdateNoteResult
+	var _result ApiServiceUpdateNoteResult
 	if err = p.Client_().Call(ctx, "UpdateNote", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *NoteServiceClient) DeleteNote(ctx context.Context, req *DeleteNoteRequest) (r *DeleteNoteResponse, err error) {
-	var _args NoteServiceDeleteNoteArgs
+func (p *ApiServiceClient) DeleteNote(ctx context.Context, req *DeleteNoteRequest) (r *DeleteNoteResponse, err error) {
+	var _args ApiServiceDeleteNoteArgs
 	_args.Req = req
-	var _result NoteServiceDeleteNoteResult
+	var _result ApiServiceDeleteNoteResult
 	if err = p.Client_().Call(ctx, "DeleteNote", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-type UserServiceProcessor struct {
+type ApiServiceProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
-	handler      UserService
+	handler      ApiService
 }
 
-func (p *UserServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
+func (p *ApiServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
 	p.processorMap[key] = processor
 }
 
-func (p *UserServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
+func (p *ApiServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
 	processor, ok = p.processorMap[key]
 	return processor, ok
 }
 
-func (p *UserServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
+func (p *ApiServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
 	return p.processorMap
 }
 
-func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
-	self := &UserServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("CreateUser", &userServiceProcessorCreateUser{handler: handler})
+func NewApiServiceProcessor(handler ApiService) *ApiServiceProcessor {
+	self := &ApiServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
+	self.AddToProcessorMap("CreateUser", &apiServiceProcessorCreateUser{handler: handler})
+	self.AddToProcessorMap("CheckUser", &apiServiceProcessorCheckUser{handler: handler})
+	self.AddToProcessorMap("CreateNote", &apiServiceProcessorCreateNote{handler: handler})
+	self.AddToProcessorMap("QueryNote", &apiServiceProcessorQueryNote{handler: handler})
+	self.AddToProcessorMap("UpdateNote", &apiServiceProcessorUpdateNote{handler: handler})
+	self.AddToProcessorMap("DeleteNote", &apiServiceProcessorDeleteNote{handler: handler})
 	return self
 }
-func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+func (p *ApiServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
 		return false, err
@@ -3230,12 +3362,12 @@ func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.
 	return false, x
 }
 
-type userServiceProcessorCreateUser struct {
-	handler UserService
+type apiServiceProcessorCreateUser struct {
+	handler ApiService
 }
 
-func (p *userServiceProcessorCreateUser) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := UserServiceCreateUserArgs{}
+func (p *apiServiceProcessorCreateUser) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceCreateUserArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -3248,7 +3380,7 @@ func (p *userServiceProcessorCreateUser) Process(ctx context.Context, seqId int3
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := UserServiceCreateUserResult{}
+	result := ApiServiceCreateUserResult{}
 	var retval *CreateUserResponse
 	if retval, err2 = p.handler.CreateUser(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing CreateUser: "+err2.Error())
@@ -3278,348 +3410,60 @@ func (p *userServiceProcessorCreateUser) Process(ctx context.Context, seqId int3
 	return true, err
 }
 
-type UserServiceCreateUserArgs struct {
-	Req *CreateUserRequest `thrift:"req,1"`
+type apiServiceProcessorCheckUser struct {
+	handler ApiService
 }
 
-func NewUserServiceCreateUserArgs() *UserServiceCreateUserArgs {
-	return &UserServiceCreateUserArgs{}
-}
-
-var UserServiceCreateUserArgs_Req_DEFAULT *CreateUserRequest
-
-func (p *UserServiceCreateUserArgs) GetReq() (v *CreateUserRequest) {
-	if !p.IsSetReq() {
-		return UserServiceCreateUserArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-
-var fieldIDToName_UserServiceCreateUserArgs = map[int16]string{
-	1: "req",
-}
-
-func (p *UserServiceCreateUserArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *UserServiceCreateUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceCreateUserArgs[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *UserServiceCreateUserArgs) ReadField1(iprot thrift.TProtocol) error {
-	p.Req = NewCreateUserRequest()
-	if err := p.Req.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *UserServiceCreateUserArgs) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("CreateUser_args"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *UserServiceCreateUserArgs) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Req.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *UserServiceCreateUserArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("UserServiceCreateUserArgs(%+v)", *p)
-}
-
-type UserServiceCreateUserResult struct {
-	Success *CreateUserResponse `thrift:"success,0,optional"`
-}
-
-func NewUserServiceCreateUserResult() *UserServiceCreateUserResult {
-	return &UserServiceCreateUserResult{}
-}
-
-var UserServiceCreateUserResult_Success_DEFAULT *CreateUserResponse
-
-func (p *UserServiceCreateUserResult) GetSuccess() (v *CreateUserResponse) {
-	if !p.IsSetSuccess() {
-		return UserServiceCreateUserResult_Success_DEFAULT
-	}
-	return p.Success
-}
-
-var fieldIDToName_UserServiceCreateUserResult = map[int16]string{
-	0: "success",
-}
-
-func (p *UserServiceCreateUserResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *UserServiceCreateUserResult) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 0:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField0(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				if err = iprot.Skip(fieldTypeId); err != nil {
-					goto SkipFieldError
-				}
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UserServiceCreateUserResult[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-}
-
-func (p *UserServiceCreateUserResult) ReadField0(iprot thrift.TProtocol) error {
-	p.Success = NewCreateUserResponse()
-	if err := p.Success.Read(iprot); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (p *UserServiceCreateUserResult) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("CreateUser_result"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
-			goto WriteFieldError
-		}
-
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *UserServiceCreateUserResult) writeField0(oprot thrift.TProtocol) (err error) {
-	if p.IsSetSuccess() {
-		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
-			goto WriteFieldBeginError
-		}
-		if err := p.Success.Write(oprot); err != nil {
-			return err
-		}
-		if err = oprot.WriteFieldEnd(); err != nil {
-			goto WriteFieldEndError
-		}
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
-}
-
-func (p *UserServiceCreateUserResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("UserServiceCreateUserResult(%+v)", *p)
-}
-
-type NoteServiceProcessor struct {
-	processorMap map[string]thrift.TProcessorFunction
-	handler      NoteService
-}
-
-func (p *NoteServiceProcessor) AddToProcessorMap(key string, processor thrift.TProcessorFunction) {
-	p.processorMap[key] = processor
-}
-
-func (p *NoteServiceProcessor) GetProcessorFunction(key string) (processor thrift.TProcessorFunction, ok bool) {
-	processor, ok = p.processorMap[key]
-	return processor, ok
-}
-
-func (p *NoteServiceProcessor) ProcessorMap() map[string]thrift.TProcessorFunction {
-	return p.processorMap
-}
-
-func NewNoteServiceProcessor(handler NoteService) *NoteServiceProcessor {
-	self := &NoteServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self.AddToProcessorMap("CreateNote", &noteServiceProcessorCreateNote{handler: handler})
-	self.AddToProcessorMap("QueryNote", &noteServiceProcessorQueryNote{handler: handler})
-	self.AddToProcessorMap("UpdateNote", &noteServiceProcessorUpdateNote{handler: handler})
-	self.AddToProcessorMap("DeleteNote", &noteServiceProcessorDeleteNote{handler: handler})
-	return self
-}
-func (p *NoteServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	name, _, seqId, err := iprot.ReadMessageBegin()
-	if err != nil {
+func (p *apiServiceProcessorCheckUser) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceCheckUserArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("CheckUser", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
 		return false, err
 	}
-	if processor, ok := p.GetProcessorFunction(name); ok {
-		return processor.Process(ctx, seqId, iprot, oprot)
-	}
-	iprot.Skip(thrift.STRUCT)
+
 	iprot.ReadMessageEnd()
-	x := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function "+name)
-	oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
-	x.Write(oprot)
-	oprot.WriteMessageEnd()
-	oprot.Flush(ctx)
-	return false, x
+	var err2 error
+	result := ApiServiceCheckUserResult{}
+	var retval *CheckUserResponse
+	if retval, err2 = p.handler.CheckUser(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing CheckUser: "+err2.Error())
+		oprot.WriteMessageBegin("CheckUser", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("CheckUser", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
 }
 
-type noteServiceProcessorCreateNote struct {
-	handler NoteService
+type apiServiceProcessorCreateNote struct {
+	handler ApiService
 }
 
-func (p *noteServiceProcessorCreateNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := NoteServiceCreateNoteArgs{}
+func (p *apiServiceProcessorCreateNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceCreateNoteArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -3632,7 +3476,7 @@ func (p *noteServiceProcessorCreateNote) Process(ctx context.Context, seqId int3
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := NoteServiceCreateNoteResult{}
+	result := ApiServiceCreateNoteResult{}
 	var retval *CreateNoteResponse
 	if retval, err2 = p.handler.CreateNote(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing CreateNote: "+err2.Error())
@@ -3662,12 +3506,12 @@ func (p *noteServiceProcessorCreateNote) Process(ctx context.Context, seqId int3
 	return true, err
 }
 
-type noteServiceProcessorQueryNote struct {
-	handler NoteService
+type apiServiceProcessorQueryNote struct {
+	handler ApiService
 }
 
-func (p *noteServiceProcessorQueryNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := NoteServiceQueryNoteArgs{}
+func (p *apiServiceProcessorQueryNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceQueryNoteArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -3680,7 +3524,7 @@ func (p *noteServiceProcessorQueryNote) Process(ctx context.Context, seqId int32
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := NoteServiceQueryNoteResult{}
+	result := ApiServiceQueryNoteResult{}
 	var retval *QueryNoteResponse
 	if retval, err2 = p.handler.QueryNote(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing QueryNote: "+err2.Error())
@@ -3710,12 +3554,12 @@ func (p *noteServiceProcessorQueryNote) Process(ctx context.Context, seqId int32
 	return true, err
 }
 
-type noteServiceProcessorUpdateNote struct {
-	handler NoteService
+type apiServiceProcessorUpdateNote struct {
+	handler ApiService
 }
 
-func (p *noteServiceProcessorUpdateNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := NoteServiceUpdateNoteArgs{}
+func (p *apiServiceProcessorUpdateNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceUpdateNoteArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -3728,7 +3572,7 @@ func (p *noteServiceProcessorUpdateNote) Process(ctx context.Context, seqId int3
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := NoteServiceUpdateNoteResult{}
+	result := ApiServiceUpdateNoteResult{}
 	var retval *UpdateNoteResponse
 	if retval, err2 = p.handler.UpdateNote(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UpdateNote: "+err2.Error())
@@ -3758,12 +3602,12 @@ func (p *noteServiceProcessorUpdateNote) Process(ctx context.Context, seqId int3
 	return true, err
 }
 
-type noteServiceProcessorDeleteNote struct {
-	handler NoteService
+type apiServiceProcessorDeleteNote struct {
+	handler ApiService
 }
 
-func (p *noteServiceProcessorDeleteNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
-	args := NoteServiceDeleteNoteArgs{}
+func (p *apiServiceProcessorDeleteNote) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := ApiServiceDeleteNoteArgs{}
 	if err = args.Read(iprot); err != nil {
 		iprot.ReadMessageEnd()
 		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
@@ -3776,7 +3620,7 @@ func (p *noteServiceProcessorDeleteNote) Process(ctx context.Context, seqId int3
 
 	iprot.ReadMessageEnd()
 	var err2 error
-	result := NoteServiceDeleteNoteResult{}
+	result := ApiServiceDeleteNoteResult{}
 	var retval *DeleteNoteResponse
 	if retval, err2 = p.handler.DeleteNote(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing DeleteNote: "+err2.Error())
@@ -3806,32 +3650,32 @@ func (p *noteServiceProcessorDeleteNote) Process(ctx context.Context, seqId int3
 	return true, err
 }
 
-type NoteServiceCreateNoteArgs struct {
-	Req *CreateNoteRequest `thrift:"req,1"`
+type ApiServiceCreateUserArgs struct {
+	Req *CreateUserRequest `thrift:"req,1"`
 }
 
-func NewNoteServiceCreateNoteArgs() *NoteServiceCreateNoteArgs {
-	return &NoteServiceCreateNoteArgs{}
+func NewApiServiceCreateUserArgs() *ApiServiceCreateUserArgs {
+	return &ApiServiceCreateUserArgs{}
 }
 
-var NoteServiceCreateNoteArgs_Req_DEFAULT *CreateNoteRequest
+var ApiServiceCreateUserArgs_Req_DEFAULT *CreateUserRequest
 
-func (p *NoteServiceCreateNoteArgs) GetReq() (v *CreateNoteRequest) {
+func (p *ApiServiceCreateUserArgs) GetReq() (v *CreateUserRequest) {
 	if !p.IsSetReq() {
-		return NoteServiceCreateNoteArgs_Req_DEFAULT
+		return ApiServiceCreateUserArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-var fieldIDToName_NoteServiceCreateNoteArgs = map[int16]string{
+var fieldIDToName_ApiServiceCreateUserArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *NoteServiceCreateNoteArgs) IsSetReq() bool {
+func (p *ApiServiceCreateUserArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *NoteServiceCreateNoteArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceCreateUserArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -3880,7 +3724,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceCreateNoteArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceCreateUserArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -3890,7 +3734,591 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceCreateNoteArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ApiServiceCreateUserArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewCreateUserRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ApiServiceCreateUserArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CreateUser_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ApiServiceCreateUserArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ApiServiceCreateUserArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ApiServiceCreateUserArgs(%+v)", *p)
+}
+
+type ApiServiceCreateUserResult struct {
+	Success *CreateUserResponse `thrift:"success,0,optional"`
+}
+
+func NewApiServiceCreateUserResult() *ApiServiceCreateUserResult {
+	return &ApiServiceCreateUserResult{}
+}
+
+var ApiServiceCreateUserResult_Success_DEFAULT *CreateUserResponse
+
+func (p *ApiServiceCreateUserResult) GetSuccess() (v *CreateUserResponse) {
+	if !p.IsSetSuccess() {
+		return ApiServiceCreateUserResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ApiServiceCreateUserResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ApiServiceCreateUserResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ApiServiceCreateUserResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceCreateUserResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ApiServiceCreateUserResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewCreateUserResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ApiServiceCreateUserResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CreateUser_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ApiServiceCreateUserResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ApiServiceCreateUserResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ApiServiceCreateUserResult(%+v)", *p)
+}
+
+type ApiServiceCheckUserArgs struct {
+	Req *CheckUserRequest `thrift:"req,1"`
+}
+
+func NewApiServiceCheckUserArgs() *ApiServiceCheckUserArgs {
+	return &ApiServiceCheckUserArgs{}
+}
+
+var ApiServiceCheckUserArgs_Req_DEFAULT *CheckUserRequest
+
+func (p *ApiServiceCheckUserArgs) GetReq() (v *CheckUserRequest) {
+	if !p.IsSetReq() {
+		return ApiServiceCheckUserArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+var fieldIDToName_ApiServiceCheckUserArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ApiServiceCheckUserArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ApiServiceCheckUserArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceCheckUserArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ApiServiceCheckUserArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewCheckUserRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ApiServiceCheckUserArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CheckUser_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ApiServiceCheckUserArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ApiServiceCheckUserArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ApiServiceCheckUserArgs(%+v)", *p)
+}
+
+type ApiServiceCheckUserResult struct {
+	Success *CheckUserResponse `thrift:"success,0,optional"`
+}
+
+func NewApiServiceCheckUserResult() *ApiServiceCheckUserResult {
+	return &ApiServiceCheckUserResult{}
+}
+
+var ApiServiceCheckUserResult_Success_DEFAULT *CheckUserResponse
+
+func (p *ApiServiceCheckUserResult) GetSuccess() (v *CheckUserResponse) {
+	if !p.IsSetSuccess() {
+		return ApiServiceCheckUserResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var fieldIDToName_ApiServiceCheckUserResult = map[int16]string{
+	0: "success",
+}
+
+func (p *ApiServiceCheckUserResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *ApiServiceCheckUserResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceCheckUserResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ApiServiceCheckUserResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewCheckUserResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ApiServiceCheckUserResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CheckUser_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ApiServiceCheckUserResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *ApiServiceCheckUserResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ApiServiceCheckUserResult(%+v)", *p)
+}
+
+type ApiServiceCreateNoteArgs struct {
+	Req *CreateNoteRequest `thrift:"req,1"`
+}
+
+func NewApiServiceCreateNoteArgs() *ApiServiceCreateNoteArgs {
+	return &ApiServiceCreateNoteArgs{}
+}
+
+var ApiServiceCreateNoteArgs_Req_DEFAULT *CreateNoteRequest
+
+func (p *ApiServiceCreateNoteArgs) GetReq() (v *CreateNoteRequest) {
+	if !p.IsSetReq() {
+		return ApiServiceCreateNoteArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+var fieldIDToName_ApiServiceCreateNoteArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *ApiServiceCreateNoteArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *ApiServiceCreateNoteArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceCreateNoteArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ApiServiceCreateNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewCreateNoteRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -3898,7 +4326,7 @@ func (p *NoteServiceCreateNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceCreateNoteArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceCreateNoteArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("CreateNote_args"); err != nil {
 		goto WriteStructBeginError
@@ -3927,7 +4355,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceCreateNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceCreateNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -3944,39 +4372,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *NoteServiceCreateNoteArgs) String() string {
+func (p *ApiServiceCreateNoteArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceCreateNoteArgs(%+v)", *p)
+	return fmt.Sprintf("ApiServiceCreateNoteArgs(%+v)", *p)
 }
 
-type NoteServiceCreateNoteResult struct {
+type ApiServiceCreateNoteResult struct {
 	Success *CreateNoteResponse `thrift:"success,0,optional"`
 }
 
-func NewNoteServiceCreateNoteResult() *NoteServiceCreateNoteResult {
-	return &NoteServiceCreateNoteResult{}
+func NewApiServiceCreateNoteResult() *ApiServiceCreateNoteResult {
+	return &ApiServiceCreateNoteResult{}
 }
 
-var NoteServiceCreateNoteResult_Success_DEFAULT *CreateNoteResponse
+var ApiServiceCreateNoteResult_Success_DEFAULT *CreateNoteResponse
 
-func (p *NoteServiceCreateNoteResult) GetSuccess() (v *CreateNoteResponse) {
+func (p *ApiServiceCreateNoteResult) GetSuccess() (v *CreateNoteResponse) {
 	if !p.IsSetSuccess() {
-		return NoteServiceCreateNoteResult_Success_DEFAULT
+		return ApiServiceCreateNoteResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-var fieldIDToName_NoteServiceCreateNoteResult = map[int16]string{
+var fieldIDToName_ApiServiceCreateNoteResult = map[int16]string{
 	0: "success",
 }
 
-func (p *NoteServiceCreateNoteResult) IsSetSuccess() bool {
+func (p *ApiServiceCreateNoteResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *NoteServiceCreateNoteResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceCreateNoteResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4025,7 +4453,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceCreateNoteResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceCreateNoteResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4035,7 +4463,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceCreateNoteResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ApiServiceCreateNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewCreateNoteResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -4043,7 +4471,7 @@ func (p *NoteServiceCreateNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceCreateNoteResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceCreateNoteResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("CreateNote_result"); err != nil {
 		goto WriteStructBeginError
@@ -4072,7 +4500,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceCreateNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceCreateNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -4091,39 +4519,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *NoteServiceCreateNoteResult) String() string {
+func (p *ApiServiceCreateNoteResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceCreateNoteResult(%+v)", *p)
+	return fmt.Sprintf("ApiServiceCreateNoteResult(%+v)", *p)
 }
 
-type NoteServiceQueryNoteArgs struct {
+type ApiServiceQueryNoteArgs struct {
 	Req *QueryNoteRequest `thrift:"req,1"`
 }
 
-func NewNoteServiceQueryNoteArgs() *NoteServiceQueryNoteArgs {
-	return &NoteServiceQueryNoteArgs{}
+func NewApiServiceQueryNoteArgs() *ApiServiceQueryNoteArgs {
+	return &ApiServiceQueryNoteArgs{}
 }
 
-var NoteServiceQueryNoteArgs_Req_DEFAULT *QueryNoteRequest
+var ApiServiceQueryNoteArgs_Req_DEFAULT *QueryNoteRequest
 
-func (p *NoteServiceQueryNoteArgs) GetReq() (v *QueryNoteRequest) {
+func (p *ApiServiceQueryNoteArgs) GetReq() (v *QueryNoteRequest) {
 	if !p.IsSetReq() {
-		return NoteServiceQueryNoteArgs_Req_DEFAULT
+		return ApiServiceQueryNoteArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-var fieldIDToName_NoteServiceQueryNoteArgs = map[int16]string{
+var fieldIDToName_ApiServiceQueryNoteArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *NoteServiceQueryNoteArgs) IsSetReq() bool {
+func (p *ApiServiceQueryNoteArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *NoteServiceQueryNoteArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceQueryNoteArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4172,7 +4600,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceQueryNoteArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceQueryNoteArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4182,7 +4610,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceQueryNoteArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ApiServiceQueryNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewQueryNoteRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -4190,7 +4618,7 @@ func (p *NoteServiceQueryNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceQueryNoteArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceQueryNoteArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("QueryNote_args"); err != nil {
 		goto WriteStructBeginError
@@ -4219,7 +4647,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceQueryNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceQueryNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4236,39 +4664,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *NoteServiceQueryNoteArgs) String() string {
+func (p *ApiServiceQueryNoteArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceQueryNoteArgs(%+v)", *p)
+	return fmt.Sprintf("ApiServiceQueryNoteArgs(%+v)", *p)
 }
 
-type NoteServiceQueryNoteResult struct {
+type ApiServiceQueryNoteResult struct {
 	Success *QueryNoteResponse `thrift:"success,0,optional"`
 }
 
-func NewNoteServiceQueryNoteResult() *NoteServiceQueryNoteResult {
-	return &NoteServiceQueryNoteResult{}
+func NewApiServiceQueryNoteResult() *ApiServiceQueryNoteResult {
+	return &ApiServiceQueryNoteResult{}
 }
 
-var NoteServiceQueryNoteResult_Success_DEFAULT *QueryNoteResponse
+var ApiServiceQueryNoteResult_Success_DEFAULT *QueryNoteResponse
 
-func (p *NoteServiceQueryNoteResult) GetSuccess() (v *QueryNoteResponse) {
+func (p *ApiServiceQueryNoteResult) GetSuccess() (v *QueryNoteResponse) {
 	if !p.IsSetSuccess() {
-		return NoteServiceQueryNoteResult_Success_DEFAULT
+		return ApiServiceQueryNoteResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-var fieldIDToName_NoteServiceQueryNoteResult = map[int16]string{
+var fieldIDToName_ApiServiceQueryNoteResult = map[int16]string{
 	0: "success",
 }
 
-func (p *NoteServiceQueryNoteResult) IsSetSuccess() bool {
+func (p *ApiServiceQueryNoteResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *NoteServiceQueryNoteResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceQueryNoteResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4317,7 +4745,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceQueryNoteResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceQueryNoteResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4327,7 +4755,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceQueryNoteResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ApiServiceQueryNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewQueryNoteResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -4335,7 +4763,7 @@ func (p *NoteServiceQueryNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceQueryNoteResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceQueryNoteResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("QueryNote_result"); err != nil {
 		goto WriteStructBeginError
@@ -4364,7 +4792,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceQueryNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceQueryNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -4383,39 +4811,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *NoteServiceQueryNoteResult) String() string {
+func (p *ApiServiceQueryNoteResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceQueryNoteResult(%+v)", *p)
+	return fmt.Sprintf("ApiServiceQueryNoteResult(%+v)", *p)
 }
 
-type NoteServiceUpdateNoteArgs struct {
+type ApiServiceUpdateNoteArgs struct {
 	Req *UpdateNoteRequest `thrift:"req,1"`
 }
 
-func NewNoteServiceUpdateNoteArgs() *NoteServiceUpdateNoteArgs {
-	return &NoteServiceUpdateNoteArgs{}
+func NewApiServiceUpdateNoteArgs() *ApiServiceUpdateNoteArgs {
+	return &ApiServiceUpdateNoteArgs{}
 }
 
-var NoteServiceUpdateNoteArgs_Req_DEFAULT *UpdateNoteRequest
+var ApiServiceUpdateNoteArgs_Req_DEFAULT *UpdateNoteRequest
 
-func (p *NoteServiceUpdateNoteArgs) GetReq() (v *UpdateNoteRequest) {
+func (p *ApiServiceUpdateNoteArgs) GetReq() (v *UpdateNoteRequest) {
 	if !p.IsSetReq() {
-		return NoteServiceUpdateNoteArgs_Req_DEFAULT
+		return ApiServiceUpdateNoteArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-var fieldIDToName_NoteServiceUpdateNoteArgs = map[int16]string{
+var fieldIDToName_ApiServiceUpdateNoteArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *NoteServiceUpdateNoteArgs) IsSetReq() bool {
+func (p *ApiServiceUpdateNoteArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *NoteServiceUpdateNoteArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceUpdateNoteArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4464,7 +4892,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceUpdateNoteArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceUpdateNoteArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4474,7 +4902,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceUpdateNoteArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ApiServiceUpdateNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewUpdateNoteRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -4482,7 +4910,7 @@ func (p *NoteServiceUpdateNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceUpdateNoteArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceUpdateNoteArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("UpdateNote_args"); err != nil {
 		goto WriteStructBeginError
@@ -4511,7 +4939,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceUpdateNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceUpdateNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4528,39 +4956,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *NoteServiceUpdateNoteArgs) String() string {
+func (p *ApiServiceUpdateNoteArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceUpdateNoteArgs(%+v)", *p)
+	return fmt.Sprintf("ApiServiceUpdateNoteArgs(%+v)", *p)
 }
 
-type NoteServiceUpdateNoteResult struct {
+type ApiServiceUpdateNoteResult struct {
 	Success *UpdateNoteResponse `thrift:"success,0,optional"`
 }
 
-func NewNoteServiceUpdateNoteResult() *NoteServiceUpdateNoteResult {
-	return &NoteServiceUpdateNoteResult{}
+func NewApiServiceUpdateNoteResult() *ApiServiceUpdateNoteResult {
+	return &ApiServiceUpdateNoteResult{}
 }
 
-var NoteServiceUpdateNoteResult_Success_DEFAULT *UpdateNoteResponse
+var ApiServiceUpdateNoteResult_Success_DEFAULT *UpdateNoteResponse
 
-func (p *NoteServiceUpdateNoteResult) GetSuccess() (v *UpdateNoteResponse) {
+func (p *ApiServiceUpdateNoteResult) GetSuccess() (v *UpdateNoteResponse) {
 	if !p.IsSetSuccess() {
-		return NoteServiceUpdateNoteResult_Success_DEFAULT
+		return ApiServiceUpdateNoteResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-var fieldIDToName_NoteServiceUpdateNoteResult = map[int16]string{
+var fieldIDToName_ApiServiceUpdateNoteResult = map[int16]string{
 	0: "success",
 }
 
-func (p *NoteServiceUpdateNoteResult) IsSetSuccess() bool {
+func (p *ApiServiceUpdateNoteResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *NoteServiceUpdateNoteResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceUpdateNoteResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4609,7 +5037,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceUpdateNoteResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceUpdateNoteResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4619,7 +5047,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceUpdateNoteResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ApiServiceUpdateNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewUpdateNoteResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -4627,7 +5055,7 @@ func (p *NoteServiceUpdateNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceUpdateNoteResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceUpdateNoteResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("UpdateNote_result"); err != nil {
 		goto WriteStructBeginError
@@ -4656,7 +5084,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceUpdateNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceUpdateNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -4675,39 +5103,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *NoteServiceUpdateNoteResult) String() string {
+func (p *ApiServiceUpdateNoteResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceUpdateNoteResult(%+v)", *p)
+	return fmt.Sprintf("ApiServiceUpdateNoteResult(%+v)", *p)
 }
 
-type NoteServiceDeleteNoteArgs struct {
+type ApiServiceDeleteNoteArgs struct {
 	Req *DeleteNoteRequest `thrift:"req,1"`
 }
 
-func NewNoteServiceDeleteNoteArgs() *NoteServiceDeleteNoteArgs {
-	return &NoteServiceDeleteNoteArgs{}
+func NewApiServiceDeleteNoteArgs() *ApiServiceDeleteNoteArgs {
+	return &ApiServiceDeleteNoteArgs{}
 }
 
-var NoteServiceDeleteNoteArgs_Req_DEFAULT *DeleteNoteRequest
+var ApiServiceDeleteNoteArgs_Req_DEFAULT *DeleteNoteRequest
 
-func (p *NoteServiceDeleteNoteArgs) GetReq() (v *DeleteNoteRequest) {
+func (p *ApiServiceDeleteNoteArgs) GetReq() (v *DeleteNoteRequest) {
 	if !p.IsSetReq() {
-		return NoteServiceDeleteNoteArgs_Req_DEFAULT
+		return ApiServiceDeleteNoteArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-var fieldIDToName_NoteServiceDeleteNoteArgs = map[int16]string{
+var fieldIDToName_ApiServiceDeleteNoteArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *NoteServiceDeleteNoteArgs) IsSetReq() bool {
+func (p *ApiServiceDeleteNoteArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *NoteServiceDeleteNoteArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceDeleteNoteArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4756,7 +5184,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceDeleteNoteArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceDeleteNoteArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4766,7 +5194,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceDeleteNoteArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *ApiServiceDeleteNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	p.Req = NewDeleteNoteRequest()
 	if err := p.Req.Read(iprot); err != nil {
 		return err
@@ -4774,7 +5202,7 @@ func (p *NoteServiceDeleteNoteArgs) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceDeleteNoteArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceDeleteNoteArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteNote_args"); err != nil {
 		goto WriteStructBeginError
@@ -4803,7 +5231,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceDeleteNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceDeleteNoteArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -4820,39 +5248,39 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *NoteServiceDeleteNoteArgs) String() string {
+func (p *ApiServiceDeleteNoteArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceDeleteNoteArgs(%+v)", *p)
+	return fmt.Sprintf("ApiServiceDeleteNoteArgs(%+v)", *p)
 }
 
-type NoteServiceDeleteNoteResult struct {
+type ApiServiceDeleteNoteResult struct {
 	Success *DeleteNoteResponse `thrift:"success,0,optional"`
 }
 
-func NewNoteServiceDeleteNoteResult() *NoteServiceDeleteNoteResult {
-	return &NoteServiceDeleteNoteResult{}
+func NewApiServiceDeleteNoteResult() *ApiServiceDeleteNoteResult {
+	return &ApiServiceDeleteNoteResult{}
 }
 
-var NoteServiceDeleteNoteResult_Success_DEFAULT *DeleteNoteResponse
+var ApiServiceDeleteNoteResult_Success_DEFAULT *DeleteNoteResponse
 
-func (p *NoteServiceDeleteNoteResult) GetSuccess() (v *DeleteNoteResponse) {
+func (p *ApiServiceDeleteNoteResult) GetSuccess() (v *DeleteNoteResponse) {
 	if !p.IsSetSuccess() {
-		return NoteServiceDeleteNoteResult_Success_DEFAULT
+		return ApiServiceDeleteNoteResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-var fieldIDToName_NoteServiceDeleteNoteResult = map[int16]string{
+var fieldIDToName_ApiServiceDeleteNoteResult = map[int16]string{
 	0: "success",
 }
 
-func (p *NoteServiceDeleteNoteResult) IsSetSuccess() bool {
+func (p *ApiServiceDeleteNoteResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *NoteServiceDeleteNoteResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *ApiServiceDeleteNoteResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -4901,7 +5329,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NoteServiceDeleteNoteResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ApiServiceDeleteNoteResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -4911,7 +5339,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *NoteServiceDeleteNoteResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *ApiServiceDeleteNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	p.Success = NewDeleteNoteResponse()
 	if err := p.Success.Read(iprot); err != nil {
 		return err
@@ -4919,7 +5347,7 @@ func (p *NoteServiceDeleteNoteResult) ReadField0(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *NoteServiceDeleteNoteResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceDeleteNoteResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
 	if err = oprot.WriteStructBegin("DeleteNote_result"); err != nil {
 		goto WriteStructBeginError
@@ -4948,7 +5376,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *NoteServiceDeleteNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *ApiServiceDeleteNoteResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -4967,9 +5395,9 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *NoteServiceDeleteNoteResult) String() string {
+func (p *ApiServiceDeleteNoteResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("NoteServiceDeleteNoteResult(%+v)", *p)
+	return fmt.Sprintf("ApiServiceDeleteNoteResult(%+v)", *p)
 }

@@ -1,2 +1,2 @@
 server:
-	kitex -service demonote ../../idl/note.thrift
+	kitex --thrift-plugin validator -service demonote ../../idl/note.thrift

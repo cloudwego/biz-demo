@@ -14,8 +14,8 @@ header:
     - open-payment-platform/cmd/**/wire_gen.go
     - open-payment-platform/internal/**/infrastructure/ent/**
     - easy_note/kitex_gen/**
-    - easy_note/cmd/api/model/**
-    - easy_note/cmd/api/router/**
+    - easy_note/cmd/api/biz/model/**
+    - easy_note/cmd/api/biz/router/**
     - easy_note/cmd/api/router_gen.go
 
   comment: on-failure

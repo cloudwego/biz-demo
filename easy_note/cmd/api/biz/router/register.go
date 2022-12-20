@@ -3,7 +3,7 @@
 package router
 
 import (
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/router/demoapi"
+	demoapi "github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/router/demoapi"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

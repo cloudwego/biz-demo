@@ -21,8 +21,8 @@ struct User {
 }
 
 struct CreateUserRequest {
-    1: string username
-    2: string password
+    1: string username (vt.min_size = "1")
+    2: string password (vt.min_size = "1")
 }
 
 struct CreateUserResponse {
@@ -30,7 +30,7 @@ struct CreateUserResponse {
 }
 
 struct MGetUserRequest {
-    1: list<i64> user_ids
+    1: list<i64> user_ids (vt.min_size = "1")
 }
 
 struct MGetUserResponse {
@@ -39,8 +39,8 @@ struct MGetUserResponse {
 }
 
 struct CheckUserRequest {
-    1: string username
-    2: string password
+    1: string username (vt.min_size = "1")
+    2: string password (vt.min_size = "1")
 }
 
 struct CheckUserResponse {

@@ -110,10 +110,6 @@ cd cmd/api
 go run .
 ```
 
-### NACOS
-
-visit `http://127.0.0.1:8848/nacos` on browser, default username and password is `nacos`
-
 #### Snapshots
 
 ### Jaeger
