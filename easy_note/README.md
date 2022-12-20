@@ -226,7 +226,7 @@ curl --location --request GET '127.0.0.1:8080/v1/note/query?offset=0&limit=20&se
 #### response
 
 ```javascript
-// successul
+// successful
 {
     "code": 0,
     "message": "Success",
