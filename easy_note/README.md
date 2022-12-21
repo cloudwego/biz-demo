@@ -1,12 +1,12 @@
-# Easy Note (dev-version)
+# Easy Note
 
 ## Introduction
 
-Add a demo for `kitex` and `hertz` which implements a simple note service, the demo is divided into three main sections.
+Add a demo for `Kitex` and `Hertz` which implements a simple note service, the demo is divided into three main sections.
 
 | Service Name | Usage                | Framework   | protocol | Path     | IDL             |
 |--------------|----------------------|-------------|----------|----------|-----------------|
-| demoapi      | http interface       | kitex/hertz | http     | cmd/api  |                 |
+| demoapi      | HTTP interface       | kitex/hertz | http     | cmd/api  | idl/api.thrift  |
 | demouser     | user data management | kitex/gorm  | thrift   | cmd/user | idl/user.thrift |
 | demonote     | note data management | kitex/gorm  | thrift   | cmd/note | idl/note.thrift |
 
@@ -53,17 +53,15 @@ req    resp                            │                                   res
   - Use `thrift` IDL to define `HTTP` interface
   - Use `hz` to generate code
   - Use `Hertz` binding and validate
+  - Use `obs-opentelemetry` and `jarger` for `tracing`, `metrics`, `logging`
   - Middleware
-    - Use `requestid`, `jwt`, `obs-opentelemetry`, `recovery`
+    - Use `requestid`, `jwt`, `recovery`, `pprof`, `gzip`
 - Kitex
   - Use `thrift` IDL to define `RPC` interface
   - Use `kitex` to generate code
-  - Middleware
-    - Rate Limiting, Request Retry, Timeout Control, Connection Multiplexing
-  - Tracing
-    - use `obs-opentelemetry` and `jaeger` to tracing
-  - Service Discovery and Register
-    - Use [registry-etcd](https://github.com/kitex-contrib/registry-etcd) to discovery and register service
+  - Use `thrift-gen-validator` for validating rpc request
+  - Use `obs-opentelemetry` and `jarger` for `tracing`, `metrics`, `logging`
+  - Use `registry-etcd` for service discovery and register
 
 ### Catalog Introduce
 
@@ -109,8 +107,6 @@ sh output/bootstrap.sh
 cd cmd/api
 go run .
 ```
-
-#### Snapshots
 
 ### Jaeger
 
