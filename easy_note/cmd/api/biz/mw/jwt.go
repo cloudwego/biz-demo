@@ -83,11 +83,11 @@ func InitJWT() {
 			})
 		},
 		HTTPStatusMessageFunc: func(e error, ctx context.Context, c *app.RequestContext) string {
-			switch e.(type) {
+			switch t := e.(type) {
 			case errno.ErrNo:
-				return e.(errno.ErrNo).ErrMsg
+				return t.ErrMsg
 			default:
-				return e.Error()
+				return t.Error()
 			}
 		},
 	})
