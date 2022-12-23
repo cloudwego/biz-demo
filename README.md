@@ -84,3 +84,52 @@ The Bookinfo application is broken into four separate microservices:
 #### Contributors & Maintainers
 [@baiyutang](https://github.com/baiyutang)
 
+
+### 3. Easy Note
+
+#### Description
+##### What is it about and what problem does it solve?
+- How to get started with Hertz and Kitex collaboration?
+- How to structure projects when using Hertz and Kitex?
+
+##### What is the business scenario?
+Migrate **[easy_note](https://github.com/cloudwego/kitex-examples/tree/main/bizdemo/easy_note)** and optimize the project.
+
+> The application shows a note service that allows users to create, delete, update, and query notes.
+
+The easy_note application is divided into three microservices:
+
+- **demoapi** is an HTTP service that handles HTTP requests and calls other services via RPC.
+- **demouser** is an RPC service that handles user related operations.
+- **demonote** is an RPC service that handles note related operations and calls demouser service via RPC.
+
+##### What are the core technologies/projects used?
+
+- [x] Use `hz` and `kitex` to generate code
+- [x] Use Hertz `requestid`, `jwt`, `pprof`, `gzip` middlewares
+- [x] Use `go-tagexpr` and `thrift-gen-validator` for validating HTTP and RPC request
+- [x] Use `obs-opentelemetry` for tracing
+- [x] Use `etcd` as service registry.
+- [x] Use `GORM` for implementing repository.
+- [x] Use `MySQL` as RDBMS.
+
+##### Which CloudWeGo subprojects are used? List all technologies used.
+- [Hertz](https://github.com/cloudwego/hertz)
+  - [obs-opentelemetry](https://github.com/hertz-contrib/obs-opentelemetry)
+  - [requestid](https://github.com/hertz-contrib/requestid)
+  - [jwt](https://github.com/hertz-contrib/jwt)
+  - [pprof](https://github.com/hertz-contrib/pprof)
+  - [gzip](https://github.com/hertz-contrib/gzip)
+- [Kitex](https://github.com/cloudwego/kitex)
+  - [obs-opentelemetry](https://github.com/kitex-contrib/obs-opentelemetry)
+  - [registry-etcd](https://github.com/kitex-contrib/registry-etcd)
+- [thrift-gen-validator](https://github.com/cloudwego/thrift-gen-validator)
+
+##### Detailed documentation
+[easy_note](./easy_note/README.md)
+
+#### Contributors & Maintainers
+- [@li-jin-gou](https://github.com/li-jin-gou) (Project Author)
+- [@justlorain](https://github.com/justlorain) (Project Migrator)
+
+

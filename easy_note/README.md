@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Add a demo for `Kitex` and `Hertz` which implements a simple note service, the demo is divided into three main sections.
+A simple note service built with `Kitex` and `Hertz` which is divided into three microservices.
 
 | Service Name | Usage                | Framework   | protocol | Path     | IDL             |
 |--------------|----------------------|-------------|----------|----------|-----------------|
@@ -50,7 +50,7 @@ req    resp                            │                                   res
 ### Basic Features
 
 - Hertz
-  - Use `thrift` IDL to define `HTTP` interface
+  - Use `thrift` IDL to define HTTP interface
   - Use `hz` to generate code
   - Use `Hertz` binding and validate
   - Use `obs-opentelemetry` and `jarger` for `tracing`, `metrics`, `logging`
@@ -59,7 +59,7 @@ req    resp                            │                                   res
 - Kitex
   - Use `thrift` IDL to define `RPC` interface
   - Use `kitex` to generate code
-  - Use `thrift-gen-validator` for validating rpc request
+  - Use `thrift-gen-validator` for validating RPC request
   - Use `obs-opentelemetry` and `jarger` for `tracing`, `metrics`, `logging`
   - Use `registry-etcd` for service discovery and register
 

@@ -107,6 +107,8 @@ github.com/chzyer/test v0.0.0-20210722231415-061457976a23/go.mod h1:Q3SI9o4m/ZMn
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cloudwego/fastpb v0.0.2 h1:qgz6Qxz1DRQ95Der6nr6vsdgXV58rvuK1J2VNzwlzg4=
 github.com/cloudwego/fastpb v0.0.2/go.mod h1:/V13XFTq2TUkxj2qWReV8MwfPC4NnPcy6FsrojnsSG0=
+github.com/cloudwego/fastpb v0.0.3 h1:GZE0WzlnjQFE3+vkYFZd964PGT9AXOuvir+JGzuBSPM=
+github.com/cloudwego/fastpb v0.0.3/go.mod h1:/V13XFTq2TUkxj2qWReV8MwfPC4NnPcy6FsrojnsSG0=
 github.com/cloudwego/frugal v0.1.3 h1:tw3+hh4YMmtHFHRue3OGYjAnkxnZRHqeAyG18+7z5aI=
 github.com/cloudwego/frugal v0.1.3/go.mod h1:b981ViPYdhI56aFYsoMjl9kv6yeqYSO+iEz2jrhkCgI=
 github.com/cloudwego/hertz v0.2.0/go.mod h1:prTyExvsH/UmDkvfU3dp3EHsZFQISfT8R7BirvpTKdo=
@@ -114,6 +116,8 @@ github.com/cloudwego/hertz v0.2.1/go.mod h1:prTyExvsH/UmDkvfU3dp3EHsZFQISfT8R7Bi
 github.com/cloudwego/hertz v0.3.2/go.mod h1:hnv3B7eZ6kMv7CKFHT2OC4LU0mA4s5XPyu/SbixLcrU=
 github.com/cloudwego/hertz v0.4.1 h1:EcL7v+MGeCt+qsLC1JGvlkPTm3kHmwNQg43FcrMyd+s=
 github.com/cloudwego/hertz v0.4.1/go.mod h1:K1U0RlU07CDeBINfHNbafH/3j9uSgIW8otbjUys3OPY=
+github.com/cloudwego/hertz v0.4.2 h1:Ntfs5MdPoKeFSbyStU2drM4CizOkEfYWsB9s1Q3taPY=
+github.com/cloudwego/hertz v0.4.2/go.mod h1:K1U0RlU07CDeBINfHNbafH/3j9uSgIW8otbjUys3OPY=
 github.com/cloudwego/kitex v0.0.4/go.mod h1:EIjPJ4Dom2ornk7xDCdKpUpOnf4Tulevimh4Tn05OGc=
 github.com/cloudwego/kitex v0.0.5/go.mod h1:sDiWpxbadYE5wFYj7MrSzm2Tle7TFZdcSezIErMsvp8=
 github.com/cloudwego/kitex v0.1.4/go.mod h1:qxxpIUl5zvbcvcQeKrlm2t2f1BBxt4EPMksBUFwr6QA=
@@ -121,6 +125,8 @@ github.com/cloudwego/kitex v0.2.0/go.mod h1:1p4rtGIIiFZMOePYbSPgLkIhdhdfhEtVOJSt
 github.com/cloudwego/kitex v0.3.2/go.mod h1:/XD07VpUD9VQWmmoepASgZ6iw//vgWikVA9MpzLC5i0=
 github.com/cloudwego/kitex v0.4.3 h1:NnDVwzHA6ke6CN5O0JxAYxiGx7U4IvUIE6KMnIM0R18=
 github.com/cloudwego/kitex v0.4.3/go.mod h1:7CV4Cs5oi7dWqI3fFoDTLJHyt/18z7nlHIIHsQQNnbE=
+github.com/cloudwego/kitex v0.4.4 h1:/oInvgh0Nz8OpzXBrXkD3qVBkiQmCCdCVLdIpktj6q0=
+github.com/cloudwego/kitex v0.4.4/go.mod h1:3FcH5h9Qw+dhRljSzuGSpWuThttA8DvK0BsL7HUYydo=
 github.com/cloudwego/kitex-examples v0.0.0-20211019030300-7fd73f66ff4d/go.mod h1:YYForGqNLFhxmRJe3dZx61vJxJ4nxKURQBa3rBzXUJU=
 github.com/cloudwego/kitex-examples v0.0.0-20220119031419-496e8f89fe75/go.mod h1:QAouWRyHUup8O79re3fA/ac8jPOdTVWe9ZOlmaKd2U0=
 github.com/cloudwego/netpoll v0.0.2/go.mod h1:rZOiNI0FYjuvNybXKKhAPUja03loJi/cdv2F55AE6E8=
@@ -138,6 +144,8 @@ github.com/cloudwego/netpoll-http2 v0.0.6/go.mod h1:+bjPyu2Cd4GDzKa0IegPgp1hjMjp
 github.com/cloudwego/thriftgo v0.1.2/go.mod h1:LzeafuLSiHA9JTiWC8TIMIq64iadeObgRUhmVG1OC/w=
 github.com/cloudwego/thriftgo v0.2.1 h1:pKEZDDND14+kG4ILPCq0sqv3gidjxOnf/wLjOwxzBks=
 github.com/cloudwego/thriftgo v0.2.1/go.mod h1:8i9AF5uDdWHGqzUhXDlubCjx4MEfKvWXGQlMWyR0tM4=
+github.com/cloudwego/thriftgo v0.2.4 h1:o3JTSygQXaNHmggZYqAkfCBdPGWuKH1Q8XCflCvsSIY=
+github.com/cloudwego/thriftgo v0.2.4/go.mod h1:8i9AF5uDdWHGqzUhXDlubCjx4MEfKvWXGQlMWyR0tM4=
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
 github.com/cncf/udpa/go v0.0.0-20201120205902-5459f2c99403/go.mod h1:WmhPx2Nbnhtbo57+VJT5O0JRkEi1Wbu0z5j0R8u5Hbk=
 github.com/cncf/udpa/go v0.0.0-20210930031921-04548b0d99d4/go.mod h1:6pvJx4me5XPnfI9Z40ddWsdw2W/uZgQLFXToKeRcDiI=

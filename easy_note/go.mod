@@ -6,8 +6,8 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
 require (
 	github.com/apache/thrift v0.13.0
-	github.com/cloudwego/hertz v0.4.1
-	github.com/cloudwego/kitex v0.4.3
+	github.com/cloudwego/hertz v0.4.2
+	github.com/cloudwego/kitex v0.4.4
 	github.com/hertz-contrib/gzip v0.0.1
 	github.com/hertz-contrib/jwt v1.0.1
 	github.com/hertz-contrib/obs-opentelemetry/logging/logrus v0.1.1
@@ -30,10 +30,10 @@ require (
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/chenzhuoyu/iasm v0.0.0-20220818063314-28c361dae733 // indirect
 	github.com/choleraehyq/pid v0.0.15 // indirect
-	github.com/cloudwego/fastpb v0.0.2 // indirect
+	github.com/cloudwego/fastpb v0.0.3 // indirect
 	github.com/cloudwego/frugal v0.1.3 // indirect
 	github.com/cloudwego/netpoll v0.3.1 // indirect
-	github.com/cloudwego/thriftgo v0.2.1 // indirect
+	github.com/cloudwego/thriftgo v0.2.4 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
