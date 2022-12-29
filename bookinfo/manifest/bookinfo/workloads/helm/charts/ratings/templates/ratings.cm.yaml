@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  {{ .Values.service.name }}.yaml: |
+    server:
+      addr: "0.0.0.0:{{ .Values.service.port }}"
+kind: ConfigMap
+metadata:
+  name: {{ .Values.service.name }}
+

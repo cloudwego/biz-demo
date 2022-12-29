@@ -1,0 +1,5 @@
+service:
+  name: details
+  port: 8084
+
+image: cr-cn-beijing.volces.com/coa-samples/bookinfo
