@@ -129,7 +129,7 @@ The easy_note application is divided into three microservices:
 [easy_note](./easy_note/README.md)
 
 #### Contributors & Maintainers
-- [@li-jin-gou](https://github.com/li-jin-gou) (Project Author)
-- [@justlorain](https://github.com/justlorain) (Project Migrator)
+- [@justlorain](https://github.com/justlorain)
+- [@li-jin-gou](https://github.com/li-jin-gou)
 
 
