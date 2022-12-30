@@ -2,34 +2,38 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: details
-    app.kubernetes.io/name: details
-  name: details-v1
+    app.kubernetes.io/instance: {{ .Values.service.name }}
+    app.kubernetes.io/name: {{ .Values.service.name }}
+  name: {{ .Values.service.name }}-v2
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: details
-      app.kubernetes.io/name: details
-      version: v1
+      app.kubernetes.io/instance: {{ .Values.service.name }}
+      app.kubernetes.io/name: {{ .Values.service.name }}
+      version: v2
   template:
     metadata:
       annotations:
         sidecar.istio.io/inject: "false"
       labels:
-        app.kubernetes.io/instance: details
-        app.kubernetes.io/name: details
-        version: v1
+        app.kubernetes.io/instance: {{ .Values.service.name }}
+        app.kubernetes.io/name: {{ .Values.service.name }}
+        version: v2
     spec:
       containers:
         - args:
-            - details
-            - --config=config/details.yaml
+            - {{ .Values.service.name }}
+            - --config=config/{{ .Values.service.name }}.yaml
           env:
             - name: OTEL_RESOURCE_ATTRIBUTES
-              value: service.version=v1
+              value: service.version=v2
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: http://host.docker.internal:4317
+            - name: RATINGS_VALUE
+              value: "5"
             - name: TZ
               value: Asia/Shanghai
             - name: POD_NAMESPACE
@@ -51,12 +55,12 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: status.hostIP
-          image: cr-cn-beijing.volces.com/coa-samples/bookinfo
-          imagePullPolicy: Always
+          image: {{ .Values.image }}
+          imagePullPolicy: IfNotPresent
           name: server
           ports:
-            - containerPort: 8084
-              protocol: TCP
+          - containerPort: {{ .Values.service.port }}
+            protocol: TCP
           resources:
             limits:
               cpu: 500m
@@ -72,6 +76,6 @@ spec:
       volumes:
         - configMap:
             defaultMode: 420
-            name: details
+            name: {{ .Values.service.name }}
           name: config-volume
 
