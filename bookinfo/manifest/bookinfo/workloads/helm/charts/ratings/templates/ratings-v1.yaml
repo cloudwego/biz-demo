@@ -54,12 +54,11 @@ spec:
             - name: METRICS_LOG_LEVEL
               value: err
           image: {{ .Values.image }}
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           name: server
           ports:
-            - containerPort: {{ .Values.service.port }}
-              name: thrift
-              protocol: TCP
+          - containerPort: {{ .Values.service.port }}
+            protocol: TCP
           resources:
             limits:
               cpu: 500m

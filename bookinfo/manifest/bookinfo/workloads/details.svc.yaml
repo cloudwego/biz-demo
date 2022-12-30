@@ -8,10 +8,8 @@ metadata:
 
 spec:
   ports:
-  - name: thrift
-    port: 8084
+  - port: 8084
     protocol: TCP
-    targetPort: thrift
   selector:
     app.kubernetes.io/instance: details
     app.kubernetes.io/name: details

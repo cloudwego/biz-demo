@@ -58,7 +58,6 @@ spec:
           name: server
           ports:
             - containerPort: 8082
-              name: thrift
               protocol: TCP
           resources:
             limits:

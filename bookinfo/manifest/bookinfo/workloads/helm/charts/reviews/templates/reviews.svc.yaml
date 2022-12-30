@@ -7,10 +7,8 @@ metadata:
   name: {{ .Values.service.name }}
 spec:
   ports:
-  - name: thrift
-    port: {{ .Values.service.port }}
-    protocol: TCP
-    targetPort: thrift
+    - port: {{ .Values.service.port }}
+      protocol: TCP
   selector:
     app.kubernetes.io/instance: {{ .Values.service.name }}
     app.kubernetes.io/name: {{ .Values.service.name }}

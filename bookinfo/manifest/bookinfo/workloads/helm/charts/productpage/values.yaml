@@ -2,7 +2,7 @@ service:
   name: productpage
   port: 8081
 
-image: cr-cn-beijing.volces.com/coa-samples/bookinfo
+image: cr-cn-beijing.volces.com/proxyless-test/bookinfo
 
 upstreamServices:
   reviews:

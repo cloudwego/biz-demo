@@ -54,7 +54,6 @@ spec:
           name: server
           ports:
             - containerPort: 8081
-              name: http
               protocol: TCP
           resources:
             limits:

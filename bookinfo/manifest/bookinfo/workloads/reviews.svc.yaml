@@ -8,8 +8,7 @@ metadata:
 
 spec:
   ports:
-  - name: thrift
-    port: 8082
+  - port: 8082
     protocol: TCP
     targetPort: thrift
   selector:
