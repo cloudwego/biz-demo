@@ -12,40 +12,7 @@ A simple note service built with `Kitex` and `Hertz` which is divided into three
 
 ### Call Relations
 
-```
-                                    http
-                           ┌────────────────────────┐
- ┌─────────────────────────┤                        ├───────────────────────────────┐
- │                         │         demoapi        │                               │
- │      ┌──────────────────►                        │◄──────────────────────┐       │
- │      │                  └───────────▲────────────┘                       │       │
- │      │                              │                                    │       │
- │      │                              │                                    │       │
- │      │                              │                                    │       │
- │      │                           resolve                                 │       │
- │      │                              │                                    │       │
-req    resp                            │                                   resp    req
- │      │                              │                                    │       │
- │      │                              │                                    │       │
- │      │                              │                                    │       │
- │      │                   ┌──────────▼─────────┐                          │       │
- │      │                   │                    │                          │       │
- │      │       ┌───────────►        etcd        ◄─────────────────┐        │       │
- │      │       │           │                    │                 │        │       │
- │      │       │           └────────────────────┘                 │        │       │
- │      │       │                                                  │        │       │
- │      │     register                                           register   │       │
- │      │       │                                                  │        │       │
- │      │       │                                                  │        │       │
- │      │       │                                                  │        │       │
- │      │       │                                                  │        │       │
-┌▼──────┴───────┴───┐                                           ┌──┴────────┴───────▼─┐
-│                   │───────────────── req ────────────────────►│                     │
-│       demonote    │                                           │        demouser     │
-│                   │◄──────────────── resp ────────────────────│                     │
-└───────────────────┘                                           └─────────────────────┘
-      thrift                                                           thrift
-```
+![easy-note-arch](./images/easy-note-arch.png)
 
 ### Basic Features
 
@@ -110,13 +77,21 @@ go run .
 
 ### Jaeger
 
-visit `http://127.0.0.1:16686/` on  browser
+Visit `http://127.0.0.1:16686/` on browser
 
 #### Snapshots
 
 ![jaeger-tracing](./images/jarger-tracing.png)
 
 ![jaeger-architecture](./images/jaeger-architecture.png)
+
+### Grafana
+
+Visit `http://127.0.0.1:3000/` on browser
+
+#### Dashboard Example
+
+![grafana-dashboard-example](./images/grafana-dashboard-example.png)
 
 ## API Requests
 

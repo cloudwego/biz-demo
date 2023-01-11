@@ -22,7 +22,6 @@ import (
 	"fmt"
 
 	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/mw"
-	econsts "github.com/cloudwego/biz-demo/easy_note/pkg/consts"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
@@ -49,15 +48,9 @@ func rootMw() []app.HandlerFunc {
 		)),
 		// use requestid mw
 		requestid.New(
-			requestid.WithCustomHeaderStrKey(""),
-			requestid.WithGenerator(func() string {
-				return ""
-			}),
-			requestid.WithHandler(func(ctx context.Context, c *app.RequestContext, requestID string) {
+			requestid.WithGenerator(func(ctx context.Context, c *app.RequestContext) string {
 				traceID := trace.SpanFromContext(ctx).SpanContext().TraceID().String()
-				c.Header(econsts.HeaderXRequestID, traceID)
-				ctx = context.WithValue(ctx, econsts.HeaderXRequestID, traceID)
-				c.Next(ctx)
+				return traceID
 			}),
 		),
 		// use gzip mw
