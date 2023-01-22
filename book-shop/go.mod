@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/cloudwego/hertz v0.3.2
 	github.com/hertz-contrib/jwt v1.0.1
 	github.com/jinzhu/copier v0.3.5

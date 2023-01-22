@@ -15,7 +15,10 @@
 
 package service
 
-import "context"
+import (
+	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
+)
 
 type ProductStockService struct {
 }
@@ -28,9 +31,9 @@ func GetProductStockServiceInstance() *ProductStockService {
 }
 
 func (s *ProductStockService) IncreaseStockNum(ctx context.Context, productId int64, incrNum int64) error {
-	return nil
+	return repository.GetRegistry().GetStockRepository().IncrStock(ctx, productId, incrNum)
 }
 
 func (s *ProductStockService) DecreaseStockNum(ctx context.Context, productId int64, decrNum int64) error {
-	return nil
+	return repository.GetRegistry().GetStockRepository().DecrStock(ctx, productId, decrNum)
 }

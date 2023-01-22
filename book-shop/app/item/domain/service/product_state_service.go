@@ -107,7 +107,7 @@ func (s *ProductStateService) GetCanTransferFunc(operationType constant.StateOpe
 }
 
 // GetConstructTargetInfoFunc 获取状态流转函数
-func (s *ProductStateService) GetConstructTargetInfoFunc(operationType constant.StateOperationType) (ConstructTargetInfoFunc, error) {
+func (s *ProductStateService) getConstructTargetInfoFunc(operationType constant.StateOperationType) (ConstructTargetInfoFunc, error) {
 	if constructTargetInfoFunc, ok := constructTargetInfoFuncMap[operationType]; ok {
 		return constructTargetInfoFunc, nil
 	}
@@ -125,7 +125,7 @@ func (s *ProductStateService) ConstructTargetInfo(originProduct *entity.ProductE
 	originStateInfo := &ProductStateInfo{
 		Status: originProduct.Status,
 	}
-	constructFunc, err := s.GetConstructTargetInfoFunc(operation)
+	constructFunc, err := s.getConstructTargetInfoFunc(operation)
 	if err != nil {
 		return nil, err
 	}
@@ -134,6 +134,7 @@ func (s *ProductStateService) ConstructTargetInfo(originProduct *entity.ProductE
 	return targetProduct, nil
 }
 
+// OperateProduct 更新商品
 func (s *ProductStateService) OperateProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error {
 	repo := repository.GetRegistry().GetProductRepository()
 	// 更新商品状态

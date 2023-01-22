@@ -25,7 +25,7 @@ enum Status {
 struct BookProperty {
     1: string isbn, // ISBN
     2: string spu_name, // 书名
-    3: string spu_price, // 定价
+    3: i64 spu_price, // 定价
 }
 
 struct Product {
@@ -101,7 +101,7 @@ struct GetResp {
 }
 
 struct MGet2CReq {
-    1: required i64 product_id
+    1: required list<i64> product_ids
 }
 
 struct MGet2CResp {

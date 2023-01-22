@@ -63,7 +63,7 @@ func (p *Status) Value() (driver.Value, error) {
 type BookProperty struct {
 	Isbn     string `thrift:"isbn,1" json:"isbn"`
 	SpuName  string `thrift:"spu_name,2" json:"spu_name"`
-	SpuPrice string `thrift:"spu_price,3" json:"spu_price"`
+	SpuPrice int64  `thrift:"spu_price,3" json:"spu_price"`
 }
 
 func NewBookProperty() *BookProperty {
@@ -78,7 +78,7 @@ func (p *BookProperty) GetSpuName() (v string) {
 	return p.SpuName
 }
 
-func (p *BookProperty) GetSpuPrice() (v string) {
+func (p *BookProperty) GetSpuPrice() (v int64) {
 	return p.SpuPrice
 }
 func (p *BookProperty) SetIsbn(val string) {
@@ -87,7 +87,7 @@ func (p *BookProperty) SetIsbn(val string) {
 func (p *BookProperty) SetSpuName(val string) {
 	p.SpuName = val
 }
-func (p *BookProperty) SetSpuPrice(val string) {
+func (p *BookProperty) SetSpuPrice(val int64) {
 	p.SpuPrice = val
 }
 
@@ -137,7 +137,7 @@ func (p *BookProperty) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -195,7 +195,7 @@ func (p *BookProperty) ReadField2(iprot thrift.TProtocol) error {
 }
 
 func (p *BookProperty) ReadField3(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadString(); err != nil {
+	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
 		p.SpuPrice = v
@@ -275,10 +275,10 @@ WriteFieldEndError:
 }
 
 func (p *BookProperty) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("spu_price", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("spu_price", thrift.I64, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.SpuPrice); err != nil {
+	if err := oprot.WriteI64(p.SpuPrice); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -330,9 +330,9 @@ func (p *BookProperty) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *BookProperty) Field3DeepEqual(src string) bool {
+func (p *BookProperty) Field3DeepEqual(src int64) bool {
 
-	if strings.Compare(p.SpuPrice, src) != 0 {
+	if p.SpuPrice != src {
 		return false
 	}
 	return true
@@ -3844,29 +3844,29 @@ func (p *GetResp) Field255DeepEqual(src *base.BaseResp) bool {
 }
 
 type MGet2CReq struct {
-	ProductId int64 `thrift:"product_id,1,required" json:"product_id"`
+	ProductIds []int64 `thrift:"product_ids,1,required" json:"product_ids"`
 }
 
 func NewMGet2CReq() *MGet2CReq {
 	return &MGet2CReq{}
 }
 
-func (p *MGet2CReq) GetProductId() (v int64) {
-	return p.ProductId
+func (p *MGet2CReq) GetProductIds() (v []int64) {
+	return p.ProductIds
 }
-func (p *MGet2CReq) SetProductId(val int64) {
-	p.ProductId = val
+func (p *MGet2CReq) SetProductIds(val []int64) {
+	p.ProductIds = val
 }
 
 var fieldIDToName_MGet2CReq = map[int16]string{
-	1: "product_id",
+	1: "product_ids",
 }
 
 func (p *MGet2CReq) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
-	var issetProductId bool = false
+	var issetProductIds bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -3883,11 +3883,11 @@ func (p *MGet2CReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetProductId = true
+				issetProductIds = true
 			} else {
 				if err = iprot.Skip(fieldTypeId); err != nil {
 					goto SkipFieldError
@@ -3907,7 +3907,7 @@ func (p *MGet2CReq) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
-	if !issetProductId {
+	if !issetProductIds {
 		fieldId = 1
 		goto RequiredFieldNotSetError
 	}
@@ -3930,10 +3930,23 @@ RequiredFieldNotSetError:
 }
 
 func (p *MGet2CReq) ReadField1(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI64(); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
 		return err
-	} else {
-		p.ProductId = v
+	}
+	p.ProductIds = make([]int64, 0, size)
+	for i := 0; i < size; i++ {
+		var _elem int64
+		if v, err := iprot.ReadI64(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		p.ProductIds = append(p.ProductIds, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
 	}
 	return nil
 }
@@ -3968,10 +3981,18 @@ WriteStructEndError:
 }
 
 func (p *MGet2CReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("product_id", thrift.I64, 1); err != nil {
+	if err = oprot.WriteFieldBegin("product_ids", thrift.LIST, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.ProductId); err != nil {
+	if err := oprot.WriteListBegin(thrift.I64, len(p.ProductIds)); err != nil {
+		return err
+	}
+	for _, v := range p.ProductIds {
+		if err := oprot.WriteI64(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3997,16 +4018,22 @@ func (p *MGet2CReq) DeepEqual(ano *MGet2CReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.ProductId) {
+	if !p.Field1DeepEqual(ano.ProductIds) {
 		return false
 	}
 	return true
 }
 
-func (p *MGet2CReq) Field1DeepEqual(src int64) bool {
+func (p *MGet2CReq) Field1DeepEqual(src []int64) bool {
 
-	if p.ProductId != src {
+	if len(p.ProductIds) != len(src) {
 		return false
+	}
+	for i, v := range p.ProductIds {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
 	}
 	return true
 }

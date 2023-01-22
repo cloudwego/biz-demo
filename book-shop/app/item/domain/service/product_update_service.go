@@ -18,6 +18,7 @@ package service
 import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
 )
 
 // ProductUpdateService 商品更新服务
@@ -32,9 +33,17 @@ func GetProductUpdateServiceInstance() *ProductUpdateService {
 }
 
 func (s *ProductUpdateService) AddProduct(ctx context.Context, entity *entity.ProductEntity) error {
+	err := repository.GetRegistry().GetProductRepository().AddProduct(ctx, entity)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
 func (s *ProductUpdateService) EditProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error {
+	err := repository.GetRegistry().GetProductRepository().UpdateProduct(ctx, origin, target)
+	if err != nil {
+		return err
+	}
 	return nil
 }

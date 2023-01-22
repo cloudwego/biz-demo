@@ -19,7 +19,6 @@ import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/user/service"
 	user "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
-	"github.com/cloudwego/biz-demo/book-shop/pkg/converter"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 )
 
@@ -31,16 +30,16 @@ func (s *UserServiceImpl) CreateUser(ctx context.Context, req *user.CreateUserRe
 	resp = user.NewCreateUserResp()
 
 	if len(req.GetUserName()) == 0 || len(req.GetPassword()) == 0 {
-		resp.BaseResp = converter.BuildBaseResp(errno.ParamErr)
+		resp.BaseResp = errno.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
 
 	err = service.NewUserService(ctx).CreateUser(req)
 	if err != nil {
-		resp.BaseResp = converter.BuildBaseResp(err)
+		resp.BaseResp = errno.BuildBaseResp(err)
 		return resp, nil
 	}
-	resp.BaseResp = converter.BuildBaseResp(errno.Success)
+	resp.BaseResp = errno.BuildBaseResp(errno.Success)
 	return resp, nil
 }
 
@@ -49,17 +48,17 @@ func (s *UserServiceImpl) MGetUser(ctx context.Context, req *user.MGetUserReq) (
 	resp = user.NewMGetUserResp()
 
 	if len(req.Ids) == 0 {
-		resp.BaseResp = converter.BuildBaseResp(errno.ParamErr)
+		resp.BaseResp = errno.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
 
 	users, err := service.NewUserService(ctx).MGetUser(req)
 	if err != nil {
-		resp.BaseResp = converter.BuildBaseResp(err)
+		resp.BaseResp = errno.BuildBaseResp(err)
 		return resp, nil
 	}
 	resp.Users = users
-	resp.BaseResp = converter.BuildBaseResp(errno.Success)
+	resp.BaseResp = errno.BuildBaseResp(errno.Success)
 	return resp, nil
 }
 
@@ -68,16 +67,16 @@ func (s *UserServiceImpl) CheckUser(ctx context.Context, req *user.CheckUserReq)
 	resp = user.NewCheckUserResp()
 
 	if len(req.Password) == 0 || len(req.UserName) == 0 {
-		resp.BaseResp = converter.BuildBaseResp(errno.ParamErr)
+		resp.BaseResp = errno.BuildBaseResp(errno.ParamErr)
 		return resp, nil
 	}
 
 	userId, err := service.NewUserService(ctx).CheckUser(req)
 	if err != nil {
-		resp.BaseResp = converter.BuildBaseResp(err)
+		resp.BaseResp = errno.BuildBaseResp(err)
 		return resp, nil
 	}
 	resp.UserId = userId
-	resp.BaseResp = converter.BuildBaseResp(errno.Success)
+	resp.BaseResp = errno.BuildBaseResp(errno.Success)
 	return resp, nil
 }

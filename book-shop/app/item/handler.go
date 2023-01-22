@@ -17,6 +17,7 @@ package main
 
 import (
 	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/handler"
 	item "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item"
 )
 
@@ -25,38 +26,38 @@ type ItemServiceImpl struct{}
 
 // Add implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) Add(ctx context.Context, req *item.AddReq) (resp *item.AddResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewAddHandler(ctx, req).Add()
+	return resp, err
 }
 
 // Edit implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) Edit(ctx context.Context, req *item.EditReq) (resp *item.EditResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewEditHandler(ctx, req).Edit()
+	return resp, err
 }
 
 // Delete implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) Delete(ctx context.Context, req *item.DeleteReq) (resp *item.DeleteResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewDeleteHandler(ctx, req).Delete()
+	return resp, err
 }
 
 // Online implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) Online(ctx context.Context, req *item.OnlineReq) (resp *item.OnlineResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewOnlineHandler(ctx, req).Online()
+	return resp, err
 }
 
 // Offline implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) Offline(ctx context.Context, req *item.OfflineReq) (resp *item.OfflineResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewOfflineHandler(ctx, req).Offline()
+	return resp, err
 }
 
 // Get implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) Get(ctx context.Context, req *item.GetReq) (resp *item.GetResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewGetHandler(ctx, req).Get()
+	return resp, err
 }
 
 // Search implements the ItemServiceImpl interface.
@@ -67,8 +68,8 @@ func (s *ItemServiceImpl) Search(ctx context.Context, req *item.SearchReq) (resp
 
 // List implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) List(ctx context.Context, req *item.ListReq) (resp *item.ListResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewListHandler(ctx, req).List()
+	return resp, err
 }
 
 // MGet2C implements the ItemServiceImpl interface.
@@ -79,12 +80,12 @@ func (s *ItemServiceImpl) MGet2C(ctx context.Context, req *item.MGet2CReq) (resp
 
 // DecrStock implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) DecrStock(ctx context.Context, req *item.DecrStockReq) (resp *item.DecrStockResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewDecrStockHandler(ctx, req).DecrStock()
+	return resp, err
 }
 
 // DecrStockRevert implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) DecrStockRevert(ctx context.Context, req *item.DecrStockReq) (resp *item.DecrStockResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewDecrStockRevertHandler(ctx, req).DecrStockRevert()
+	return resp, err
 }

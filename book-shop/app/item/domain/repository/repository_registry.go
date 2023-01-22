@@ -1,4 +1,4 @@
-// Copyright 2022 CloudWeGo Authors
+// Copyright 2023 CloudWeGo Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package repository
 
 type RepositoryRegistry struct {
 	productRepository ProductRepository
+	stockRepository   StockRepository
 }
 
 var inst = &RepositoryRegistry{}
@@ -31,4 +32,12 @@ func (r *RepositoryRegistry) GetProductRepository() ProductRepository {
 
 func (r *RepositoryRegistry) SetProductRepository(productRepositoryIns ProductRepository) {
 	r.productRepository = productRepositoryIns
+}
+
+func (r *RepositoryRegistry) GetStockRepository() StockRepository {
+	return r.stockRepository
+}
+
+func (r *RepositoryRegistry) SetStockRepository(stockRepositoryIns StockRepository) {
+	r.stockRepository = stockRepositoryIns
 }

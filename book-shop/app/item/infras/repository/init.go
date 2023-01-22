@@ -27,7 +27,9 @@ var DB *gorm.DB
 
 func register() {
 	productRepository := ProductRepositoryImpl{}
+	stockRepository := StockRepositoryImpl{}
 	repository.GetRegistry().SetProductRepository(productRepository)
+	repository.GetRegistry().SetStockRepository(stockRepository)
 }
 
 func initDB() {

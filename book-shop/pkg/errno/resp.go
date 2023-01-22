@@ -13,29 +13,28 @@
 // limitations under the License.
 //
 
-package converter
+package errno
 
 import (
 	"errors"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/base"
-	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 )
 
 // BuildBaseResp build baseResp from error
 func BuildBaseResp(err error) *base.BaseResp {
 	if err == nil {
-		return baseResp(errno.Success)
+		return baseResp(Success)
 	}
 
-	e := errno.ErrNo{}
+	e := ErrNo{}
 	if errors.As(err, &e) {
 		return baseResp(e)
 	}
 
-	s := errno.ServiceErr.WithMessage(err.Error())
+	s := ServiceErr.WithMessage(err.Error())
 	return baseResp(s)
 }
 
-func baseResp(err errno.ErrNo) *base.BaseResp {
+func baseResp(err ErrNo) *base.BaseResp {
 	return &base.BaseResp{StatusCode: int32(err.ErrCode), StatusMessage: err.ErrMsg}
 }

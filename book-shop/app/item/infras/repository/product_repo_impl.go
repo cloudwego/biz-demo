@@ -54,11 +54,15 @@ func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, origin *entity
 }
 
 func (i ProductRepositoryImpl) GetProductById(ctx context.Context, productId int64) (*entity.ProductEntity, error) {
-	po := &po.Product{}
-	if err := DB.WithContext(ctx).Where("product_id = ?", productId).Find(po).Error; err != nil {
+	products := make([]*po.Product, 0)
+	err := DB.WithContext(ctx).Where("product_id = ?", productId).Find(&products).Error
+	if err != nil {
 		return nil, err
 	}
-	do, err := converter.ProductPO2DOConverter.Convert2do(ctx, po)
+	if len(products) == 0 {
+		return nil, errors.New("该商品不存在")
+	}
+	do, err := converter.ProductPO2DOConverter.Convert2do(ctx, products[0])
 	if err != nil {
 		return nil, err
 	}
