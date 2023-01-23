@@ -28,6 +28,9 @@ const (
 
 	MySQLDefaultDSN = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
 	EtcdAddress     = "127.0.0.1:2379"
+	ESAddress       = "http://localhost:9200"
+
+	ProductESIndex = "product"
 
 	UserRpcServiceName   = "cwg.bookshop.user"
 	OrderRpcServiceName  = "cwg.bookshop.order"

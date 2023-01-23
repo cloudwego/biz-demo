@@ -20,6 +20,7 @@ import (
 	"errors"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/po"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/es"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/repository/converter"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/repository/differ"
 )
@@ -35,6 +36,8 @@ func (i ProductRepositoryImpl) AddProduct(ctx context.Context, product *entity.P
 	if err != nil {
 		return err
 	}
+	// 异步更新es
+	go es.UpsertProductES(ctx, po.ProductId, product)
 	return DB.WithContext(ctx).Create(po).Error
 }
 
@@ -48,6 +51,8 @@ func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, origin *entity
 	if err != nil {
 		return err
 	}
+	// 异步更新es
+	go es.UpsertProductES(ctx, productId, target)
 	changeMap := differ.ProductPODiffer.GetChangedMap(originPO, targetPO)
 	return DB.WithContext(ctx).Model(&po.Product{}).Where("product_id = ?", productId).
 		Updates(changeMap).Error
