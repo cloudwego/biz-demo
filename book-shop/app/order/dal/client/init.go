@@ -17,4 +17,5 @@ package client
 
 func Init() {
 	initItemRpc()
+	initUserRpc()
 }

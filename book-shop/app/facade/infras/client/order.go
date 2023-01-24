@@ -14,3 +14,33 @@
 //
 
 package client
+
+import (
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
+	"github.com/cloudwego/kitex/client"
+	"github.com/cloudwego/kitex/pkg/retry"
+	etcd "github.com/kitex-contrib/registry-etcd"
+	"time"
+)
+
+var orderClient orderservice.Client
+
+func initOrderRpc() {
+	r, err := etcd.NewEtcdResolver([]string{conf.EtcdAddress})
+	if err != nil {
+		panic(err)
+	}
+
+	c, err := orderservice.NewClient(
+		conf.OrderRpcServiceName,
+		client.WithRPCTimeout(3*time.Second),              // rpc timeout
+		client.WithConnectTimeout(50*time.Millisecond),    // conn timeout
+		client.WithFailureRetry(retry.NewFailurePolicy()), // retry
+		client.WithResolver(r),                            // resolver
+	)
+	if err != nil {
+		panic(err)
+	}
+	orderClient = c
+}

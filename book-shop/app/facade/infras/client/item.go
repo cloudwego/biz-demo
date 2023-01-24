@@ -14,3 +14,33 @@
 //
 
 package client
+
+import (
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item/itemservice"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
+	"github.com/cloudwego/kitex/client"
+	"github.com/cloudwego/kitex/pkg/retry"
+	etcd "github.com/kitex-contrib/registry-etcd"
+	"time"
+)
+
+var itemClient itemservice.Client
+
+func initItemRpc() {
+	r, err := etcd.NewEtcdResolver([]string{conf.EtcdAddress})
+	if err != nil {
+		panic(err)
+	}
+
+	c, err := itemservice.NewClient(
+		conf.ItemRpcServiceName,
+		client.WithRPCTimeout(3*time.Second),              // rpc timeout
+		client.WithConnectTimeout(50*time.Millisecond),    // conn timeout
+		client.WithFailureRetry(retry.NewFailurePolicy()), // retry
+		client.WithResolver(r),                            // resolver
+	)
+	if err != nil {
+		panic(err)
+	}
+	itemClient = c
+}
