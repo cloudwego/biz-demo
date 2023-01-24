@@ -25,13 +25,14 @@ enum Status {
 struct OrderItem {
     1: i64 order_id,
     2: i64 user_id,
-    3: string address,
-    4: i64 product_id,
-    5: i64 stock_num,
-    6: string product_snapshot
-    7: Status status,
-    8: i64 create_time,
-    9: i64 update_time,
+    3: string user_name,
+    4: string address,
+    5: i64 product_id,
+    6: i64 stock_num,
+    7: string product_snapshot,
+    8: Status status,
+    9: i64 create_time,
+    10: i64 update_time,
 }
 struct CreateOrderReq {
     1: required i64 user_id,

@@ -63,13 +63,14 @@ func (p *Status) Value() (driver.Value, error) {
 type OrderItem struct {
 	OrderId         int64  `thrift:"order_id,1" json:"order_id"`
 	UserId          int64  `thrift:"user_id,2" json:"user_id"`
-	Address         string `thrift:"address,3" json:"address"`
-	ProductId       int64  `thrift:"product_id,4" json:"product_id"`
-	StockNum        int64  `thrift:"stock_num,5" json:"stock_num"`
-	ProductSnapshot string `thrift:"product_snapshot,6" json:"product_snapshot"`
-	Status          Status `thrift:"status,7" json:"status"`
-	CreateTime      int64  `thrift:"create_time,8" json:"create_time"`
-	UpdateTime      int64  `thrift:"update_time,9" json:"update_time"`
+	UserName        string `thrift:"user_name,3" json:"user_name"`
+	Address         string `thrift:"address,4" json:"address"`
+	ProductId       int64  `thrift:"product_id,5" json:"product_id"`
+	StockNum        int64  `thrift:"stock_num,6" json:"stock_num"`
+	ProductSnapshot string `thrift:"product_snapshot,7" json:"product_snapshot"`
+	Status          Status `thrift:"status,8" json:"status"`
+	CreateTime      int64  `thrift:"create_time,9" json:"create_time"`
+	UpdateTime      int64  `thrift:"update_time,10" json:"update_time"`
 }
 
 func NewOrderItem() *OrderItem {
@@ -82,6 +83,10 @@ func (p *OrderItem) GetOrderId() (v int64) {
 
 func (p *OrderItem) GetUserId() (v int64) {
 	return p.UserId
+}
+
+func (p *OrderItem) GetUserName() (v string) {
+	return p.UserName
 }
 
 func (p *OrderItem) GetAddress() (v string) {
@@ -117,6 +122,9 @@ func (p *OrderItem) SetOrderId(val int64) {
 func (p *OrderItem) SetUserId(val int64) {
 	p.UserId = val
 }
+func (p *OrderItem) SetUserName(val string) {
+	p.UserName = val
+}
 func (p *OrderItem) SetAddress(val string) {
 	p.Address = val
 }
@@ -140,15 +148,16 @@ func (p *OrderItem) SetUpdateTime(val int64) {
 }
 
 var fieldIDToName_OrderItem = map[int16]string{
-	1: "order_id",
-	2: "user_id",
-	3: "address",
-	4: "product_id",
-	5: "stock_num",
-	6: "product_snapshot",
-	7: "status",
-	8: "create_time",
-	9: "update_time",
+	1:  "order_id",
+	2:  "user_id",
+	3:  "user_name",
+	4:  "address",
+	5:  "product_id",
+	6:  "stock_num",
+	7:  "product_snapshot",
+	8:  "status",
+	9:  "create_time",
+	10: "update_time",
 }
 
 func (p *OrderItem) Read(iprot thrift.TProtocol) (err error) {
@@ -201,7 +210,7 @@ func (p *OrderItem) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 4:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -221,7 +230,7 @@ func (p *OrderItem) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -231,7 +240,7 @@ func (p *OrderItem) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 7:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField7(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -241,7 +250,7 @@ func (p *OrderItem) Read(iprot thrift.TProtocol) (err error) {
 				}
 			}
 		case 8:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField8(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -253,6 +262,16 @@ func (p *OrderItem) Read(iprot thrift.TProtocol) (err error) {
 		case 9:
 			if fieldTypeId == thrift.I64 {
 				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				if err = iprot.Skip(fieldTypeId); err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 10:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField10(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else {
@@ -312,16 +331,16 @@ func (p *OrderItem) ReadField3(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.Address = v
+		p.UserName = v
 	}
 	return nil
 }
 
 func (p *OrderItem) ReadField4(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadI64(); err != nil {
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.ProductId = v
+		p.Address = v
 	}
 	return nil
 }
@@ -330,12 +349,21 @@ func (p *OrderItem) ReadField5(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
-		p.StockNum = v
+		p.ProductId = v
 	}
 	return nil
 }
 
 func (p *OrderItem) ReadField6(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		p.StockNum = v
+	}
+	return nil
+}
+
+func (p *OrderItem) ReadField7(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
@@ -344,7 +372,7 @@ func (p *OrderItem) ReadField6(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *OrderItem) ReadField7(iprot thrift.TProtocol) error {
+func (p *OrderItem) ReadField8(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
@@ -353,7 +381,7 @@ func (p *OrderItem) ReadField7(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *OrderItem) ReadField8(iprot thrift.TProtocol) error {
+func (p *OrderItem) ReadField9(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -362,7 +390,7 @@ func (p *OrderItem) ReadField8(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *OrderItem) ReadField9(iprot thrift.TProtocol) error {
+func (p *OrderItem) ReadField10(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return err
 	} else {
@@ -411,6 +439,10 @@ func (p *OrderItem) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField9(oprot); err != nil {
 			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
 			goto WriteFieldError
 		}
 
@@ -467,10 +499,10 @@ WriteFieldEndError:
 }
 
 func (p *OrderItem) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("address", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("user_name", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Address); err != nil {
+	if err := oprot.WriteString(p.UserName); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -484,10 +516,10 @@ WriteFieldEndError:
 }
 
 func (p *OrderItem) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("product_id", thrift.I64, 4); err != nil {
+	if err = oprot.WriteFieldBegin("address", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.ProductId); err != nil {
+	if err := oprot.WriteString(p.Address); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -501,10 +533,10 @@ WriteFieldEndError:
 }
 
 func (p *OrderItem) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("stock_num", thrift.I64, 5); err != nil {
+	if err = oprot.WriteFieldBegin("product_id", thrift.I64, 5); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.StockNum); err != nil {
+	if err := oprot.WriteI64(p.ProductId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -518,10 +550,10 @@ WriteFieldEndError:
 }
 
 func (p *OrderItem) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("product_snapshot", thrift.STRING, 6); err != nil {
+	if err = oprot.WriteFieldBegin("stock_num", thrift.I64, 6); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.ProductSnapshot); err != nil {
+	if err := oprot.WriteI64(p.StockNum); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -535,10 +567,10 @@ WriteFieldEndError:
 }
 
 func (p *OrderItem) writeField7(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("status", thrift.I32, 7); err != nil {
+	if err = oprot.WriteFieldBegin("product_snapshot", thrift.STRING, 7); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(int32(p.Status)); err != nil {
+	if err := oprot.WriteString(p.ProductSnapshot); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -552,10 +584,10 @@ WriteFieldEndError:
 }
 
 func (p *OrderItem) writeField8(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("create_time", thrift.I64, 8); err != nil {
+	if err = oprot.WriteFieldBegin("status", thrift.I32, 8); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.CreateTime); err != nil {
+	if err := oprot.WriteI32(int32(p.Status)); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -569,10 +601,10 @@ WriteFieldEndError:
 }
 
 func (p *OrderItem) writeField9(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("update_time", thrift.I64, 9); err != nil {
+	if err = oprot.WriteFieldBegin("create_time", thrift.I64, 9); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.UpdateTime); err != nil {
+	if err := oprot.WriteI64(p.CreateTime); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -583,6 +615,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *OrderItem) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("update_time", thrift.I64, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.UpdateTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
 }
 
 func (p *OrderItem) String() string {
@@ -604,25 +653,28 @@ func (p *OrderItem) DeepEqual(ano *OrderItem) bool {
 	if !p.Field2DeepEqual(ano.UserId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Address) {
+	if !p.Field3DeepEqual(ano.UserName) {
 		return false
 	}
-	if !p.Field4DeepEqual(ano.ProductId) {
+	if !p.Field4DeepEqual(ano.Address) {
 		return false
 	}
-	if !p.Field5DeepEqual(ano.StockNum) {
+	if !p.Field5DeepEqual(ano.ProductId) {
 		return false
 	}
-	if !p.Field6DeepEqual(ano.ProductSnapshot) {
+	if !p.Field6DeepEqual(ano.StockNum) {
 		return false
 	}
-	if !p.Field7DeepEqual(ano.Status) {
+	if !p.Field7DeepEqual(ano.ProductSnapshot) {
 		return false
 	}
-	if !p.Field8DeepEqual(ano.CreateTime) {
+	if !p.Field8DeepEqual(ano.Status) {
 		return false
 	}
-	if !p.Field9DeepEqual(ano.UpdateTime) {
+	if !p.Field9DeepEqual(ano.CreateTime) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.UpdateTime) {
 		return false
 	}
 	return true
@@ -644,47 +696,54 @@ func (p *OrderItem) Field2DeepEqual(src int64) bool {
 }
 func (p *OrderItem) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.Address, src) != 0 {
+	if strings.Compare(p.UserName, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *OrderItem) Field4DeepEqual(src int64) bool {
+func (p *OrderItem) Field4DeepEqual(src string) bool {
 
-	if p.ProductId != src {
+	if strings.Compare(p.Address, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *OrderItem) Field5DeepEqual(src int64) bool {
 
+	if p.ProductId != src {
+		return false
+	}
+	return true
+}
+func (p *OrderItem) Field6DeepEqual(src int64) bool {
+
 	if p.StockNum != src {
 		return false
 	}
 	return true
 }
-func (p *OrderItem) Field6DeepEqual(src string) bool {
+func (p *OrderItem) Field7DeepEqual(src string) bool {
 
 	if strings.Compare(p.ProductSnapshot, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *OrderItem) Field7DeepEqual(src Status) bool {
+func (p *OrderItem) Field8DeepEqual(src Status) bool {
 
 	if p.Status != src {
 		return false
 	}
 	return true
 }
-func (p *OrderItem) Field8DeepEqual(src int64) bool {
+func (p *OrderItem) Field9DeepEqual(src int64) bool {
 
 	if p.CreateTime != src {
 		return false
 	}
 	return true
 }
-func (p *OrderItem) Field9DeepEqual(src int64) bool {
+func (p *OrderItem) Field10DeepEqual(src int64) bool {
 
 	if p.UpdateTime != src {
 		return false

@@ -90,7 +90,7 @@ func (p *OrderItem) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 4:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField4(buf[offset:])
 				offset += l
 				if err != nil {
@@ -118,7 +118,7 @@ func (p *OrderItem) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I64 {
 				l, err = p.FastReadField6(buf[offset:])
 				offset += l
 				if err != nil {
@@ -132,7 +132,7 @@ func (p *OrderItem) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 7:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField7(buf[offset:])
 				offset += l
 				if err != nil {
@@ -146,7 +146,7 @@ func (p *OrderItem) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 8:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField8(buf[offset:])
 				offset += l
 				if err != nil {
@@ -162,6 +162,20 @@ func (p *OrderItem) FastRead(buf []byte) (int, error) {
 		case 9:
 			if fieldTypeId == thrift.I64 {
 				l, err = p.FastReadField9(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = bthrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 10:
+			if fieldTypeId == thrift.I64 {
+				l, err = p.FastReadField10(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
@@ -244,7 +258,7 @@ func (p *OrderItem) FastReadField3(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.Address = v
+		p.UserName = v
 
 	}
 	return offset, nil
@@ -253,12 +267,12 @@ func (p *OrderItem) FastReadField3(buf []byte) (int, error) {
 func (p *OrderItem) FastReadField4(buf []byte) (int, error) {
 	offset := 0
 
-	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
+	if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 
-		p.ProductId = v
+		p.Address = v
 
 	}
 	return offset, nil
@@ -272,13 +286,27 @@ func (p *OrderItem) FastReadField5(buf []byte) (int, error) {
 	} else {
 		offset += l
 
-		p.StockNum = v
+		p.ProductId = v
 
 	}
 	return offset, nil
 }
 
 func (p *OrderItem) FastReadField6(buf []byte) (int, error) {
+	offset := 0
+
+	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+
+		p.StockNum = v
+
+	}
+	return offset, nil
+}
+
+func (p *OrderItem) FastReadField7(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadString(buf[offset:]); err != nil {
@@ -292,7 +320,7 @@ func (p *OrderItem) FastReadField6(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *OrderItem) FastReadField7(buf []byte) (int, error) {
+func (p *OrderItem) FastReadField8(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI32(buf[offset:]); err != nil {
@@ -306,7 +334,7 @@ func (p *OrderItem) FastReadField7(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *OrderItem) FastReadField8(buf []byte) (int, error) {
+func (p *OrderItem) FastReadField9(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
@@ -320,7 +348,7 @@ func (p *OrderItem) FastReadField8(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *OrderItem) FastReadField9(buf []byte) (int, error) {
+func (p *OrderItem) FastReadField10(buf []byte) (int, error) {
 	offset := 0
 
 	if v, l, err := bthrift.Binary.ReadI64(buf[offset:]); err != nil {
@@ -345,13 +373,14 @@ func (p *OrderItem) FastWriteNocopy(buf []byte, binaryWriter bthrift.BinaryWrite
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], binaryWriter)
 		offset += p.fastWriteField2(buf[offset:], binaryWriter)
-		offset += p.fastWriteField4(buf[offset:], binaryWriter)
 		offset += p.fastWriteField5(buf[offset:], binaryWriter)
-		offset += p.fastWriteField8(buf[offset:], binaryWriter)
-		offset += p.fastWriteField9(buf[offset:], binaryWriter)
-		offset += p.fastWriteField3(buf[offset:], binaryWriter)
 		offset += p.fastWriteField6(buf[offset:], binaryWriter)
+		offset += p.fastWriteField9(buf[offset:], binaryWriter)
+		offset += p.fastWriteField10(buf[offset:], binaryWriter)
+		offset += p.fastWriteField3(buf[offset:], binaryWriter)
+		offset += p.fastWriteField4(buf[offset:], binaryWriter)
 		offset += p.fastWriteField7(buf[offset:], binaryWriter)
+		offset += p.fastWriteField8(buf[offset:], binaryWriter)
 	}
 	offset += bthrift.Binary.WriteFieldStop(buf[offset:])
 	offset += bthrift.Binary.WriteStructEnd(buf[offset:])
@@ -371,6 +400,7 @@ func (p *OrderItem) BLength() int {
 		l += p.field7Length()
 		l += p.field8Length()
 		l += p.field9Length()
+		l += p.field10Length()
 	}
 	l += bthrift.Binary.FieldStopLength()
 	l += bthrift.Binary.StructEndLength()
@@ -397,8 +427,8 @@ func (p *OrderItem) fastWriteField2(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *OrderItem) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "address", thrift.STRING, 3)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Address)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "user_name", thrift.STRING, 3)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.UserName)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -406,8 +436,8 @@ func (p *OrderItem) fastWriteField3(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *OrderItem) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "product_id", thrift.I64, 4)
-	offset += bthrift.Binary.WriteI64(buf[offset:], p.ProductId)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "address", thrift.STRING, 4)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.Address)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -415,8 +445,8 @@ func (p *OrderItem) fastWriteField4(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *OrderItem) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "stock_num", thrift.I64, 5)
-	offset += bthrift.Binary.WriteI64(buf[offset:], p.StockNum)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "product_id", thrift.I64, 5)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.ProductId)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -424,8 +454,8 @@ func (p *OrderItem) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *OrderItem) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "product_snapshot", thrift.STRING, 6)
-	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.ProductSnapshot)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "stock_num", thrift.I64, 6)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.StockNum)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -433,8 +463,8 @@ func (p *OrderItem) fastWriteField6(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *OrderItem) fastWriteField7(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status", thrift.I32, 7)
-	offset += bthrift.Binary.WriteI32(buf[offset:], int32(p.Status))
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "product_snapshot", thrift.STRING, 7)
+	offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, p.ProductSnapshot)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -442,8 +472,8 @@ func (p *OrderItem) fastWriteField7(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *OrderItem) fastWriteField8(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "create_time", thrift.I64, 8)
-	offset += bthrift.Binary.WriteI64(buf[offset:], p.CreateTime)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "status", thrift.I32, 8)
+	offset += bthrift.Binary.WriteI32(buf[offset:], int32(p.Status))
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	return offset
@@ -451,7 +481,16 @@ func (p *OrderItem) fastWriteField8(buf []byte, binaryWriter bthrift.BinaryWrite
 
 func (p *OrderItem) fastWriteField9(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "update_time", thrift.I64, 9)
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "create_time", thrift.I64, 9)
+	offset += bthrift.Binary.WriteI64(buf[offset:], p.CreateTime)
+
+	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
+	return offset
+}
+
+func (p *OrderItem) fastWriteField10(buf []byte, binaryWriter bthrift.BinaryWriter) int {
+	offset := 0
+	offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "update_time", thrift.I64, 10)
 	offset += bthrift.Binary.WriteI64(buf[offset:], p.UpdateTime)
 
 	offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
@@ -478,8 +517,8 @@ func (p *OrderItem) field2Length() int {
 
 func (p *OrderItem) field3Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("address", thrift.STRING, 3)
-	l += bthrift.Binary.StringLengthNocopy(p.Address)
+	l += bthrift.Binary.FieldBeginLength("user_name", thrift.STRING, 3)
+	l += bthrift.Binary.StringLengthNocopy(p.UserName)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -487,8 +526,8 @@ func (p *OrderItem) field3Length() int {
 
 func (p *OrderItem) field4Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("product_id", thrift.I64, 4)
-	l += bthrift.Binary.I64Length(p.ProductId)
+	l += bthrift.Binary.FieldBeginLength("address", thrift.STRING, 4)
+	l += bthrift.Binary.StringLengthNocopy(p.Address)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -496,8 +535,8 @@ func (p *OrderItem) field4Length() int {
 
 func (p *OrderItem) field5Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("stock_num", thrift.I64, 5)
-	l += bthrift.Binary.I64Length(p.StockNum)
+	l += bthrift.Binary.FieldBeginLength("product_id", thrift.I64, 5)
+	l += bthrift.Binary.I64Length(p.ProductId)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -505,8 +544,8 @@ func (p *OrderItem) field5Length() int {
 
 func (p *OrderItem) field6Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("product_snapshot", thrift.STRING, 6)
-	l += bthrift.Binary.StringLengthNocopy(p.ProductSnapshot)
+	l += bthrift.Binary.FieldBeginLength("stock_num", thrift.I64, 6)
+	l += bthrift.Binary.I64Length(p.StockNum)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -514,8 +553,8 @@ func (p *OrderItem) field6Length() int {
 
 func (p *OrderItem) field7Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("status", thrift.I32, 7)
-	l += bthrift.Binary.I32Length(int32(p.Status))
+	l += bthrift.Binary.FieldBeginLength("product_snapshot", thrift.STRING, 7)
+	l += bthrift.Binary.StringLengthNocopy(p.ProductSnapshot)
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -523,8 +562,8 @@ func (p *OrderItem) field7Length() int {
 
 func (p *OrderItem) field8Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("create_time", thrift.I64, 8)
-	l += bthrift.Binary.I64Length(p.CreateTime)
+	l += bthrift.Binary.FieldBeginLength("status", thrift.I32, 8)
+	l += bthrift.Binary.I32Length(int32(p.Status))
 
 	l += bthrift.Binary.FieldEndLength()
 	return l
@@ -532,7 +571,16 @@ func (p *OrderItem) field8Length() int {
 
 func (p *OrderItem) field9Length() int {
 	l := 0
-	l += bthrift.Binary.FieldBeginLength("update_time", thrift.I64, 9)
+	l += bthrift.Binary.FieldBeginLength("create_time", thrift.I64, 9)
+	l += bthrift.Binary.I64Length(p.CreateTime)
+
+	l += bthrift.Binary.FieldEndLength()
+	return l
+}
+
+func (p *OrderItem) field10Length() int {
+	l := 0
+	l += bthrift.Binary.FieldBeginLength("update_time", thrift.I64, 10)
 	l += bthrift.Binary.I64Length(p.UpdateTime)
 
 	l += bthrift.Binary.FieldEndLength()

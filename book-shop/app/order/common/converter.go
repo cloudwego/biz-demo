@@ -49,6 +49,7 @@ func ConvertPO2DTO(ctx context.Context, po *db.Order) *order.OrderItem {
 	ret := &order.OrderItem{
 		OrderId:         po.OrderId,
 		UserId:          po.UserId,
+		UserName:        "",
 		Address:         po.Address,
 		ProductId:       po.ProductId,
 		StockNum:        po.StockNum,
@@ -57,5 +58,10 @@ func ConvertPO2DTO(ctx context.Context, po *db.Order) *order.OrderItem {
 		CreateTime:      po.CreatedAt.Unix(),
 		UpdateTime:      po.UpdatedAt.Unix(),
 	}
+	userName, err := client.GetUserName(ctx, po.UserId)
+	if err == nil {
+		ret.UserName = userName
+	}
+
 	return ret
 }
