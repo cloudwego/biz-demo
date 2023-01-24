@@ -1,3 +1,18 @@
+// Copyright 2023 CloudWeGo Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
 package es
 
 import (
@@ -86,18 +101,18 @@ func getEntityFromSource(source string) *entity.ProductEntity {
 	sourceMap := make(map[string]interface{})
 	_ = sonic.UnmarshalString(source, &sourceMap)
 	ret := &entity.ProductEntity{
-		ProductId:   sourceMap["product_id"].(int64),
+		ProductId:   int64(sourceMap["product_id"].(float64)),
 		Name:        sourceMap["name"].(string),
 		Pic:         sourceMap["pic"].(string),
 		Description: sourceMap["description"].(string),
 		Property: &entity.PropertyEntity{
 			ISBN:     sourceMap["isbn"].(string),
 			SpuName:  sourceMap["spu_name"].(string),
-			SpuPrice: sourceMap["spu_price"].(int64),
+			SpuPrice: int64(sourceMap["spu_price"].(float64)),
 		},
-		Price:  sourceMap["price"].(int64),
-		Stock:  sourceMap["stock"].(int64),
-		Status: sourceMap["status"].(int64),
+		Price:  int64(sourceMap["price"].(float64)),
+		Stock:  int64(sourceMap["stock"].(float64)),
+		Status: int64(sourceMap["status"].(float64)),
 	}
 	return ret
 }

@@ -110,4 +110,24 @@ func TestItemServiceImpl(t *testing.T) {
 	t.Logf("resp: %v\n, err: %v", getResp, err)
 	assert.Nil(t, err)
 	t.Log("===Get After Delete Test Pass===")
+
+	t.Log("===Search Test Begin===")
+	searchName := "Java"
+	searchReq := &item.SearchReq{
+		Name: &searchName,
+	}
+	searchResp, err := serviceImpl.Search(context.TODO(), searchReq)
+	t.Logf("resp: %v\n, err: %v", searchResp, err)
+	assert.Nil(t, err)
+	t.Log("===Search Test Pass===")
+
+	t.Log("===Get2C Test Begin===")
+	get2CReq := &item.MGet2CReq{
+		ProductIds: []int64{addResp.ProductId},
+	}
+	get2CResp, err := serviceImpl.MGet2C(context.TODO(), get2CReq)
+	t.Logf("resp: %v\n, err: %v", get2CResp, err)
+	assert.Nil(t, err)
+	t.Log("===Get2C Test Pass===")
+
 }

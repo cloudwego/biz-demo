@@ -62,8 +62,8 @@ func (s *ItemServiceImpl) Get(ctx context.Context, req *item.GetReq) (resp *item
 
 // Search implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) Search(ctx context.Context, req *item.SearchReq) (resp *item.SearchResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewSearchHandler(ctx, req).Search()
+	return resp, err
 }
 
 // List implements the ItemServiceImpl interface.
@@ -74,8 +74,8 @@ func (s *ItemServiceImpl) List(ctx context.Context, req *item.ListReq) (resp *it
 
 // MGet2C implements the ItemServiceImpl interface.
 func (s *ItemServiceImpl) MGet2C(ctx context.Context, req *item.MGet2CReq) (resp *item.MGet2CResp, err error) {
-	// TODO: Your code here...
-	return
+	resp, err = handler.NewMGet2CHandler(ctx, req).MGet()
+	return resp, err
 }
 
 // DecrStock implements the ItemServiceImpl interface.

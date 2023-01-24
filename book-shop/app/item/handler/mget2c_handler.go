@@ -14,3 +14,44 @@
 //
 
 package handler
+
+import (
+	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/common/converter"
+	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/service"
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
+)
+
+type MGet2CHandler struct {
+	ctx   context.Context
+	param *item.MGet2CReq
+}
+
+func NewMGet2CHandler(ctx context.Context, req *item.MGet2CReq) *MGet2CHandler {
+	return &MGet2CHandler{
+		ctx:   ctx,
+		param: req,
+	}
+}
+
+func (h *MGet2CHandler) MGet() (*item.MGet2CResp, error) {
+	resp := &item.MGet2CResp{
+		BaseResp: errno.BuildBaseResp(errno.Success),
+	}
+
+	queryService := service.GetProductQueryServiceInstance()
+	entities, err := queryService.MGet2C(h.ctx, h.param.ProductIds)
+	if err != nil {
+		resp.BaseResp = errno.BuildBaseResp(err)
+		return resp, nil
+	}
+	dtoMap := make(map[int64]*item.Product)
+	for _, e := range entities {
+		dtoMap[e.ProductId] = converter.ConvertEntity2DTO(e)
+	}
+
+	resp.ProductMap = dtoMap
+
+	return resp, nil
+}

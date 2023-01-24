@@ -57,3 +57,19 @@ func (s *ProductQueryService) ListProducts(ctx context.Context, name, spuName *s
 	}
 	return entities, nil
 }
+
+func (s *ProductQueryService) MGet2C(ctx context.Context, productIds []int64) ([]*entity.ProductEntity, error) {
+	do, err := repository.GetRegistry().GetProduct2CRepository().MGetProducts2C(ctx, productIds)
+	if err != nil {
+		return nil, err
+	}
+	return do, nil
+}
+
+func (s *ProductQueryService) Search(ctx context.Context, name, description, spuName *string) ([]*entity.ProductEntity, error) {
+	do, err := repository.GetRegistry().GetProduct2CRepository().SearchProducts(ctx, name, description, spuName)
+	if err != nil {
+		return nil, err
+	}
+	return do, nil
+}

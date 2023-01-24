@@ -16,8 +16,9 @@
 package repository
 
 type RepositoryRegistry struct {
-	productRepository ProductRepository
-	stockRepository   StockRepository
+	productRepository   ProductRepository
+	stockRepository     StockRepository
+	product2CRepository Product2CRepository
 }
 
 var inst = &RepositoryRegistry{}
@@ -32,6 +33,14 @@ func (r *RepositoryRegistry) GetProductRepository() ProductRepository {
 
 func (r *RepositoryRegistry) SetProductRepository(productRepositoryIns ProductRepository) {
 	r.productRepository = productRepositoryIns
+}
+
+func (r *RepositoryRegistry) GetProduct2CRepository() Product2CRepository {
+	return r.product2CRepository
+}
+
+func (r *RepositoryRegistry) SetProduct2CRepository(product2CRepositoryIns Product2CRepository) {
+	r.product2CRepository = product2CRepositoryIns
 }
 
 func (r *RepositoryRegistry) GetStockRepository() StockRepository {
