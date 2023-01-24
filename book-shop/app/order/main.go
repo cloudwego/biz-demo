@@ -16,16 +16,39 @@
 package main
 
 import (
+	"github.com/cloudwego/biz-demo/book-shop/app/order/dal/client"
+	"github.com/cloudwego/biz-demo/book-shop/app/order/dal/db"
 	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
-	"log"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
+	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	"github.com/cloudwego/kitex/server"
+	etcd "github.com/kitex-contrib/registry-etcd"
+	"net"
 )
 
+func Init() {
+	client.Init()
+	db.Init()
+}
+
 func main() {
-	svr := order.NewServer(new(OrderServiceImpl))
-
-	err := svr.Run()
-
+	Init()
+	r, err := etcd.NewEtcdRegistry([]string{conf.EtcdAddress})
 	if err != nil {
-		log.Println(err.Error())
+		panic(err)
+	}
+	addr, err := net.ResolveTCPAddr("tcp", conf.OrderServiceAddress)
+	if err != nil {
+		panic(err)
+	}
+	svr := order.NewServer(new(OrderServiceImpl),
+		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.OrderRpcServiceName}), // server name
+		server.WithServiceAddr(addr), // address
+		server.WithRegistry(r),       // registry
+	)
+	err = svr.Run()
+	if err != nil {
+		klog.Fatal(err)
 	}
 }
