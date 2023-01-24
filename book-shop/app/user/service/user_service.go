@@ -4,7 +4,9 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"github.com/bytedance/sonic"
 	"github.com/cloudwego/biz-demo/book-shop/app/user/infras/db"
+	"github.com/cloudwego/biz-demo/book-shop/app/user/infras/redis"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"io"
@@ -40,17 +42,42 @@ func (s *UserService) CreateUser(req *user.CreateUserReq) error {
 	}})
 }
 
+// Cache Aside模式：
+// 读：先读cache，不存在则回源，回源如果读到则更新cache；
+// 写：更新数据库时，删除cache
 func (s *UserService) MGetUser(req *user.MGetUserReq) ([]*user.User, error) {
-	users, err := db.MGetUsers(s.ctx, req.GetIds())
+	ret := make([]*user.User, 0)
+	idNotCached := make([]int64, 0)
+
+	userInfoStr, err := redis.MGet(req.GetIds())
+	// 降级
+	if err != nil || userInfoStr == nil {
+		idNotCached = req.Ids
+	} else {
+		for index, item := range userInfoStr {
+			if item == "" {
+				idNotCached = append(idNotCached, req.GetIds()[index])
+			} else {
+				ret = append(ret, s.getDtoFromString(item))
+			}
+		}
+	}
+
+	users, err := db.MGetUsers(s.ctx, idNotCached)
 	if err != nil {
 		return nil, err
 	}
-	ret := make([]*user.User, 0)
+
 	for _, userModel := range users {
-		ret = append(ret, &user.User{
+		userCur := &user.User{
 			UserId:   int64(userModel.ID),
 			UserName: userModel.UserName,
-		})
+		}
+		ret = append(ret, userCur)
+
+		str, _ := sonic.MarshalString(userCur)
+
+		redis.Upsert(int64(userModel.ID), str)
 	}
 	return ret, nil
 }
@@ -75,4 +102,10 @@ func (s *UserService) CheckUser(req *user.CheckUserReq) (int64, error) {
 		return 0, errno.LoginErr
 	}
 	return int64(u.ID), nil
+}
+
+func (s *UserService) getDtoFromString(userInfo string) *user.User {
+	ret := &user.User{}
+	_ = sonic.UnmarshalString(userInfo, ret)
+	return ret
 }

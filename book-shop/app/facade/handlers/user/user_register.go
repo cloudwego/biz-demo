@@ -13,7 +13,7 @@
 // limitations under the License.
 //
 
-package handlers
+package user
 
 import (
 	"context"

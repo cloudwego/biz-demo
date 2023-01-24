@@ -17,7 +17,7 @@ package facade
 
 import (
 	"context"
-	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers"
+	user2 "github.com/cloudwego/biz-demo/book-shop/app/facade/handlers/user"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
@@ -114,11 +114,11 @@ func main() {
 	h := server.Default(server.WithHostPorts(conf.FacadeServiceAddress))
 
 	userGroup := h.Group("/user")
-	userGroup.POST("/register", handlers.UserRegister)
-	userGroup.POST("/login", handlers.UserLogin)
+	userGroup.POST("/register", user2.UserRegister)
+	userGroup.POST("/login", user2.UserLogin)
 
 	shopGroup := h.Group("/shop")
-	shopGroup.POST("/login", handlers.ShopLogin)
+	shopGroup.POST("/login", user2.ShopLogin)
 
 	url := swagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
 	h.GET("/swagger/*any", swagger.WrapHandler(swaggerFiles.Handler, url))
