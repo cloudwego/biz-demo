@@ -13,45 +13,51 @@
 // limitations under the License.
 //
 
-package handler_user
+package handler_item
 
 import (
 	"context"
+	"errors"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
-	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"strconv"
+	"strings"
 )
 
-// UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// MGetProduct2C godoc
+// @Summary 商品ID批量查询商品（2C接口）
+// @Description 商品ID批量查询商品（2C接口）
+// @Tags 商品模块-2C
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param product_ids query string true "商品ID 逗号分隔"
+// @Security TokenAuth
 // @Success 200 {object} model.Response
-// @Router /user/register [post]
-func UserRegister(ctx context.Context, c *app.RequestContext) {
-	var registerParam model.UserParam
-	if err := c.BindAndValidate(&registerParam); err != nil {
-		model.SendResponse(c, errno.ConvertErr(err), nil)
+// @Router /item2c/mget [get]
+func MGetProduct2C(ctx context.Context, c *app.RequestContext) {
+	productIdsStr := c.Query("product_ids")
+	if productIdsStr == "" {
+		model.SendResponse(c, errno.ConvertErr(errors.New("未传入product_id")), nil)
 		return
 	}
-
-	if len(registerParam.UserName) == 0 || len(registerParam.PassWord) == 0 {
-		model.SendResponse(c, errno.ParamErr, nil)
-		return
+	productIdStrArr := strings.Split(productIdsStr, ",")
+	productIds := make([]int64, 0)
+	for _, v := range productIdStrArr {
+		cur, err := strconv.ParseInt(v, 10, 64)
+		if err != nil {
+			model.SendResponse(c, errno.ConvertErr(errors.New("非法参数")), nil)
+			return
+		}
+		productIds = append(productIds, cur)
 	}
 
-	err := client.CreateUser(ctx, &user.CreateUserReq{
-		UserName: registerParam.UserName,
-		Password: registerParam.PassWord,
-	})
+	products, err := client.MGetProducts2C(ctx, productIds)
 	if err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	model.SendResponse(c, errno.Success, nil)
+
+	model.SendResponse(c, errno.Success, products)
 }

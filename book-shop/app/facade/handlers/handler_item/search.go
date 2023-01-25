@@ -13,45 +13,44 @@
 // limitations under the License.
 //
 
-package handler_user
+package handler_item
 
 import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
-	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
-// UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// SearchProduct godoc
+// @Summary 搜索商品（2C接口）
+// @Description 搜索商品（2C接口）
+// @Tags 商品模块-2C
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param searchProductReq body model.SearchProductReq true "搜索商品参数"
+// @Security TokenAuth
 // @Success 200 {object} model.Response
-// @Router /user/register [post]
-func UserRegister(ctx context.Context, c *app.RequestContext) {
-	var registerParam model.UserParam
-	if err := c.BindAndValidate(&registerParam); err != nil {
+// @Router /item2c/search [post]
+func SearchProduct(ctx context.Context, c *app.RequestContext) {
+	var searchReq model.SearchProductReq
+	if err := c.BindAndValidate(&searchReq); err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	if len(registerParam.UserName) == 0 || len(registerParam.PassWord) == 0 {
-		model.SendResponse(c, errno.ParamErr, nil)
-		return
+	req := &item.SearchReq{
+		Name:        searchReq.Name,
+		Description: searchReq.Description,
+		SpuName:     searchReq.SpuName,
 	}
-
-	err := client.CreateUser(ctx, &user.CreateUserReq{
-		UserName: registerParam.UserName,
-		Password: registerParam.PassWord,
-	})
+	products, err := client.SearchProduct(ctx, req)
 	if err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	model.SendResponse(c, errno.Success, nil)
+
+	model.SendResponse(c, errno.Success, products)
 }

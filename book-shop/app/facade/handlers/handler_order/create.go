@@ -13,42 +13,53 @@
 // limitations under the License.
 //
 
-package handler_user
+package handler_order
 
 import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
-	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/hertz-contrib/jwt"
+	"strconv"
 )
 
-// UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// CreateOrder godoc
+// @Summary 用户下单
+// @Description 用户下单
+// @Tags 订单模块
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param createOrderReq body model.CreateOrderReq true "提单参数"
+// @Security TokenAuth
 // @Success 200 {object} model.Response
-// @Router /user/register [post]
-func UserRegister(ctx context.Context, c *app.RequestContext) {
-	var registerParam model.UserParam
-	if err := c.BindAndValidate(&registerParam); err != nil {
+// @Router /order/create [post]
+func CreateOrder(ctx context.Context, c *app.RequestContext) {
+	var createReq model.CreateOrderReq
+	if err := c.BindAndValidate(&createReq); err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	if len(registerParam.UserName) == 0 || len(registerParam.PassWord) == 0 {
-		model.SendResponse(c, errno.ParamErr, nil)
+	claims := jwt.ExtractClaims(ctx, c)
+	userID := int64(claims[conf.IdentityKey].(float64))
+
+	pid, err := strconv.ParseInt(createReq.ProductId, 10, 64)
+	if err != nil {
+		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	err := client.CreateUser(ctx, &user.CreateUserReq{
-		UserName: registerParam.UserName,
-		Password: registerParam.PassWord,
-	})
+	req := &order.CreateOrderReq{
+		UserId:    userID,
+		Address:   createReq.Address,
+		ProductId: pid,
+		StockNum:  createReq.StockNum,
+	}
+	err = client.CreateOrder(ctx, req)
 	if err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return

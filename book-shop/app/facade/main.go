@@ -13,13 +13,16 @@
 // limitations under the License.
 //
 
-package facade
+package main
 
 import (
 	"context"
+	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers/handler_item"
+	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers/handler_order"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers/handler_user"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
+	_ "github.com/cloudwego/biz-demo/book-shop/docs"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -94,7 +97,7 @@ func Init() {
 
 // @title Book-Shop
 // @version 1.0
-// @description This is a book shop demo using Hertz and KiteX.
+// @description This is a book-shop demo using Hertz and KiteX.
 
 // @contact.name CloudWeGo
 // @contact.url https://github.com/cloudwego
@@ -113,12 +116,39 @@ func main() {
 	Init()
 	h := server.Default(server.WithHostPorts(conf.FacadeServiceAddress))
 
+	// 账号服务
 	userGroup := h.Group("/user")
 	userGroup.POST("/register", handler_user.UserRegister)
 	userGroup.POST("/login", handler_user.UserLogin)
 
+	// 商家服务
 	shopGroup := h.Group("/shop")
 	shopGroup.POST("/login", handler_user.ShopLogin)
+
+	// 商品B端服务
+	item2BGroup := h.Group("/item2b")
+	item2BGroup.Use(model.ShopAuthMiddleware.MiddlewareFunc())
+	item2BGroup.POST("/add", handler_item.AddProduct)
+	item2BGroup.POST("/edit", handler_item.EditProduct)
+	item2BGroup.POST("/del", handler_item.DelProduct)
+	item2BGroup.POST("/offline", handler_item.OfflineProduct)
+	item2BGroup.POST("/online", handler_item.OnlineProduct)
+	item2BGroup.GET("/get", handler_item.GetProduct)
+	item2BGroup.POST("/list", handler_item.ListProduct)
+
+	// 商品C端服务
+	item2CGroup := h.Group("/item2c")
+	item2CGroup.Use(model.UserAuthMiddleware.MiddlewareFunc())
+	item2CGroup.GET("/mget", handler_item.MGetProduct2C)
+	item2CGroup.POST("/search", handler_item.SearchProduct)
+
+	// 订单服务
+	orderGroup := h.Group("/order")
+	orderGroup.Use(model.UserAuthMiddleware.MiddlewareFunc())
+	orderGroup.POST("/create", handler_order.CreateOrder)
+	orderGroup.POST("/cancel", handler_order.CancelOrder)
+	orderGroup.POST("/list", handler_order.ListOrder)
+	orderGroup.GET("/get", handler_order.GetOrder)
 
 	url := swagger.URL("http://localhost:8080/swagger/doc.json") // The url pointing to API definition
 	h.GET("/swagger/*any", swagger.WrapHandler(swaggerFiles.Handler, url))

@@ -13,45 +13,43 @@
 // limitations under the License.
 //
 
-package handler_user
+package handler_order
 
 import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
-	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/hertz-contrib/jwt"
 )
 
-// UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// ListOrder godoc
+// @Summary 订单列表
+// @Description 订单列表
+// @Tags 订单模块
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param listOrderReq body model.ListOrderReq true "订单列表查询参数"
+// @Security TokenAuth
 // @Success 200 {object} model.Response
-// @Router /user/register [post]
-func UserRegister(ctx context.Context, c *app.RequestContext) {
-	var registerParam model.UserParam
-	if err := c.BindAndValidate(&registerParam); err != nil {
+// @Router /order/list [post]
+func ListOrder(ctx context.Context, c *app.RequestContext) {
+	var listReq model.ListOrderReq
+	if err := c.BindAndValidate(&listReq); err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	if len(registerParam.UserName) == 0 || len(registerParam.PassWord) == 0 {
-		model.SendResponse(c, errno.ParamErr, nil)
-		return
-	}
+	claims := jwt.ExtractClaims(ctx, c)
+	userID := int64(claims[conf.IdentityKey].(float64))
 
-	err := client.CreateUser(ctx, &user.CreateUserReq{
-		UserName: registerParam.UserName,
-		Password: registerParam.PassWord,
-	})
+	orders, err := client.ListOrder(ctx, userID, listReq.Status)
 	if err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	model.SendResponse(c, errno.Success, nil)
+
+	model.SendResponse(c, errno.Success, orders)
 }

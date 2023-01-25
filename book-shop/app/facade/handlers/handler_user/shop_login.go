@@ -27,9 +27,9 @@ import (
 // @Tags 商家模块
 // @Accept json
 // @Produce json
-// @Param userParam body handlers.UserParam true "店铺账号信息"
-// @Success 200 {object} handlers.LoginResponse
+// @Param userParam body model.UserParam true "店铺账号信息"
+// @Success 200 {object} model.LoginResponse
 // @Router /shop/login [post]
 func ShopLogin(ctx context.Context, c *app.RequestContext) {
-	model.UserAuthMiddleware.LoginHandler(ctx, c)
+	model.ShopAuthMiddleware.LoginHandler(ctx, c)
 }

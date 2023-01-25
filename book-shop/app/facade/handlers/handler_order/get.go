@@ -13,45 +13,46 @@
 // limitations under the License.
 //
 
-package handler_user
+package handler_order
 
 import (
 	"context"
+	"errors"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
-	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"strconv"
 )
 
-// UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// GetOrder godoc
+// @Summary 订单ID查询订单
+// @Description 订单ID查询订单
+// @Tags 订单模块
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param order_id query int true "订单ID"
+// @Security TokenAuth
 // @Success 200 {object} model.Response
-// @Router /user/register [post]
-func UserRegister(ctx context.Context, c *app.RequestContext) {
-	var registerParam model.UserParam
-	if err := c.BindAndValidate(&registerParam); err != nil {
-		model.SendResponse(c, errno.ConvertErr(err), nil)
+// @Router /order/get [get]
+func GetOrder(ctx context.Context, c *app.RequestContext) {
+	orderIdStr := c.Query("order_id")
+	if orderIdStr == "" {
+		model.SendResponse(c, errno.ConvertErr(errors.New("未传入order_id")), nil)
 		return
 	}
 
-	if len(registerParam.UserName) == 0 || len(registerParam.PassWord) == 0 {
-		model.SendResponse(c, errno.ParamErr, nil)
-		return
-	}
-
-	err := client.CreateUser(ctx, &user.CreateUserReq{
-		UserName: registerParam.UserName,
-		Password: registerParam.PassWord,
-	})
+	orderId, err := strconv.ParseInt(orderIdStr, 10, 64)
 	if err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	model.SendResponse(c, errno.Success, nil)
+
+	order, err := client.GetOrderById(ctx, orderId)
+	if err != nil {
+		model.SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
+
+	model.SendResponse(c, errno.Success, order)
 }

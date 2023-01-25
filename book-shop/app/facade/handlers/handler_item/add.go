@@ -13,45 +13,53 @@
 // limitations under the License.
 //
 
-package handler_user
+package handler_item
 
 import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
-	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"strconv"
 )
 
-// UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// AddProduct godoc
+// @Summary 发布商品
+// @Description 发布商品
+// @Tags 商品模块
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param addProductRequest body model.AddProductRequest true "发布商品参数"
+// @Security TokenAuth
 // @Success 200 {object} model.Response
-// @Router /user/register [post]
-func UserRegister(ctx context.Context, c *app.RequestContext) {
-	var registerParam model.UserParam
-	if err := c.BindAndValidate(&registerParam); err != nil {
+// @Router /item2b/add [post]
+func AddProduct(ctx context.Context, c *app.RequestContext) {
+	var addReq model.AddProductRequest
+	if err := c.BindAndValidate(&addReq); err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	if len(registerParam.UserName) == 0 || len(registerParam.PassWord) == 0 {
-		model.SendResponse(c, errno.ParamErr, nil)
-		return
+	req := &item.AddReq{
+		Name:        addReq.Name,
+		Pic:         addReq.Pic,
+		Description: addReq.Description,
+		Property: &item.BookProperty{
+			Isbn:     addReq.ISBN,
+			SpuName:  addReq.SpuName,
+			SpuPrice: addReq.SpuPrice,
+		},
+		Price: addReq.Price,
+		Stock: addReq.Stock,
 	}
-
-	err := client.CreateUser(ctx, &user.CreateUserReq{
-		UserName: registerParam.UserName,
-		Password: registerParam.PassWord,
-	})
+	pid, err := client.AddProduct(ctx, req)
 	if err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	model.SendResponse(c, errno.Success, nil)
+	model.SendResponse(c, errno.Success, map[string]interface{}{
+		"product_id": strconv.FormatInt(pid, 10),
+	})
 }

@@ -27,8 +27,8 @@ import (
 // @Tags 用户模块
 // @Accept json
 // @Produce json
-// @Param userParam body handlers.UserParam true "账号信息"
-// @Success 200 {object} handlers.LoginResponse
+// @Param userParam body model.UserParam true "账号信息"
+// @Success 200 {object} model.LoginResponse
 // @Router /user/login [post]
 func UserLogin(ctx context.Context, c *app.RequestContext) {
 	model.UserAuthMiddleware.LoginHandler(ctx, c)

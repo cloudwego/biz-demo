@@ -16,8 +16,11 @@
 package client
 
 import (
+	"context"
+	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item/itemservice"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
+	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/retry"
 	etcd "github.com/kitex-contrib/registry-etcd"
@@ -43,4 +46,102 @@ func initItemRpc() {
 		panic(err)
 	}
 	itemClient = c
+}
+
+func AddProduct(ctx context.Context, req *item.AddReq) (int64, error) {
+	resp, err := itemClient.Add(ctx, req)
+	if err != nil {
+		return 0, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return 0, errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+	}
+	return resp.ProductId, nil
+}
+
+func EditProduct(ctx context.Context, req *item.EditReq) error {
+	resp, err := itemClient.Edit(ctx, req)
+	if err != nil {
+		return err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+	}
+	return nil
+}
+
+func OperateProduct(ctx context.Context, productId int64, operate string) error {
+	if operate == "del" {
+		resp, err := itemClient.Delete(ctx, &item.DeleteReq{ProductId: productId})
+		if err != nil {
+			return err
+		}
+		if resp.BaseResp.StatusCode != 0 {
+			return errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+		}
+	} else if operate == "offline" {
+		resp, err := itemClient.Offline(ctx, &item.OfflineReq{ProductId: productId})
+		if err != nil {
+			return err
+		}
+		if resp.BaseResp.StatusCode != 0 {
+			return errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+		}
+	} else if operate == "online" {
+		resp, err := itemClient.Online(ctx, &item.OnlineReq{ProductId: productId})
+		if err != nil {
+			return err
+		}
+		if resp.BaseResp.StatusCode != 0 {
+			return errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+		}
+	}
+
+	return nil
+}
+
+func GetProduct(ctx context.Context, productId int64) (*item.Product, error) {
+	resp, err := itemClient.Get(ctx, &item.GetReq{ProductId: productId})
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+	}
+	return resp.Product, nil
+}
+
+func MGetProducts2C(ctx context.Context, productIds []int64) (map[int64]*item.Product, error) {
+	resp, err := itemClient.MGet2C(ctx, &item.MGet2CReq{
+		ProductIds: productIds,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+	}
+	return resp.ProductMap, nil
+}
+
+func SearchProduct(ctx context.Context, req *item.SearchReq) ([]*item.Product, error) {
+	resp, err := itemClient.Search(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+	}
+	return resp.Products, nil
+}
+
+func ListProduct(ctx context.Context, req *item.ListReq) ([]*item.Product, error) {
+	resp, err := itemClient.List(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(int64(resp.BaseResp.StatusCode), resp.BaseResp.StatusMessage)
+	}
+	return resp.Products, nil
 }

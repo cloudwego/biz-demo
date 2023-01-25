@@ -13,42 +13,41 @@
 // limitations under the License.
 //
 
-package handler_user
+package handler_order
 
 import (
 	"context"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
-	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
+	"strconv"
 )
 
-// UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// CancelOrder godoc
+// @Summary 用户取消订单
+// @Description 用户取消订单
+// @Tags 订单模块
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param cancelOrderReq body model.CancelOrderReq true "取消订单参数"
+// @Security TokenAuth
 // @Success 200 {object} model.Response
-// @Router /user/register [post]
-func UserRegister(ctx context.Context, c *app.RequestContext) {
-	var registerParam model.UserParam
-	if err := c.BindAndValidate(&registerParam); err != nil {
+// @Router /order/cancel [post]
+func CancelOrder(ctx context.Context, c *app.RequestContext) {
+	var cancelReq model.CancelOrderReq
+	if err := c.BindAndValidate(&cancelReq); err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	if len(registerParam.UserName) == 0 || len(registerParam.PassWord) == 0 {
-		model.SendResponse(c, errno.ParamErr, nil)
+	orderId, err := strconv.ParseInt(cancelReq.OrderId, 10, 64)
+	if err != nil {
+		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
 
-	err := client.CreateUser(ctx, &user.CreateUserReq{
-		UserName: registerParam.UserName,
-		Password: registerParam.PassWord,
-	})
+	err = client.CancelOrder(ctx, orderId)
 	if err != nil {
 		model.SendResponse(c, errno.ConvertErr(err), nil)
 		return

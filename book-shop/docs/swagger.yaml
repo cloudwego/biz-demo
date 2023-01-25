@@ -1,0 +1,504 @@
+basePath: /
+definitions:
+  model.AddProductRequest:
+    properties:
+      description:
+        type: string
+      isbn:
+        type: string
+      name:
+        type: string
+      pic:
+        type: string
+      price:
+        type: integer
+      spu_name:
+        type: string
+      spu_price:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  model.CancelOrderReq:
+    properties:
+      order_id:
+        type: string
+    type: object
+  model.CreateOrderReq:
+    properties:
+      address:
+        type: string
+      product_id:
+        type: string
+      stock_num:
+        type: integer
+    type: object
+  model.EditProductRequest:
+    properties:
+      description:
+        type: string
+      isbn:
+        type: string
+      name:
+        type: string
+      pic:
+        type: string
+      price:
+        type: integer
+      product_id:
+        type: string
+      spu_name:
+        type: string
+      spu_price:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  model.ListOrderReq:
+    properties:
+      status:
+        type: integer
+    type: object
+  model.ListProductReq:
+    properties:
+      name:
+        type: string
+      spu_name:
+        type: string
+      status:
+        type: integer
+    type: object
+  model.LoginResponse:
+    properties:
+      code:
+        type: integer
+      expire:
+        type: string
+      token:
+        type: string
+    type: object
+  model.OperateProductReq:
+    properties:
+      product_id:
+        type: string
+    type: object
+  model.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  model.SearchProductReq:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      spu_name:
+        type: string
+    type: object
+  model.UserParam:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: conduct@cloudwego.io
+    name: CloudWeGo
+    url: https://github.com/cloudwego
+  description: This is a book-shop demo using Hertz and KiteX.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Book-Shop
+  version: "1.0"
+paths:
+  /item2b/add:
+    post:
+      consumes:
+      - application/json
+      description: 发布商品
+      parameters:
+      - description: 发布商品参数
+        in: body
+        name: addProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 发布商品
+      tags:
+      - 商品模块
+  /item2b/del:
+    post:
+      consumes:
+      - application/json
+      description: 删除商品
+      parameters:
+      - description: 商品参数
+        in: body
+        name: delProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 删除商品
+      tags:
+      - 商品模块
+  /item2b/edit:
+    post:
+      consumes:
+      - application/json
+      description: 编辑商品
+      parameters:
+      - description: 编辑商品参数
+        in: body
+        name: editProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.EditProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 编辑商品
+      tags:
+      - 商品模块
+  /item2b/get:
+    get:
+      consumes:
+      - application/json
+      description: 商品ID查询商品
+      parameters:
+      - description: 商品ID
+        in: query
+        name: product_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 商品ID查询商品
+      tags:
+      - 商品模块
+  /item2b/list:
+    post:
+      consumes:
+      - application/json
+      description: 获取商品列表
+      parameters:
+      - description: 获取商品列表参数
+        in: body
+        name: listProductReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.ListProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 获取商品列表
+      tags:
+      - 商品模块
+  /item2b/offline:
+    post:
+      consumes:
+      - application/json
+      description: 下架商品
+      parameters:
+      - description: 商品参数
+        in: body
+        name: offlineProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 下架商品
+      tags:
+      - 商品模块
+  /item2b/online:
+    post:
+      consumes:
+      - application/json
+      description: 上架商品
+      parameters:
+      - description: 商品参数
+        in: body
+        name: onlineProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 上架商品
+      tags:
+      - 商品模块
+  /item2c/mget:
+    get:
+      consumes:
+      - application/json
+      description: 商品ID批量查询商品（2C接口）
+      parameters:
+      - description: 商品ID 逗号分隔
+        in: query
+        name: product_ids
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 商品ID批量查询商品（2C接口）
+      tags:
+      - 商品模块-2C
+  /item2c/search:
+    post:
+      consumes:
+      - application/json
+      description: 搜索商品（2C接口）
+      parameters:
+      - description: 搜索商品参数
+        in: body
+        name: searchProductReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.SearchProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 搜索商品（2C接口）
+      tags:
+      - 商品模块-2C
+  /order/cancel:
+    post:
+      consumes:
+      - application/json
+      description: 用户取消订单
+      parameters:
+      - description: 取消订单参数
+        in: body
+        name: cancelOrderReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.CancelOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 用户取消订单
+      tags:
+      - 订单模块
+  /order/create:
+    post:
+      consumes:
+      - application/json
+      description: 用户下单
+      parameters:
+      - description: 提单参数
+        in: body
+        name: createOrderReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 用户下单
+      tags:
+      - 订单模块
+  /order/get:
+    get:
+      consumes:
+      - application/json
+      description: 订单ID查询订单
+      parameters:
+      - description: 订单ID
+        in: query
+        name: order_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 订单ID查询订单
+      tags:
+      - 订单模块
+  /order/list:
+    post:
+      consumes:
+      - application/json
+      description: 订单列表
+      parameters:
+      - description: 订单列表查询参数
+        in: body
+        name: listOrderReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.ListOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: 订单列表
+      tags:
+      - 订单模块
+  /shop/login:
+    post:
+      consumes:
+      - application/json
+      description: 商家登录
+      parameters:
+      - description: 店铺账号信息
+        in: body
+        name: userParam
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LoginResponse'
+      summary: 商家登录
+      tags:
+      - 商家模块
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录
+      parameters:
+      - description: 账号信息
+        in: body
+        name: userParam
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LoginResponse'
+      summary: 用户登录
+      tags:
+      - 用户模块
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册
+      parameters:
+      - description: 注册信息
+        in: body
+        name: userParam
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      summary: 用户注册
+      tags:
+      - 用户模块
+schemes:
+- http
+securityDefinitions:
+  TokenAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
