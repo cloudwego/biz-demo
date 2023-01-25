@@ -1,7 +1,7 @@
 # Book Shop
 
 ## Introduction
-A simple note service built with `Kitex` and `Hertz` which is divided into three microservices.
+An e-commerce demo built with `Kitex` and `Hertz`.
 
 | Service Name       | Usage          | Framework    | protocol | Path       | IDL              |
 |--------------------|----------------|--------------|----------|------------|------------------|
