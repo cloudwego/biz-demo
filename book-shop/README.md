@@ -17,8 +17,8 @@ An e-commerce demo built with `Kitex` and `Hertz`.
   * Redis
   * ETCD
 * Hertz middlewares used
-  * [swagger](github.com/hertz-contrib/swagger)
-  * [jwt](github.com/hertz-contrib/jwt)
+  * [swagger](http://github.com/hertz-contrib/swagger)
+  * [JWT](http://github.com/hertz-contrib/jwt)
 
 ## Architecture
 ### Technology Architecture
