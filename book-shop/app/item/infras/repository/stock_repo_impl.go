@@ -18,12 +18,12 @@ package repository
 import (
 	"context"
 	"errors"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/po"
 	"gorm.io/gorm/clause"
 )
 
-type StockRepositoryImpl struct {
-}
+type StockRepositoryImpl struct{}
 
 func (i StockRepositoryImpl) IncrStock(ctx context.Context, productId, stockNum int64) error {
 	return i.updateStock(ctx, productId, stockNum, "incr")

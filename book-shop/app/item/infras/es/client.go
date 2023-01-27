@@ -17,12 +17,13 @@ package es
 
 import (
 	"context"
+	"strconv"
+	"sync"
+
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/olivere/elastic/v7"
-	"strconv"
-	"sync"
 )
 
 // ES 客户端

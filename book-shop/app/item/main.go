@@ -16,14 +16,15 @@
 package main
 
 import (
+	"log"
+	"net"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras"
 	item "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item/itemservice"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"log"
-	"net"
 )
 
 func Init() {

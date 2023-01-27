@@ -17,6 +17,8 @@ package client
 
 import (
 	"context"
+	"time"
+
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
@@ -24,7 +26,6 @@ import (
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/retry"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"time"
 )
 
 var orderClient orderservice.Client

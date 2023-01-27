@@ -18,6 +18,8 @@ package client
 import (
 	"context"
 	"errors"
+	"time"
+
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/item/itemservice"
@@ -26,7 +28,6 @@ import (
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/retry"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"time"
 )
 
 var itemClient itemservice.Client

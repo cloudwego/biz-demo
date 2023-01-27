@@ -17,13 +17,13 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
 )
 
 // ProductQueryService 商品查询服务
-type ProductQueryService struct {
-}
+type ProductQueryService struct{}
 
 var productQueryService ProductQueryService
 

@@ -17,12 +17,12 @@ package repository
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/es"
 )
 
-type Product2CRepositoryImpl struct {
-}
+type Product2CRepositoryImpl struct{}
 
 func (i Product2CRepositoryImpl) MGetProducts2C(ctx context.Context, productIds []int64) ([]*entity.ProductEntity, error) {
 	entities, err := es.BatchGetProductById(ctx, productIds)

@@ -18,12 +18,13 @@ package handler_item
 import (
 	"context"
 	"errors"
+	"strconv"
+	"strings"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/infras/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/model"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
-	"strconv"
-	"strings"
 )
 
 // MGetProduct2C godoc

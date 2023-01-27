@@ -17,12 +17,12 @@ package converter
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/po"
 )
 
-type productDO2POConverter struct {
-}
+type productDO2POConverter struct{}
 
 var ProductDO2POConverter = &productDO2POConverter{}
 

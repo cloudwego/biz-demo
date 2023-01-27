@@ -17,13 +17,14 @@ package repository
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 )
 
 type ProductRepository interface {
 	AddProduct(ctx context.Context, product *entity.ProductEntity) error
 
-	UpdateProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error
+	UpdateProduct(ctx context.Context, origin, target *entity.ProductEntity) error
 
 	GetProductById(ctx context.Context, productId int64) (*entity.ProductEntity, error)
 

@@ -16,7 +16,6 @@
 package repository
 
 import (
-	"github.com/cloudwego/biz-demo/book-shop/app/item/common/po"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"gorm.io/driver/mysql"
@@ -44,17 +43,6 @@ func initDB() {
 	)
 	if err != nil {
 		panic(err)
-	}
-
-	m := DB.Migrator()
-	hasTable := m.HasTable(&po.Product{})
-	if hasTable {
-		return
-	}
-	if !hasTable {
-		if err = m.CreateTable(&po.Product{}); err != nil {
-			panic(err)
-		}
 	}
 }
 

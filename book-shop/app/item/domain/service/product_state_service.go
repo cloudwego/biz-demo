@@ -18,6 +18,7 @@ package service
 import (
 	"context"
 	"errors"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/constant"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
@@ -25,8 +26,7 @@ import (
 )
 
 // ProductStateService 商品状态机服务
-type ProductStateService struct {
-}
+type ProductStateService struct{}
 
 var productStateService ProductStateService
 
@@ -117,7 +117,8 @@ func (s *ProductStateService) getConstructTargetInfoFunc(operationType constant.
 
 // ConstructTargetInfo 状态流转
 func (s *ProductStateService) ConstructTargetInfo(originProduct *entity.ProductEntity,
-	operation constant.StateOperationType) (*entity.ProductEntity, error) {
+	operation constant.StateOperationType,
+) (*entity.ProductEntity, error) {
 	targetProduct, err := originProduct.Clone()
 	if err != nil {
 		return nil, err
@@ -135,7 +136,7 @@ func (s *ProductStateService) ConstructTargetInfo(originProduct *entity.ProductE
 }
 
 // OperateProduct 更新商品
-func (s *ProductStateService) OperateProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error {
+func (s *ProductStateService) OperateProduct(ctx context.Context, origin, target *entity.ProductEntity) error {
 	repo := repository.GetRegistry().GetProductRepository()
 	// 更新商品状态
 	err := repo.UpdateProduct(ctx, origin, target)

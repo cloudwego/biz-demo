@@ -17,6 +17,8 @@ package main
 
 import (
 	"context"
+	"time"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers/handler_item"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers/handler_order"
 	"github.com/cloudwego/biz-demo/book-shop/app/facade/handlers/handler_user"
@@ -27,10 +29,11 @@ import (
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/hertz-contrib/gzip"
 	"github.com/hertz-contrib/jwt"
+	"github.com/hertz-contrib/pprof"
 	"github.com/hertz-contrib/swagger"
 	swaggerFiles "github.com/swaggo/files"
-	"time"
 )
 
 func Init() {
@@ -115,6 +118,8 @@ func Init() {
 func main() {
 	Init()
 	h := server.Default(server.WithHostPorts(conf.FacadeServiceAddress))
+	h.Use(gzip.Gzip(gzip.DefaultCompression))
+	pprof.Register(h)
 
 	// 账号服务
 	userGroup := h.Group("/user")

@@ -16,6 +16,8 @@
 package main
 
 import (
+	"net"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/order/dal/client"
 	"github.com/cloudwego/biz-demo/book-shop/app/order/dal/db"
 	order "github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/order/orderservice"
@@ -24,7 +26,6 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"net"
 )
 
 func Init() {

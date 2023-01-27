@@ -20,15 +20,4 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-
-	m := DB.Migrator()
-	hasUserTable := m.HasTable(&User{})
-	if hasUserTable {
-		return
-	}
-	if !hasUserTable {
-		if err = m.CreateTable(&User{}); err != nil {
-			panic(err)
-		}
-	}
 }

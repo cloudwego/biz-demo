@@ -16,15 +16,18 @@
 package model
 
 import (
+	"net/http"
+
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
-	"net/http"
 
 	"github.com/hertz-contrib/jwt"
 )
 
-var UserAuthMiddleware *jwt.HertzJWTMiddleware
-var ShopAuthMiddleware *jwt.HertzJWTMiddleware
+var (
+	UserAuthMiddleware *jwt.HertzJWTMiddleware
+	ShopAuthMiddleware *jwt.HertzJWTMiddleware
+)
 
 type Response struct {
 	Code    int64       `json:"code"`

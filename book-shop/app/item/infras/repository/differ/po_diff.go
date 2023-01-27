@@ -20,12 +20,11 @@ import (
 	"github.com/r3labs/diff/v2"
 )
 
-type productPODiffer struct {
-}
+type productPODiffer struct{}
 
 var ProductPODiffer *productPODiffer
 
-func (differ *productPODiffer) GetChangedMap(origin *po.Product, target *po.Product) map[string]interface{} {
+func (differ *productPODiffer) GetChangedMap(origin, target *po.Product) map[string]interface{} {
 	d, _ := diff.NewDiffer(diff.TagName("json"))
 	changedMap := make(map[string]interface{})
 	changeLog, _ := d.Diff(origin, target)

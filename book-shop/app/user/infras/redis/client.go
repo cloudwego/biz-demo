@@ -16,10 +16,11 @@
 package redis
 
 import (
-	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
-	redigo "github.com/gomodule/redigo/redis"
 	"strconv"
 	"time"
+
+	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
+	redigo "github.com/gomodule/redigo/redis"
 )
 
 var pool *redigo.Pool

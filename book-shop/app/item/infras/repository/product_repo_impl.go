@@ -18,6 +18,7 @@ package repository
 import (
 	"context"
 	"errors"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/po"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/es"
@@ -25,8 +26,7 @@ import (
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/repository/differ"
 )
 
-type ProductRepositoryImpl struct {
-}
+type ProductRepositoryImpl struct{}
 
 func (i ProductRepositoryImpl) AddProduct(ctx context.Context, product *entity.ProductEntity) error {
 	if product == nil {
@@ -41,7 +41,7 @@ func (i ProductRepositoryImpl) AddProduct(ctx context.Context, product *entity.P
 	return DB.WithContext(ctx).Create(po).Error
 }
 
-func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, origin *entity.ProductEntity, target *entity.ProductEntity) error {
+func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, origin, target *entity.ProductEntity) error {
 	productId := target.ProductId
 	originPO, err := converter.ProductDO2POConverter.Convert2po(ctx, origin)
 	if err != nil {

@@ -17,6 +17,7 @@ package errno
 
 import (
 	"errors"
+
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/base"
 )
 

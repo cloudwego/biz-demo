@@ -17,11 +17,11 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
 )
 
-type ProductStockService struct {
-}
+type ProductStockService struct{}
 
 var productStockService ProductStockService
 
@@ -30,10 +30,10 @@ func GetProductStockServiceInstance() *ProductStockService {
 	return &productStockService
 }
 
-func (s *ProductStockService) IncreaseStockNum(ctx context.Context, productId int64, incrNum int64) error {
+func (s *ProductStockService) IncreaseStockNum(ctx context.Context, productId, incrNum int64) error {
 	return repository.GetRegistry().GetStockRepository().IncrStock(ctx, productId, incrNum)
 }
 
-func (s *ProductStockService) DecreaseStockNum(ctx context.Context, productId int64, decrNum int64) error {
+func (s *ProductStockService) DecreaseStockNum(ctx context.Context, productId, decrNum int64) error {
 	return repository.GetRegistry().GetStockRepository().DecrStock(ctx, productId, decrNum)
 }

@@ -13,13 +13,15 @@
 # limitations under the License.
 #
 
-version: '3'
+version: '3.7'
 
 services:
   mysql:
     image: 'mysql:latest'
     ports:
       - "3306:3306"
+    volumes:
+      - ./deploy/mysql:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_DATABASE=gorm
       - MYSQL_USER=gorm

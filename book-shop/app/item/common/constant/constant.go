@@ -32,9 +32,9 @@ var ProductStatusDescMap = map[ProductStatus]string{
 type StateOperationType = int64
 
 const (
-	StateOperationTypeAdd     StateOperationType = 1 //新建商品
-	StateOperationTypeSave    StateOperationType = 2 //保存商品
-	StateOperationTypeDel     StateOperationType = 3 //删除商品
-	StateOperationTypeOffline StateOperationType = 4 //商品下架
-	StateOperationTypeOnline  StateOperationType = 5 //商品上架
+	StateOperationTypeAdd     StateOperationType = 1 // 新建商品
+	StateOperationTypeSave    StateOperationType = 2 // 保存商品
+	StateOperationTypeDel     StateOperationType = 3 // 删除商品
+	StateOperationTypeOffline StateOperationType = 4 // 商品下架
+	StateOperationTypeOnline  StateOperationType = 5 // 商品上架
 )

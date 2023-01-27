@@ -17,11 +17,12 @@ package client
 
 import (
 	"context"
+	"time"
+
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user/userservice"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/conf"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
-	"time"
 
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/retry"

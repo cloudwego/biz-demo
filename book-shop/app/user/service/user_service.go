@@ -4,12 +4,13 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
+	"io"
+
 	"github.com/bytedance/sonic"
 	"github.com/cloudwego/biz-demo/book-shop/app/user/infras/db"
 	"github.com/cloudwego/biz-demo/book-shop/app/user/infras/redis"
 	"github.com/cloudwego/biz-demo/book-shop/kitex_gen/cwg/bookshop/user"
 	"github.com/cloudwego/biz-demo/book-shop/pkg/errno"
-	"io"
 )
 
 type UserService struct {
