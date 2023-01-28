@@ -26,12 +26,12 @@ import (
 )
 
 // SearchProduct godoc
-// @Summary 搜索商品（2C接口）
-// @Description 搜索商品（2C接口）
-// @Tags 商品模块-2C
+// @Summary search products (2C interface)
+// @Description search products (2C interface)
+// @Tags product module(2C)
 // @Accept json
 // @Produce json
-// @Param searchProductReq body model.SearchProductReq true "搜索商品参数"
+// @Param searchProductReq body model.SearchProductReq true "request param of searching products"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2c/search [post]

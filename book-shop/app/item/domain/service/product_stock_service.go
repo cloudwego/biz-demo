@@ -25,7 +25,6 @@ type ProductStockService struct{}
 
 var productStockService ProductStockService
 
-// GetProductStockServiceInstance 单例
 func GetProductStockServiceInstance() *ProductStockService {
 	return &productStockService
 }

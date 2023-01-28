@@ -40,7 +40,7 @@ func (i StockRepositoryImpl) updateStock(ctx context.Context, productId, stockNu
 	if tx.Error != nil {
 		return tx.Error
 	}
-	// select for update 悲观锁
+	// select for update
 	if err := tx.Clauses(clause.Locking{Strength: "Update"}).Where("product_id = ?", productId).Find(&productPOArr).Error; err != nil {
 		tx.Rollback()
 		return err

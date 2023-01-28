@@ -26,12 +26,12 @@ import (
 )
 
 // CancelOrder godoc
-// @Summary 用户取消订单
-// @Description 用户取消订单
-// @Tags 订单模块
+// @Summary consumer cancels order
+// @Description consumer cancels order
+// @Tags order module
 // @Accept json
 // @Produce json
-// @Param cancelOrderReq body model.CancelOrderReq true "取消订单参数"
+// @Param cancelOrderReq body model.CancelOrderReq true "request param to cancel one order"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /order/cancel [post]

@@ -27,12 +27,12 @@ import (
 )
 
 // ListOrder godoc
-// @Summary 订单列表
-// @Description 订单列表
-// @Tags 订单模块
+// @Summary get order list of a consumer
+// @Description get order list of a consumer
+// @Tags order module
 // @Accept json
 // @Produce json
-// @Param listOrderReq body model.ListOrderReq true "订单列表查询参数"
+// @Param listOrderReq body model.ListOrderReq true "request param to get order list"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /order/list [post]

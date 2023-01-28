@@ -26,12 +26,12 @@ import (
 )
 
 // UserRegister godoc
-// @Summary 用户注册
-// @Description 用户注册
-// @Tags 用户模块
+// @Summary user register
+// @Description user register
+// @Tags user module
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "注册信息"
+// @Param userParam body model.UserParam true "register param"
 // @Success 200 {object} model.Response
 // @Router /user/register [post]
 func UserRegister(ctx context.Context, c *app.RequestContext) {

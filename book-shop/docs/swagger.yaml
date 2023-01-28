@@ -123,9 +123,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: 发布商品
+      description: add product
       parameters:
-      - description: 发布商品参数
+      - description: request param of adding product
         in: body
         name: addProductRequest
         required: true
@@ -140,16 +140,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 发布商品
+      summary: add product
       tags:
-      - 商品模块
+      - product module
   /item2b/del:
     post:
       consumes:
       - application/json
-      description: 删除商品
+      description: delete product
       parameters:
-      - description: 商品参数
+      - description: request param of operating product
         in: body
         name: delProductRequest
         required: true
@@ -164,16 +164,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 删除商品
+      summary: delete product
       tags:
-      - 商品模块
+      - product module
   /item2b/edit:
     post:
       consumes:
       - application/json
-      description: 编辑商品
+      description: edit product
       parameters:
-      - description: 编辑商品参数
+      - description: request param of editing product
         in: body
         name: editProductRequest
         required: true
@@ -188,16 +188,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 编辑商品
+      summary: edit product
       tags:
-      - 商品模块
+      - product module
   /item2b/get:
     get:
       consumes:
       - application/json
-      description: 商品ID查询商品
+      description: get product by product_id
       parameters:
-      - description: 商品ID
+      - description: product_id
         in: query
         name: product_id
         required: true
@@ -211,16 +211,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 商品ID查询商品
+      summary: get product by product_id
       tags:
-      - 商品模块
+      - product module
   /item2b/list:
     post:
       consumes:
       - application/json
-      description: 获取商品列表
+      description: get product list
       parameters:
-      - description: 获取商品列表参数
+      - description: request param of listing products
         in: body
         name: listProductReq
         required: true
@@ -235,16 +235,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 获取商品列表
+      summary: get product list
       tags:
-      - 商品模块
+      - product module
   /item2b/offline:
     post:
       consumes:
       - application/json
-      description: 下架商品
+      description: offline product
       parameters:
-      - description: 商品参数
+      - description: request param of operating product
         in: body
         name: offlineProductRequest
         required: true
@@ -259,16 +259,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 下架商品
+      summary: offline product
       tags:
-      - 商品模块
+      - product module
   /item2b/online:
     post:
       consumes:
       - application/json
-      description: 上架商品
+      description: online product
       parameters:
-      - description: 商品参数
+      - description: request param of operating product
         in: body
         name: onlineProductRequest
         required: true
@@ -283,16 +283,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 上架商品
+      summary: online product
       tags:
-      - 商品模块
+      - product module
   /item2c/mget:
     get:
       consumes:
       - application/json
-      description: 商品ID批量查询商品（2C接口）
+      description: batch get products by product_id (2C interface)
       parameters:
-      - description: 商品ID 逗号分隔
+      - description: product-ids separated by commas
         in: query
         name: product_ids
         required: true
@@ -306,16 +306,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 商品ID批量查询商品（2C接口）
+      summary: batch get products by product_id (2C interface)
       tags:
-      - 商品模块-2C
+      - product module(2C)
   /item2c/search:
     post:
       consumes:
       - application/json
-      description: 搜索商品（2C接口）
+      description: search products (2C interface)
       parameters:
-      - description: 搜索商品参数
+      - description: request param of searching products
         in: body
         name: searchProductReq
         required: true
@@ -330,16 +330,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 搜索商品（2C接口）
+      summary: search products (2C interface)
       tags:
-      - 商品模块-2C
+      - product module(2C)
   /order/cancel:
     post:
       consumes:
       - application/json
-      description: 用户取消订单
+      description: consumer cancels order
       parameters:
-      - description: 取消订单参数
+      - description: request param to cancel one order
         in: body
         name: cancelOrderReq
         required: true
@@ -354,16 +354,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 用户取消订单
+      summary: consumer cancels order
       tags:
-      - 订单模块
+      - order module
   /order/create:
     post:
       consumes:
       - application/json
-      description: 用户下单
+      description: consumer creates order
       parameters:
-      - description: 提单参数
+      - description: request param to create one order
         in: body
         name: createOrderReq
         required: true
@@ -378,16 +378,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 用户下单
+      summary: consumer creates order
       tags:
-      - 订单模块
+      - order module
   /order/get:
     get:
       consumes:
       - application/json
-      description: 订单ID查询订单
+      description: get order by order_id
       parameters:
-      - description: 订单ID
+      - description: order id
         in: query
         name: order_id
         required: true
@@ -401,16 +401,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 订单ID查询订单
+      summary: get order by order_id
       tags:
-      - 订单模块
+      - order module
   /order/list:
     post:
       consumes:
       - application/json
-      description: 订单列表
+      description: get order list of a consumer
       parameters:
-      - description: 订单列表查询参数
+      - description: request param to get order list
         in: body
         name: listOrderReq
         required: true
@@ -425,16 +425,16 @@ paths:
             $ref: '#/definitions/model.Response'
       security:
       - TokenAuth: []
-      summary: 订单列表
+      summary: get order list of a consumer
       tags:
-      - 订单模块
+      - order module
   /shop/login:
     post:
       consumes:
       - application/json
-      description: 商家登录
+      description: shop login
       parameters:
-      - description: 店铺账号信息
+      - description: login param
         in: body
         name: userParam
         required: true
@@ -447,16 +447,16 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.LoginResponse'
-      summary: 商家登录
+      summary: shop login
       tags:
-      - 商家模块
+      - shop module
   /user/login:
     post:
       consumes:
       - application/json
-      description: 用户登录
+      description: user login
       parameters:
-      - description: 账号信息
+      - description: login param
         in: body
         name: userParam
         required: true
@@ -469,16 +469,16 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.LoginResponse'
-      summary: 用户登录
+      summary: user login
       tags:
-      - 用户模块
+      - user module
   /user/register:
     post:
       consumes:
       - application/json
-      description: 用户注册
+      description: user register
       parameters:
-      - description: 注册信息
+      - description: register param
         in: body
         name: userParam
         required: true
@@ -491,9 +491,9 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.Response'
-      summary: 用户注册
+      summary: user register
       tags:
-      - 用户模块
+      - user module
 schemes:
 - http
 securityDefinitions:

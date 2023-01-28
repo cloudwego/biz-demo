@@ -58,9 +58,7 @@ func (s *UserService) CreateUser(req *user.CreateUserReq) error {
 	}})
 }
 
-// Cache Aside模式：
-// 读：先读cache，不存在则回源，回源如果读到则更新cache；
-// 写：更新数据库时，删除cache
+// MGetUser using cache mode: Cache Aside
 func (s *UserService) MGetUser(req *user.MGetUserReq) ([]*user.User, error) {
 	ret := make([]*user.User, 0)
 	idNotCached := make([]int64, 0)

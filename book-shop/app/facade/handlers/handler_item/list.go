@@ -26,12 +26,12 @@ import (
 )
 
 // ListProduct godoc
-// @Summary 获取商品列表
-// @Description 获取商品列表
-// @Tags 商品模块
+// @Summary get product list
+// @Description get product list
+// @Tags product module
 // @Accept json
 // @Produce json
-// @Param listProductReq body model.ListProductReq true "获取商品列表参数"
+// @Param listProductReq body model.ListProductReq true "request param of listing products"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2b/list [post]

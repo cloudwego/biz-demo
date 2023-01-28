@@ -23,12 +23,12 @@ import (
 )
 
 // ShopLogin godoc
-// @Summary 商家登录
-// @Description 商家登录
-// @Tags 商家模块
+// @Summary shop login
+// @Description shop login
+// @Tags shop module
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "店铺账号信息"
+// @Param userParam body model.UserParam true "login param"
 // @Success 200 {object} model.LoginResponse
 // @Router /shop/login [post]
 func ShopLogin(ctx context.Context, c *app.RequestContext) {

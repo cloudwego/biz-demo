@@ -26,12 +26,12 @@ import (
 )
 
 // OfflineProduct godoc
-// @Summary 下架商品
-// @Description 下架商品
-// @Tags 商品模块
+// @Summary offline product
+// @Description offline product
+// @Tags product module
 // @Accept json
 // @Produce json
-// @Param offlineProductRequest body model.OperateProductReq true "商品参数"
+// @Param offlineProductRequest body model.OperateProductReq true "request param of operating product"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2b/offline [post]

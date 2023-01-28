@@ -38,7 +38,7 @@ func (i ProductRepositoryImpl) AddProduct(ctx context.Context, product *entity.P
 	if err != nil {
 		return err
 	}
-	// 异步更新es
+	// update es async
 	go func() {
 		err := es.UpsertProductES(ctx, po.ProductId, product)
 		if err != nil {
@@ -58,7 +58,7 @@ func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, origin, target
 	if err != nil {
 		return err
 	}
-	// 异步更新es
+	// update es async
 	go func() {
 		err := es.UpsertProductES(ctx, productId, target)
 		if err != nil {

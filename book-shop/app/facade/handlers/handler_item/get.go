@@ -27,12 +27,12 @@ import (
 )
 
 // GetProduct godoc
-// @Summary 商品ID查询商品
-// @Description 商品ID查询商品
-// @Tags 商品模块
+// @Summary get product by product_id
+// @Description get product by product_id
+// @Tags product module
 // @Accept json
 // @Produce json
-// @Param product_id query int true "商品ID"
+// @Param product_id query int true "product_id"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2b/get [get]

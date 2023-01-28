@@ -23,12 +23,12 @@ import (
 )
 
 // UserLogin godoc
-// @Summary 用户登录
-// @Description 用户登录
-// @Tags 用户模块
+// @Summary user login
+// @Description user login
+// @Tags user module
 // @Accept json
 // @Produce json
-// @Param userParam body model.UserParam true "账号信息"
+// @Param userParam body model.UserParam true "login param"
 // @Success 200 {object} model.LoginResponse
 // @Router /user/login [post]
 func UserLogin(ctx context.Context, c *app.RequestContext) {

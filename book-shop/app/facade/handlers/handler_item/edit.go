@@ -27,12 +27,12 @@ import (
 )
 
 // EditProduct godoc
-// @Summary 编辑商品
-// @Description 编辑商品
-// @Tags 商品模块
+// @Summary edit product
+// @Description edit product
+// @Tags product module
 // @Accept json
 // @Produce json
-// @Param editProductRequest body model.EditProductRequest true "编辑商品参数"
+// @Param editProductRequest body model.EditProductRequest true "request param of editing product"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2b/edit [post]

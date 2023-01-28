@@ -26,12 +26,12 @@ import (
 )
 
 // DelProduct godoc
-// @Summary 删除商品
-// @Description 删除商品
-// @Tags 商品模块
+// @Summary delete product
+// @Description delete product
+// @Tags product module
 // @Accept json
 // @Produce json
-// @Param delProductRequest body model.OperateProductReq true "商品参数"
+// @Param delProductRequest body model.OperateProductReq true "request param of operating product"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2b/del [post]

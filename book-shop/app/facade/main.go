@@ -121,16 +121,16 @@ func main() {
 	h.Use(gzip.Gzip(gzip.DefaultCompression))
 	pprof.Register(h)
 
-	// 账号服务
+	// user service
 	userGroup := h.Group("/user")
 	userGroup.POST("/register", handler_user.UserRegister)
 	userGroup.POST("/login", handler_user.UserLogin)
 
-	// 商家服务
+	// shop service
 	shopGroup := h.Group("/shop")
 	shopGroup.POST("/login", handler_user.ShopLogin)
 
-	// 商品B端服务
+	// item-2b service
 	item2BGroup := h.Group("/item2b")
 	item2BGroup.Use(model.ShopAuthMiddleware.MiddlewareFunc())
 	item2BGroup.POST("/add", handler_item.AddProduct)
@@ -141,13 +141,13 @@ func main() {
 	item2BGroup.GET("/get", handler_item.GetProduct)
 	item2BGroup.POST("/list", handler_item.ListProduct)
 
-	// 商品C端服务
+	// item-2c service
 	item2CGroup := h.Group("/item2c")
 	item2CGroup.Use(model.UserAuthMiddleware.MiddlewareFunc())
 	item2CGroup.GET("/mget", handler_item.MGetProduct2C)
 	item2CGroup.POST("/search", handler_item.SearchProduct)
 
-	// 订单服务
+	// order service
 	orderGroup := h.Group("/order")
 	orderGroup.Use(model.UserAuthMiddleware.MiddlewareFunc())
 	orderGroup.POST("/create", handler_order.CreateOrder)

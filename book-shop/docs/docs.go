@@ -31,7 +31,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "发布商品",
+                "description": "add product",
                 "consumes": [
                     "application/json"
                 ],
@@ -39,12 +39,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块"
+                    "product module"
                 ],
-                "summary": "发布商品",
+                "summary": "add product",
                 "parameters": [
                     {
-                        "description": "发布商品参数",
+                        "description": "request param of adding product",
                         "name": "addProductRequest",
                         "in": "body",
                         "required": true,
@@ -70,7 +70,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "删除商品",
+                "description": "delete product",
                 "consumes": [
                     "application/json"
                 ],
@@ -78,12 +78,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块"
+                    "product module"
                 ],
-                "summary": "删除商品",
+                "summary": "delete product",
                 "parameters": [
                     {
-                        "description": "商品参数",
+                        "description": "request param of operating product",
                         "name": "delProductRequest",
                         "in": "body",
                         "required": true,
@@ -109,7 +109,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "编辑商品",
+                "description": "edit product",
                 "consumes": [
                     "application/json"
                 ],
@@ -117,12 +117,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块"
+                    "product module"
                 ],
-                "summary": "编辑商品",
+                "summary": "edit product",
                 "parameters": [
                     {
-                        "description": "编辑商品参数",
+                        "description": "request param of editing product",
                         "name": "editProductRequest",
                         "in": "body",
                         "required": true,
@@ -148,7 +148,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "商品ID查询商品",
+                "description": "get product by product_id",
                 "consumes": [
                     "application/json"
                 ],
@@ -156,13 +156,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块"
+                    "product module"
                 ],
-                "summary": "商品ID查询商品",
+                "summary": "get product by product_id",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "商品ID",
+                        "description": "product_id",
                         "name": "product_id",
                         "in": "query",
                         "required": true
@@ -185,7 +185,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "获取商品列表",
+                "description": "get product list",
                 "consumes": [
                     "application/json"
                 ],
@@ -193,12 +193,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块"
+                    "product module"
                 ],
-                "summary": "获取商品列表",
+                "summary": "get product list",
                 "parameters": [
                     {
-                        "description": "获取商品列表参数",
+                        "description": "request param of listing products",
                         "name": "listProductReq",
                         "in": "body",
                         "required": true,
@@ -224,7 +224,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "下架商品",
+                "description": "offline product",
                 "consumes": [
                     "application/json"
                 ],
@@ -232,12 +232,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块"
+                    "product module"
                 ],
-                "summary": "下架商品",
+                "summary": "offline product",
                 "parameters": [
                     {
-                        "description": "商品参数",
+                        "description": "request param of operating product",
                         "name": "offlineProductRequest",
                         "in": "body",
                         "required": true,
@@ -263,7 +263,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "上架商品",
+                "description": "online product",
                 "consumes": [
                     "application/json"
                 ],
@@ -271,12 +271,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块"
+                    "product module"
                 ],
-                "summary": "上架商品",
+                "summary": "online product",
                 "parameters": [
                     {
-                        "description": "商品参数",
+                        "description": "request param of operating product",
                         "name": "onlineProductRequest",
                         "in": "body",
                         "required": true,
@@ -302,7 +302,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "商品ID批量查询商品（2C接口）",
+                "description": "batch get products by product_id (2C interface)",
                 "consumes": [
                     "application/json"
                 ],
@@ -310,13 +310,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块-2C"
+                    "product module(2C)"
                 ],
-                "summary": "商品ID批量查询商品（2C接口）",
+                "summary": "batch get products by product_id (2C interface)",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "商品ID 逗号分隔",
+                        "description": "product-ids separated by commas",
                         "name": "product_ids",
                         "in": "query",
                         "required": true
@@ -339,7 +339,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "搜索商品（2C接口）",
+                "description": "search products (2C interface)",
                 "consumes": [
                     "application/json"
                 ],
@@ -347,12 +347,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商品模块-2C"
+                    "product module(2C)"
                 ],
-                "summary": "搜索商品（2C接口）",
+                "summary": "search products (2C interface)",
                 "parameters": [
                     {
-                        "description": "搜索商品参数",
+                        "description": "request param of searching products",
                         "name": "searchProductReq",
                         "in": "body",
                         "required": true,
@@ -378,7 +378,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "用户取消订单",
+                "description": "consumer cancels order",
                 "consumes": [
                     "application/json"
                 ],
@@ -386,12 +386,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "订单模块"
+                    "order module"
                 ],
-                "summary": "用户取消订单",
+                "summary": "consumer cancels order",
                 "parameters": [
                     {
-                        "description": "取消订单参数",
+                        "description": "request param to cancel one order",
                         "name": "cancelOrderReq",
                         "in": "body",
                         "required": true,
@@ -417,7 +417,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "用户下单",
+                "description": "consumer creates order",
                 "consumes": [
                     "application/json"
                 ],
@@ -425,12 +425,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "订单模块"
+                    "order module"
                 ],
-                "summary": "用户下单",
+                "summary": "consumer creates order",
                 "parameters": [
                     {
-                        "description": "提单参数",
+                        "description": "request param to create one order",
                         "name": "createOrderReq",
                         "in": "body",
                         "required": true,
@@ -456,7 +456,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "订单ID查询订单",
+                "description": "get order by order_id",
                 "consumes": [
                     "application/json"
                 ],
@@ -464,13 +464,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "订单模块"
+                    "order module"
                 ],
-                "summary": "订单ID查询订单",
+                "summary": "get order by order_id",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "订单ID",
+                        "description": "order id",
                         "name": "order_id",
                         "in": "query",
                         "required": true
@@ -493,7 +493,7 @@ const docTemplate = `{
                         "TokenAuth": []
                     }
                 ],
-                "description": "订单列表",
+                "description": "get order list of a consumer",
                 "consumes": [
                     "application/json"
                 ],
@@ -501,12 +501,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "订单模块"
+                    "order module"
                 ],
-                "summary": "订单列表",
+                "summary": "get order list of a consumer",
                 "parameters": [
                     {
-                        "description": "订单列表查询参数",
+                        "description": "request param to get order list",
                         "name": "listOrderReq",
                         "in": "body",
                         "required": true,
@@ -527,7 +527,7 @@ const docTemplate = `{
         },
         "/shop/login": {
             "post": {
-                "description": "商家登录",
+                "description": "shop login",
                 "consumes": [
                     "application/json"
                 ],
@@ -535,12 +535,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "商家模块"
+                    "shop module"
                 ],
-                "summary": "商家登录",
+                "summary": "shop login",
                 "parameters": [
                     {
-                        "description": "店铺账号信息",
+                        "description": "login param",
                         "name": "userParam",
                         "in": "body",
                         "required": true,
@@ -561,7 +561,7 @@ const docTemplate = `{
         },
         "/user/login": {
             "post": {
-                "description": "用户登录",
+                "description": "user login",
                 "consumes": [
                     "application/json"
                 ],
@@ -569,12 +569,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "用户模块"
+                    "user module"
                 ],
-                "summary": "用户登录",
+                "summary": "user login",
                 "parameters": [
                     {
-                        "description": "账号信息",
+                        "description": "login param",
                         "name": "userParam",
                         "in": "body",
                         "required": true,
@@ -595,7 +595,7 @@ const docTemplate = `{
         },
         "/user/register": {
             "post": {
-                "description": "用户注册",
+                "description": "user register",
                 "consumes": [
                     "application/json"
                 ],
@@ -603,12 +603,12 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "用户模块"
+                    "user module"
                 ],
-                "summary": "用户注册",
+                "summary": "user register",
                 "parameters": [
                     {
-                        "description": "注册信息",
+                        "description": "register param",
                         "name": "userParam",
                         "in": "body",
                         "required": true,

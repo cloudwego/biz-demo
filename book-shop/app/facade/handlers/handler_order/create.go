@@ -29,12 +29,12 @@ import (
 )
 
 // CreateOrder godoc
-// @Summary 用户下单
-// @Description 用户下单
-// @Tags 订单模块
+// @Summary consumer creates order
+// @Description consumer creates order
+// @Tags order module
 // @Accept json
 // @Produce json
-// @Param createOrderReq body model.CreateOrderReq true "提单参数"
+// @Param createOrderReq body model.CreateOrderReq true "request param to create one order"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /order/create [post]

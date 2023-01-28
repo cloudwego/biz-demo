@@ -26,12 +26,12 @@ import (
 )
 
 // OnlineProduct godoc
-// @Summary 上架商品
-// @Description 上架商品
-// @Tags 商品模块
+// @Summary online product
+// @Description online product
+// @Tags product module
 // @Accept json
 // @Produce json
-// @Param onlineProductRequest body model.OperateProductReq true "商品参数"
+// @Param onlineProductRequest body model.OperateProductReq true "request param of operating product"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2b/online [post]

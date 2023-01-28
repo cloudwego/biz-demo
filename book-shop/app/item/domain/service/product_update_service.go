@@ -22,12 +22,11 @@ import (
 	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
 )
 
-// ProductUpdateService 商品更新服务
+// ProductUpdateService product update service
 type ProductUpdateService struct{}
 
 var productUpdateService ProductUpdateService
 
-// GetProductUpdateServiceInstance 单例
 func GetProductUpdateServiceInstance() *ProductUpdateService {
 	return &productUpdateService
 }

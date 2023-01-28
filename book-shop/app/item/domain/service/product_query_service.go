@@ -22,12 +22,12 @@ import (
 	"github.com/cloudwego/biz-demo/book-shop/app/item/domain/repository"
 )
 
-// ProductQueryService 商品查询服务
+// ProductQueryService product query service
 type ProductQueryService struct{}
 
 var productQueryService ProductQueryService
 
-// GetProductQueryServiceInstance 单例
+// GetProductQueryServiceInstance single instance
 func GetProductQueryServiceInstance() *ProductQueryService {
 	return &productQueryService
 }

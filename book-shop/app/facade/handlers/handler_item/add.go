@@ -27,12 +27,12 @@ import (
 )
 
 // AddProduct godoc
-// @Summary 发布商品
-// @Description 发布商品
-// @Tags 商品模块
+// @Summary add product
+// @Description add product
+// @Tags product module
 // @Accept json
 // @Produce json
-// @Param addProductRequest body model.AddProductRequest true "发布商品参数"
+// @Param addProductRequest body model.AddProductRequest true "request param of adding product"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2b/add [post]

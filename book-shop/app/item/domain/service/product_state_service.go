@@ -25,7 +25,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 
-// ProductStateService 商品状态机服务
+// ProductStateService product state machine service
 type ProductStateService struct{}
 
 var productStateService ProductStateService
@@ -97,7 +97,7 @@ var constructTargetInfoFuncMap = map[constant.StateOperationType]ConstructTarget
 	},
 }
 
-// GetCanTransferFunc 获取校验状态函数
+// GetCanTransferFunc get the validating func
 func (s *ProductStateService) GetCanTransferFunc(operationType constant.StateOperationType) (CanTransferFunc, error) {
 	if canTransferFunc, ok := canTransferFuncMap[operationType]; ok {
 		return canTransferFunc, nil
@@ -106,7 +106,7 @@ func (s *ProductStateService) GetCanTransferFunc(operationType constant.StateOpe
 	return nil, errors.New("GetCanTransferFunc not found")
 }
 
-// GetConstructTargetInfoFunc 获取状态流转函数
+// GetConstructTargetInfoFunc get func to change product status
 func (s *ProductStateService) getConstructTargetInfoFunc(operationType constant.StateOperationType) (ConstructTargetInfoFunc, error) {
 	if constructTargetInfoFunc, ok := constructTargetInfoFuncMap[operationType]; ok {
 		return constructTargetInfoFunc, nil
@@ -115,7 +115,7 @@ func (s *ProductStateService) getConstructTargetInfoFunc(operationType constant.
 	return nil, errors.New("GetConstructTargetInfoFunc not found")
 }
 
-// ConstructTargetInfo 状态流转
+// ConstructTargetInfo change product status
 func (s *ProductStateService) ConstructTargetInfo(originProduct *entity.ProductEntity,
 	operation constant.StateOperationType,
 ) (*entity.ProductEntity, error) {
@@ -135,10 +135,10 @@ func (s *ProductStateService) ConstructTargetInfo(originProduct *entity.ProductE
 	return targetProduct, nil
 }
 
-// OperateProduct 更新商品
+// OperateProduct update product
 func (s *ProductStateService) OperateProduct(ctx context.Context, origin, target *entity.ProductEntity) error {
 	repo := repository.GetRegistry().GetProductRepository()
-	// 更新商品状态
+	// update status
 	err := repo.UpdateProduct(ctx, origin, target)
 	if err != nil {
 		klog.CtxErrorf(ctx, "OperateProduct err: %v", err)

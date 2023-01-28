@@ -28,12 +28,12 @@ import (
 )
 
 // MGetProduct2C godoc
-// @Summary 商品ID批量查询商品（2C接口）
-// @Description 商品ID批量查询商品（2C接口）
-// @Tags 商品模块-2C
+// @Summary batch get products by product_id (2C interface)
+// @Description batch get products by product_id (2C interface)
+// @Tags product module(2C)
 // @Accept json
 // @Produce json
-// @Param product_ids query string true "商品ID 逗号分隔"
+// @Param product_ids query string true "product-ids separated by commas"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /item2c/mget [get]

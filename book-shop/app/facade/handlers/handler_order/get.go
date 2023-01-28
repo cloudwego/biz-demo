@@ -27,12 +27,12 @@ import (
 )
 
 // GetOrder godoc
-// @Summary 订单ID查询订单
-// @Description 订单ID查询订单
-// @Tags 订单模块
+// @Summary get order by order_id
+// @Description get order by order_id
+// @Tags order module
 // @Accept json
 // @Produce json
-// @Param order_id query int true "订单ID"
+// @Param order_id query int true "order id"
 // @Security TokenAuth
 // @Success 200 {object} model.Response
 // @Router /order/get [get]

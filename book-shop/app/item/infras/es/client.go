@@ -26,13 +26,13 @@ import (
 	"github.com/olivere/elastic/v7"
 )
 
-// ES 客户端
+// ES client
 var (
 	esOnce sync.Once
 	esCli  *elastic.Client
 )
 
-// GetESClient 获取 ES client
+// GetESClient get ES client
 func GetESClient() *elastic.Client {
 	if esCli != nil {
 		return esCli
@@ -40,7 +40,7 @@ func GetESClient() *elastic.Client {
 
 	esOnce.Do(func() {
 		cli, err := elastic.NewSimpleClient(
-			elastic.SetURL(conf.ESAddress), // 服务地址
+			elastic.SetURL(conf.ESAddress),
 		)
 		if err != nil {
 			panic("new es client failed, err=" + err.Error())
