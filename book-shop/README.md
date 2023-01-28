@@ -1,5 +1,7 @@
 # Book Shop
 
+maintainer: [bodhisatan](https://github.com/bodhisatan)
+
 ## Introduction
 An e-commerce demo built with `Kitex` and `Hertz`.
 
@@ -19,6 +21,8 @@ An e-commerce demo built with `Kitex` and `Hertz`.
 * Hertz middlewares used
   * [swagger](http://github.com/hertz-contrib/swagger)
   * [JWT](http://github.com/hertz-contrib/jwt)
+  * [pprof](https://github.com/hertz-contrib/pprof)
+  * [gzip](https://github.com/hertz-contrib/gzip)
 
 ## Architecture
 ### Technology Architecture
@@ -48,7 +52,12 @@ $ make stop
 ### Get Documents & Run Test
 browse to [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
 
-## Calling Examples
+## Examples
+### pprof
+```shell
+$ go tool pprof -http=:1234 http://localhost:8080/debug/pprof/heap
+```
+![](./pics/pprof.png)
 ### User Service
 #### User Register
 ![](./pics/register.png)

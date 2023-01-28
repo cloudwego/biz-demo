@@ -17,54 +17,54 @@ include "base.thrift"
 namespace go cwg.bookshop.item
 
 enum Status {
-    Online, // 上架
-    Offline, // 下架
-    Delete, // 删除
+    Online // 上架
+    Offline // 下架
+    Delete // 删除
 }
 
 struct BookProperty {
-    1: string isbn, // ISBN
-    2: string spu_name, // 书名
-    3: i64 spu_price, // 定价
+    1: string isbn // ISBN
+    2: string spu_name // 书名
+    3: i64 spu_price // 定价
 }
 
 struct Product {
-    1: i64 product_id,
-    2: string name, // 商品名
-    3: string pic, // 主图
-    4: string description, // 详情
-    5: BookProperty property, // 属性
-    6: i64 price, // 价格
-    7: i64 stock, // 库存
-    8: Status status, // 商品状态
+    1: i64 product_id
+    2: string name // 商品名
+    3: string pic // 主图
+    4: string description // 详情
+    5: BookProperty property // 属性
+    6: i64 price // 价格
+    7: i64 stock // 库存
+    8: Status status // 商品状态
 }
 
 struct AddReq {
-    1: required string name, // 商品名
-    2: required string pic, // 主图
-    3: required string description, // 详情
-    4: required BookProperty property, // 属性
-    5: required i64 price, // 价格
-    6: required i64 stock, // 库存
+    1: required string name // 商品名
+    2: required string pic // 主图
+    3: required string description // 详情
+    4: required BookProperty property // 属性
+    5: required i64 price // 价格
+    6: required i64 stock // 库存
 }
 
 struct AddResp {
-    1: i64 product_id,
-    255: base.BaseResp BaseResp,
+    1: i64 product_id
+    255: base.BaseResp BaseResp
 }
 
 struct EditReq {
-    1: required i64 product_id,
-    2: optional string name, // 商品名
-    3: optional string pic, // 主图
-    4: optional string description, // 详情
-    5: optional BookProperty property, // 属性
-    6: optional i64 price, // 价格
-    7: optional i64 stock, // 库存
+    1: required i64 product_id
+    2: optional string name // 商品名
+    3: optional string pic // 主图
+    4: optional string description // 详情
+    5: optional BookProperty property // 属性
+    6: optional i64 price // 价格
+    7: optional i64 stock // 库存
 }
 
 struct EditResp {
-    255: base.BaseResp BaseResp,
+    255: base.BaseResp BaseResp
 }
 
 struct DeleteReq {
@@ -72,7 +72,7 @@ struct DeleteReq {
 }
 
 struct DeleteResp {
-    255: base.BaseResp BaseResp,
+    255: base.BaseResp BaseResp
 }
 
 struct OnlineReq {
@@ -80,7 +80,7 @@ struct OnlineReq {
 }
 
 struct OnlineResp {
-    255: base.BaseResp BaseResp,
+    255: base.BaseResp BaseResp
 }
 
 struct OfflineReq {
@@ -88,7 +88,7 @@ struct OfflineReq {
 }
 
 struct OfflineResp {
-    255: base.BaseResp BaseResp,
+    255: base.BaseResp BaseResp
 }
 
 struct GetReq {
@@ -96,8 +96,8 @@ struct GetReq {
 }
 
 struct GetResp {
-    1: Product product,
-    255: base.BaseResp BaseResp,
+    1: Product product
+    255: base.BaseResp BaseResp
 }
 
 struct MGet2CReq {
@@ -105,39 +105,39 @@ struct MGet2CReq {
 }
 
 struct MGet2CResp {
-    1: map<i64, Product> product_map,
-    255: base.BaseResp BaseResp,
+    1: map<i64, Product> product_map
+    255: base.BaseResp BaseResp
 }
 
 struct SearchReq {
-    1: optional string name,
-    2: optional string description,
-    3: optional string spu_name,
+    1: optional string name
+    2: optional string description
+    3: optional string spu_name
 }
 
 struct SearchResp {
-    1: list<Product> products,
-    255: base.BaseResp BaseResp,
+    1: list<Product> products
+    255: base.BaseResp BaseResp
 }
 
 struct ListReq {
-    1: optional string name,
-    2: optional string spu_name,
-    3: optional Status status,
+    1: optional string name
+    2: optional string spu_name
+    3: optional Status status
 }
 
 struct ListResp {
-    1: list<Product> products,
-    255: base.BaseResp BaseResp,
+    1: list<Product> products
+    255: base.BaseResp BaseResp
 }
 
 struct DecrStockReq {
-    1: required i64 product_id,
+    1: required i64 product_id
     2: required i64 stock_num
 }
 
 struct DecrStockResp {
-    255: base.BaseResp BaseResp,
+    255: base.BaseResp BaseResp
 }
 
 service ItemService {

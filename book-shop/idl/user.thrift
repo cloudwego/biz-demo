@@ -17,12 +17,12 @@ include "base.thrift"
 namespace go cwg.bookshop.user
 
 struct User {
-    1: i64 UserId,
+    1: i64 UserId
     2: string UserName
 }
 
 struct CreateUserReq {
-    1: string UserName,
+    1: string UserName
     2: string Password
 }
 
@@ -31,22 +31,22 @@ struct CreateUserResp {
 }
 
 struct MGetUserReq {
-    1: list<i64> Ids,
+    1: list<i64> Ids
 }
 
 struct MGetUserResp {
-    1: list<User> Users,
+    1: list<User> Users
 
     255: base.BaseResp BaseResp
 }
 
 struct CheckUserReq {
-    1: string UserName,
+    1: string UserName
     2: string Password
 }
 
 struct CheckUserResp {
-    1: i64 UserId,
+    1: i64 UserId
 
     255: base.BaseResp BaseResp
 }
