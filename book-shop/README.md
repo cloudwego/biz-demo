@@ -1,7 +1,5 @@
 # Book Shop
 
-maintainer: [bodhisatan](https://github.com/bodhisatan)
-
 ## Introduction
 An e-commerce demo built with `Kitex` and `Hertz`.
 
