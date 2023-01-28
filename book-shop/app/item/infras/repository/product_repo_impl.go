@@ -19,6 +19,8 @@ import (
 	"context"
 	"errors"
 
+	"github.com/cloudwego/kitex/pkg/klog"
+
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/entity"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/common/po"
 	"github.com/cloudwego/biz-demo/book-shop/app/item/infras/es"
@@ -37,7 +39,12 @@ func (i ProductRepositoryImpl) AddProduct(ctx context.Context, product *entity.P
 		return err
 	}
 	// 异步更新es
-	go es.UpsertProductES(ctx, po.ProductId, product)
+	go func() {
+		err := es.UpsertProductES(ctx, po.ProductId, product)
+		if err != nil {
+			klog.CtxErrorf(ctx, "UpsertProductES err: %v", err)
+		}
+	}()
 	return DB.WithContext(ctx).Create(po).Error
 }
 
@@ -52,7 +59,12 @@ func (i ProductRepositoryImpl) UpdateProduct(ctx context.Context, origin, target
 		return err
 	}
 	// 异步更新es
-	go es.UpsertProductES(ctx, productId, target)
+	go func() {
+		err := es.UpsertProductES(ctx, productId, target)
+		if err != nil {
+			klog.CtxErrorf(ctx, "UpsertProductES err: %v", err)
+		}
+	}()
 	changeMap := differ.ProductPODiffer.GetChangedMap(originPO, targetPO)
 	return DB.WithContext(ctx).Model(&po.Product{}).Where("product_id = ?", productId).
 		Updates(changeMap).Error

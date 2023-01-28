@@ -34,22 +34,23 @@ func (i StockRepositoryImpl) DecrStock(ctx context.Context, productId, stockNum 
 }
 
 func (i StockRepositoryImpl) updateStock(ctx context.Context, productId, stockNum int64, updateType string) error {
-	productPO := &po.Product{}
+	productPOArr := make([]*po.Product, 0)
 
 	tx := DB.Begin().WithContext(ctx)
 	if tx.Error != nil {
 		return tx.Error
 	}
 	// select for update 悲观锁
-	if err := tx.Clauses(clause.Locking{Strength: "Update"}).Where("product_id = ?", productId).Find(productPO).Error; err != nil {
+	if err := tx.Clauses(clause.Locking{Strength: "Update"}).Where("product_id = ?", productId).Find(&productPOArr).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
-	if productPO == nil {
+	if len(productPOArr) == 0 {
 		tx.Rollback()
 		return errors.New("item not found")
 	}
 
+	productPO := productPOArr[0]
 	curStockNum := productPO.Stock
 	if updateType == "incr" {
 		curStockNum += stockNum

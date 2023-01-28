@@ -26,16 +26,19 @@ import (
 var pool *redigo.Pool
 
 func init() {
-	pool = redigo.NewPool(func() (redigo.Conn, error) {
-		c, err := redigo.Dial("tcp", conf.RedisAddress,
-			redigo.DialConnectTimeout(500*time.Millisecond),
-			redigo.DialReadTimeout(500*time.Millisecond),
-			redigo.DialWriteTimeout(500*time.Millisecond))
-		if err != nil {
-			return nil, err
-		}
-		return c, nil
-	}, conf.RedisConnPoolSize)
+	pool = &redigo.Pool{
+		Dial: func() (redigo.Conn, error) {
+			c, err := redigo.Dial("tcp", conf.RedisAddress,
+				redigo.DialConnectTimeout(500*time.Millisecond),
+				redigo.DialReadTimeout(500*time.Millisecond),
+				redigo.DialWriteTimeout(500*time.Millisecond))
+			if err != nil {
+				return nil, err
+			}
+			return c, nil
+		},
+		MaxIdle: conf.RedisConnPoolSize,
+	}
 }
 
 func GetClient() redigo.Conn {

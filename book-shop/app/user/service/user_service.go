@@ -93,7 +93,7 @@ func (s *UserService) MGetUser(req *user.MGetUserReq) ([]*user.User, error) {
 
 		str, _ := sonic.MarshalString(userCur)
 
-		redis.Upsert(int64(userModel.ID), str)
+		_ = redis.Upsert(int64(userModel.ID), str)
 	}
 	return ret, nil
 }
