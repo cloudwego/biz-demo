@@ -132,4 +132,46 @@ The easy_note application is divided into three microservices:
 - [@justlorain](https://github.com/justlorain)
 - [@li-jin-gou](https://github.com/li-jin-gou)
 
+### 4. Book Shop
 
+#### Description
+##### What is it about and what problem does it solve?
+- How to integrate middlewares(such as `ElasticSearch`, `Redis`...) in Kitex project?
+- How to layer code in projects of different complexity using Hertz and Kitex?
+
+##### What is the business scenario?
+> The application shows an e-commerce system that includes merchants managing items, consumers managing personal accounts and placing orders to buy items.
+
+The book-shop application is divided into four microservices:
+
+- **facade** is an HTTP service that handles HTTP requests and calls other services via RPC.
+- **user** is an RPC service that handles user managements.
+- **item** is an RPC service that handles item managements.
+- **order** is an RPC service that handles order managements.
+
+##### What are the core technologies/projects used?
+
+- [x] Use `Hertz` as Gateway.
+- [x] Use `Kitex` as RPC framework to build microservices.
+- [x] Use Hertz `swagger`, `jwt`, `pprof`, `gzip` middlewares.
+- [x] Use `ETCD` as service registry.
+- [x] Use `MySQL` as RDBMS.
+- [x] Use `Redis` as cache.
+- [x] Use `ElasticSearch` as search-engine.
+
+##### Which CloudWeGo subprojects are used? List all technologies used.
+
+- [Hertz](https://github.com/cloudwego/hertz)
+  - [swagger](http://github.com/hertz-contrib/swagger)
+  - [jwt](http://github.com/hertz-contrib/jwt)
+  - [pprof](https://github.com/hertz-contrib/pprof)
+  - [gzip](https://github.com/hertz-contrib/gzip)
+- [Kitex](https://github.com/cloudwego/kitex)
+  - [registry-etcd](https://github.com/kitex-contrib/registry-etcd)
+- [sonic](https://github.com/bytedance/sonic)
+
+##### Detailed documentation
+[Book Shop](./book-shop/README.md)
+
+#### Contributors & Maintainers
+[@bodhisatan](https://github.com/bodhisatan)
