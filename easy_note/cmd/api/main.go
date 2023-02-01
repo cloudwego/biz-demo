@@ -18,8 +18,8 @@
 package main
 
 import (
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/mw"
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/rpc"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/mw"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/rpc"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"

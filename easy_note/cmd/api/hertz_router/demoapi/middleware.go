@@ -21,7 +21,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/mw"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/mw"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"

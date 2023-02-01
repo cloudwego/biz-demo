@@ -18,7 +18,7 @@ A simple note service built with `Kitex` and `Hertz` which is divided into three
 
 - Hertz
   - Use `thrift` IDL to define HTTP interface
-  - Use `hz` to generate code
+  - Use `hz` to generate server/client code
   - Use `Hertz` binding and validate
   - Use `obs-opentelemetry` and `jarger` for `tracing`, `metrics`, `logging`
   - Middleware
@@ -32,17 +32,30 @@ A simple note service built with `Kitex` and `Hertz` which is divided into three
 
 ### Catalog Introduce
 
-| catalog     | introduce               |
-|-------------|-------------------------|
-| handler     | HTTP handler            |
-| service     | business logic          |
-| rpc         | RPC call logic          |
-| dal         | DB operation            |
-| pack        | data pack               |
-| pkg/mw      | RPC middleware          |
-| pkg/consts  | constants               |
-| pkg/errno   | customized error number |
-| pkg/configs | SQL and Tracing configs |
+| catalog       | introduce               |
+|---------------|-------------------------|
+| hertz_handler | HTTP handler            |
+| service       | business logic          |
+| rpc           | RPC call logic          |
+| dal           | DB operation            |
+| pack          | data pack               |
+| pkg/mw        | RPC middleware          |
+| pkg/consts    | constants               |
+| pkg/errno     | customized error number |
+| pkg/configs   | SQL and Tracing configs |
+
+## Code Generation
+
+| catalog           | command                              |
+|-------------------|--------------------------------------|
+| hertz_api_model   | make hertz_gen_model                 |
+| hertz_api_client  | make hertz_gen_client                |
+| kitex_user_client | make kitex_gen_user                  |
+| kitex_note_client | make kitex_gen_note                  |
+| hertz_api_new     | cd cmd/api && make hertz_new_api     |
+| hertz_api_update  | cd cmd/api && make hertz_update_api  |
+| kitex_user_server | cd cmd/user && make kitex_gen_server |
+| kitex_note_server | cd cmd/note && make kitex_gen_server |
 
 ## Quick Start
 
@@ -72,7 +85,8 @@ sh output/bootstrap.sh
 
 ```shell
 cd cmd/api
-go run .
+sh build.sh
+sh output/bootstrap.sh
 ```
 
 ### Jaeger
@@ -100,12 +114,8 @@ The following is a list of API requests and partial responses.
 ### Register
 
 ```shell
-curl --location --request POST '127.0.0.1:8080/v1/user/register' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username":"lorain",
-    "password":"123456"
-}'
+cd api_request
+go run main.go -action register
 ```
 
 #### response
@@ -131,12 +141,8 @@ curl --location --request POST '127.0.0.1:8080/v1/user/register' \
 #### will return jwt token
 
 ```shell
-curl --location --request POST '127.0.0.1:8080/v1/user/login' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username":"lorain",
-    "password":"123456"
-}'
+cd api_request
+go run main.go -action login
 ```
 
 #### response
@@ -160,13 +166,8 @@ curl --location --request POST '127.0.0.1:8080/v1/user/login' \
 ### Create Note
 
 ```shell
-curl --location --request POST '127.0.0.1:8080/v1/note' \
---header 'Authorization: Bearer $token' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "title":"test title",
-    "content":"test content"
-}'
+cd api_request
+go run main.go -action createNote
 ```
 
 #### response
@@ -190,8 +191,8 @@ curl --location --request POST '127.0.0.1:8080/v1/note' \
 ### Query Note
 
 ```shell
-curl --location --request GET '127.0.0.1:8080/v1/note/query?offset=0&limit=20&search_key=test' \
---header 'Authorization: Bearer $token'
+cd api_request
+go run main.go -action queryNoten'
 ```
 
 #### response
@@ -228,13 +229,8 @@ curl --location --request GET '127.0.0.1:8080/v1/note/query?offset=0&limit=20&se
 ### Update Note
 
 ```shell
-curl --location --request PUT '127.0.0.1:8080/v1/note/$note_id' \
---header 'Authorization: Bearer $token' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "title":"test",
-    "content":"test"
-}'
+cd api_request
+go run main.go -action updateNote
 ```
 
 #### response
@@ -258,8 +254,8 @@ curl --location --request PUT '127.0.0.1:8080/v1/note/$note_id' \
 ### Delete Note
 
 ```shell
-curl --location --request DELETE '127.0.0.1:8080/v1/note/$note_id' \
---header 'Authorization: Bearer $token'
+cd api_request
+go run main.go -action deleteNote
 ```
 
 #### response
