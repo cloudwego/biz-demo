@@ -100,7 +100,7 @@ The following is a list of API requests and partial responses.
 ### Register
 
 ```shell
-curl --location --request POST '127.0.0.1:8080/v2/user/register' \
+curl --location --request POST '127.0.0.1:8080/v1/user/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "username":"lorain",
@@ -131,7 +131,7 @@ curl --location --request POST '127.0.0.1:8080/v2/user/register' \
 #### will return jwt token
 
 ```shell
-curl --location --request POST '127.0.0.1:8080/v2/user/login' \
+curl --location --request POST '127.0.0.1:8080/v1/user/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "username":"lorain",
@@ -160,7 +160,7 @@ curl --location --request POST '127.0.0.1:8080/v2/user/login' \
 ### Create Note
 
 ```shell
-curl --location --request POST '127.0.0.1:8080/v2/note' \
+curl --location --request POST '127.0.0.1:8080/v1/note' \
 --header 'Authorization: Bearer $token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -190,7 +190,7 @@ curl --location --request POST '127.0.0.1:8080/v2/note' \
 ### Query Note
 
 ```shell
-curl --location --request GET '127.0.0.1:8080/v2/note/query?offset=0&limit=20&search_key=test' \
+curl --location --request GET '127.0.0.1:8080/v1/note/query?offset=0&limit=20&search_key=test' \
 --header 'Authorization: Bearer $token'
 ```
 
@@ -228,7 +228,7 @@ curl --location --request GET '127.0.0.1:8080/v2/note/query?offset=0&limit=20&se
 ### Update Note
 
 ```shell
-curl --location --request PUT '127.0.0.1:8080/v2/note/$note_id' \
+curl --location --request PUT '127.0.0.1:8080/v1/note/$note_id' \
 --header 'Authorization: Bearer $token' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -258,7 +258,7 @@ curl --location --request PUT '127.0.0.1:8080/v2/note/$note_id' \
 ### Delete Note
 
 ```shell
-curl --location --request DELETE '127.0.0.1:8080/v2/note/$note_id' \
+curl --location --request DELETE '127.0.0.1:8080/v1/note/$note_id' \
 --header 'Authorization: Bearer $token'
 ```
 
