@@ -18,14 +18,14 @@ func Register(r *server.Hertz) {
 
 	root := r.Group("/", rootMw()...)
 	{
-		_v2 := root.Group("/v2", _v2Mw()...)
-		_v2.POST("/note", append(_noteMw(), demoapi.CreateNote)...)
-		_note := _v2.Group("/note", _noteMw()...)
+		_v1 := root.Group("/v1", _v1Mw()...)
+		_v1.POST("/note", append(_noteMw(), demoapi.CreateNote)...)
+		_note := _v1.Group("/note", _noteMw()...)
 		_note.PUT("/:note_id", append(_updatenoteMw(), demoapi.UpdateNote)...)
 		_note.DELETE("/:note_id", append(_deletenoteMw(), demoapi.DeleteNote)...)
 		_note.GET("/query", append(_querynoteMw(), demoapi.QueryNote)...)
 		{
-			_user := _v2.Group("/user", _userMw()...)
+			_user := _v1.Group("/user", _userMw()...)
 			_user.POST("/login", append(_checkuserMw(), demoapi.CheckUser)...)
 			_user.POST("/register", append(_createuserMw(), demoapi.CreateUser)...)
 		}
