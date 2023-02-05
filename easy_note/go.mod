@@ -6,10 +6,10 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
 require (
 	github.com/apache/thrift v0.13.0
-	github.com/cloudwego/hertz v0.5.1
+	github.com/cloudwego/hertz v0.5.2
 	github.com/cloudwego/kitex v0.4.4
 	github.com/hertz-contrib/gzip v0.0.1
-	github.com/hertz-contrib/jwt v1.0.1
+	github.com/hertz-contrib/jwt v1.0.2
 	github.com/hertz-contrib/obs-opentelemetry/logging/logrus v0.1.1
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.1.1
 	github.com/hertz-contrib/pprof v0.1.0
@@ -41,7 +41,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang-jwt/jwt/v4 v4.4.1 // indirect
+	github.com/golang-jwt/jwt/v4 v4.4.3 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/pprof v0.0.0-20220608213341-c488b8fa1db3 // indirect
@@ -56,7 +56,7 @@ require (
 	github.com/klauspost/cpuid/v2 v2.2.3 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/nyaruka/phonenumbers v1.1.4 // indirect
+	github.com/nyaruka/phonenumbers v1.1.5 // indirect
 	github.com/oleiade/lane v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/savsgio/gotils v0.0.0-20220530130905-52f3993e8d6d // indirect

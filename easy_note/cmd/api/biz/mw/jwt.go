@@ -17,6 +17,7 @@ package mw
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"time"
 
@@ -27,6 +28,7 @@ import (
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
+	jwtv4 "github.com/golang-jwt/jwt/v4"
 	"github.com/hertz-contrib/jwt"
 )
 
@@ -43,8 +45,9 @@ func InitJWT() {
 		IdentityKey:   consts.IdentityKey,
 		IdentityHandler: func(ctx context.Context, c *app.RequestContext) interface{} {
 			claims := jwt.ExtractClaims(ctx, c)
+			userid, _ := claims[consts.IdentityKey].(json.Number).Int64()
 			return &demoapi.User{
-				UserID: int64(claims[consts.IdentityKey].(float64)),
+				UserID: userid,
 			}
 		},
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
@@ -90,5 +93,6 @@ func InitJWT() {
 				return t.Error()
 			}
 		},
+		ParseOptions: []jwtv4.ParserOption{jwtv4.WithJSONNumber()},
 	})
 }

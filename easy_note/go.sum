@@ -126,6 +126,8 @@ github.com/cloudwego/hertz v0.5.0 h1:xEGRUJIHCOdMtch3jcga7PEiViiXyvN3upfIskcJ+Bk
 github.com/cloudwego/hertz v0.5.0/go.mod h1:K1U0RlU07CDeBINfHNbafH/3j9uSgIW8otbjUys3OPY=
 github.com/cloudwego/hertz v0.5.1 h1:Jpnq5pdO8ARnPEGFZLEL8g3jCQcagOst0Iq1YXyBIJI=
 github.com/cloudwego/hertz v0.5.1/go.mod h1:K1U0RlU07CDeBINfHNbafH/3j9uSgIW8otbjUys3OPY=
+github.com/cloudwego/hertz v0.5.2 h1:SOxmJo1KXjjWQjJ7OwxCvEePiR92PScdW5JM1p1HpHo=
+github.com/cloudwego/hertz v0.5.2/go.mod h1:K1U0RlU07CDeBINfHNbafH/3j9uSgIW8otbjUys3OPY=
 github.com/cloudwego/kitex v0.0.4/go.mod h1:EIjPJ4Dom2ornk7xDCdKpUpOnf4Tulevimh4Tn05OGc=
 github.com/cloudwego/kitex v0.0.5/go.mod h1:sDiWpxbadYE5wFYj7MrSzm2Tle7TFZdcSezIErMsvp8=
 github.com/cloudwego/kitex v0.1.4/go.mod h1:qxxpIUl5zvbcvcQeKrlm2t2f1BBxt4EPMksBUFwr6QA=
@@ -230,6 +232,8 @@ github.com/gogo/protobuf v1.3.2/go.mod h1:P1XiOD3dCwIKUDQYPy72D8LYyHL2YPYrpS2s69
 github.com/goji/httpauth v0.0.0-20160601135302-2da839ab0f4d/go.mod h1:nnjvkQ9ptGaCkuDUx6wNykzzlUixGxvkme+H/lnzb+A=
 github.com/golang-jwt/jwt/v4 v4.4.1 h1:pC5DB52sCeK48Wlb9oPcdhnjkz1TKt1D/P7WKJ0kUcQ=
 github.com/golang-jwt/jwt/v4 v4.4.1/go.mod h1:m21LjoU+eqJr34lmDMbreY2eSTRJ1cv77w39/MY0Ch0=
+github.com/golang-jwt/jwt/v4 v4.4.3 h1:Hxl6lhQFj4AnOX6MLrsCb/+7tCj7DxP7VA+2rDIq5AU=
+github.com/golang-jwt/jwt/v4 v4.4.3/go.mod h1:m21LjoU+eqJr34lmDMbreY2eSTRJ1cv77w39/MY0Ch0=
 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0/go.mod h1:E/TSTwGwJL78qG/PmXZO1EjYhfJinVAhrmmHX6Z8B9k=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/glog v1.0.0 h1:nfP3RFugxnNRyKgeWd4oI1nYvXpxrx8ck8ZrcizshdQ=
@@ -340,6 +344,8 @@ github.com/hertz-contrib/gzip v0.0.1 h1:fPCnSZIDT4Gd8ZTuoCCJXek0opUsN89T2djdEW7A
 github.com/hertz-contrib/gzip v0.0.1/go.mod h1:Fom/vnPMLA3UJ/P8fsZO8izjWG82m53BGO48lW1U1l8=
 github.com/hertz-contrib/jwt v1.0.1 h1:oULbGKp6M1NPNoSbNArAyWxjJyLkeDAg3d6eTbNCwEo=
 github.com/hertz-contrib/jwt v1.0.1/go.mod h1:3zUSK+44dcw/9z/89JZ+mA0FoyhmVN7Hx+f46ucVV4I=
+github.com/hertz-contrib/jwt v1.0.2 h1:sAW3wqgBDsbPKr5JWJRObY61jg1NqYkUCg+o8UXLsaI=
+github.com/hertz-contrib/jwt v1.0.2/go.mod h1:3zUSK+44dcw/9z/89JZ+mA0FoyhmVN7Hx+f46ucVV4I=
 github.com/hertz-contrib/obs-opentelemetry v0.1.1 h1:vjWoLhkWSPvUKtrFJ8IeVw2WXeU61akjmOTDn9oCnM8=
 github.com/hertz-contrib/obs-opentelemetry v0.1.1/go.mod h1:uwP1LWYpTj0oDvC6KoleG6ER3hHAas7ZKVnb++/tqic=
 github.com/hertz-contrib/obs-opentelemetry/logging/logrus v0.1.1 h1:4KR/JoIc8PSbVucOzsLSJOtVgDowwNG6/C/GkrpPXHI=
@@ -442,6 +448,8 @@ github.com/nyaruka/phonenumbers v1.1.2 h1:MIDljnA08HCUzgNOrkCYja7CJ5U9ylZ+U3Sge8
 github.com/nyaruka/phonenumbers v1.1.2/go.mod h1:cGaEsOrLjIL0iKGqJR5Rfywy86dSkbApEpXuM9KySNA=
 github.com/nyaruka/phonenumbers v1.1.4 h1:de8exybd7+g9q+gXP04Ypt9ijFYXXm8wrgqPf+Ckk20=
 github.com/nyaruka/phonenumbers v1.1.4/go.mod h1:yShPJHDSH3aTKzCbXyVxNpbl2kA+F+Ne5Pun/MvFRos=
+github.com/nyaruka/phonenumbers v1.1.5 h1:vYy2DI+z5hdaemqVzXYJ4CVyK92IG484CirEY+40GTo=
+github.com/nyaruka/phonenumbers v1.1.5/go.mod h1:yShPJHDSH3aTKzCbXyVxNpbl2kA+F+Ne5Pun/MvFRos=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
 github.com/oleiade/lane v1.0.1 h1:hXofkn7GEOubzTwNpeL9MaNy8WxolCYb9cInAIeqShU=
 github.com/oleiade/lane v1.0.1/go.mod h1:IyTkraa4maLfjq/GmHR+Dxb4kCMtEGeb+qmhlrQ5Mk4=
