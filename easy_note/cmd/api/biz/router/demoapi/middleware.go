@@ -58,7 +58,7 @@ func rootMw() []app.HandlerFunc {
 	}
 }
 
-func _v2Mw() []app.HandlerFunc {
+func _v1Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }

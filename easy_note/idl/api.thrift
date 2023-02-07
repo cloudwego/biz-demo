@@ -84,10 +84,10 @@ struct DeleteNoteResponse {
 }
 
 service ApiService {
-    CreateUserResponse CreateUser(1: CreateUserRequest req) (api.post="/v2/user/register")
-    CheckUserResponse CheckUser(1: CheckUserRequest req) (api.post="/v2/user/login")
-    CreateNoteResponse CreateNote(1: CreateNoteRequest req) (api.post="/v2/note")
-    QueryNoteResponse QueryNote(1: QueryNoteRequest req) (api.get="/v2/note/query")
-    UpdateNoteResponse UpdateNote(1: UpdateNoteRequest req) (api.put="/v2/note/:note_id")
-    DeleteNoteResponse DeleteNote(1: DeleteNoteRequest req) (api.delete="/v2/note/:note_id")
+    CreateUserResponse CreateUser(1: CreateUserRequest req) (api.post="/v1/user/register")
+    CheckUserResponse CheckUser(1: CheckUserRequest req) (api.post="/v1/user/login")
+    CreateNoteResponse CreateNote(1: CreateNoteRequest req) (api.post="/v1/note")
+    QueryNoteResponse QueryNote(1: QueryNoteRequest req) (api.get="/v1/note/query")
+    UpdateNoteResponse UpdateNote(1: UpdateNoteRequest req) (api.put="/v1/note/:note_id")
+    DeleteNoteResponse DeleteNote(1: DeleteNoteRequest req) (api.delete="/v1/note/:note_id")
 }
