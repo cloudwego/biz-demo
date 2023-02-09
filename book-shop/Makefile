@@ -33,14 +33,14 @@ facade:
 # run the user service
 .PHONY: user
 user:
-	go run app/user/main.go
+	go run app/user/*.go
 
 # run the item service
 .PHONY: item
 item:
-	go run app/item/main.go
+	go run app/item/*.go
 
 # run the order service
 .PHONY: order
 order:
-	go run app/order/main.go
+	go run app/order/*.go
