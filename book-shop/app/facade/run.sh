@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-go run ./main.go
+go run app/facade/main.go
