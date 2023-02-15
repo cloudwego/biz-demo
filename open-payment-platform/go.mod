@@ -7,8 +7,8 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 require (
 	entgo.io/ent v0.11.4
 	github.com/apache/thrift v0.16.0
-	github.com/cloudwego/hertz v0.4.0
-	github.com/cloudwego/kitex v0.4.3
+	github.com/cloudwego/hertz v0.5.2
+	github.com/cloudwego/kitex v0.4.4
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/google/wire v0.5.0
 	github.com/kitex-contrib/registry-nacos v0.0.1
@@ -28,10 +28,10 @@ require (
 	github.com/chenzhuoyu/base64x v0.0.0-20211019084208-fb5309c8db06 // indirect
 	github.com/chenzhuoyu/iasm v0.0.0-20220818063314-28c361dae733 // indirect
 	github.com/choleraehyq/pid v0.0.15 // indirect
-	github.com/cloudwego/fastpb v0.0.2 // indirect
+	github.com/cloudwego/fastpb v0.0.3 // indirect
 	github.com/cloudwego/frugal v0.1.3 // indirect
-	github.com/cloudwego/netpoll v0.2.6 // indirect
-	github.com/cloudwego/thriftgo v0.2.1 // indirect
+	github.com/cloudwego/netpoll v0.3.1 // indirect
+	github.com/cloudwego/thriftgo v0.2.4 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect
@@ -39,7 +39,6 @@ require (
 	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/google/pprof v0.0.0-20220608213341-c488b8fa1db3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/gopherjs/gopherjs v0.0.0-20190910122728-9d188e94fb99 // indirect
 	github.com/hashicorp/hcl/v2 v2.13.0 // indirect
 	github.com/henrylee2cn/ameda v1.4.10 // indirect
 	github.com/henrylee2cn/goutil v0.0.0-20210127050712-89660552f6f8 // indirect
