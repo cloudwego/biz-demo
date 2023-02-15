@@ -7,8 +7,8 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 require (
 	github.com/apache/thrift v0.13.0
 	github.com/bytedance/gopkg v0.0.0-20220623074550-9d6d3df70991
-	github.com/cloudwego/hertz v0.3.0
-	github.com/cloudwego/kitex v0.4.2
+	github.com/cloudwego/hertz v0.5.2
+	github.com/cloudwego/kitex v0.4.4
 	github.com/google/wire v0.5.0
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.1.1
 	github.com/kitex-contrib/obs-opentelemetry v0.1.0
