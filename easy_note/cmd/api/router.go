@@ -20,8 +20,8 @@ package main
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/handler"
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/handler/demoapi"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/hertz_handler"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/hertz_handler/demoapi"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -29,7 +29,7 @@ import (
 
 // customizeRegister registers customize routers.
 func customizedRegister(r *server.Hertz) {
-	r.GET("/ping", handler.Ping)
+	r.GET("/ping", hertz_handler.Ping)
 
 	// your code ...
 	r.NoRoute(func(ctx context.Context, c *app.RequestContext) { // used for HTTP 404

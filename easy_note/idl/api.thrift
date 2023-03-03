@@ -41,8 +41,8 @@ struct CheckUserResponse {
 }
 
 struct CreateNoteRequest {
-    1: string title (api.form="title", api.vd="len($) > 0")
-    2: string content (api.form="content", api.vd="len($) > 0")
+    1: string title (api.vd="len($) > 0")
+    2: string content (api.vd="len($) > 0")
     3: i64 user_id
 }
 

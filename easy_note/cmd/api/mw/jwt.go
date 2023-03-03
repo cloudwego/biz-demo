@@ -21,8 +21,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/model/demoapi"
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/rpc"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/rpc"
+	"github.com/cloudwego/biz-demo/easy_note/hertz_gen/demoapi"
 	"github.com/cloudwego/biz-demo/easy_note/kitex_gen/demouser"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/consts"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/errno"

@@ -20,9 +20,9 @@ package demoapi
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/model/demoapi"
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/mw"
-	"github.com/cloudwego/biz-demo/easy_note/cmd/api/biz/rpc"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/mw"
+	"github.com/cloudwego/biz-demo/easy_note/cmd/api/rpc"
+	demoapi "github.com/cloudwego/biz-demo/easy_note/hertz_gen/demoapi"
 	"github.com/cloudwego/biz-demo/easy_note/kitex_gen/demonote"
 	"github.com/cloudwego/biz-demo/easy_note/kitex_gen/demouser"
 	"github.com/cloudwego/biz-demo/easy_note/pkg/consts"
@@ -33,7 +33,7 @@ import (
 
 // CreateUser .
 // @router /v1/user/register [POST]
-func CreateUser(_ context.Context, c *app.RequestContext) {
+func CreateUser(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req demoapi.CreateUserRequest
 	err = c.BindAndValidate(&req)
@@ -60,7 +60,7 @@ func CheckUser(ctx context.Context, c *app.RequestContext) {
 
 // CreateNote .
 // @router /v1/note [POST]
-func CreateNote(_ context.Context, c *app.RequestContext) {
+func CreateNote(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req demoapi.CreateNoteRequest
 	err = c.BindAndValidate(&req)
@@ -83,7 +83,7 @@ func CreateNote(_ context.Context, c *app.RequestContext) {
 
 // QueryNote .
 // @router /v1/note/query [GET]
-func QueryNote(_ context.Context, c *app.RequestContext) {
+func QueryNote(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req demoapi.QueryNoteRequest
 	err = c.BindAndValidate(&req)
@@ -110,7 +110,7 @@ func QueryNote(_ context.Context, c *app.RequestContext) {
 
 // UpdateNote .
 // @router /v1/note/:note_id [PUT]
-func UpdateNote(_ context.Context, c *app.RequestContext) {
+func UpdateNote(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req demoapi.UpdateNoteRequest
 	err = c.BindAndValidate(&req)
@@ -134,7 +134,7 @@ func UpdateNote(_ context.Context, c *app.RequestContext) {
 
 // DeleteNote .
 // @router /v1/note/:note_id [DELETE]
-func DeleteNote(_ context.Context, c *app.RequestContext) {
+func DeleteNote(ctx context.Context, c *app.RequestContext) {
 	var err error
 	var req demoapi.DeleteNoteRequest
 	err = c.BindAndValidate(&req)
