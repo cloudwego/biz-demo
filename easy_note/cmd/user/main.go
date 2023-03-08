@@ -16,6 +16,7 @@
 package main
 
 import (
+	"context"
 	"net"
 
 	"github.com/cloudwego/biz-demo/easy_note/cmd/user/dal"
@@ -49,11 +50,14 @@ func main() {
 		panic(err)
 	}
 	Init()
-	provider.NewOpenTelemetryProvider(
+	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(consts.UserServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
 		provider.WithInsecure(),
 	)
+	defer func(ctx context.Context, p provider.OtelProvider) {
+		_ = p.Shutdown(ctx)
+	}(context.Background(), p)
 	svr := userservice.NewServer(new(UserServiceImpl),
 		server.WithServiceAddr(addr),
 		server.WithRegistry(r),
