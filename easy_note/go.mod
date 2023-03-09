@@ -20,8 +20,8 @@ require (
 	github.com/kitex-contrib/registry-etcd v0.1.0
 	go.opentelemetry.io/otel/trace v1.13.0
 	gorm.io/driver/mysql v1.4.4
-	gorm.io/gorm v1.24.2
-	gorm.io/plugin/opentelemetry v0.1.0
+	gorm.io/gorm v1.24.6
+	gorm.io/plugin/opentelemetry v0.1.1
 )
 
 require (
