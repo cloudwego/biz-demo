@@ -37,11 +37,14 @@ func initUser() {
 	if err != nil {
 		panic(err)
 	}
-	provider.NewOpenTelemetryProvider(
+	p := provider.NewOpenTelemetryProvider(
 		provider.WithServiceName(consts.NoteServiceName),
 		provider.WithExportEndpoint(consts.ExportEndpoint),
 		provider.WithInsecure(),
 	)
+	defer func(ctx context.Context, p provider.OtelProvider) {
+		_ = p.Shutdown(ctx)
+	}(context.Background(), p)
 	c, err := userservice.NewClient(
 		consts.UserServiceName, // DestService
 		client.WithResolver(r),
