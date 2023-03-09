@@ -139,7 +139,3 @@ Visit `http://127.0.0.1:3000/` on browser
 
 ##[:point_right: MORE](https://a6i0rzkzjm.feishu.cn/docx/Xa8sdTIGJopWrNxYgeVcrmxPnKe#doxcnPDVQrEZq14hwckf1K1Taqg)
 
-
-### Demo
-
-<video height=498 width=510 src="https://maomint.maomint.cn/202302241043.mov"></video>
