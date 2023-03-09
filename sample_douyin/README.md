@@ -89,41 +89,54 @@ CDNURL   = "http://*************.cn/"
 ### Run User RPC Server
 
 ```shell
-sh ./start_script/start_user.sh
+cd cmd/user
+sh build.sh
+sh output/bootstrap.sh
 ```
 
 ### Run Video RPC Server
 
 ```shell
-sh ./start_script/start_video.sh
+cd cmd/video
+sh build.sh
+sh output/bootstrap.sh
 ```
 
 ### Run Relation RPC Server
 
 ```shell
-sh ./start_script/start_relation.sh
+cd cmd/relation
+sh build.sh
+sh output/bootstrap.sh
 ```
 
 ### Run Favorite RPC Server
 
 ```shell
-sh ./start_script/start_favorite.sh
+cd cmd/favorite
+sh build.sh
+sh output/bootstrap.sh
 ```
 
 ### Run Comment RPC Server
 
 ```shell
-sh ./start_script/start_comment.sh
+cd cmd/comment
+sh build.sh
+sh output/bootstrap.sh
 ```
 ### Run Message RPC Server
 
 ```shell
-sh ./start_script/start_message.sh
+cd cmd/message
+sh build.sh
+sh output/bootstrap.sh
 ```
 ### Run API Server
 
 ```shell
-sh ./start_script/start_api.sh
+cd cmd/api
+go run .
 ```
 ### Jaeger
 
