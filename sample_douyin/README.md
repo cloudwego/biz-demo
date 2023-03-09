@@ -24,7 +24,6 @@ A simple Douyin service built with `Kitex` and `Hertz` which is divided into sev
 ### Basic Features
 
 - Hertz
-  - Use `thrift` IDL to define HTTP interface
   - Use `Hertz` binding and validate
   - Use `obs-opentelemetry` and `jarger` for `tracing`, `metrics`, `logging`
   - Middleware
@@ -44,12 +43,30 @@ A simple Douyin service built with `Kitex` and `Hertz` which is divided into sev
 | rpc           | RPC call logic          |
 | dal           | DB operation            |
 | pack          | data pack               |
+| apimodel      | struct definition       |
 | cache         | Redis operation         |
 | videoHandler  | Video stream processing |
 | pkg/mw        | RPC middleware          |
 | pkg/consts    | constants               |
 | pkg/errno     | customized error number |
 | pkg/configs   | SQL and Tracing configs |
+
+## Code Generation
+
+| catalog               | command                              |
+|-----------------------|--------------------------------------|
+| kitex_user_client     | make kitex_gen_user                  |
+| kitex_video_client    | make kitex_gen_video                 |
+| kitex_favorite_client | make kitex_gen_favorite              |
+| kitex_comment_client  | make kitex_gen_comment               |
+| kitex_message_client  | make kitex_gen_message               |
+| kitex_relation_client | make kitex_gen_relation              |
+| kitex_user_server     | cd cmd/user && make kitex_gen_server |
+| kitex_video_server    | cd cmd/video && make kitex_gen_server |
+| kitex_favorite_server | cd cmd/favorite && make kitex_gen_server |
+| kitex_comment_server  | cd cmd/comment && make kitex_gen_server |
+| kitex_message_server  | cd cmd/message && make kitex_gen_server |
+| kitex_relation_server | cd cmd/relation && make kitex_gen_server |
 
 ## Quick Start
 
