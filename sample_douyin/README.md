@@ -150,5 +150,5 @@ Visit `http://127.0.0.1:3000/` on browser
 
 [:memo:Sample Douyin APP Package Instructions](https://bytedance.feishu.cn/docs/doccnM9KkBAdyDhg8qaeGlIz7S7#quPkfu)
 
-##[:point_right: MORE](https://a6i0rzkzjm.feishu.cn/docx/Xa8sdTIGJopWrNxYgeVcrmxPnKe#doxcnPDVQrEZq14hwckf1K1Taqg)
+## [:point_right: MORE](https://a6i0rzkzjm.feishu.cn/docx/Xa8sdTIGJopWrNxYgeVcrmxPnKe#doxcnPDVQrEZq14hwckf1K1Taqg)
 
