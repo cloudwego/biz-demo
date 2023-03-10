@@ -3,7 +3,7 @@ package douyinvideo
 import (
 	"bytes"
 	"fmt"
-	"mydouyin/pkg/consts"
+	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 	"net/url"
 	"reflect"
 	"regexp"

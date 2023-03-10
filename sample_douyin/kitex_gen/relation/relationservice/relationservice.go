@@ -4,9 +4,9 @@ package relationservice
 
 import (
 	"context"
+	relation "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/relation"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	relation "mydouyin/kitex_gen/relation"
 )
 
 func serviceInfo() *kitex.ServiceInfo {

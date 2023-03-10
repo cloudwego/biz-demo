@@ -4,9 +4,9 @@ package favoriteservice
 
 import (
 	"context"
+	douyinfavorite "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinfavorite"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	douyinfavorite "mydouyin/kitex_gen/douyinfavorite"
 )
 
 func serviceInfo() *kitex.ServiceInfo {

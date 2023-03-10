@@ -4,9 +4,9 @@ package commentservice
 
 import (
 	"context"
+	douyincomment "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyincomment"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	douyincomment "mydouyin/kitex_gen/douyincomment"
 )
 
 func serviceInfo() *kitex.ServiceInfo {

@@ -2,8 +2,8 @@
 package videoservice
 
 import (
+	douyinvideo "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
 	server "github.com/cloudwego/kitex/server"
-	douyinvideo "mydouyin/kitex_gen/douyinvideo"
 )
 
 // NewServer creates a server.Server with the given handler and options.

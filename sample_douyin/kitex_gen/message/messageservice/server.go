@@ -2,8 +2,8 @@
 package messageservice
 
 import (
+	message "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/message"
 	server "github.com/cloudwego/kitex/server"
-	message "mydouyin/kitex_gen/message"
 )
 
 // NewServer creates a server.Server with the given handler and options.

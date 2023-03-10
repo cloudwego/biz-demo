@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-RUN_NAME="favorite"
+RUN_NAME="douyinfavorite"
 
 mkdir -p output/bin
 cp script/* output/

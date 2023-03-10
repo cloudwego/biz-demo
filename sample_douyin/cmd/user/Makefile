@@ -1,2 +1,2 @@
 kitex_gen_server:
-	kitex --thrift-plugin validator -module github.com/cloudwego/biz-demo/sample_douyin -service demouser -use github.com/cloudwego/biz-demo/sample_douyin/kitex_gen ../../idl/user.thrift # execute in cmd/user
+	kitex -module github.com/cloudwego/biz-demo/sample_douyin -service douyinuser -use github.com/cloudwego/biz-demo/sample_douyin/kitex_gen ../../idl/user.thrift # execute in cmd/user

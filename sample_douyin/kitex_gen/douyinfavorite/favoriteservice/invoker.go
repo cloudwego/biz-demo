@@ -3,8 +3,8 @@
 package favoriteservice
 
 import (
+	douyinfavorite "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinfavorite"
 	server "github.com/cloudwego/kitex/server"
-	douyinfavorite "mydouyin/kitex_gen/douyinfavorite"
 )
 
 // NewInvoker creates a server.Invoker with the given handler and options.

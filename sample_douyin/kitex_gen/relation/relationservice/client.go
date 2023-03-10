@@ -4,9 +4,9 @@ package relationservice
 
 import (
 	"context"
+	relation "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/relation"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	relation "mydouyin/kitex_gen/relation"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.

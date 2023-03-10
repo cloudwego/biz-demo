@@ -1,3 +1,18 @@
+// Copyright 2023 CloudWeGo Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
 package consts
 
 const (
@@ -29,11 +44,11 @@ const (
 	ETCDAddress         = "127.0.0.1:10079"
 	DefaultLimit        = 10
 	//oss相关信息
-	Endpoint = "oss-c**************cs.com"
-	AKID     = "LTAI****************92kxo"
-	AKS      = "SmEa**************LuS9N3K9"
-	Bucket   = "douy******************67"
-	CDNURL   = "http://*************.cn/"
+	Endpoint = "oss-cn-beijing.aliyuncs.com"
+	AKID     = "LTAI5tQ4x1ACnZo5brw92kxo"
+	AKS      = "SmEavhOQDQ2lBXBaiognBiLuS9N3K9"
+	Bucket   = "douyin-video-9567"
+	CDNURL   = "http://aliyun.maomint.cn/"
 )
 
 // 头像

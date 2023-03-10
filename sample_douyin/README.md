@@ -24,10 +24,12 @@ A simple Douyin service built with `Kitex` and `Hertz` which is divided into sev
 ### Basic Features
 
 - Hertz
+  - Use `thrift` IDL to define HTTP interface
+  - Use `hz` to generate server/client code
   - Use `Hertz` binding and validate
   - Use `obs-opentelemetry` and `jarger` for `tracing`, `metrics`, `logging`
   - Middleware
-    - Use `requestid`, `jwt`, `recovery`, `gzip`
+    - Use `requestid`, `jwt`, `recovery`, `pprof`, `gzip`
 - Kitex
   - User `thrift` IDL to define `RPC` interface
   - Use `kitex` to generate code
@@ -55,6 +57,10 @@ A simple Douyin service built with `Kitex` and `Hertz` which is divided into sev
 
 | catalog               | command                              |
 |-----------------------|--------------------------------------|
+| hertz_api_model       | make hertz_gen_model                 |
+| hertz_api_client      | make hertz_gen_client                |
+| hertz_api_new         | cd cmd/api && make hertz_new_api     |
+| hertz_api_update      | cd cmd/api && make hertz_update_api  |
 | kitex_user_client     | make kitex_gen_user                  |
 | kitex_video_client    | make kitex_gen_video                 |
 | kitex_favorite_client | make kitex_gen_favorite              |
@@ -136,8 +142,10 @@ sh output/bootstrap.sh
 
 ```shell
 cd cmd/api
-go run .
+sh build.sh
+sh output/bootstrap.sh
 ```
+
 ### Jaeger
 
 Visit `http://127.0.0.1:16686/` on browser

@@ -3,8 +3,8 @@
 package commentservice
 
 import (
+	douyincomment "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyincomment"
 	server "github.com/cloudwego/kitex/server"
-	douyincomment "mydouyin/kitex_gen/douyincomment"
 )
 
 // NewInvoker creates a server.Invoker with the given handler and options.

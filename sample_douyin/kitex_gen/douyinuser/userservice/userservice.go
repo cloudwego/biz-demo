@@ -4,9 +4,9 @@ package userservice
 
 import (
 	"context"
+	douyinuser "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinuser"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	douyinuser "mydouyin/kitex_gen/douyinuser"
 )
 
 func serviceInfo() *kitex.ServiceInfo {

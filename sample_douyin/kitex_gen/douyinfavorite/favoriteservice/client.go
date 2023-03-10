@@ -4,9 +4,9 @@ package favoriteservice
 
 import (
 	"context"
+	douyinfavorite "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinfavorite"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	douyinfavorite "mydouyin/kitex_gen/douyinfavorite"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.

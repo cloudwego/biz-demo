@@ -4,9 +4,9 @@ package messageservice
 
 import (
 	"context"
+	message "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/message"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	message "mydouyin/kitex_gen/message"
 )
 
 func serviceInfo() *kitex.ServiceInfo {
