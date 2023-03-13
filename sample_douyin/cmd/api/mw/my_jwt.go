@@ -31,6 +31,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+
 	//"mydouyin/cmd/api/biz/cache"
 	"net/http"
 	//"strconv"
@@ -602,8 +603,6 @@ func (mw *HertzJWTMiddleware) LoginHandler(ctx context.Context, c *app.RequestCo
 		c.SetCookie(mw.CookieName, tokenString, maxage, "/", mw.CookieDomain, mw.CookieSameSite, mw.SecureCookie, mw.CookieHTTPOnly)
 	}
 	//log.Println(claims[mw.IdentityKey])
-	
-
 
 	mw.LoginResponse(ctx, c, http.StatusOK, tokenString, expire, claims[mw.IdentityKey])
 }
