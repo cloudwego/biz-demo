@@ -96,9 +96,9 @@ func (s *MessageService) MessageChat(req douyinapi.MessageChatRequest, user *dou
 	sort.Sort(pack.MessageSorter(resp.MessageList))
 	if len(resp.MessageList) == 0 {
 		//表示两个用户之间第一次聊天，没有消息记录，向对应kv缓存中加一条空消息，防止service轮询rpc接口
-		cache.MC.SaveMessage(append([]*douyinapi.Message{}, &douyinapi.Message{FromUserID: user.ID, ToUserID: req.ToUserID, CreateTime: 0}))
+		err = cache.MC.SaveMessage(append([]*douyinapi.Message{}, &douyinapi.Message{FromUserID: user.ID, ToUserID: req.ToUserID, CreateTime: 0}))
 	} else {
-		cache.MC.SaveMessage(resp.MessageList)
+		err = cache.MC.SaveMessage(resp.MessageList)
 	}
 	return
 }

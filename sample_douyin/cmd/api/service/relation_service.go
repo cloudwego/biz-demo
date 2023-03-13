@@ -224,23 +224,32 @@ func (s *RelationService) FriendList(req douyinapi.FriendListRequest) (*douyinap
 			//miss了就更新缓存
 			// log.Println("miss了,更新redis缓存", missFriendId)
 			if message.MsgType == 1 {
-				cache.MC.SetFirstMessage(&douyinapi.Message{
+				err = cache.MC.SetFirstMessage(&douyinapi.Message{
 					ToUserID:   message.FriendId,
 					FromUserID: req.UserID,
 					Content:    message.Message,
 				})
+				if err != nil {
+					return nil, err
+				}
 			} else if message.MsgType == 0 {
-				cache.MC.SetFirstMessage(&douyinapi.Message{
+				err = cache.MC.SetFirstMessage(&douyinapi.Message{
 					ToUserID:   req.UserID,
 					FromUserID: message.FriendId,
 					Content:    message.Message,
 				})
+				if err != nil {
+					return nil, err
+				}
 			} else {
-				cache.MC.SetFirstMessage(&douyinapi.Message{
+				err = cache.MC.SetFirstMessage(&douyinapi.Message{
 					ToUserID:   req.UserID,
 					FromUserID: message.FriendId,
 					Content:    "",
 				})
+				if err != nil {
+					return nil, err
+				}
 			}
 		}
 	}

@@ -81,13 +81,21 @@ func (c *MessageCache) listen() {
 			continue
 		}
 		var cmd CreateMessageCommand
-		json.Unmarshal(msg, &cmd)
+		err = json.Unmarshal(msg, &cmd)
+		if err != nil {
+			log.Printf("json.Unmarshal error %v", err)
+			continue
+		}
 		log.Printf("[********MessageCache********] recover command:%v", cmd)
 		err = c.execCommand(&cmd)
 		if err != nil {
 			log.Printf("[********MessageCache********] command exec fail, error:%v", err)
 			data, _ := json.Marshal(cmd)
-			c.mq.ProductionMessage(data)
+			err = c.mq.ProductionMessage(data)
+			if err != nil {
+				log.Printf("c.mq.ProductionMessage error %v", err)
+				continue
+			}
 			time.Sleep(time.Second * 10)
 		} else {
 			log.Printf("[********MessageCache********] command exec success!!!")
@@ -135,8 +143,8 @@ func (c *MessageCache) getMsgFromSet(from_id, to_id int64) (msg *douyinapi.Messa
 		return nil, err
 	}
 	msg = new(douyinapi.Message)
-	json.Unmarshal([]byte(result), msg)
-	return msg, nil
+	err = json.Unmarshal([]byte(result), msg)
+	return msg, err
 }
 
 func (c *MessageCache) setMsgToSet(msg *douyinapi.Message) error {

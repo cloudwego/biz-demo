@@ -54,13 +54,21 @@ func (c *FavoriteCache) listen() {
 			continue
 		}
 		var cmd FavoriteActionCommand
-		json.Unmarshal(msg, &cmd)
+		err = json.Unmarshal(msg, &cmd)
+		if err != nil {
+			log.Printf("json.Unmarshal error %v", err)
+			continue
+		}
 		log.Printf("[********FavoriteCache********] recover command:%v", cmd)
 		err = c.execCommand(&cmd)
 		if err != nil {
 			log.Printf("[********FavoriteCache********] command exec fail, error:%v", err)
 			data, _ := json.Marshal(cmd)
-			c.mq.ProductionMessage(data)
+			err = c.mq.ProductionMessage(data)
+			if err != nil {
+				log.Printf("c.mq.ProductionMessage error %v", err)
+				continue
+			}
 			time.Sleep(time.Second * 10)
 		} else {
 			log.Printf("[********FavoriteCache********] command exec success!!!")

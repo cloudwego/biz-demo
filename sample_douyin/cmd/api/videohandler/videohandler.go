@@ -81,7 +81,11 @@ func (vh *VideoHandel) CommitCommand(VideoName string, UserID int64, Title strin
 		Title:     Title,
 		State:     begin,
 	})
-	vh.CommandQueue.ProductionMessage(data)
+	err := vh.CommandQueue.ProductionMessage(data)
+	for err != nil {
+		time.Sleep(1 * time.Second)
+		err = vh.CommandQueue.ProductionMessage(data)
+	}
 }
 
 func (vh *VideoHandel) listen() {
@@ -91,13 +95,21 @@ func (vh *VideoHandel) listen() {
 			continue
 		}
 		var cmd Command
-		json.Unmarshal(msg, &cmd)
+		err = json.Unmarshal(msg, &cmd)
+		if err != nil {
+			log.Printf("json.Unmarshal error %v", err)
+			continue
+		}
 		log.Printf("[********VideoHandler********] recover command:%v", cmd)
 		err = vh.execCommand(&cmd)
 		if err != nil || cmd.State != allFinish {
 			log.Printf("[********VideoHandler********] command exec fail, error:%v", err)
 			data, _ := json.Marshal(cmd)
-			vh.CommandQueue.ProductionMessage(data)
+			err = vh.CommandQueue.ProductionMessage(data)
+			if err != nil {
+				log.Printf("c.mq.ProductionMessage error %v", err)
+				continue
+			}
 		} else {
 			log.Printf("[********VideoHandler********] command exec success!!!")
 		}
