@@ -19,5 +19,9 @@ header:
     - easy_note/cmd/api/router_gen.go
     - book-shop/kitex_gen/**
     - book-shop/docs/**
+    - sample_douyin/kitex_gen/**
+    - sample_douyin/cmd/api/biz/model/**
+    - sample_douyin/cmd/api/biz/router/**
+    - sample_douyin/cmd/api/router_gen.go
 
   comment: on-failure
