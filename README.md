@@ -175,3 +175,54 @@ The book-shop application is divided into four microservices:
 
 #### Contributors & Maintainers
 [@bodhisatan](https://github.com/bodhisatan)
+
+### 5. Sample Douyin
+
+#### Description
+##### What is it about and what problem does it solve?
+- How to coordinate multiple Kitex services using Hertz?
+- How to integrate OSS (such as aliyun-oss...) in Hertz project?
+
+##### What is the business scenario?
+
+> The application shows a short video platform system that includes user login and registration, uploading videos, getting video feed streams, favoriting, commenting, following, and chatting.
+
+The sample_douyin application is divided into seven microservices:
+
+- **api** is an HTTP service that handles HTTP requests and calls other services via RPC.
+- **user** is an RPC service that handles user managements.
+- **video** is an RPC service that handles video managements.
+- **comment** is an RPC service that handles comment managements.
+- **favorite** is an RPC service that handles relationship between users and videos.
+- **message** is an RPC service that handles message managements.
+- **relation** is an RPC service that handles relationships between users.
+
+##### What are the core technologies/projects used?
+
+- [x] Use `hz` and `kitex` to generate code
+- [x] Use Hertz `requestid`, `jwt`, `pprof`, `gzip` middlewares
+- [x] Use `go-tagexpr` and `thrift-gen-validator` for validating HTTP and RPC request
+- [x] Use `obs-opentelemetry` for tracing
+- [x] Use `etcd` as service registry.
+- [x] Use `GORM` for implementing repository.
+- [x] Use `MySQL` as RDBMS.
+- [x] Use `Redis` as cache and message queue.
+- [x] Use `aliyun-oss` as object storage service.
+
+##### Which CloudWeGo subprojects are used? List all technologies used.
+- [Hertz](https://github.com/cloudwego/hertz)
+  - [obs-opentelemetry](https://github.com/hertz-contrib/obs-opentelemetry)
+  - [requestid](https://github.com/hertz-contrib/requestid)
+  - [jwt](https://github.com/hertz-contrib/jwt)
+  - [pprof](https://github.com/hertz-contrib/pprof)
+  - [gzip](https://github.com/hertz-contrib/gzip)
+- [Kitex](https://github.com/cloudwego/kitex)
+  - [obs-opentelemetry](https://github.com/kitex-contrib/obs-opentelemetry)
+  - [registry-etcd](https://github.com/kitex-contrib/registry-etcd)
+
+##### Detailed documentation
+[Sample Douyin](./sample_douyin/README.md)
+
+#### Contributors & Maintainers
+[@demoasm](https://github.com/demoasm)
+
