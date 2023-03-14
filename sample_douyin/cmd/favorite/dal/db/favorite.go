@@ -67,7 +67,7 @@ func CreateFavorite(ctx context.Context, favorites []*Favorite) error {
 	return err
 }
 
-func CancleFavorite(ctx context.Context, favorites []*Favorite) error {
+func CancelFavorite(ctx context.Context, favorites []*Favorite) error {
 	err := DB.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
 		for _, f := range favorites {
 			var favorite Favorite

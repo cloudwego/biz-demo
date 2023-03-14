@@ -83,11 +83,11 @@ docker-compose up -d
 ```
 
 ### Change config
-Edit the following code block in pkg/consts/consts.go and replace it with your own Alibaba Cloud OSS AKID & AKS etc.
+Edit the following code block in pkg/consts/consts.go and replace it with your own Alibaba Cloud OSS AKID & ASK etc.
 ```go
 Endpoint = "oss-c**************cs.com"
 AKID     = "LTAI****************92kxo"
-AKS      = "SmEa**************LuS9N3K9"
+ASK      = "SmEa**************LuS9N3K9"
 Bucket   = "douy******************67"
 CDNURL   = "http://*************.cn/"
 ```

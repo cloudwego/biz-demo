@@ -48,7 +48,7 @@ func InitJWT() {
 		Timeout: 24 * time.Hour,
 		// 最大token刷新时间，允许客户端在tokenTime+MaxRefresh内刷新token的有效时间，追加一个timeout时长
 		MaxRefresh: time.Hour,
-		// 用于设置检索身份的键 默认indentity
+		// 用于设置检索身份的键 默认identity
 		IdentityKey: consts.IdentityKey,
 		// 设置获取身份信息的函数,与PayloadFunc一致
 		IdentityHandler: func(ctx context.Context, c *app.RequestContext) interface{} {

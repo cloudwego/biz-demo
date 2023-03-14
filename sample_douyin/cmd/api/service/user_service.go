@@ -41,8 +41,8 @@ func NewUserService(ctx context.Context) *UserService {
 	}
 }
 
-func (s *UserService) RegistUser(req douyinapi.RegistUserRequest) (*douyinapi.RegistUserResponse, error) {
-	resp := new(douyinapi.RegistUserResponse)
+func (s *UserService) RegisterUser(req douyinapi.RegisterUserRequest) (*douyinapi.RegisterUserResponse, error) {
+	resp := new(douyinapi.RegisterUserResponse)
 	rpc_resp, err := rpc.CreateUser(context.Background(), &douyinuser.CreateUserRequest{
 		Username:        req.Username,
 		Password:        req.Password,

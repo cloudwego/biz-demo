@@ -28,11 +28,11 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
-// RegistUser .
+// RegisterUser .
 // @router /douyin/user/register/ [POST]
-func RegistUser(ctx context.Context, c *app.RequestContext) {
+func RegisterUser(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req douyinapi.RegistUserRequest
+	var req douyinapi.RegisterUserRequest
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		// c.String(consts.StatusBadRequest, err.Error())
@@ -40,7 +40,7 @@ func RegistUser(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp, err := service.NewUserService(ctx).RegistUser(req)
+	resp, err := service.NewUserService(ctx).RegisterUser(req)
 	if err != nil {
 		SendResponse(c, err, resp)
 		return

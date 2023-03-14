@@ -68,7 +68,7 @@ struct Message {
 
 /**############ Request ###############**/
 
-struct RegistUserRequest {
+struct RegisterUserRequest {
     1: string username (api.query="username", api.vd="len($) > 0")
     2: string password (api.query="password", api.vd="len($) > 0")
 }
@@ -154,7 +154,7 @@ struct MessageActionRequest {
 
 /**############ Response ###############**/
 
-struct RegistUserResponse {
+struct RegisterUserResponse {
     1: i64 status_code
     2: string status_msg
     3: i64 user_id
@@ -246,7 +246,7 @@ struct MessageActionResponse {
 service ApiService {
 
     /**############ 基础接口 ###############**/
-    RegistUserResponse RegistUser(1: RegistUserRequest req) (api.post="/douyin/user/register/")
+    RegisterUserResponse RegisterUser(1: RegisterUserRequest req) (api.post="/douyin/user/register/")
     CheckUserResponse CheckUser(1: CheckUserRequest req) (api.post="/douyin/user/login/")
     GetUserResponse GetUser(1: GetUserRequest req) (api.get="/douyin/user/")
     GetFeedResponse GetFeed(1: GetFeedRequest req) (api.get="/douyin/feed/")

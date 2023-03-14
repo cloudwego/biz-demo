@@ -31,7 +31,7 @@ var (
 )
 
 type Client interface {
-	RegistUser(context context.Context, req *douyinapi.RegistUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.RegistUserResponse, rawResponse *protocol.Response, err error)
+	RegisterUser(context context.Context, req *douyinapi.RegisterUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.RegisterUserResponse, rawResponse *protocol.Response, err error)
 
 	CheckUser(context context.Context, req *douyinapi.CheckUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.CheckUserResponse, rawResponse *protocol.Response, err error)
 
@@ -79,8 +79,8 @@ func NewApiServiceClient(hostUrl string, ops ...Option) (Client, error) {
 	}, nil
 }
 
-func (s *ApiServiceClient) RegistUser(context context.Context, req *douyinapi.RegistUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.RegistUserResponse, rawResponse *protocol.Response, err error) {
-	httpResp := &douyinapi.RegistUserResponse{}
+func (s *ApiServiceClient) RegisterUser(context context.Context, req *douyinapi.RegisterUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.RegisterUserResponse, rawResponse *protocol.Response, err error) {
+	httpResp := &douyinapi.RegisterUserResponse{}
 	ret, err := s.client.r().
 		setContext(context).
 		setQueryParams(map[string]interface{}{
@@ -494,8 +494,8 @@ func ConfigDefaultClient(ops ...Option) (err error) {
 	return
 }
 
-func RegistUser(context context.Context, req *douyinapi.RegistUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.RegistUserResponse, rawResponse *protocol.Response, err error) {
-	return defaultClient.RegistUser(context, req, reqOpt...)
+func RegisterUser(context context.Context, req *douyinapi.RegisterUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.RegisterUserResponse, rawResponse *protocol.Response, err error) {
+	return defaultClient.RegisterUser(context, req, reqOpt...)
 }
 
 func CheckUser(context context.Context, req *douyinapi.CheckUserRequest, reqOpt ...config.RequestOption) (resp *douyinapi.CheckUserResponse, rawResponse *protocol.Response, err error) {

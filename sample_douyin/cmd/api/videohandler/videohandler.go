@@ -33,7 +33,7 @@ import (
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 
-type VideoHandel struct {
+type VideoHandle struct {
 	CommandQueue *cache.CommandQueue
 	client       *oss.Client
 	bucket       *oss.Bucket
@@ -54,14 +54,14 @@ type Command struct {
 	State     commandState
 }
 
-var VH *VideoHandel
+var VH *VideoHandle
 
 func Init() {
-	VH = new(VideoHandel)
+	VH = new(VideoHandle)
 	VH.CommandQueue = cache.NewCommandQueue(context.Background(), "upload_command")
 	// 初始化OSS
 	var err error
-	VH.client, err = oss.New(consts.Endpoint, consts.AKID, consts.AKS)
+	VH.client, err = oss.New(consts.Endpoint, consts.AKID, consts.ASK)
 	if err != nil {
 		panic(fmt.Sprintf("init videohandler error:%v", err))
 	}
@@ -74,7 +74,7 @@ func Init() {
 	go VH.listen()
 }
 
-func (vh *VideoHandel) CommitCommand(VideoName string, UserID int64, Title string) {
+func (vh *VideoHandle) CommitCommand(VideoName string, UserID int64, Title string) {
 	data, _ := json.Marshal(Command{
 		VideoName: VideoName,
 		UserID:    UserID,
@@ -88,7 +88,7 @@ func (vh *VideoHandel) CommitCommand(VideoName string, UserID int64, Title strin
 	}
 }
 
-func (vh *VideoHandel) listen() {
+func (vh *VideoHandle) listen() {
 	for {
 		msg, err := vh.CommandQueue.ConsumeMessage()
 		if err != nil {
@@ -117,7 +117,7 @@ func (vh *VideoHandel) listen() {
 }
 
 // 执行指令，视频上传成功后service提交指令给videohandler，handler只执行生成封面、入库等操作
-func (vh *VideoHandel) execCommand(cmd *Command) error {
+func (vh *VideoHandle) execCommand(cmd *Command) error {
 	// 执行指令，生成封面
 	// 截图格式
 	cover_name := "cover/" + time.Now().Format("2006-01-02-15:04:05") + ".jpg"
@@ -152,7 +152,7 @@ func (vh *VideoHandel) execCommand(cmd *Command) error {
 	return nil
 }
 
-func (vh *VideoHandel) UpLoadVideo(data *multipart.FileHeader) (videoName string, err error) {
+func (vh *VideoHandle) UpLoadVideo(data *multipart.FileHeader) (videoName string, err error) {
 	// 获取文件流
 	// 视频文件object名称
 	var filepoint multipart.File
@@ -167,7 +167,7 @@ func (vh *VideoHandel) UpLoadVideo(data *multipart.FileHeader) (videoName string
 	return
 }
 
-func (vh *VideoHandel) UpLoadVideoV0(data *multipart.FileHeader, userID int64, title string) (err error) {
+func (vh *VideoHandle) UpLoadVideoV0(data *multipart.FileHeader, userID int64, title string) (err error) {
 	var filepoint multipart.File
 	filepoint, err = data.Open()
 	if err != nil {

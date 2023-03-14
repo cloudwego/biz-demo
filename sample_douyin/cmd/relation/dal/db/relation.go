@@ -36,15 +36,15 @@ func (u *Relation) TableName() string {
 	return consts.RelationTableName
 }
 
-func CreateRelation(ctx context.Context, realtion *Relation) error {
+func CreateRelation(ctx context.Context, relation *Relation) error {
 	return DB.Transaction(func(tx *gorm.DB) error {
-		if err := tx.WithContext(ctx).Create(realtion).Error; err != nil {
+		if err := tx.WithContext(ctx).Create(relation).Error; err != nil {
 			return err
 		}
-		if err := tx.WithContext(ctx).Model(&User{}).Where("id = ?", realtion.FollowId).UpdateColumn("follower_count", gorm.Expr("follower_count + ?", 1)).Error; err != nil {
+		if err := tx.WithContext(ctx).Model(&User{}).Where("id = ?", relation.FollowId).UpdateColumn("follower_count", gorm.Expr("follower_count + ?", 1)).Error; err != nil {
 			return err
 		}
-		if err := tx.WithContext(ctx).Model(&User{}).Where("id = ?", realtion.FollowerId).UpdateColumn("follow_count", gorm.Expr("follow_count + ?", 1)).Error; err != nil {
+		if err := tx.WithContext(ctx).Model(&User{}).Where("id = ?", relation.FollowerId).UpdateColumn("follow_count", gorm.Expr("follow_count + ?", 1)).Error; err != nil {
 			return err
 		}
 		return nil

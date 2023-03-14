@@ -179,20 +179,20 @@ func (s *RelationService) FriendList(req douyinapi.FriendListRequest) (*douyinap
 	}
 
 	// 先走缓存，从缓存中查看能不能得到friendlist
-	frist_msg_list := cache.MC.GetFirstMessage(req.UserID, rpc_resp.FriendIds)
+	first_msg_list := cache.MC.GetFirstMessage(req.UserID, rpc_resp.FriendIds)
 	missFriendId := make([]int64, 0)
 	missFriend := make(map[int64]*douyinapi.FriendUser, 0)
 	// log.Println("cache中查到的fristlist:")
-	for _, frist_msg := range frist_msg_list {
-		if frist_msg.MsgType == -1 {
+	for _, first_msg := range first_msg_list {
+		if first_msg.MsgType == -1 {
 			// miss了
-			missFriendId = append(missFriendId, frist_msg.FriendId)
-			missFriend[frist_msg.FriendId] = friend_map[frist_msg.FriendId]
+			missFriendId = append(missFriendId, first_msg.FriendId)
+			missFriend[first_msg.FriendId] = friend_map[first_msg.FriendId]
 		} else {
-			friend_map[frist_msg.FriendId].Message = frist_msg.Content
-			friend_map[frist_msg.FriendId].MsgType = int64(frist_msg.MsgType)
-			// resp.UserList[i].Message = frist_msg.Content
-			// resp.UserList[i].MsgType = int64(frist_msg.MsgType)
+			friend_map[first_msg.FriendId].Message = first_msg.Content
+			friend_map[first_msg.FriendId].MsgType = int64(first_msg.MsgType)
+			// resp.UserList[i].Message = first_msg.Content
+			// resp.UserList[i].MsgType = int64(first_msg.MsgType)
 		}
 	}
 	// log.Println("miss的friendId", missFriendId)

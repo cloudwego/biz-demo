@@ -31,7 +31,7 @@ type FavoriteServiceImpl struct{}
 func (s *FavoriteServiceImpl) FavoriteAction(ctx context.Context, req *douyinfavorite.FavoriteActionRequest) (resp *douyinfavorite.FavoriteActionResponse, err error) {
 	resp = new(douyinfavorite.FavoriteActionResponse)
 	if req.ActionType == "2" {
-		err = service.NewCancleFavoriteService(ctx).CancleFavorite(req)
+		err = service.NewCancelFavoriteService(ctx).CancelFavorite(req)
 		if err != nil {
 			resp.BaseResp = pack.BuildBaseResp(err)
 			return resp, nil

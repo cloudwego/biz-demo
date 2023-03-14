@@ -185,24 +185,24 @@ func (c *MessageCache) CommitCreateMessageCommandV0(from_user_id, to_user_id int
 	// return c.mq.ProductionMessage(data)
 }
 
-func (c *MessageCache) GetFirstMessage(me int64, friendIds []int64) (frist_msg_list []*pack.FristMessage) {
-	frist_msg_list = make([]*pack.FristMessage, 0, len(friendIds))
+func (c *MessageCache) GetFirstMessage(me int64, friendIds []int64) (first_msg_list []*pack.FirstMessage) {
+	first_msg_list = make([]*pack.FirstMessage, 0, len(friendIds))
 	for _, friendId := range friendIds {
 		msg, err := c.getMsgFromSet(friendId, me)
 		if err != nil {
-			frist_msg_list = append(frist_msg_list, &pack.FristMessage{
+			first_msg_list = append(first_msg_list, &pack.FirstMessage{
 				FriendId: friendId,
 				MsgType:  -1,
 			})
 		} else {
 			if msg.FromUserID == me {
-				frist_msg_list = append(frist_msg_list, &pack.FristMessage{
+				first_msg_list = append(first_msg_list, &pack.FirstMessage{
 					FriendId: friendId,
 					Content:  msg.Content,
 					MsgType:  1,
 				})
 			} else {
-				frist_msg_list = append(frist_msg_list, &pack.FristMessage{
+				first_msg_list = append(first_msg_list, &pack.FirstMessage{
 					FriendId: friendId,
 					Content:  msg.Content,
 					MsgType:  0,
@@ -219,10 +219,10 @@ func (c *MessageCache) SetFirstMessage(msg *douyinapi.Message) (err error) {
 }
 
 func (c *MessageCache) SaveMessage(messages []*douyinapi.Message) error {
-	frist_msg := new(douyinapi.Message)
+	first_msg := new(douyinapi.Message)
 	for i := 0; i < len(messages); i++ {
-		if messages[i].CreateTime > frist_msg.CreateTime {
-			frist_msg = messages[i]
+		if messages[i].CreateTime > first_msg.CreateTime {
+			first_msg = messages[i]
 		}
 		msgKey := strconv.FormatUint(c.hash_key(messages[i].FromUserID, messages[i].ToUserID), 10) + c.keyName
 		message, _ := json.Marshal(messages[i])
@@ -237,7 +237,7 @@ func (c *MessageCache) SaveMessage(messages []*douyinapi.Message) error {
 		}
 	}
 	// 更新fristmessage缓存
-	return c.SetFirstMessage(frist_msg)
+	return c.SetFirstMessage(first_msg)
 }
 
 func (c *MessageCache) InitMessageFromDB(fromUserID int64) error {

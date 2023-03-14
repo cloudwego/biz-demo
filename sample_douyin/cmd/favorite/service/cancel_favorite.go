@@ -22,18 +22,18 @@ import (
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinfavorite"
 )
 
-type CancleFavoriteService struct {
+type CancelFavoriteService struct {
 	ctx context.Context
 }
 
 // NewCrceateVideoService new CreateVideoService
-func NewCancleFavoriteService(ctx context.Context) *CancleFavoriteService {
-	return &CancleFavoriteService{ctx: ctx}
+func NewCancelFavoriteService(ctx context.Context) *CancelFavoriteService {
+	return &CancelFavoriteService{ctx: ctx}
 }
 
 // CreateVideo create video info.
-func (s *CancleFavoriteService) CancleFavorite(req *douyinfavorite.FavoriteActionRequest) error {
-	return db.CancleFavorite(s.ctx, []*db.Favorite{{
+func (s *CancelFavoriteService) CancelFavorite(req *douyinfavorite.FavoriteActionRequest) error {
+	return db.CancelFavorite(s.ctx, []*db.Favorite{{
 		UserId:  req.UserId,
 		VideoId: req.VideoId,
 	}})
