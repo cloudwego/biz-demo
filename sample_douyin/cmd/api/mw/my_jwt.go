@@ -147,9 +147,6 @@ type HertzJWTMiddleware struct {
 	// Public key file for asymmetric algorithms
 	PubKeyFile string
 
-	// Private key passphrase
-	PrivateKeyPassphrase string
-
 	// Public key bytes for asymmetric algorithms.
 	//
 	// Note: PubKeyFile takes precedence over PubKeyBytes if both are set
@@ -288,15 +285,6 @@ func (mw *HertzJWTMiddleware) privateKey() error {
 			return ErrNoPrivKeyFile
 		}
 		keyData = filecontent
-	}
-
-	if mw.PrivateKeyPassphrase != "" {
-		key, err := jwt.ParseRSAPrivateKeyFromPEMWithPassword(keyData, mw.PrivateKeyPassphrase) //lint:ignore SA1019 ignoreCheck
-		if err != nil {
-			return ErrInvalidPrivKey
-		}
-		mw.privKey = key
-		return nil
 	}
 
 	key, err := jwt.ParseRSAPrivateKeyFromPEM(keyData)
