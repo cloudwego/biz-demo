@@ -27,7 +27,6 @@ type GetVideoCommentsService struct {
 	ctx context.Context
 }
 
-//
 func NewGetVideoCommentsService(ctx context.Context) *GetVideoCommentsService {
 	return &GetVideoCommentsService{
 		ctx: ctx,
