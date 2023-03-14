@@ -4,6 +4,7 @@ package messageservice
 
 import (
 	"context"
+
 	message "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/message"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"

@@ -17,6 +17,7 @@ package rpc
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinuser"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinuser/userservice"
 	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"

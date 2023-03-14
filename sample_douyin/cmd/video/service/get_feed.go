@@ -19,11 +19,12 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
+	"time"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/pack"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
-	"strconv"
-	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 )

@@ -5,8 +5,9 @@ package douyinfavorite
 import (
 	"context"
 	"fmt"
-	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
+
+	"github.com/apache/thrift/lib/go/thrift"
 )
 
 type BaseResp struct {
@@ -29,9 +30,11 @@ func (p *BaseResp) GetStatusCode() (v int64) {
 func (p *BaseResp) GetStatusMessage() (v string) {
 	return p.StatusMessage
 }
+
 func (p *BaseResp) SetStatusCode(val int64) {
 	p.StatusCode = val
 }
+
 func (p *BaseResp) SetStatusMessage(val string) {
 	p.StatusMessage = val
 }
@@ -42,7 +45,6 @@ var fieldIDToName_BaseResp = map[int16]string{
 }
 
 func (p *BaseResp) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -218,14 +220,13 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 }
 
 func (p *BaseResp) Field1DeepEqual(src int64) bool {
-
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *BaseResp) Field2DeepEqual(src string) bool {
 
+func (p *BaseResp) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.StatusMessage, src) != 0 {
 		return false
 	}
@@ -257,12 +258,15 @@ func (p *Favorite) GetUserId() (v int64) {
 func (p *Favorite) GetVideoId() (v int64) {
 	return p.VideoId
 }
+
 func (p *Favorite) SetFavoriteId(val int64) {
 	p.FavoriteId = val
 }
+
 func (p *Favorite) SetUserId(val int64) {
 	p.UserId = val
 }
+
 func (p *Favorite) SetVideoId(val int64) {
 	p.VideoId = val
 }
@@ -274,7 +278,6 @@ var fieldIDToName_Favorite = map[int16]string{
 }
 
 func (p *Favorite) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -493,21 +496,20 @@ func (p *Favorite) DeepEqual(ano *Favorite) bool {
 }
 
 func (p *Favorite) Field1DeepEqual(src int64) bool {
-
 	if p.FavoriteId != src {
 		return false
 	}
 	return true
 }
-func (p *Favorite) Field2DeepEqual(src int64) bool {
 
+func (p *Favorite) Field2DeepEqual(src int64) bool {
 	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *Favorite) Field3DeepEqual(src int64) bool {
 
+func (p *Favorite) Field3DeepEqual(src int64) bool {
 	if p.VideoId != src {
 		return false
 	}
@@ -539,12 +541,15 @@ func (p *FavoriteActionRequest) GetVideoId() (v int64) {
 func (p *FavoriteActionRequest) GetActionType() (v string) {
 	return p.ActionType
 }
+
 func (p *FavoriteActionRequest) SetUserId(val int64) {
 	p.UserId = val
 }
+
 func (p *FavoriteActionRequest) SetVideoId(val int64) {
 	p.VideoId = val
 }
+
 func (p *FavoriteActionRequest) SetActionType(val string) {
 	p.ActionType = val
 }
@@ -556,7 +561,6 @@ var fieldIDToName_FavoriteActionRequest = map[int16]string{
 }
 
 func (p *FavoriteActionRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -775,21 +779,20 @@ func (p *FavoriteActionRequest) DeepEqual(ano *FavoriteActionRequest) bool {
 }
 
 func (p *FavoriteActionRequest) Field1DeepEqual(src int64) bool {
-
 	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *FavoriteActionRequest) Field2DeepEqual(src int64) bool {
 
+func (p *FavoriteActionRequest) Field2DeepEqual(src int64) bool {
 	if p.VideoId != src {
 		return false
 	}
 	return true
 }
-func (p *FavoriteActionRequest) Field3DeepEqual(src string) bool {
 
+func (p *FavoriteActionRequest) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.ActionType, src) != 0 {
 		return false
 	}
@@ -816,6 +819,7 @@ func (p *FavoriteActionResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *FavoriteActionResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -829,7 +833,6 @@ func (p *FavoriteActionResponse) IsSetBaseResp() bool {
 }
 
 func (p *FavoriteActionResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -905,7 +908,6 @@ func (p *FavoriteActionResponse) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -961,7 +963,6 @@ func (p *FavoriteActionResponse) DeepEqual(ano *FavoriteActionResponse) bool {
 }
 
 func (p *FavoriteActionResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -983,6 +984,7 @@ func (p *GetListRequest) InitDefault() {
 func (p *GetListRequest) GetUserId() (v int64) {
 	return p.UserId
 }
+
 func (p *GetListRequest) SetUserId(val int64) {
 	p.UserId = val
 }
@@ -992,7 +994,6 @@ var fieldIDToName_GetListRequest = map[int16]string{
 }
 
 func (p *GetListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1069,7 +1070,6 @@ func (p *GetListRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -1125,7 +1125,6 @@ func (p *GetListRequest) DeepEqual(ano *GetListRequest) bool {
 }
 
 func (p *GetListRequest) Field1DeepEqual(src int64) bool {
-
 	if p.UserId != src {
 		return false
 	}
@@ -1157,9 +1156,11 @@ func (p *GetListResponse) GetBaseResp() (v *BaseResp) {
 func (p *GetListResponse) GetVideoIds() (v []int64) {
 	return p.VideoIds
 }
+
 func (p *GetListResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *GetListResponse) SetVideoIds(val []int64) {
 	p.VideoIds = val
 }
@@ -1174,7 +1175,6 @@ func (p *GetListResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1370,14 +1370,13 @@ func (p *GetListResponse) DeepEqual(ano *GetListResponse) bool {
 }
 
 func (p *GetListResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetListResponse) Field2DeepEqual(src []int64) bool {
 
+func (p *GetListResponse) Field2DeepEqual(src []int64) bool {
 	if len(p.VideoIds) != len(src) {
 		return false
 	}
@@ -1405,6 +1404,7 @@ func (p *GetIsFavoriteRequest) InitDefault() {
 func (p *GetIsFavoriteRequest) GetFavoriteList() (v []*Favorite) {
 	return p.FavoriteList
 }
+
 func (p *GetIsFavoriteRequest) SetFavoriteList(val []*Favorite) {
 	p.FavoriteList = val
 }
@@ -1414,7 +1414,6 @@ var fieldIDToName_GetIsFavoriteRequest = map[int16]string{
 }
 
 func (p *GetIsFavoriteRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1502,7 +1501,6 @@ func (p *GetIsFavoriteRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -1566,7 +1564,6 @@ func (p *GetIsFavoriteRequest) DeepEqual(ano *GetIsFavoriteRequest) bool {
 }
 
 func (p *GetIsFavoriteRequest) Field1DeepEqual(src []*Favorite) bool {
-
 	if len(p.FavoriteList) != len(src) {
 		return false
 	}
@@ -1604,9 +1601,11 @@ func (p *GetIsFavoriteResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *GetIsFavoriteResponse) SetIsFavorites(val []bool) {
 	p.IsFavorites = val
 }
+
 func (p *GetIsFavoriteResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -1621,7 +1620,6 @@ func (p *GetIsFavoriteResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetIsFavoriteResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1817,7 +1815,6 @@ func (p *GetIsFavoriteResponse) DeepEqual(ano *GetIsFavoriteResponse) bool {
 }
 
 func (p *GetIsFavoriteResponse) Field1DeepEqual(src []bool) bool {
-
 	if len(p.IsFavorites) != len(src) {
 		return false
 	}
@@ -1829,8 +1826,8 @@ func (p *GetIsFavoriteResponse) Field1DeepEqual(src []bool) bool {
 	}
 	return true
 }
-func (p *GetIsFavoriteResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *GetIsFavoriteResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -1880,6 +1877,7 @@ func (p *FavoriteServiceClient) FavoriteAction(ctx context.Context, req *Favorit
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *FavoriteServiceClient) GetList(ctx context.Context, req *GetListRequest) (r *GetListResponse, err error) {
 	var _args FavoriteServiceGetListArgs
 	_args.Req = req
@@ -1889,6 +1887,7 @@ func (p *FavoriteServiceClient) GetList(ctx context.Context, req *GetListRequest
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *FavoriteServiceClient) GetIsFavorite(ctx context.Context, req *GetIsFavoriteRequest) (r *GetIsFavoriteResponse, err error) {
 	var _args FavoriteServiceGetIsFavoriteArgs
 	_args.Req = req
@@ -1924,6 +1923,7 @@ func NewFavoriteServiceProcessor(handler FavoriteService) *FavoriteServiceProces
 	self.AddToProcessorMap("GetIsFavorite", &favoriteServiceProcessorGetIsFavorite{handler: handler})
 	return self
 }
+
 func (p *FavoriteServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
@@ -2106,6 +2106,7 @@ func (p *FavoriteServiceFavoriteActionArgs) GetReq() (v *FavoriteActionRequest) 
 	}
 	return p.Req
 }
+
 func (p *FavoriteServiceFavoriteActionArgs) SetReq(val *FavoriteActionRequest) {
 	p.Req = val
 }
@@ -2119,7 +2120,6 @@ func (p *FavoriteServiceFavoriteActionArgs) IsSetReq() bool {
 }
 
 func (p *FavoriteServiceFavoriteActionArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2195,7 +2195,6 @@ func (p *FavoriteServiceFavoriteActionArgs) Write(oprot thrift.TProtocol) (err e
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2251,7 +2250,6 @@ func (p *FavoriteServiceFavoriteActionArgs) DeepEqual(ano *FavoriteServiceFavori
 }
 
 func (p *FavoriteServiceFavoriteActionArgs) Field1DeepEqual(src *FavoriteActionRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -2278,6 +2276,7 @@ func (p *FavoriteServiceFavoriteActionResult) GetSuccess() (v *FavoriteActionRes
 	}
 	return p.Success
 }
+
 func (p *FavoriteServiceFavoriteActionResult) SetSuccess(x interface{}) {
 	p.Success = x.(*FavoriteActionResponse)
 }
@@ -2291,7 +2290,6 @@ func (p *FavoriteServiceFavoriteActionResult) IsSetSuccess() bool {
 }
 
 func (p *FavoriteServiceFavoriteActionResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2367,7 +2365,6 @@ func (p *FavoriteServiceFavoriteActionResult) Write(oprot thrift.TProtocol) (err
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2425,7 +2422,6 @@ func (p *FavoriteServiceFavoriteActionResult) DeepEqual(ano *FavoriteServiceFavo
 }
 
 func (p *FavoriteServiceFavoriteActionResult) Field0DeepEqual(src *FavoriteActionResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -2452,6 +2448,7 @@ func (p *FavoriteServiceGetListArgs) GetReq() (v *GetListRequest) {
 	}
 	return p.Req
 }
+
 func (p *FavoriteServiceGetListArgs) SetReq(val *GetListRequest) {
 	p.Req = val
 }
@@ -2465,7 +2462,6 @@ func (p *FavoriteServiceGetListArgs) IsSetReq() bool {
 }
 
 func (p *FavoriteServiceGetListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2541,7 +2537,6 @@ func (p *FavoriteServiceGetListArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2597,7 +2592,6 @@ func (p *FavoriteServiceGetListArgs) DeepEqual(ano *FavoriteServiceGetListArgs) 
 }
 
 func (p *FavoriteServiceGetListArgs) Field1DeepEqual(src *GetListRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -2624,6 +2618,7 @@ func (p *FavoriteServiceGetListResult) GetSuccess() (v *GetListResponse) {
 	}
 	return p.Success
 }
+
 func (p *FavoriteServiceGetListResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetListResponse)
 }
@@ -2637,7 +2632,6 @@ func (p *FavoriteServiceGetListResult) IsSetSuccess() bool {
 }
 
 func (p *FavoriteServiceGetListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2713,7 +2707,6 @@ func (p *FavoriteServiceGetListResult) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2771,7 +2764,6 @@ func (p *FavoriteServiceGetListResult) DeepEqual(ano *FavoriteServiceGetListResu
 }
 
 func (p *FavoriteServiceGetListResult) Field0DeepEqual(src *GetListResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -2798,6 +2790,7 @@ func (p *FavoriteServiceGetIsFavoriteArgs) GetReq() (v *GetIsFavoriteRequest) {
 	}
 	return p.Req
 }
+
 func (p *FavoriteServiceGetIsFavoriteArgs) SetReq(val *GetIsFavoriteRequest) {
 	p.Req = val
 }
@@ -2811,7 +2804,6 @@ func (p *FavoriteServiceGetIsFavoriteArgs) IsSetReq() bool {
 }
 
 func (p *FavoriteServiceGetIsFavoriteArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2887,7 +2879,6 @@ func (p *FavoriteServiceGetIsFavoriteArgs) Write(oprot thrift.TProtocol) (err er
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2943,7 +2934,6 @@ func (p *FavoriteServiceGetIsFavoriteArgs) DeepEqual(ano *FavoriteServiceGetIsFa
 }
 
 func (p *FavoriteServiceGetIsFavoriteArgs) Field1DeepEqual(src *GetIsFavoriteRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -2970,6 +2960,7 @@ func (p *FavoriteServiceGetIsFavoriteResult) GetSuccess() (v *GetIsFavoriteRespo
 	}
 	return p.Success
 }
+
 func (p *FavoriteServiceGetIsFavoriteResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetIsFavoriteResponse)
 }
@@ -2983,7 +2974,6 @@ func (p *FavoriteServiceGetIsFavoriteResult) IsSetSuccess() bool {
 }
 
 func (p *FavoriteServiceGetIsFavoriteResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3059,7 +3049,6 @@ func (p *FavoriteServiceGetIsFavoriteResult) Write(oprot thrift.TProtocol) (err 
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3117,7 +3106,6 @@ func (p *FavoriteServiceGetIsFavoriteResult) DeepEqual(ano *FavoriteServiceGetIs
 }
 
 func (p *FavoriteServiceGetIsFavoriteResult) Field0DeepEqual(src *GetIsFavoriteResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}

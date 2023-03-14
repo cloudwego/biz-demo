@@ -4,6 +4,7 @@ package favoriteservice
 
 import (
 	"context"
+
 	douyinfavorite "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinfavorite"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -47,6 +48,7 @@ func favoriteActionHandler(ctx context.Context, handler interface{}, arg, result
 	realResult.Success = success
 	return nil
 }
+
 func newFavoriteServiceFavoriteActionArgs() interface{} {
 	return douyinfavorite.NewFavoriteServiceFavoriteActionArgs()
 }
@@ -65,6 +67,7 @@ func getListHandler(ctx context.Context, handler interface{}, arg, result interf
 	realResult.Success = success
 	return nil
 }
+
 func newFavoriteServiceGetListArgs() interface{} {
 	return douyinfavorite.NewFavoriteServiceGetListArgs()
 }
@@ -83,6 +86,7 @@ func getIsFavoriteHandler(ctx context.Context, handler interface{}, arg, result 
 	realResult.Success = success
 	return nil
 }
+
 func newFavoriteServiceGetIsFavoriteArgs() interface{} {
 	return douyinfavorite.NewFavoriteServiceGetIsFavoriteArgs()
 }

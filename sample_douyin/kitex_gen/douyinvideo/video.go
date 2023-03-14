@@ -5,8 +5,9 @@ package douyinvideo
 import (
 	"context"
 	"fmt"
-	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
+
+	"github.com/apache/thrift/lib/go/thrift"
 )
 
 type BaseResp struct {
@@ -29,9 +30,11 @@ func (p *BaseResp) GetStatusCode() (v int64) {
 func (p *BaseResp) GetStatusMessage() (v string) {
 	return p.StatusMessage
 }
+
 func (p *BaseResp) SetStatusCode(val int64) {
 	p.StatusCode = val
 }
+
 func (p *BaseResp) SetStatusMessage(val string) {
 	p.StatusMessage = val
 }
@@ -42,7 +45,6 @@ var fieldIDToName_BaseResp = map[int16]string{
 }
 
 func (p *BaseResp) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -218,14 +220,13 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 }
 
 func (p *BaseResp) Field1DeepEqual(src int64) bool {
-
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *BaseResp) Field2DeepEqual(src string) bool {
 
+func (p *BaseResp) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.StatusMessage, src) != 0 {
 		return false
 	}
@@ -287,30 +288,39 @@ func (p *Video) GetTitle() (v string) {
 func (p *Video) GetUploadTime() (v string) {
 	return p.UploadTime
 }
+
 func (p *Video) SetVideoId(val int64) {
 	p.VideoId = val
 }
+
 func (p *Video) SetAuthor(val int64) {
 	p.Author = val
 }
+
 func (p *Video) SetPlayUrl(val string) {
 	p.PlayUrl = val
 }
+
 func (p *Video) SetCoverUrl(val string) {
 	p.CoverUrl = val
 }
+
 func (p *Video) SetFavoriteCount(val int64) {
 	p.FavoriteCount = val
 }
+
 func (p *Video) SetCommentCount(val int64) {
 	p.CommentCount = val
 }
+
 func (p *Video) SetIsFavorite(val bool) {
 	p.IsFavorite = val
 }
+
 func (p *Video) SetTitle(val string) {
 	p.Title = val
 }
+
 func (p *Video) SetUploadTime(val string) {
 	p.UploadTime = val
 }
@@ -328,7 +338,6 @@ var fieldIDToName_Video = map[int16]string{
 }
 
 func (p *Video) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -805,63 +814,62 @@ func (p *Video) DeepEqual(ano *Video) bool {
 }
 
 func (p *Video) Field1DeepEqual(src int64) bool {
-
 	if p.VideoId != src {
 		return false
 	}
 	return true
 }
-func (p *Video) Field2DeepEqual(src int64) bool {
 
+func (p *Video) Field2DeepEqual(src int64) bool {
 	if p.Author != src {
 		return false
 	}
 	return true
 }
-func (p *Video) Field3DeepEqual(src string) bool {
 
+func (p *Video) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.PlayUrl, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *Video) Field4DeepEqual(src string) bool {
 
+func (p *Video) Field4DeepEqual(src string) bool {
 	if strings.Compare(p.CoverUrl, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *Video) Field5DeepEqual(src int64) bool {
 
+func (p *Video) Field5DeepEqual(src int64) bool {
 	if p.FavoriteCount != src {
 		return false
 	}
 	return true
 }
-func (p *Video) Field6DeepEqual(src int64) bool {
 
+func (p *Video) Field6DeepEqual(src int64) bool {
 	if p.CommentCount != src {
 		return false
 	}
 	return true
 }
-func (p *Video) Field7DeepEqual(src bool) bool {
 
+func (p *Video) Field7DeepEqual(src bool) bool {
 	if p.IsFavorite != src {
 		return false
 	}
 	return true
 }
-func (p *Video) Field8DeepEqual(src string) bool {
 
+func (p *Video) Field8DeepEqual(src string) bool {
 	if strings.Compare(p.Title, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *Video) Field9DeepEqual(src string) bool {
 
+func (p *Video) Field9DeepEqual(src string) bool {
 	if strings.Compare(p.UploadTime, src) != 0 {
 		return false
 	}
@@ -888,9 +896,11 @@ func (p *GetFeedRequest) GetLatestTime() (v string) {
 func (p *GetFeedRequest) GetUserId() (v int64) {
 	return p.UserId
 }
+
 func (p *GetFeedRequest) SetLatestTime(val string) {
 	p.LatestTime = val
 }
+
 func (p *GetFeedRequest) SetUserId(val int64) {
 	p.UserId = val
 }
@@ -901,7 +911,6 @@ var fieldIDToName_GetFeedRequest = map[int16]string{
 }
 
 func (p *GetFeedRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1077,14 +1086,13 @@ func (p *GetFeedRequest) DeepEqual(ano *GetFeedRequest) bool {
 }
 
 func (p *GetFeedRequest) Field1DeepEqual(src string) bool {
-
 	if strings.Compare(p.LatestTime, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *GetFeedRequest) Field2DeepEqual(src int64) bool {
 
+func (p *GetFeedRequest) Field2DeepEqual(src int64) bool {
 	if p.UserId != src {
 		return false
 	}
@@ -1121,12 +1129,15 @@ func (p *GetFeedResponse) GetNextTime() (v int64) {
 func (p *GetFeedResponse) GetVideoList() (v []*Video) {
 	return p.VideoList
 }
+
 func (p *GetFeedResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *GetFeedResponse) SetNextTime(val int64) {
 	p.NextTime = val
 }
+
 func (p *GetFeedResponse) SetVideoList(val []*Video) {
 	p.VideoList = val
 }
@@ -1142,7 +1153,6 @@ func (p *GetFeedResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetFeedResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1379,21 +1389,20 @@ func (p *GetFeedResponse) DeepEqual(ano *GetFeedResponse) bool {
 }
 
 func (p *GetFeedResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetFeedResponse) Field2DeepEqual(src int64) bool {
 
+func (p *GetFeedResponse) Field2DeepEqual(src int64) bool {
 	if p.NextTime != src {
 		return false
 	}
 	return true
 }
-func (p *GetFeedResponse) Field3DeepEqual(src []*Video) bool {
 
+func (p *GetFeedResponse) Field3DeepEqual(src []*Video) bool {
 	if len(p.VideoList) != len(src) {
 		return false
 	}
@@ -1436,15 +1445,19 @@ func (p *CreateVideoRequest) GetCoverUrl() (v string) {
 func (p *CreateVideoRequest) GetTitle() (v string) {
 	return p.Title
 }
+
 func (p *CreateVideoRequest) SetAuthor(val int64) {
 	p.Author = val
 }
+
 func (p *CreateVideoRequest) SetPlayUrl(val string) {
 	p.PlayUrl = val
 }
+
 func (p *CreateVideoRequest) SetCoverUrl(val string) {
 	p.CoverUrl = val
 }
+
 func (p *CreateVideoRequest) SetTitle(val string) {
 	p.Title = val
 }
@@ -1457,7 +1470,6 @@ var fieldIDToName_CreateVideoRequest = map[int16]string{
 }
 
 func (p *CreateVideoRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1719,28 +1731,27 @@ func (p *CreateVideoRequest) DeepEqual(ano *CreateVideoRequest) bool {
 }
 
 func (p *CreateVideoRequest) Field1DeepEqual(src int64) bool {
-
 	if p.Author != src {
 		return false
 	}
 	return true
 }
-func (p *CreateVideoRequest) Field2DeepEqual(src string) bool {
 
+func (p *CreateVideoRequest) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.PlayUrl, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateVideoRequest) Field3DeepEqual(src string) bool {
 
+func (p *CreateVideoRequest) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.CoverUrl, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateVideoRequest) Field8DeepEqual(src string) bool {
 
+func (p *CreateVideoRequest) Field8DeepEqual(src string) bool {
 	if strings.Compare(p.Title, src) != 0 {
 		return false
 	}
@@ -1772,9 +1783,11 @@ func (p *CreateVideoResponse) GetBaseResp() (v *BaseResp) {
 func (p *CreateVideoResponse) GetVideoIds() (v []int64) {
 	return p.VideoIds
 }
+
 func (p *CreateVideoResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *CreateVideoResponse) SetVideoIds(val []int64) {
 	p.VideoIds = val
 }
@@ -1789,7 +1802,6 @@ func (p *CreateVideoResponse) IsSetBaseResp() bool {
 }
 
 func (p *CreateVideoResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1985,14 +1997,13 @@ func (p *CreateVideoResponse) DeepEqual(ano *CreateVideoResponse) bool {
 }
 
 func (p *CreateVideoResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *CreateVideoResponse) Field2DeepEqual(src []int64) bool {
 
+func (p *CreateVideoResponse) Field2DeepEqual(src []int64) bool {
 	if len(p.VideoIds) != len(src) {
 		return false
 	}
@@ -2020,6 +2031,7 @@ func (p *GetListRequest) InitDefault() {
 func (p *GetListRequest) GetUserId() (v int64) {
 	return p.UserId
 }
+
 func (p *GetListRequest) SetUserId(val int64) {
 	p.UserId = val
 }
@@ -2029,7 +2041,6 @@ var fieldIDToName_GetListRequest = map[int16]string{
 }
 
 func (p *GetListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2106,7 +2117,6 @@ func (p *GetListRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2162,7 +2172,6 @@ func (p *GetListRequest) DeepEqual(ano *GetListRequest) bool {
 }
 
 func (p *GetListRequest) Field1DeepEqual(src int64) bool {
-
 	if p.UserId != src {
 		return false
 	}
@@ -2194,9 +2203,11 @@ func (p *GetListResponse) GetBaseResp() (v *BaseResp) {
 func (p *GetListResponse) GetVideoList() (v []*Video) {
 	return p.VideoList
 }
+
 func (p *GetListResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *GetListResponse) SetVideoList(val []*Video) {
 	p.VideoList = val
 }
@@ -2211,7 +2222,6 @@ func (p *GetListResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2405,14 +2415,13 @@ func (p *GetListResponse) DeepEqual(ano *GetListResponse) bool {
 }
 
 func (p *GetListResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetListResponse) Field2DeepEqual(src []*Video) bool {
 
+func (p *GetListResponse) Field2DeepEqual(src []*Video) bool {
 	if len(p.VideoList) != len(src) {
 		return false
 	}
@@ -2440,6 +2449,7 @@ func (p *MGetVideoRequest) InitDefault() {
 func (p *MGetVideoRequest) GetVideoIds() (v []int64) {
 	return p.VideoIds
 }
+
 func (p *MGetVideoRequest) SetVideoIds(val []int64) {
 	p.VideoIds = val
 }
@@ -2449,7 +2459,6 @@ var fieldIDToName_MGetVideoRequest = map[int16]string{
 }
 
 func (p *MGetVideoRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2539,7 +2548,6 @@ func (p *MGetVideoRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2603,7 +2611,6 @@ func (p *MGetVideoRequest) DeepEqual(ano *MGetVideoRequest) bool {
 }
 
 func (p *MGetVideoRequest) Field1DeepEqual(src []int64) bool {
-
 	if len(p.VideoIds) != len(src) {
 		return false
 	}
@@ -2641,9 +2648,11 @@ func (p *MGetVideoResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *MGetVideoResponse) SetVideos(val []*Video) {
 	p.Videos = val
 }
+
 func (p *MGetVideoResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -2658,7 +2667,6 @@ func (p *MGetVideoResponse) IsSetBaseResp() bool {
 }
 
 func (p *MGetVideoResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2852,7 +2860,6 @@ func (p *MGetVideoResponse) DeepEqual(ano *MGetVideoResponse) bool {
 }
 
 func (p *MGetVideoResponse) Field1DeepEqual(src []*Video) bool {
-
 	if len(p.Videos) != len(src) {
 		return false
 	}
@@ -2864,8 +2871,8 @@ func (p *MGetVideoResponse) Field1DeepEqual(src []*Video) bool {
 	}
 	return true
 }
-func (p *MGetVideoResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *MGetVideoResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -2887,6 +2894,7 @@ func (p *DeleteVideoRequest) InitDefault() {
 func (p *DeleteVideoRequest) GetVideoId() (v int64) {
 	return p.VideoId
 }
+
 func (p *DeleteVideoRequest) SetVideoId(val int64) {
 	p.VideoId = val
 }
@@ -2896,7 +2904,6 @@ var fieldIDToName_DeleteVideoRequest = map[int16]string{
 }
 
 func (p *DeleteVideoRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2973,7 +2980,6 @@ func (p *DeleteVideoRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3029,7 +3035,6 @@ func (p *DeleteVideoRequest) DeepEqual(ano *DeleteVideoRequest) bool {
 }
 
 func (p *DeleteVideoRequest) Field1DeepEqual(src int64) bool {
-
 	if p.VideoId != src {
 		return false
 	}
@@ -3056,6 +3061,7 @@ func (p *DeleteVideoResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *DeleteVideoResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -3069,7 +3075,6 @@ func (p *DeleteVideoResponse) IsSetBaseResp() bool {
 }
 
 func (p *DeleteVideoResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3145,7 +3150,6 @@ func (p *DeleteVideoResponse) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3201,7 +3205,6 @@ func (p *DeleteVideoResponse) DeepEqual(ano *DeleteVideoResponse) bool {
 }
 
 func (p *DeleteVideoResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -3238,12 +3241,15 @@ func (p *GetTimeVideosRequest) GetStart() (v string) {
 func (p *GetTimeVideosRequest) GetEnd() (v string) {
 	return p.End
 }
+
 func (p *GetTimeVideosRequest) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *GetTimeVideosRequest) SetStart(val string) {
 	p.Start = val
 }
+
 func (p *GetTimeVideosRequest) SetEnd(val string) {
 	p.End = val
 }
@@ -3259,7 +3265,6 @@ func (p *GetTimeVideosRequest) IsSetBaseResp() bool {
 }
 
 func (p *GetTimeVideosRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3477,21 +3482,20 @@ func (p *GetTimeVideosRequest) DeepEqual(ano *GetTimeVideosRequest) bool {
 }
 
 func (p *GetTimeVideosRequest) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetTimeVideosRequest) Field2DeepEqual(src string) bool {
 
+func (p *GetTimeVideosRequest) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.Start, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *GetTimeVideosRequest) Field3DeepEqual(src string) bool {
 
+func (p *GetTimeVideosRequest) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.End, src) != 0 {
 		return false
 	}
@@ -3523,9 +3527,11 @@ func (p *GetTimeVideosResponse) GetBaseResp() (v *BaseResp) {
 func (p *GetTimeVideosResponse) GetVideoList() (v []*Video) {
 	return p.VideoList
 }
+
 func (p *GetTimeVideosResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *GetTimeVideosResponse) SetVideoList(val []*Video) {
 	p.VideoList = val
 }
@@ -3540,7 +3546,6 @@ func (p *GetTimeVideosResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetTimeVideosResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3734,14 +3739,13 @@ func (p *GetTimeVideosResponse) DeepEqual(ano *GetTimeVideosResponse) bool {
 }
 
 func (p *GetTimeVideosResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetTimeVideosResponse) Field2DeepEqual(src []*Video) bool {
 
+func (p *GetTimeVideosResponse) Field2DeepEqual(src []*Video) bool {
 	if len(p.VideoList) != len(src) {
 		return false
 	}
@@ -3803,6 +3807,7 @@ func (p *VideoServiceClient) CreateVideo(ctx context.Context, req *CreateVideoRe
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *VideoServiceClient) GetFeed(ctx context.Context, req *GetFeedRequest) (r *GetFeedResponse, err error) {
 	var _args VideoServiceGetFeedArgs
 	_args.Req = req
@@ -3812,6 +3817,7 @@ func (p *VideoServiceClient) GetFeed(ctx context.Context, req *GetFeedRequest) (
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *VideoServiceClient) GetList(ctx context.Context, req *GetListRequest) (r *GetListResponse, err error) {
 	var _args VideoServiceGetListArgs
 	_args.Req = req
@@ -3821,6 +3827,7 @@ func (p *VideoServiceClient) GetList(ctx context.Context, req *GetListRequest) (
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *VideoServiceClient) MGetVideoUser(ctx context.Context, req *MGetVideoRequest) (r *MGetVideoResponse, err error) {
 	var _args VideoServiceMGetVideoUserArgs
 	_args.Req = req
@@ -3830,6 +3837,7 @@ func (p *VideoServiceClient) MGetVideoUser(ctx context.Context, req *MGetVideoRe
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *VideoServiceClient) DeleteVideo(ctx context.Context, req *DeleteVideoRequest) (r *DeleteVideoResponse, err error) {
 	var _args VideoServiceDeleteVideoArgs
 	_args.Req = req
@@ -3839,6 +3847,7 @@ func (p *VideoServiceClient) DeleteVideo(ctx context.Context, req *DeleteVideoRe
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *VideoServiceClient) GetTimeVideos(ctx context.Context, req *GetTimeVideosRequest) (r *GetTimeVideosResponse, err error) {
 	var _args VideoServiceGetTimeVideosArgs
 	_args.Req = req
@@ -3877,6 +3886,7 @@ func NewVideoServiceProcessor(handler VideoService) *VideoServiceProcessor {
 	self.AddToProcessorMap("GetTimeVideos", &videoServiceProcessorGetTimeVideos{handler: handler})
 	return self
 }
+
 func (p *VideoServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
@@ -4203,6 +4213,7 @@ func (p *VideoServiceCreateVideoArgs) GetReq() (v *CreateVideoRequest) {
 	}
 	return p.Req
 }
+
 func (p *VideoServiceCreateVideoArgs) SetReq(val *CreateVideoRequest) {
 	p.Req = val
 }
@@ -4216,7 +4227,6 @@ func (p *VideoServiceCreateVideoArgs) IsSetReq() bool {
 }
 
 func (p *VideoServiceCreateVideoArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4292,7 +4302,6 @@ func (p *VideoServiceCreateVideoArgs) Write(oprot thrift.TProtocol) (err error) 
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4348,7 +4357,6 @@ func (p *VideoServiceCreateVideoArgs) DeepEqual(ano *VideoServiceCreateVideoArgs
 }
 
 func (p *VideoServiceCreateVideoArgs) Field1DeepEqual(src *CreateVideoRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -4375,6 +4383,7 @@ func (p *VideoServiceCreateVideoResult) GetSuccess() (v *CreateVideoResponse) {
 	}
 	return p.Success
 }
+
 func (p *VideoServiceCreateVideoResult) SetSuccess(x interface{}) {
 	p.Success = x.(*CreateVideoResponse)
 }
@@ -4388,7 +4397,6 @@ func (p *VideoServiceCreateVideoResult) IsSetSuccess() bool {
 }
 
 func (p *VideoServiceCreateVideoResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4464,7 +4472,6 @@ func (p *VideoServiceCreateVideoResult) Write(oprot thrift.TProtocol) (err error
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4522,7 +4529,6 @@ func (p *VideoServiceCreateVideoResult) DeepEqual(ano *VideoServiceCreateVideoRe
 }
 
 func (p *VideoServiceCreateVideoResult) Field0DeepEqual(src *CreateVideoResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -4549,6 +4555,7 @@ func (p *VideoServiceGetFeedArgs) GetReq() (v *GetFeedRequest) {
 	}
 	return p.Req
 }
+
 func (p *VideoServiceGetFeedArgs) SetReq(val *GetFeedRequest) {
 	p.Req = val
 }
@@ -4562,7 +4569,6 @@ func (p *VideoServiceGetFeedArgs) IsSetReq() bool {
 }
 
 func (p *VideoServiceGetFeedArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4638,7 +4644,6 @@ func (p *VideoServiceGetFeedArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4694,7 +4699,6 @@ func (p *VideoServiceGetFeedArgs) DeepEqual(ano *VideoServiceGetFeedArgs) bool {
 }
 
 func (p *VideoServiceGetFeedArgs) Field1DeepEqual(src *GetFeedRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -4721,6 +4725,7 @@ func (p *VideoServiceGetFeedResult) GetSuccess() (v *GetFeedResponse) {
 	}
 	return p.Success
 }
+
 func (p *VideoServiceGetFeedResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetFeedResponse)
 }
@@ -4734,7 +4739,6 @@ func (p *VideoServiceGetFeedResult) IsSetSuccess() bool {
 }
 
 func (p *VideoServiceGetFeedResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4810,7 +4814,6 @@ func (p *VideoServiceGetFeedResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4868,7 +4871,6 @@ func (p *VideoServiceGetFeedResult) DeepEqual(ano *VideoServiceGetFeedResult) bo
 }
 
 func (p *VideoServiceGetFeedResult) Field0DeepEqual(src *GetFeedResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -4895,6 +4897,7 @@ func (p *VideoServiceGetListArgs) GetReq() (v *GetListRequest) {
 	}
 	return p.Req
 }
+
 func (p *VideoServiceGetListArgs) SetReq(val *GetListRequest) {
 	p.Req = val
 }
@@ -4908,7 +4911,6 @@ func (p *VideoServiceGetListArgs) IsSetReq() bool {
 }
 
 func (p *VideoServiceGetListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4984,7 +4986,6 @@ func (p *VideoServiceGetListArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5040,7 +5041,6 @@ func (p *VideoServiceGetListArgs) DeepEqual(ano *VideoServiceGetListArgs) bool {
 }
 
 func (p *VideoServiceGetListArgs) Field1DeepEqual(src *GetListRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -5067,6 +5067,7 @@ func (p *VideoServiceGetListResult) GetSuccess() (v *GetListResponse) {
 	}
 	return p.Success
 }
+
 func (p *VideoServiceGetListResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetListResponse)
 }
@@ -5080,7 +5081,6 @@ func (p *VideoServiceGetListResult) IsSetSuccess() bool {
 }
 
 func (p *VideoServiceGetListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5156,7 +5156,6 @@ func (p *VideoServiceGetListResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5214,7 +5213,6 @@ func (p *VideoServiceGetListResult) DeepEqual(ano *VideoServiceGetListResult) bo
 }
 
 func (p *VideoServiceGetListResult) Field0DeepEqual(src *GetListResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -5241,6 +5239,7 @@ func (p *VideoServiceMGetVideoUserArgs) GetReq() (v *MGetVideoRequest) {
 	}
 	return p.Req
 }
+
 func (p *VideoServiceMGetVideoUserArgs) SetReq(val *MGetVideoRequest) {
 	p.Req = val
 }
@@ -5254,7 +5253,6 @@ func (p *VideoServiceMGetVideoUserArgs) IsSetReq() bool {
 }
 
 func (p *VideoServiceMGetVideoUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5330,7 +5328,6 @@ func (p *VideoServiceMGetVideoUserArgs) Write(oprot thrift.TProtocol) (err error
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5386,7 +5383,6 @@ func (p *VideoServiceMGetVideoUserArgs) DeepEqual(ano *VideoServiceMGetVideoUser
 }
 
 func (p *VideoServiceMGetVideoUserArgs) Field1DeepEqual(src *MGetVideoRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -5413,6 +5409,7 @@ func (p *VideoServiceMGetVideoUserResult) GetSuccess() (v *MGetVideoResponse) {
 	}
 	return p.Success
 }
+
 func (p *VideoServiceMGetVideoUserResult) SetSuccess(x interface{}) {
 	p.Success = x.(*MGetVideoResponse)
 }
@@ -5426,7 +5423,6 @@ func (p *VideoServiceMGetVideoUserResult) IsSetSuccess() bool {
 }
 
 func (p *VideoServiceMGetVideoUserResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5502,7 +5498,6 @@ func (p *VideoServiceMGetVideoUserResult) Write(oprot thrift.TProtocol) (err err
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5560,7 +5555,6 @@ func (p *VideoServiceMGetVideoUserResult) DeepEqual(ano *VideoServiceMGetVideoUs
 }
 
 func (p *VideoServiceMGetVideoUserResult) Field0DeepEqual(src *MGetVideoResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -5587,6 +5581,7 @@ func (p *VideoServiceDeleteVideoArgs) GetReq() (v *DeleteVideoRequest) {
 	}
 	return p.Req
 }
+
 func (p *VideoServiceDeleteVideoArgs) SetReq(val *DeleteVideoRequest) {
 	p.Req = val
 }
@@ -5600,7 +5595,6 @@ func (p *VideoServiceDeleteVideoArgs) IsSetReq() bool {
 }
 
 func (p *VideoServiceDeleteVideoArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5676,7 +5670,6 @@ func (p *VideoServiceDeleteVideoArgs) Write(oprot thrift.TProtocol) (err error) 
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5732,7 +5725,6 @@ func (p *VideoServiceDeleteVideoArgs) DeepEqual(ano *VideoServiceDeleteVideoArgs
 }
 
 func (p *VideoServiceDeleteVideoArgs) Field1DeepEqual(src *DeleteVideoRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -5759,6 +5751,7 @@ func (p *VideoServiceDeleteVideoResult) GetSuccess() (v *DeleteVideoResponse) {
 	}
 	return p.Success
 }
+
 func (p *VideoServiceDeleteVideoResult) SetSuccess(x interface{}) {
 	p.Success = x.(*DeleteVideoResponse)
 }
@@ -5772,7 +5765,6 @@ func (p *VideoServiceDeleteVideoResult) IsSetSuccess() bool {
 }
 
 func (p *VideoServiceDeleteVideoResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5848,7 +5840,6 @@ func (p *VideoServiceDeleteVideoResult) Write(oprot thrift.TProtocol) (err error
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5906,7 +5897,6 @@ func (p *VideoServiceDeleteVideoResult) DeepEqual(ano *VideoServiceDeleteVideoRe
 }
 
 func (p *VideoServiceDeleteVideoResult) Field0DeepEqual(src *DeleteVideoResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -5933,6 +5923,7 @@ func (p *VideoServiceGetTimeVideosArgs) GetReq() (v *GetTimeVideosRequest) {
 	}
 	return p.Req
 }
+
 func (p *VideoServiceGetTimeVideosArgs) SetReq(val *GetTimeVideosRequest) {
 	p.Req = val
 }
@@ -5946,7 +5937,6 @@ func (p *VideoServiceGetTimeVideosArgs) IsSetReq() bool {
 }
 
 func (p *VideoServiceGetTimeVideosArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -6022,7 +6012,6 @@ func (p *VideoServiceGetTimeVideosArgs) Write(oprot thrift.TProtocol) (err error
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -6078,7 +6067,6 @@ func (p *VideoServiceGetTimeVideosArgs) DeepEqual(ano *VideoServiceGetTimeVideos
 }
 
 func (p *VideoServiceGetTimeVideosArgs) Field1DeepEqual(src *GetTimeVideosRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -6105,6 +6093,7 @@ func (p *VideoServiceGetTimeVideosResult) GetSuccess() (v *GetTimeVideosResponse
 	}
 	return p.Success
 }
+
 func (p *VideoServiceGetTimeVideosResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetTimeVideosResponse)
 }
@@ -6118,7 +6107,6 @@ func (p *VideoServiceGetTimeVideosResult) IsSetSuccess() bool {
 }
 
 func (p *VideoServiceGetTimeVideosResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -6194,7 +6182,6 @@ func (p *VideoServiceGetTimeVideosResult) Write(oprot thrift.TProtocol) (err err
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -6252,7 +6239,6 @@ func (p *VideoServiceGetTimeVideosResult) DeepEqual(ano *VideoServiceGetTimeVide
 }
 
 func (p *VideoServiceGetTimeVideosResult) Field0DeepEqual(src *GetTimeVideosResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}

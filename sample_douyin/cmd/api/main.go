@@ -35,7 +35,7 @@ func Init() {
 	rpc.Init()
 	cache.Init()
 	videohandler.Init()
-	//hlog init
+	// hlog init
 	hlog.SetLogger(hertzlogrus.NewLogger())
 	hlog.SetLevel(hlog.LevelInfo)
 }
@@ -50,9 +50,9 @@ func main() {
 		server.WithHandleMethodNotAllowed(true),
 		tracer,
 	)
-	//use pprof mw
+	// use pprof mw
 	pprof.Register(h)
-	//user otel mw
+	// user otel mw
 	h.Use(tracing.ServerMiddleware(cfg))
 	register(h)
 	h.Spin()

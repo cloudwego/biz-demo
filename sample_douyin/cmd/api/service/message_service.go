@@ -41,7 +41,7 @@ func NewMessageService(ctx context.Context) *MessageService {
 func (s *MessageService) MessageAction(req douyinapi.MessageActionRequest, user *douyinapi.User) (resp *douyinapi.MessageActionResponse, err error) {
 	resp = new(douyinapi.MessageActionResponse)
 	err = cache.MC.CommitCreateMessageCommand(user.ID, req.ToUserID, req.Content)
-	//err = cache.MC.CommitCreateMessageCommandV0(user.UserID, req.ToUserId, req.Content)
+	// err = cache.MC.CommitCreateMessageCommandV0(user.UserID, req.ToUserId, req.Content)
 	if err != nil {
 		return resp, err
 	}
@@ -51,7 +51,7 @@ func (s *MessageService) MessageAction(req douyinapi.MessageActionRequest, user 
 func (s *MessageService) MessageChat(req douyinapi.MessageChatRequest, user *douyinapi.User) (resp *douyinapi.MessageChatResponse, err error) {
 	resp = new(douyinapi.MessageChatResponse)
 	if time.Now().Unix() < req.PreMsgTime {
-		//客户端返回的毫秒级时间戳，需要转化成秒级
+		// 客户端返回的毫秒级时间戳，需要转化成秒级
 		// req.PreMsgTime = req.PreMsgTime / 1e3
 		req.PreMsgTime, err = cache.MC.GetLastedMsg(user.ID, req.ToUserID)
 		// log.Println(req.PreMsgTime, err)
@@ -95,7 +95,7 @@ func (s *MessageService) MessageChat(req douyinapi.MessageChatRequest, user *dou
 	resp.MessageList = append(message_list_from, message_list_to...)
 	sort.Sort(pack.MessageSorter(resp.MessageList))
 	if len(resp.MessageList) == 0 {
-		//表示两个用户之间第一次聊天，没有消息记录，向对应kv缓存中加一条空消息，防止service轮询rpc接口
+		// 表示两个用户之间第一次聊天，没有消息记录，向对应kv缓存中加一条空消息，防止service轮询rpc接口
 		err = cache.MC.SaveMessage(append([]*douyinapi.Message{}, &douyinapi.Message{FromUserID: user.ID, ToUserID: req.ToUserID, CreateTime: 0}))
 	} else {
 		err = cache.MC.SaveMessage(resp.MessageList)

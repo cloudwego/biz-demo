@@ -579,7 +579,7 @@ func (mw *HertzJWTMiddleware) LoginHandler(ctx context.Context, c *app.RequestCo
 		maxage := int(expireCookie.Unix() - mw.TimeFunc().Unix())
 		c.SetCookie(mw.CookieName, tokenString, maxage, "/", mw.CookieDomain, mw.CookieSameSite, mw.SecureCookie, mw.CookieHTTPOnly)
 	}
-	//log.Println(claims[mw.IdentityKey])
+	// log.Println(claims[mw.IdentityKey])
 
 	mw.LoginResponse(ctx, c, http.StatusOK, tokenString, expire, claims[mw.IdentityKey])
 }

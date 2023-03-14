@@ -40,7 +40,7 @@ func NewPublishService(ctx context.Context) *PublishService {
 
 func (s *PublishService) PublishVideo(req douyinapi.PublishVideoRequest, user *douyinapi.User) (*douyinapi.PublishVideoResponse, error) {
 	resp := new(douyinapi.PublishVideoResponse)
-	//err := videohandler.VH.UpLoadVideoV0(req.Data, user.UserID, req.Title)
+	// err := videohandler.VH.UpLoadVideoV0(req.Data, user.UserID, req.Title)
 	videoName, err := videohandler.VH.UpLoadVideo(req.Data)
 	if err != nil {
 		return resp, err

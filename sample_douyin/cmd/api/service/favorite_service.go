@@ -45,13 +45,13 @@ func (s *FavoriteService) FavoriteAction(req douyinapi.FavoriteActionRequest, us
 	if err != nil {
 		return resp, err
 	}
-	//异步处理
+	// 异步处理
 	err = cache.FC.CommitFavoriteActionCommand(
 		user.ID,
 		int64(videoId),
 		req.ActionType,
 	)
-	//同步处理
+	// 同步处理
 	// rpc_resp, err := rpc.FavoriteAction(s.ctx, &douyinfavorite.FavoriteActionRequest{
 	// 	UserId:     user.UserID,
 	// 	VideoId:    int64(videoId),

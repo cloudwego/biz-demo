@@ -26,13 +26,13 @@ func Comment(c *db.Comment) *douyincomment.Comment {
 		return nil
 	}
 	return &douyincomment.Comment{
-		CommentId: int64(c.ID),
-		Video: c.Video,
-		User: c.User,
-		Content: c.Content,
+		CommentId:  int64(c.ID),
+		Video:      c.Video,
+		User:       c.User,
+		Content:    c.Content,
 		CreateDate: c.Date,
 	}
-} 
+}
 
 // list : change DB pattern to RPC pattern
 func Comments(c []*db.Comment) []*douyincomment.Comment {

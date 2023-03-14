@@ -118,7 +118,7 @@ func (vh *VideoHandel) listen() {
 
 // 执行指令，视频上传成功后service提交指令给videohandler，handler只执行生成封面、入库等操作
 func (vh *VideoHandel) execCommand(cmd *Command) error {
-	//执行指令，生成封面
+	// 执行指令，生成封面
 	// 截图格式
 	cover_name := "cover/" + time.Now().Format("2006-01-02-15:04:05") + ".jpg"
 	switch cmd.State {
@@ -134,7 +134,7 @@ func (vh *VideoHandel) execCommand(cmd *Command) error {
 		cmd.State = finishCoverUpLoad
 		fallthrough
 	case finishCoverUpLoad:
-		//调rpc写库
+		// 调rpc写库
 		resp, err := rpc.CreateVideo(context.Background(), &douyinvideo.CreateVideoRequest{
 			Author:   cmd.UserID,
 			PlayUrl:  cmd.VideoName,
@@ -187,7 +187,7 @@ func (vh *VideoHandel) UpLoadVideoV0(data *multipart.FileHeader, userID int64, t
 	if err != nil {
 		return err
 	}
-	//调rpc写库
+	// 调rpc写库
 	resp, err := rpc.CreateVideo(context.Background(), &douyinvideo.CreateVideoRequest{
 		Author:   userID,
 		PlayUrl:  videoName,

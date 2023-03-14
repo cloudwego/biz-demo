@@ -77,7 +77,7 @@ func (s *RelationService) RelationAction(req douyinapi.RelationActionRequest, us
 	return resp, nil
 }
 
-//获取关注或粉丝列表，option表示操作类型(1：关注列表，2：粉丝列表)
+// 获取关注或粉丝列表，option表示操作类型(1：关注列表，2：粉丝列表)
 func (s *RelationService) FollowAndFollowerList(req douyinapi.FollowAndFollowerListRequest, user *douyinapi.User, option int) (*douyinapi.FollowAndFollowerListResponse, error) {
 	resp := new(douyinapi.FollowAndFollowerListResponse)
 	var err error
@@ -126,12 +126,12 @@ func (s *RelationService) FollowAndFollowerList(req douyinapi.FollowAndFollowerL
 		switch option {
 		case 1:
 			if user.ID == int64(userId) {
-				//看的自己的关注列表，IsFollow肯定都是true
+				// 看的自己的关注列表，IsFollow肯定都是true
 				u := pack.PackUser(rpc_user)
 				u.IsFollow = true
 				resp.UserList = append(resp.UserList, u)
 			} else {
-				//看的别人的关注列表，需要掉rpc查IsFollow
+				// 看的别人的关注列表，需要掉rpc查IsFollow
 				u := pack.PackUserRelation(rpc_user, int64(user.ID))
 				resp.UserList = append(resp.UserList, u)
 			}
@@ -178,14 +178,14 @@ func (s *RelationService) FriendList(req douyinapi.FriendListRequest) (*douyinap
 		friend_map[u.ID] = u
 	}
 
-	//先走缓存，从缓存中查看能不能得到friendlist
+	// 先走缓存，从缓存中查看能不能得到friendlist
 	frist_msg_list := cache.MC.GetFirstMessage(req.UserID, rpc_resp.FriendIds)
 	missFriendId := make([]int64, 0)
 	missFriend := make(map[int64]*douyinapi.FriendUser, 0)
 	// log.Println("cache中查到的fristlist:")
 	for _, frist_msg := range frist_msg_list {
 		if frist_msg.MsgType == -1 {
-			//miss了
+			// miss了
 			missFriendId = append(missFriendId, frist_msg.FriendId)
 			missFriend[frist_msg.FriendId] = friend_map[frist_msg.FriendId]
 		} else {
@@ -197,7 +197,7 @@ func (s *RelationService) FriendList(req douyinapi.FriendListRequest) (*douyinap
 	}
 	// log.Println("miss的friendId", missFriendId)
 	if len(missFriend) != 0 {
-		//调RPC方法走MySql数据库
+		// 调RPC方法走MySql数据库
 		gfm_resp, err := rpc.GetFirstMessage(s.ctx, &message.GetFirstMessageRequest{
 			Id:        req.UserID,
 			FriendIds: missFriendId,
@@ -221,7 +221,7 @@ func (s *RelationService) FriendList(req douyinapi.FriendListRequest) (*douyinap
 				}
 				missFriend[message.FriendId].MsgType = message.MsgType
 			}
-			//miss了就更新缓存
+			// miss了就更新缓存
 			// log.Println("miss了,更新redis缓存", missFriendId)
 			if message.MsgType == 1 {
 				err = cache.MC.SetFirstMessage(&douyinapi.Message{

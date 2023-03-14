@@ -17,6 +17,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/comment/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/comment/pack"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyincomment"
@@ -26,8 +27,8 @@ type GetVideoCommentsService struct {
 	ctx context.Context
 }
 
-// 
-func NewGetVideoCommentsService(ctx context.Context) *GetVideoCommentsService{
+//
+func NewGetVideoCommentsService(ctx context.Context) *GetVideoCommentsService {
 	return &GetVideoCommentsService{
 		ctx: ctx,
 	}

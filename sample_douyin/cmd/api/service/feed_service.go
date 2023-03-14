@@ -69,7 +69,6 @@ func (s *FeedService) GetFeed(req douyinapi.GetFeedRequest, userId int64) (*douy
 		favorites = append(favorites, favorite)
 	}
 	isFavorites, err := rpc.GetIsFavorite(s.ctx, &douyinfavorite.GetIsFavoriteRequest{FavoriteList: favorites})
-
 	if err != nil {
 		resp.NextTime = time.Now().Unix()
 		return resp, err

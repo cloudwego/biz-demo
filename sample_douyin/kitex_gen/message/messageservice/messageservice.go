@@ -4,6 +4,7 @@ package messageservice
 
 import (
 	"context"
+
 	message "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/message"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -47,6 +48,7 @@ func createMessageHandler(ctx context.Context, handler interface{}, arg, result 
 	realResult.Success = success
 	return nil
 }
+
 func newMessageServiceCreateMessageArgs() interface{} {
 	return message.NewMessageServiceCreateMessageArgs()
 }
@@ -65,6 +67,7 @@ func getMessageListHandler(ctx context.Context, handler interface{}, arg, result
 	realResult.Success = success
 	return nil
 }
+
 func newMessageServiceGetMessageListArgs() interface{} {
 	return message.NewMessageServiceGetMessageListArgs()
 }
@@ -83,6 +86,7 @@ func getFirstMessageHandler(ctx context.Context, handler interface{}, arg, resul
 	realResult.Success = success
 	return nil
 }
+
 func newMessageServiceGetFirstMessageArgs() interface{} {
 	return message.NewMessageServiceGetFirstMessageArgs()
 }

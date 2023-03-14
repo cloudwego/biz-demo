@@ -115,7 +115,7 @@ func (c *MessageCache) execCommand(cmd *CreateMessageCommand) error {
 	if resp.BaseResp.StatusCode != 0 {
 		return errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
-	//上传成功，将新消息写入缓存
+	// 上传成功，将新消息写入缓存
 	msg := douyinapi.Message{
 		ID:         resp.Id,
 		CreateTime: resp.CreateTime,
@@ -236,7 +236,7 @@ func (c *MessageCache) SaveMessage(messages []*douyinapi.Message) error {
 			return err1
 		}
 	}
-	//更新fristmessage缓存
+	// 更新fristmessage缓存
 	return c.SetFirstMessage(frist_msg)
 }
 
@@ -316,7 +316,7 @@ func (c *MessageCache) GetMessage(fromUserID int64, toUserID int64, preMsgTime i
 		if err != nil {
 			continue
 		}
-		//由于要返回>preMsgTime的记录，因此需要剔除掉preMsgTime处的记录
+		// 由于要返回>preMsgTime的记录，因此需要剔除掉preMsgTime处的记录
 		if message.CreateTime == preMsgTime {
 			continue
 		}

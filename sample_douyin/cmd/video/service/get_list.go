@@ -17,6 +17,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/pack"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
@@ -36,6 +37,6 @@ func (s *GetListService) GetList(req *douyinvideo.GetListRequest) ([]*douyinvide
 	videos, err := db.MGetVideosbyAuthor(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err
-	} 
-	return pack.Videos(videos) ,nil
+	}
+	return pack.Videos(videos), nil
 }

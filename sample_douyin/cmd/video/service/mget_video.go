@@ -17,9 +17,10 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/dal/db"
-	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/pack"
+	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
 )
 
 type MGetVideoService struct {
@@ -36,6 +37,6 @@ func (s *MGetVideoService) MGetVideo(req *douyinvideo.MGetVideoRequest) ([]*douy
 	videos, err := db.MGetVideos(s.ctx, req.VideoIds)
 	if err != nil {
 		return nil, err
-	} 
-	return pack.Videos(videos) ,nil
+	}
+	return pack.Videos(videos), nil
 }

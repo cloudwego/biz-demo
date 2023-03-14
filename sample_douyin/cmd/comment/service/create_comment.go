@@ -17,6 +17,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/comment/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyincomment"
 )
@@ -34,9 +35,9 @@ func NewCreateCommentService(ctx context.Context) *CreateCommentService {
 // create user
 func (c *CreateCommentService) CreateComment(req *douyincomment.CreateCommentRequest) (int64, error) {
 	return db.CreateComment(c.ctx, &db.Comment{
-		Video: req.Video,
-		User: req.User,
+		Video:   req.Video,
+		User:    req.User,
 		Content: req.Content,
-		Date: req.CreateDate,
+		Date:    req.CreateDate,
 	})
 }

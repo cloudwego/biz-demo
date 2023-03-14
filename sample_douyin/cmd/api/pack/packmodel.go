@@ -142,7 +142,7 @@ func PackVFavorite(douyin_favorite *douyinfavorite.Favorite) *douyinapi.Favorite
 
 type FristMessage struct {
 	FriendId int64
-	MsgType  int //0表示接收的 1表示发送的 -1表示为空
+	MsgType  int // 0表示接收的 1表示发送的 -1表示为空
 	Content  string
 }
 

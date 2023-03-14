@@ -17,6 +17,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/favorite/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/favorite/pack"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinfavorite"
@@ -36,6 +37,6 @@ func (s *GetListService) GetList(req *douyinfavorite.GetListRequest) ([]int64, e
 	favorites, err := db.GetFavoriteList(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err
-	} 
-	return pack.FavoriteToVideoids(favorites) ,nil
+	}
+	return pack.FavoriteToVideoids(favorites), nil
 }

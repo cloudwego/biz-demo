@@ -4,6 +4,7 @@ package commentservice
 
 import (
 	"context"
+
 	douyincomment "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyincomment"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -47,6 +48,7 @@ func createCommentHandler(ctx context.Context, handler interface{}, arg, result 
 	realResult.Success = success
 	return nil
 }
+
 func newCommentServiceCreateCommentArgs() interface{} {
 	return douyincomment.NewCommentServiceCreateCommentArgs()
 }
@@ -65,6 +67,7 @@ func deleteCommentHandler(ctx context.Context, handler interface{}, arg, result 
 	realResult.Success = success
 	return nil
 }
+
 func newCommentServiceDeleteCommentArgs() interface{} {
 	return douyincomment.NewCommentServiceDeleteCommentArgs()
 }
@@ -83,6 +86,7 @@ func getVideoCommentsHandler(ctx context.Context, handler interface{}, arg, resu
 	realResult.Success = success
 	return nil
 }
+
 func newCommentServiceGetVideoCommentsArgs() interface{} {
 	return douyincomment.NewCommentServiceGetVideoCommentsArgs()
 }

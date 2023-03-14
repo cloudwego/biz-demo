@@ -3,12 +3,13 @@ package douyinvideo
 import (
 	"bytes"
 	"fmt"
-	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 	"net/url"
 	"reflect"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 )
 
 // unused protection

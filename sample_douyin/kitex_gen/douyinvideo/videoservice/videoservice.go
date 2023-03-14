@@ -4,6 +4,7 @@ package videoservice
 
 import (
 	"context"
+
 	douyinvideo "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -50,6 +51,7 @@ func createVideoHandler(ctx context.Context, handler interface{}, arg, result in
 	realResult.Success = success
 	return nil
 }
+
 func newVideoServiceCreateVideoArgs() interface{} {
 	return douyinvideo.NewVideoServiceCreateVideoArgs()
 }
@@ -68,6 +70,7 @@ func getFeedHandler(ctx context.Context, handler interface{}, arg, result interf
 	realResult.Success = success
 	return nil
 }
+
 func newVideoServiceGetFeedArgs() interface{} {
 	return douyinvideo.NewVideoServiceGetFeedArgs()
 }
@@ -86,6 +89,7 @@ func getListHandler(ctx context.Context, handler interface{}, arg, result interf
 	realResult.Success = success
 	return nil
 }
+
 func newVideoServiceGetListArgs() interface{} {
 	return douyinvideo.NewVideoServiceGetListArgs()
 }
@@ -104,6 +108,7 @@ func mGetVideoUserHandler(ctx context.Context, handler interface{}, arg, result 
 	realResult.Success = success
 	return nil
 }
+
 func newVideoServiceMGetVideoUserArgs() interface{} {
 	return douyinvideo.NewVideoServiceMGetVideoUserArgs()
 }
@@ -122,6 +127,7 @@ func deleteVideoHandler(ctx context.Context, handler interface{}, arg, result in
 	realResult.Success = success
 	return nil
 }
+
 func newVideoServiceDeleteVideoArgs() interface{} {
 	return douyinvideo.NewVideoServiceDeleteVideoArgs()
 }
@@ -140,6 +146,7 @@ func getTimeVideosHandler(ctx context.Context, handler interface{}, arg, result 
 	realResult.Success = success
 	return nil
 }
+
 func newVideoServiceGetTimeVideosArgs() interface{} {
 	return douyinvideo.NewVideoServiceGetTimeVideosArgs()
 }

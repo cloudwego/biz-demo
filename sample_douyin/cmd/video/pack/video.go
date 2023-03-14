@@ -36,6 +36,7 @@ func Video(v *db.Video) *douyinvideo.Video {
 		UploadTime:    v.CreatedAt.Format("20060102.150405"),
 	}
 }
+
 func Videos(vs []*db.Video) []*douyinvideo.Video {
 	videos := make([]*douyinvideo.Video, 0)
 	for _, v := range vs {

@@ -16,8 +16,9 @@
 package db
 
 import (
-	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 	"time"
+
+	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

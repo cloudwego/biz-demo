@@ -17,6 +17,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/favorite/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinfavorite"
 )
@@ -33,7 +34,7 @@ func NewCancleFavoriteService(ctx context.Context) *CancleFavoriteService {
 // CreateVideo create video info.
 func (s *CancleFavoriteService) CancleFavorite(req *douyinfavorite.FavoriteActionRequest) error {
 	return db.CancleFavorite(s.ctx, []*db.Favorite{{
-		UserId: req.UserId,
+		UserId:  req.UserId,
 		VideoId: req.VideoId,
 	}})
 }

@@ -7,8 +7,9 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"fmt"
-	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
+
+	"github.com/apache/thrift/lib/go/thrift"
 )
 
 type ErrCode int64
@@ -93,9 +94,11 @@ func (p *BaseResp) GetStatusCode() (v int64) {
 func (p *BaseResp) GetStatusMessage() (v string) {
 	return p.StatusMessage
 }
+
 func (p *BaseResp) SetStatusCode(val int64) {
 	p.StatusCode = val
 }
+
 func (p *BaseResp) SetStatusMessage(val string) {
 	p.StatusMessage = val
 }
@@ -106,7 +109,6 @@ var fieldIDToName_BaseResp = map[int16]string{
 }
 
 func (p *BaseResp) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -282,14 +284,13 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 }
 
 func (p *BaseResp) Field1DeepEqual(src int64) bool {
-
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *BaseResp) Field2DeepEqual(src string) bool {
 
+func (p *BaseResp) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.StatusMessage, src) != 0 {
 		return false
 	}
@@ -361,36 +362,47 @@ func (p *User) GetAvatar() (v string) {
 func (p *User) GetSignature() (v string) {
 	return p.Signature
 }
+
 func (p *User) SetUserId(val int64) {
 	p.UserId = val
 }
+
 func (p *User) SetUsername(val string) {
 	p.Username = val
 }
+
 func (p *User) SetFollowCount(val int64) {
 	p.FollowCount = val
 }
+
 func (p *User) SetFollowerCount(val int64) {
 	p.FollowerCount = val
 }
+
 func (p *User) SetIsFollow(val bool) {
 	p.IsFollow = val
 }
+
 func (p *User) SetFavoriteCount(val int64) {
 	p.FavoriteCount = val
 }
+
 func (p *User) SetWorkCount(val int64) {
 	p.WorkCount = val
 }
+
 func (p *User) SetTotalFavorited(val int64) {
 	p.TotalFavorited = val
 }
+
 func (p *User) SetBackgroundImage(val string) {
 	p.BackgroundImage = val
 }
+
 func (p *User) SetAvatar(val string) {
 	p.Avatar = val
 }
+
 func (p *User) SetSignature(val string) {
 	p.Signature = val
 }
@@ -410,7 +422,6 @@ var fieldIDToName_User = map[int16]string{
 }
 
 func (p *User) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -973,77 +984,76 @@ func (p *User) DeepEqual(ano *User) bool {
 }
 
 func (p *User) Field1DeepEqual(src int64) bool {
-
 	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *User) Field2DeepEqual(src string) bool {
 
+func (p *User) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.Username, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *User) Field3DeepEqual(src int64) bool {
 
+func (p *User) Field3DeepEqual(src int64) bool {
 	if p.FollowCount != src {
 		return false
 	}
 	return true
 }
-func (p *User) Field4DeepEqual(src int64) bool {
 
+func (p *User) Field4DeepEqual(src int64) bool {
 	if p.FollowerCount != src {
 		return false
 	}
 	return true
 }
-func (p *User) Field5DeepEqual(src bool) bool {
 
+func (p *User) Field5DeepEqual(src bool) bool {
 	if p.IsFollow != src {
 		return false
 	}
 	return true
 }
-func (p *User) Field6DeepEqual(src int64) bool {
 
+func (p *User) Field6DeepEqual(src int64) bool {
 	if p.FavoriteCount != src {
 		return false
 	}
 	return true
 }
-func (p *User) Field7DeepEqual(src int64) bool {
 
+func (p *User) Field7DeepEqual(src int64) bool {
 	if p.WorkCount != src {
 		return false
 	}
 	return true
 }
-func (p *User) Field8DeepEqual(src int64) bool {
 
+func (p *User) Field8DeepEqual(src int64) bool {
 	if p.TotalFavorited != src {
 		return false
 	}
 	return true
 }
-func (p *User) Field9DeepEqual(src string) bool {
 
+func (p *User) Field9DeepEqual(src string) bool {
 	if strings.Compare(p.BackgroundImage, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *User) Field10DeepEqual(src string) bool {
 
+func (p *User) Field10DeepEqual(src string) bool {
 	if strings.Compare(p.Avatar, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *User) Field11DeepEqual(src string) bool {
 
+func (p *User) Field11DeepEqual(src string) bool {
 	if strings.Compare(p.Signature, src) != 0 {
 		return false
 	}
@@ -1085,18 +1095,23 @@ func (p *CreateUserRequest) GetAvatar() (v string) {
 func (p *CreateUserRequest) GetSignature() (v string) {
 	return p.Signature
 }
+
 func (p *CreateUserRequest) SetUsername(val string) {
 	p.Username = val
 }
+
 func (p *CreateUserRequest) SetPassword(val string) {
 	p.Password = val
 }
+
 func (p *CreateUserRequest) SetBackgroundImage(val string) {
 	p.BackgroundImage = val
 }
+
 func (p *CreateUserRequest) SetAvatar(val string) {
 	p.Avatar = val
 }
+
 func (p *CreateUserRequest) SetSignature(val string) {
 	p.Signature = val
 }
@@ -1110,7 +1125,6 @@ var fieldIDToName_CreateUserRequest = map[int16]string{
 }
 
 func (p *CreateUserRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1415,35 +1429,34 @@ func (p *CreateUserRequest) DeepEqual(ano *CreateUserRequest) bool {
 }
 
 func (p *CreateUserRequest) Field1DeepEqual(src string) bool {
-
 	if strings.Compare(p.Username, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateUserRequest) Field2DeepEqual(src string) bool {
 
+func (p *CreateUserRequest) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.Password, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateUserRequest) Field3DeepEqual(src string) bool {
 
+func (p *CreateUserRequest) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.BackgroundImage, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateUserRequest) Field4DeepEqual(src string) bool {
 
+func (p *CreateUserRequest) Field4DeepEqual(src string) bool {
 	if strings.Compare(p.Avatar, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateUserRequest) Field5DeepEqual(src string) bool {
 
+func (p *CreateUserRequest) Field5DeepEqual(src string) bool {
 	if strings.Compare(p.Signature, src) != 0 {
 		return false
 	}
@@ -1480,12 +1493,15 @@ func (p *CreateUserResponse) GetUserId() (v int64) {
 func (p *CreateUserResponse) GetToken() (v string) {
 	return p.Token
 }
+
 func (p *CreateUserResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *CreateUserResponse) SetUserId(val int64) {
 	p.UserId = val
 }
+
 func (p *CreateUserResponse) SetToken(val string) {
 	p.Token = val
 }
@@ -1501,7 +1517,6 @@ func (p *CreateUserResponse) IsSetBaseResp() bool {
 }
 
 func (p *CreateUserResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1719,21 +1734,20 @@ func (p *CreateUserResponse) DeepEqual(ano *CreateUserResponse) bool {
 }
 
 func (p *CreateUserResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *CreateUserResponse) Field2DeepEqual(src int64) bool {
 
+func (p *CreateUserResponse) Field2DeepEqual(src int64) bool {
 	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *CreateUserResponse) Field3DeepEqual(src string) bool {
 
+func (p *CreateUserResponse) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.Token, src) != 0 {
 		return false
 	}
@@ -1760,9 +1774,11 @@ func (p *CheckUserRequest) GetUsername() (v string) {
 func (p *CheckUserRequest) GetPassword() (v string) {
 	return p.Password
 }
+
 func (p *CheckUserRequest) SetUsername(val string) {
 	p.Username = val
 }
+
 func (p *CheckUserRequest) SetPassword(val string) {
 	p.Password = val
 }
@@ -1773,7 +1789,6 @@ var fieldIDToName_CheckUserRequest = map[int16]string{
 }
 
 func (p *CheckUserRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1949,14 +1964,13 @@ func (p *CheckUserRequest) DeepEqual(ano *CheckUserRequest) bool {
 }
 
 func (p *CheckUserRequest) Field1DeepEqual(src string) bool {
-
 	if strings.Compare(p.Username, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CheckUserRequest) Field2DeepEqual(src string) bool {
 
+func (p *CheckUserRequest) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.Password, src) != 0 {
 		return false
 	}
@@ -1988,9 +2002,11 @@ func (p *CheckUserResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *CheckUserResponse) SetUserId(val int64) {
 	p.UserId = val
 }
+
 func (p *CheckUserResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -2005,7 +2021,6 @@ func (p *CheckUserResponse) IsSetBaseResp() bool {
 }
 
 func (p *CheckUserResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2180,14 +2195,13 @@ func (p *CheckUserResponse) DeepEqual(ano *CheckUserResponse) bool {
 }
 
 func (p *CheckUserResponse) Field1DeepEqual(src int64) bool {
-
 	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *CheckUserResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *CheckUserResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -2209,6 +2223,7 @@ func (p *MGetUserRequest) InitDefault() {
 func (p *MGetUserRequest) GetUserIds() (v []int64) {
 	return p.UserIds
 }
+
 func (p *MGetUserRequest) SetUserIds(val []int64) {
 	p.UserIds = val
 }
@@ -2218,7 +2233,6 @@ var fieldIDToName_MGetUserRequest = map[int16]string{
 }
 
 func (p *MGetUserRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2308,7 +2322,6 @@ func (p *MGetUserRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2372,7 +2385,6 @@ func (p *MGetUserRequest) DeepEqual(ano *MGetUserRequest) bool {
 }
 
 func (p *MGetUserRequest) Field1DeepEqual(src []int64) bool {
-
 	if len(p.UserIds) != len(src) {
 		return false
 	}
@@ -2410,9 +2422,11 @@ func (p *MGetUserResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *MGetUserResponse) SetUsers(val []*User) {
 	p.Users = val
 }
+
 func (p *MGetUserResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -2427,7 +2441,6 @@ func (p *MGetUserResponse) IsSetBaseResp() bool {
 }
 
 func (p *MGetUserResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2621,7 +2634,6 @@ func (p *MGetUserResponse) DeepEqual(ano *MGetUserResponse) bool {
 }
 
 func (p *MGetUserResponse) Field1DeepEqual(src []*User) bool {
-
 	if len(p.Users) != len(src) {
 		return false
 	}
@@ -2633,8 +2645,8 @@ func (p *MGetUserResponse) Field1DeepEqual(src []*User) bool {
 	}
 	return true
 }
-func (p *MGetUserResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *MGetUserResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -2684,6 +2696,7 @@ func (p *UserServiceClient) CreateUser(ctx context.Context, req *CreateUserReque
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *UserServiceClient) CheckUser(ctx context.Context, req *CheckUserRequest) (r *CheckUserResponse, err error) {
 	var _args UserServiceCheckUserArgs
 	_args.Req = req
@@ -2693,6 +2706,7 @@ func (p *UserServiceClient) CheckUser(ctx context.Context, req *CheckUserRequest
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *UserServiceClient) MGetUser(ctx context.Context, req *MGetUserRequest) (r *MGetUserResponse, err error) {
 	var _args UserServiceMGetUserArgs
 	_args.Req = req
@@ -2728,6 +2742,7 @@ func NewUserServiceProcessor(handler UserService) *UserServiceProcessor {
 	self.AddToProcessorMap("MGetUser", &userServiceProcessorMGetUser{handler: handler})
 	return self
 }
+
 func (p *UserServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
@@ -2910,6 +2925,7 @@ func (p *UserServiceCreateUserArgs) GetReq() (v *CreateUserRequest) {
 	}
 	return p.Req
 }
+
 func (p *UserServiceCreateUserArgs) SetReq(val *CreateUserRequest) {
 	p.Req = val
 }
@@ -2923,7 +2939,6 @@ func (p *UserServiceCreateUserArgs) IsSetReq() bool {
 }
 
 func (p *UserServiceCreateUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2999,7 +3014,6 @@ func (p *UserServiceCreateUserArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3055,7 +3069,6 @@ func (p *UserServiceCreateUserArgs) DeepEqual(ano *UserServiceCreateUserArgs) bo
 }
 
 func (p *UserServiceCreateUserArgs) Field1DeepEqual(src *CreateUserRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3082,6 +3095,7 @@ func (p *UserServiceCreateUserResult) GetSuccess() (v *CreateUserResponse) {
 	}
 	return p.Success
 }
+
 func (p *UserServiceCreateUserResult) SetSuccess(x interface{}) {
 	p.Success = x.(*CreateUserResponse)
 }
@@ -3095,7 +3109,6 @@ func (p *UserServiceCreateUserResult) IsSetSuccess() bool {
 }
 
 func (p *UserServiceCreateUserResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3171,7 +3184,6 @@ func (p *UserServiceCreateUserResult) Write(oprot thrift.TProtocol) (err error) 
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3229,7 +3241,6 @@ func (p *UserServiceCreateUserResult) DeepEqual(ano *UserServiceCreateUserResult
 }
 
 func (p *UserServiceCreateUserResult) Field0DeepEqual(src *CreateUserResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -3256,6 +3267,7 @@ func (p *UserServiceCheckUserArgs) GetReq() (v *CheckUserRequest) {
 	}
 	return p.Req
 }
+
 func (p *UserServiceCheckUserArgs) SetReq(val *CheckUserRequest) {
 	p.Req = val
 }
@@ -3269,7 +3281,6 @@ func (p *UserServiceCheckUserArgs) IsSetReq() bool {
 }
 
 func (p *UserServiceCheckUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3345,7 +3356,6 @@ func (p *UserServiceCheckUserArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3401,7 +3411,6 @@ func (p *UserServiceCheckUserArgs) DeepEqual(ano *UserServiceCheckUserArgs) bool
 }
 
 func (p *UserServiceCheckUserArgs) Field1DeepEqual(src *CheckUserRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3428,6 +3437,7 @@ func (p *UserServiceCheckUserResult) GetSuccess() (v *CheckUserResponse) {
 	}
 	return p.Success
 }
+
 func (p *UserServiceCheckUserResult) SetSuccess(x interface{}) {
 	p.Success = x.(*CheckUserResponse)
 }
@@ -3441,7 +3451,6 @@ func (p *UserServiceCheckUserResult) IsSetSuccess() bool {
 }
 
 func (p *UserServiceCheckUserResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3517,7 +3526,6 @@ func (p *UserServiceCheckUserResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3575,7 +3583,6 @@ func (p *UserServiceCheckUserResult) DeepEqual(ano *UserServiceCheckUserResult) 
 }
 
 func (p *UserServiceCheckUserResult) Field0DeepEqual(src *CheckUserResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -3602,6 +3609,7 @@ func (p *UserServiceMGetUserArgs) GetReq() (v *MGetUserRequest) {
 	}
 	return p.Req
 }
+
 func (p *UserServiceMGetUserArgs) SetReq(val *MGetUserRequest) {
 	p.Req = val
 }
@@ -3615,7 +3623,6 @@ func (p *UserServiceMGetUserArgs) IsSetReq() bool {
 }
 
 func (p *UserServiceMGetUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3691,7 +3698,6 @@ func (p *UserServiceMGetUserArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3747,7 +3753,6 @@ func (p *UserServiceMGetUserArgs) DeepEqual(ano *UserServiceMGetUserArgs) bool {
 }
 
 func (p *UserServiceMGetUserArgs) Field1DeepEqual(src *MGetUserRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3774,6 +3779,7 @@ func (p *UserServiceMGetUserResult) GetSuccess() (v *MGetUserResponse) {
 	}
 	return p.Success
 }
+
 func (p *UserServiceMGetUserResult) SetSuccess(x interface{}) {
 	p.Success = x.(*MGetUserResponse)
 }
@@ -3787,7 +3793,6 @@ func (p *UserServiceMGetUserResult) IsSetSuccess() bool {
 }
 
 func (p *UserServiceMGetUserResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3863,7 +3868,6 @@ func (p *UserServiceMGetUserResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3921,7 +3925,6 @@ func (p *UserServiceMGetUserResult) DeepEqual(ano *UserServiceMGetUserResult) bo
 }
 
 func (p *UserServiceMGetUserResult) Field0DeepEqual(src *MGetUserResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}

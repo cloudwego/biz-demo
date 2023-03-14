@@ -43,15 +43,13 @@ const (
 	ExportEndpoint      = ":4317"
 	ETCDAddress         = "127.0.0.1:10079"
 	DefaultLimit        = 10
-	//oss相关信息
-	Endpoint = "oss*******************.com"
-	AKID     = "LTA********************xo"
-	AKS      = "Sm**********************3K9"
-	Bucket   = "do**********************67"
-	CDNURL   = "htt*******************t.cn/"
+	Endpoint            = "oss*******************.com"
+	AKID                = "LTA********************xo"
+	AKS                 = "Sm**********************3K9"
+	Bucket              = "do**********************67"
+	CDNURL              = "htt*******************t.cn/"
 )
 
-// 头像
 var AvatarList map[int]string = map[int]string{
 	0: "https://maomint.maomint.cn/douyin/avatar/006LfQcply1g3uldzkb7ij309q09qjsn.jpg",
 	1: "https://maomint.maomint.cn/douyin/avatar/006LfQcply1g3uldztsvxj309q09qdha.jpg",

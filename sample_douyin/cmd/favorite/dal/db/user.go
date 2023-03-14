@@ -1,4 +1,3 @@
-
 // Copyright 2023 CloudWeGo Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,9 +27,9 @@ type User struct {
 	Password        string `json:"password"`
 	FollowCount     int    `json:"follow_count"`
 	FollowerCount   int    `json:"follower_count"`
-	FavoriteCount   int  `json:"favorite_count"`
-	WorkCount       int  `json:"work_count"`
-	TotalFavorited  int  `json:"total_favorited"`
+	FavoriteCount   int    `json:"favorite_count"`
+	WorkCount       int    `json:"work_count"`
+	TotalFavorited  int    `json:"total_favorited"`
 	BackgroundImage string `json:"background_image"`
 	Avatar          string `json:"avatar"`
 	Signature       string `json:"signature"`

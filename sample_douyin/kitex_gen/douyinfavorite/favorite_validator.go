@@ -26,4 +26,3 @@ func (p *BaseResp) IsValid() error {
 func (p *Favorite) IsValid() error {
 	return nil
 }
-

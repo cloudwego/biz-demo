@@ -34,7 +34,7 @@ import (
 
 func Init() {
 	dal.Init()
-	//klog init
+	// klog init
 	klog.SetLogger(kitexlogrus.NewLogger())
 	klog.SetLevel(klog.LevelInfo)
 }
@@ -57,14 +57,14 @@ func main() {
 	svr := relation.NewServer(new(RelationServiceImpl),
 		server.WithServiceAddr(addr),
 		server.WithRegistry(r),
-		//限流
+		// 限流
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),
-		//启用多路复用
+		// 启用多路复用
 		server.WithMuxTransport(),
-		//启用中间件
+		// 启用中间件
 		server.WithMiddleware(mw.CommonMiddleware),
 		server.WithMiddleware(mw.ServerMiddleware),
-		//链路追踪
+		// 链路追踪
 		server.WithSuite(tracing.NewServerSuite()),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: consts.RelationServiceName}),
 	)

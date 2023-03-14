@@ -1,4 +1,3 @@
-
 // Copyright 2023 CloudWeGo Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +16,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
 )
@@ -31,11 +31,11 @@ func NewCreateVideoService(ctx context.Context) *CreateVideoService {
 }
 
 // CreateVideo create video info.
-func (s *CreateVideoService) CreateVideo(req *douyinvideo.CreateVideoRequest) ([]int64,error) {
+func (s *CreateVideoService) CreateVideo(req *douyinvideo.CreateVideoRequest) ([]int64, error) {
 	return db.CreateVideo(s.ctx, []*db.Video{{
-		Author: req.Author,
-		PlayUrl: req.PlayUrl,
+		Author:   req.Author,
+		PlayUrl:  req.PlayUrl,
 		CoverUrl: req.CoverUrl,
-		Title: req.Title,
+		Title:    req.Title,
 	}})
 }

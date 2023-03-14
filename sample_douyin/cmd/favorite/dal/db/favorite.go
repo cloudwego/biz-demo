@@ -17,10 +17,11 @@ package db
 
 import (
 	"context"
+	"time"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/cmd/video/dal/db"
 	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 	"github.com/cloudwego/biz-demo/sample_douyin/pkg/errno"
-	"time"
 
 	"gorm.io/gorm"
 )
@@ -51,10 +52,10 @@ func CreateFavorite(ctx context.Context, favorites []*Favorite) error {
 				return err
 			}
 			videos := make([]*db.Video, 0)
-			if err := tx.WithContext(ctx).Model(&Video{}).Where("id = ?", f.VideoId).Find(&videos).Error; err != nil{
+			if err := tx.WithContext(ctx).Model(&Video{}).Where("id = ?", f.VideoId).Find(&videos).Error; err != nil {
 				return err
 			}
-			for _,v := range videos{
+			for _, v := range videos {
 				if err := tx.WithContext(ctx).Model(&User{}).Where("id = ?", v.Author).Update("total_favorited", gorm.Expr("total_favorited + ?", 1)).Error; err != nil {
 					return err
 				}
@@ -82,10 +83,10 @@ func CancleFavorite(ctx context.Context, favorites []*Favorite) error {
 				return err
 			}
 			videos := make([]*db.Video, 0)
-			if err := tx.WithContext(ctx).Model(&Video{}).Where("id = ?", f.VideoId).Find(&videos).Error; err != nil{
+			if err := tx.WithContext(ctx).Model(&Video{}).Where("id = ?", f.VideoId).Find(&videos).Error; err != nil {
 				return err
 			}
-			for _,v := range videos{
+			for _, v := range videos {
 				if err := tx.WithContext(ctx).Model(&User{}).Where("id = ?", v.Author).Update("total_favorited", gorm.Expr("total_favorited - ?", 1)).Error; err != nil {
 					return err
 				}
@@ -111,7 +112,7 @@ func QueryFavoriteById(ctx context.Context, favorites []*Favorite) ([]bool, erro
 		}
 	}
 	if len(res) != len(favorites) {
-		return res, errno.NewErrNo(0000000, "something wrong")
+		return res, errno.NewErrNo(0o000000, "something wrong")
 	}
 	return res, nil
 }

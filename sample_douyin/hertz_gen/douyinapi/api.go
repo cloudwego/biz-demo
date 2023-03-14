@@ -20,14 +20,15 @@ package douyinapi
 import (
 	"context"
 	"fmt"
-	"github.com/apache/thrift/lib/go/thrift"
 	"mime/multipart"
+
+	"github.com/apache/thrift/lib/go/thrift"
 )
 
 /**############ Model ###############**/
 type User struct {
 	ID              int64  `thrift:"id,1" form:"id" json:"id" query:"id"`
-	Name        	string `thrift:"name,2" form:"name" json:"name" query:"name"`
+	Name            string `thrift:"name,2" form:"name" json:"name" query:"name"`
 	FollowCount     int64  `thrift:"follow_count,3" form:"follow_count" json:"follow_count" query:"follow_count"`
 	FollowerCount   int64  `thrift:"follower_count,4" form:"follower_count" json:"follower_count" query:"follower_count"`
 	IsFollow        bool   `thrift:"is_follow,5" form:"is_follow" json:"is_follow" query:"is_follow"`
@@ -102,7 +103,6 @@ var fieldIDToName_User = map[int16]string{
 }
 
 func (p *User) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -624,7 +624,7 @@ func (p *User) String() string {
 
 type FriendUser struct {
 	ID              int64  `thrift:"id,1" form:"id" json:"id" query:"id"`
-	Name        	string `thrift:"name,2" form:"name" json:"name" query:"name"`
+	Name            string `thrift:"name,2" form:"name" json:"name" query:"name"`
 	FollowCount     int64  `thrift:"follow_count,3" form:"follow_count" json:"follow_count" query:"follow_count"`
 	FollowerCount   int64  `thrift:"follower_count,4" form:"follower_count" json:"follower_count" query:"follower_count"`
 	IsFollow        bool   `thrift:"is_follow,5" form:"is_follow" json:"is_follow" query:"is_follow"`
@@ -711,7 +711,6 @@ var fieldIDToName_FriendUser = map[int16]string{
 }
 
 func (p *FriendUser) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1385,7 +1384,6 @@ func (p *Video) IsSetAuthor() bool {
 }
 
 func (p *Video) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1868,7 +1866,6 @@ func (p *Comment) IsSetUser() bool {
 }
 
 func (p *Comment) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2136,7 +2133,6 @@ var fieldIDToName_Favorite = map[int16]string{
 }
 
 func (p *Favorite) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2377,7 +2373,6 @@ var fieldIDToName_Message = map[int16]string{
 }
 
 func (p *Message) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2681,7 +2676,6 @@ var fieldIDToName_RegistUserRequest = map[int16]string{
 }
 
 func (p *RegistUserRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2864,7 +2858,6 @@ var fieldIDToName_CheckUserRequest = map[int16]string{
 }
 
 func (p *CheckUserRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3047,7 +3040,6 @@ var fieldIDToName_GetUserRequest = map[int16]string{
 }
 
 func (p *GetUserRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3230,7 +3222,6 @@ var fieldIDToName_GetFeedRequest = map[int16]string{
 }
 
 func (p *GetFeedRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3392,8 +3383,8 @@ func (p *GetFeedRequest) String() string {
 
 type PublishVideoRequest struct {
 	Data  *multipart.FileHeader `thrift:"data,1" form:"data" json:"data"`
-	Token string `thrift:"token,2" form:"token" json:"token"`
-	Title string `thrift:"title,3" form:"title" json:"title"`
+	Token string                `thrift:"token,2" form:"token" json:"token"`
+	Title string                `thrift:"title,3" form:"title" json:"title"`
 }
 
 func NewPublishVideoRequest() *PublishVideoRequest {
@@ -3419,7 +3410,6 @@ var fieldIDToName_PublishVideoRequest = map[int16]string{
 }
 
 func (p *PublishVideoRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3498,9 +3488,9 @@ ReadStructEndError:
 }
 
 func (p *PublishVideoRequest) ReadField1(iprot thrift.TProtocol) error {
-	if _, err := iprot.ReadBinary(); err!=nil {
+	if _, err := iprot.ReadBinary(); err != nil {
 		return err
-	}else {
+	} else {
 		p.Data = new(multipart.FileHeader)
 	}
 	return nil
@@ -3650,7 +3640,6 @@ var fieldIDToName_GetPublishListRequest = map[int16]string{
 }
 
 func (p *GetPublishListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3839,7 +3828,6 @@ var fieldIDToName_RelationActionRequest = map[int16]string{
 }
 
 func (p *RelationActionRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4062,7 +4050,6 @@ var fieldIDToName_FollowAndFollowerListRequest = map[int16]string{
 }
 
 func (p *FollowAndFollowerListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4245,7 +4232,6 @@ var fieldIDToName_FriendListRequest = map[int16]string{
 }
 
 func (p *FriendListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4434,7 +4420,6 @@ var fieldIDToName_FavoriteActionRequest = map[int16]string{
 }
 
 func (p *FavoriteActionRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4657,7 +4642,6 @@ var fieldIDToName_GetFavoriteListRequest = map[int16]string{
 }
 
 func (p *GetFavoriteListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4858,7 +4842,6 @@ var fieldIDToName_CommentActionRequest = map[int16]string{
 }
 
 func (p *CommentActionRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5161,7 +5144,6 @@ var fieldIDToName_CommentListRequest = map[int16]string{
 }
 
 func (p *CommentListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5350,7 +5332,6 @@ var fieldIDToName_MessageChatRequest = map[int16]string{
 }
 
 func (p *MessageChatRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5585,7 +5566,6 @@ var fieldIDToName_MessageActionRequest = map[int16]string{
 }
 
 func (p *MessageActionRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -5861,7 +5841,6 @@ var fieldIDToName_RegistUserResponse = map[int16]string{
 }
 
 func (p *RegistUserResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -6136,7 +6115,6 @@ var fieldIDToName_CheckUserResponse = map[int16]string{
 }
 
 func (p *CheckUserResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -6414,7 +6392,6 @@ func (p *GetUserResponse) IsSetUser() bool {
 }
 
 func (p *GetUserResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -6648,7 +6625,6 @@ var fieldIDToName_GetFeedResponse = map[int16]string{
 }
 
 func (p *GetFeedResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -6930,7 +6906,6 @@ var fieldIDToName_PublishVideoResponse = map[int16]string{
 }
 
 func (p *PublishVideoResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -7119,7 +7094,6 @@ var fieldIDToName_GetPublishListResponse = map[int16]string{
 }
 
 func (p *GetPublishListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -7376,7 +7350,6 @@ func (p *CommentActionResponse) IsSetComment() bool {
 }
 
 func (p *CommentActionResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -7604,7 +7577,6 @@ var fieldIDToName_CommentListResponse = map[int16]string{
 }
 
 func (p *CommentListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -7846,7 +7818,6 @@ var fieldIDToName_RelationActionResponse = map[int16]string{
 }
 
 func (p *RelationActionResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -8035,7 +8006,6 @@ var fieldIDToName_FollowAndFollowerListResponse = map[int16]string{
 }
 
 func (p *FollowAndFollowerListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -8283,7 +8253,6 @@ var fieldIDToName_FriendListResponse = map[int16]string{
 }
 
 func (p *FriendListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -8525,7 +8494,6 @@ var fieldIDToName_FavoriteActionResponse = map[int16]string{
 }
 
 func (p *FavoriteActionResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -8714,7 +8682,6 @@ var fieldIDToName_GetFavoriteListResponse = map[int16]string{
 }
 
 func (p *GetFavoriteListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -8962,7 +8929,6 @@ var fieldIDToName_MessageChatResponse = map[int16]string{
 }
 
 func (p *MessageChatResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -9204,7 +9170,6 @@ var fieldIDToName_MessageActionResponse = map[int16]string{
 }
 
 func (p *MessageActionResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -9434,6 +9399,7 @@ func (p *ApiServiceClient) RegistUser(ctx context.Context, req *RegistUserReques
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) CheckUser(ctx context.Context, req *CheckUserRequest) (r *CheckUserResponse, err error) {
 	var _args ApiServiceCheckUserArgs
 	_args.Req = req
@@ -9443,6 +9409,7 @@ func (p *ApiServiceClient) CheckUser(ctx context.Context, req *CheckUserRequest)
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) GetUser(ctx context.Context, req *GetUserRequest) (r *GetUserResponse, err error) {
 	var _args ApiServiceGetUserArgs
 	_args.Req = req
@@ -9452,6 +9419,7 @@ func (p *ApiServiceClient) GetUser(ctx context.Context, req *GetUserRequest) (r 
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) GetFeed(ctx context.Context, req *GetFeedRequest) (r *GetFeedResponse, err error) {
 	var _args ApiServiceGetFeedArgs
 	_args.Req = req
@@ -9461,6 +9429,7 @@ func (p *ApiServiceClient) GetFeed(ctx context.Context, req *GetFeedRequest) (r 
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) GetPublishList(ctx context.Context, req *GetPublishListRequest) (r *GetPublishListResponse, err error) {
 	var _args ApiServiceGetPublishListArgs
 	_args.Req = req
@@ -9470,6 +9439,7 @@ func (p *ApiServiceClient) GetPublishList(ctx context.Context, req *GetPublishLi
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) PublishVideo(ctx context.Context, req *PublishVideoRequest) (r *PublishVideoResponse, err error) {
 	var _args ApiServicePublishVideoArgs
 	_args.Req = req
@@ -9479,6 +9449,7 @@ func (p *ApiServiceClient) PublishVideo(ctx context.Context, req *PublishVideoRe
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) FavoriteAction(ctx context.Context, req *FavoriteActionRequest) (r *FavoriteActionResponse, err error) {
 	var _args ApiServiceFavoriteActionArgs
 	_args.Req = req
@@ -9488,6 +9459,7 @@ func (p *ApiServiceClient) FavoriteAction(ctx context.Context, req *FavoriteActi
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) GetFavoriteList(ctx context.Context, req *GetFavoriteListRequest) (r *GetFavoriteListResponse, err error) {
 	var _args ApiServiceGetFavoriteListArgs
 	_args.Req = req
@@ -9497,6 +9469,7 @@ func (p *ApiServiceClient) GetFavoriteList(ctx context.Context, req *GetFavorite
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) CommentAction(ctx context.Context, req *CommentActionRequest) (r *CommentActionResponse, err error) {
 	var _args ApiServiceCommentActionArgs
 	_args.Req = req
@@ -9506,6 +9479,7 @@ func (p *ApiServiceClient) CommentAction(ctx context.Context, req *CommentAction
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) CommentList(ctx context.Context, req *CommentListRequest) (r *CommentListResponse, err error) {
 	var _args ApiServiceCommentListArgs
 	_args.Req = req
@@ -9515,6 +9489,7 @@ func (p *ApiServiceClient) CommentList(ctx context.Context, req *CommentListRequ
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) RelationAction(ctx context.Context, req *RelationActionRequest) (r *RelationActionResponse, err error) {
 	var _args ApiServiceRelationActionArgs
 	_args.Req = req
@@ -9524,6 +9499,7 @@ func (p *ApiServiceClient) RelationAction(ctx context.Context, req *RelationActi
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) FollowList(ctx context.Context, req *FollowAndFollowerListRequest) (r *FollowAndFollowerListResponse, err error) {
 	var _args ApiServiceFollowListArgs
 	_args.Req = req
@@ -9533,6 +9509,7 @@ func (p *ApiServiceClient) FollowList(ctx context.Context, req *FollowAndFollowe
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) FollowerList(ctx context.Context, req *FollowAndFollowerListRequest) (r *FollowAndFollowerListResponse, err error) {
 	var _args ApiServiceFollowerListArgs
 	_args.Req = req
@@ -9542,6 +9519,7 @@ func (p *ApiServiceClient) FollowerList(ctx context.Context, req *FollowAndFollo
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) FriendList(ctx context.Context, req *FriendListRequest) (r *FriendListResponse, err error) {
 	var _args ApiServiceFriendListArgs
 	_args.Req = req
@@ -9551,6 +9529,7 @@ func (p *ApiServiceClient) FriendList(ctx context.Context, req *FriendListReques
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) MessageChat(ctx context.Context, req *MessageChatRequest) (r *MessageChatResponse, err error) {
 	var _args ApiServiceMessageChatArgs
 	_args.Req = req
@@ -9560,6 +9539,7 @@ func (p *ApiServiceClient) MessageChat(ctx context.Context, req *MessageChatRequ
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *ApiServiceClient) MessageAction(ctx context.Context, req *MessageActionRequest) (r *MessageActionResponse, err error) {
 	var _args ApiServiceMessageActionArgs
 	_args.Req = req
@@ -9608,6 +9588,7 @@ func NewApiServiceProcessor(handler ApiService) *ApiServiceProcessor {
 	self.AddToProcessorMap("MessageAction", &apiServiceProcessorMessageAction{handler: handler})
 	return self
 }
+
 func (p *ApiServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
@@ -10420,7 +10401,6 @@ func (p *ApiServiceRegistUserArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceRegistUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -10496,7 +10476,6 @@ func (p *ApiServiceRegistUserArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -10565,7 +10544,6 @@ func (p *ApiServiceRegistUserResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceRegistUserResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -10641,7 +10619,6 @@ func (p *ApiServiceRegistUserResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -10712,7 +10689,6 @@ func (p *ApiServiceCheckUserArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceCheckUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -10788,7 +10764,6 @@ func (p *ApiServiceCheckUserArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -10857,7 +10832,6 @@ func (p *ApiServiceCheckUserResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceCheckUserResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -10933,7 +10907,6 @@ func (p *ApiServiceCheckUserResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -11004,7 +10977,6 @@ func (p *ApiServiceGetUserArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceGetUserArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -11080,7 +11052,6 @@ func (p *ApiServiceGetUserArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -11149,7 +11120,6 @@ func (p *ApiServiceGetUserResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceGetUserResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -11225,7 +11195,6 @@ func (p *ApiServiceGetUserResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -11296,7 +11265,6 @@ func (p *ApiServiceGetFeedArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceGetFeedArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -11372,7 +11340,6 @@ func (p *ApiServiceGetFeedArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -11441,7 +11408,6 @@ func (p *ApiServiceGetFeedResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceGetFeedResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -11517,7 +11483,6 @@ func (p *ApiServiceGetFeedResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -11588,7 +11553,6 @@ func (p *ApiServiceGetPublishListArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceGetPublishListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -11664,7 +11628,6 @@ func (p *ApiServiceGetPublishListArgs) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -11733,7 +11696,6 @@ func (p *ApiServiceGetPublishListResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceGetPublishListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -11809,7 +11771,6 @@ func (p *ApiServiceGetPublishListResult) Write(oprot thrift.TProtocol) (err erro
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -11880,7 +11841,6 @@ func (p *ApiServicePublishVideoArgs) IsSetReq() bool {
 }
 
 func (p *ApiServicePublishVideoArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -11956,7 +11916,6 @@ func (p *ApiServicePublishVideoArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -12025,7 +11984,6 @@ func (p *ApiServicePublishVideoResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServicePublishVideoResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -12101,7 +12059,6 @@ func (p *ApiServicePublishVideoResult) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -12172,7 +12129,6 @@ func (p *ApiServiceFavoriteActionArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceFavoriteActionArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -12248,7 +12204,6 @@ func (p *ApiServiceFavoriteActionArgs) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -12317,7 +12272,6 @@ func (p *ApiServiceFavoriteActionResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceFavoriteActionResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -12393,7 +12347,6 @@ func (p *ApiServiceFavoriteActionResult) Write(oprot thrift.TProtocol) (err erro
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -12464,7 +12417,6 @@ func (p *ApiServiceGetFavoriteListArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceGetFavoriteListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -12540,7 +12492,6 @@ func (p *ApiServiceGetFavoriteListArgs) Write(oprot thrift.TProtocol) (err error
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -12609,7 +12560,6 @@ func (p *ApiServiceGetFavoriteListResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceGetFavoriteListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -12685,7 +12635,6 @@ func (p *ApiServiceGetFavoriteListResult) Write(oprot thrift.TProtocol) (err err
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -12756,7 +12705,6 @@ func (p *ApiServiceCommentActionArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceCommentActionArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -12832,7 +12780,6 @@ func (p *ApiServiceCommentActionArgs) Write(oprot thrift.TProtocol) (err error) 
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -12901,7 +12848,6 @@ func (p *ApiServiceCommentActionResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceCommentActionResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -12977,7 +12923,6 @@ func (p *ApiServiceCommentActionResult) Write(oprot thrift.TProtocol) (err error
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -13048,7 +12993,6 @@ func (p *ApiServiceCommentListArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceCommentListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -13124,7 +13068,6 @@ func (p *ApiServiceCommentListArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -13193,7 +13136,6 @@ func (p *ApiServiceCommentListResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceCommentListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -13269,7 +13211,6 @@ func (p *ApiServiceCommentListResult) Write(oprot thrift.TProtocol) (err error) 
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -13340,7 +13281,6 @@ func (p *ApiServiceRelationActionArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceRelationActionArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -13416,7 +13356,6 @@ func (p *ApiServiceRelationActionArgs) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -13485,7 +13424,6 @@ func (p *ApiServiceRelationActionResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceRelationActionResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -13561,7 +13499,6 @@ func (p *ApiServiceRelationActionResult) Write(oprot thrift.TProtocol) (err erro
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -13632,7 +13569,6 @@ func (p *ApiServiceFollowListArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceFollowListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -13708,7 +13644,6 @@ func (p *ApiServiceFollowListArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -13777,7 +13712,6 @@ func (p *ApiServiceFollowListResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceFollowListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -13853,7 +13787,6 @@ func (p *ApiServiceFollowListResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -13924,7 +13857,6 @@ func (p *ApiServiceFollowerListArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceFollowerListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -14000,7 +13932,6 @@ func (p *ApiServiceFollowerListArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -14069,7 +14000,6 @@ func (p *ApiServiceFollowerListResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceFollowerListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -14145,7 +14075,6 @@ func (p *ApiServiceFollowerListResult) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -14216,7 +14145,6 @@ func (p *ApiServiceFriendListArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceFriendListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -14292,7 +14220,6 @@ func (p *ApiServiceFriendListArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -14361,7 +14288,6 @@ func (p *ApiServiceFriendListResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceFriendListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -14437,7 +14363,6 @@ func (p *ApiServiceFriendListResult) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -14508,7 +14433,6 @@ func (p *ApiServiceMessageChatArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceMessageChatArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -14584,7 +14508,6 @@ func (p *ApiServiceMessageChatArgs) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -14653,7 +14576,6 @@ func (p *ApiServiceMessageChatResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceMessageChatResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -14729,7 +14651,6 @@ func (p *ApiServiceMessageChatResult) Write(oprot thrift.TProtocol) (err error) 
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -14800,7 +14721,6 @@ func (p *ApiServiceMessageActionArgs) IsSetReq() bool {
 }
 
 func (p *ApiServiceMessageActionArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -14876,7 +14796,6 @@ func (p *ApiServiceMessageActionArgs) Write(oprot thrift.TProtocol) (err error) 
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -14945,7 +14864,6 @@ func (p *ApiServiceMessageActionResult) IsSetSuccess() bool {
 }
 
 func (p *ApiServiceMessageActionResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -15021,7 +14939,6 @@ func (p *ApiServiceMessageActionResult) Write(oprot thrift.TProtocol) (err error
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError

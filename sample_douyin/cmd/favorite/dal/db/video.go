@@ -33,4 +33,3 @@ type Video struct {
 func (v *Video) TableName() string {
 	return consts.VideoTableName
 }
-

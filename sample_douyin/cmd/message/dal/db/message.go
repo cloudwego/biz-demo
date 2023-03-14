@@ -18,8 +18,9 @@ package db
 import (
 	"context"
 	"log"
-	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 	"time"
+
+	"github.com/cloudwego/biz-demo/sample_douyin/pkg/consts"
 )
 
 type Message struct {
@@ -60,7 +61,6 @@ func QueryMessage(ctx context.Context, fromUserID int64, toUserID int64, preMsgT
 	return res, nil
 }
 
-//
 func MGetFirstMessage(ctx context.Context, userID int64, friendIDs []int64) ([]*FirstMessage, error) {
 	res := make([]*FirstMessage, len(friendIDs))
 	tx := DB.WithContext(ctx)

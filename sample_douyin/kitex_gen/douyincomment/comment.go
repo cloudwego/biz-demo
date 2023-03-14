@@ -5,8 +5,9 @@ package douyincomment
 import (
 	"context"
 	"fmt"
-	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
+
+	"github.com/apache/thrift/lib/go/thrift"
 )
 
 type BaseResp struct {
@@ -29,9 +30,11 @@ func (p *BaseResp) GetStatusCode() (v int64) {
 func (p *BaseResp) GetStatusMessage() (v string) {
 	return p.StatusMessage
 }
+
 func (p *BaseResp) SetStatusCode(val int64) {
 	p.StatusCode = val
 }
+
 func (p *BaseResp) SetStatusMessage(val string) {
 	p.StatusMessage = val
 }
@@ -42,7 +45,6 @@ var fieldIDToName_BaseResp = map[int16]string{
 }
 
 func (p *BaseResp) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -218,14 +220,13 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 }
 
 func (p *BaseResp) Field1DeepEqual(src int64) bool {
-
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *BaseResp) Field2DeepEqual(src string) bool {
 
+func (p *BaseResp) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.StatusMessage, src) != 0 {
 		return false
 	}
@@ -267,18 +268,23 @@ func (p *Comment) GetContent() (v string) {
 func (p *Comment) GetCreateDate() (v string) {
 	return p.CreateDate
 }
+
 func (p *Comment) SetCommentId(val int64) {
 	p.CommentId = val
 }
+
 func (p *Comment) SetVideo(val int64) {
 	p.Video = val
 }
+
 func (p *Comment) SetUser(val int64) {
 	p.User = val
 }
+
 func (p *Comment) SetContent(val string) {
 	p.Content = val
 }
+
 func (p *Comment) SetCreateDate(val string) {
 	p.CreateDate = val
 }
@@ -292,7 +298,6 @@ var fieldIDToName_Comment = map[int16]string{
 }
 
 func (p *Comment) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -597,35 +602,34 @@ func (p *Comment) DeepEqual(ano *Comment) bool {
 }
 
 func (p *Comment) Field1DeepEqual(src int64) bool {
-
 	if p.CommentId != src {
 		return false
 	}
 	return true
 }
-func (p *Comment) Field2DeepEqual(src int64) bool {
 
+func (p *Comment) Field2DeepEqual(src int64) bool {
 	if p.Video != src {
 		return false
 	}
 	return true
 }
-func (p *Comment) Field3DeepEqual(src int64) bool {
 
+func (p *Comment) Field3DeepEqual(src int64) bool {
 	if p.User != src {
 		return false
 	}
 	return true
 }
-func (p *Comment) Field4DeepEqual(src string) bool {
 
+func (p *Comment) Field4DeepEqual(src string) bool {
 	if strings.Compare(p.Content, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *Comment) Field5DeepEqual(src string) bool {
 
+func (p *Comment) Field5DeepEqual(src string) bool {
 	if strings.Compare(p.CreateDate, src) != 0 {
 		return false
 	}
@@ -662,15 +666,19 @@ func (p *CreateCommentRequest) GetContent() (v string) {
 func (p *CreateCommentRequest) GetCreateDate() (v string) {
 	return p.CreateDate
 }
+
 func (p *CreateCommentRequest) SetVideo(val int64) {
 	p.Video = val
 }
+
 func (p *CreateCommentRequest) SetUser(val int64) {
 	p.User = val
 }
+
 func (p *CreateCommentRequest) SetContent(val string) {
 	p.Content = val
 }
+
 func (p *CreateCommentRequest) SetCreateDate(val string) {
 	p.CreateDate = val
 }
@@ -683,7 +691,6 @@ var fieldIDToName_CreateCommentRequest = map[int16]string{
 }
 
 func (p *CreateCommentRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -945,28 +952,27 @@ func (p *CreateCommentRequest) DeepEqual(ano *CreateCommentRequest) bool {
 }
 
 func (p *CreateCommentRequest) Field1DeepEqual(src int64) bool {
-
 	if p.Video != src {
 		return false
 	}
 	return true
 }
-func (p *CreateCommentRequest) Field2DeepEqual(src int64) bool {
 
+func (p *CreateCommentRequest) Field2DeepEqual(src int64) bool {
 	if p.User != src {
 		return false
 	}
 	return true
 }
-func (p *CreateCommentRequest) Field3DeepEqual(src string) bool {
 
+func (p *CreateCommentRequest) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.Content, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateCommentRequest) Field4DeepEqual(src string) bool {
 
+func (p *CreateCommentRequest) Field4DeepEqual(src string) bool {
 	if strings.Compare(p.CreateDate, src) != 0 {
 		return false
 	}
@@ -988,6 +994,7 @@ func (p *DeleteCommentRequest) InitDefault() {
 func (p *DeleteCommentRequest) GetCommentId() (v int64) {
 	return p.CommentId
 }
+
 func (p *DeleteCommentRequest) SetCommentId(val int64) {
 	p.CommentId = val
 }
@@ -997,7 +1004,6 @@ var fieldIDToName_DeleteCommentRequest = map[int16]string{
 }
 
 func (p *DeleteCommentRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1074,7 +1080,6 @@ func (p *DeleteCommentRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -1130,7 +1135,6 @@ func (p *DeleteCommentRequest) DeepEqual(ano *DeleteCommentRequest) bool {
 }
 
 func (p *DeleteCommentRequest) Field1DeepEqual(src int64) bool {
-
 	if p.CommentId != src {
 		return false
 	}
@@ -1152,6 +1156,7 @@ func (p *GetVideoCommentsRequest) InitDefault() {
 func (p *GetVideoCommentsRequest) GetVideo() (v int64) {
 	return p.Video
 }
+
 func (p *GetVideoCommentsRequest) SetVideo(val int64) {
 	p.Video = val
 }
@@ -1161,7 +1166,6 @@ var fieldIDToName_GetVideoCommentsRequest = map[int16]string{
 }
 
 func (p *GetVideoCommentsRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1238,7 +1242,6 @@ func (p *GetVideoCommentsRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -1294,7 +1297,6 @@ func (p *GetVideoCommentsRequest) DeepEqual(ano *GetVideoCommentsRequest) bool {
 }
 
 func (p *GetVideoCommentsRequest) Field1DeepEqual(src int64) bool {
-
 	if p.Video != src {
 		return false
 	}
@@ -1326,9 +1328,11 @@ func (p *CreateCommentResponse) GetBaseResp() (v *BaseResp) {
 func (p *CreateCommentResponse) GetCommentId() (v int64) {
 	return p.CommentId
 }
+
 func (p *CreateCommentResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *CreateCommentResponse) SetCommentId(val int64) {
 	p.CommentId = val
 }
@@ -1343,7 +1347,6 @@ func (p *CreateCommentResponse) IsSetBaseResp() bool {
 }
 
 func (p *CreateCommentResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1518,14 +1521,13 @@ func (p *CreateCommentResponse) DeepEqual(ano *CreateCommentResponse) bool {
 }
 
 func (p *CreateCommentResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *CreateCommentResponse) Field2DeepEqual(src int64) bool {
 
+func (p *CreateCommentResponse) Field2DeepEqual(src int64) bool {
 	if p.CommentId != src {
 		return false
 	}
@@ -1552,6 +1554,7 @@ func (p *DeleteCommentResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *DeleteCommentResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -1565,7 +1568,6 @@ func (p *DeleteCommentResponse) IsSetBaseResp() bool {
 }
 
 func (p *DeleteCommentResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1641,7 +1643,6 @@ func (p *DeleteCommentResponse) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -1697,7 +1698,6 @@ func (p *DeleteCommentResponse) DeepEqual(ano *DeleteCommentResponse) bool {
 }
 
 func (p *DeleteCommentResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -1729,9 +1729,11 @@ func (p *GetVideoCommentsResponse) GetBaseResp() (v *BaseResp) {
 func (p *GetVideoCommentsResponse) GetComments() (v []*Comment) {
 	return p.Comments
 }
+
 func (p *GetVideoCommentsResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *GetVideoCommentsResponse) SetComments(val []*Comment) {
 	p.Comments = val
 }
@@ -1746,7 +1748,6 @@ func (p *GetVideoCommentsResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetVideoCommentsResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1940,14 +1941,13 @@ func (p *GetVideoCommentsResponse) DeepEqual(ano *GetVideoCommentsResponse) bool
 }
 
 func (p *GetVideoCommentsResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetVideoCommentsResponse) Field2DeepEqual(src []*Comment) bool {
 
+func (p *GetVideoCommentsResponse) Field2DeepEqual(src []*Comment) bool {
 	if len(p.Comments) != len(src) {
 		return false
 	}
@@ -2003,6 +2003,7 @@ func (p *CommentServiceClient) CreateComment(ctx context.Context, req *CreateCom
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *CommentServiceClient) DeleteComment(ctx context.Context, req *DeleteCommentRequest) (r *DeleteCommentResponse, err error) {
 	var _args CommentServiceDeleteCommentArgs
 	_args.Req = req
@@ -2012,6 +2013,7 @@ func (p *CommentServiceClient) DeleteComment(ctx context.Context, req *DeleteCom
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *CommentServiceClient) GetVideoComments(ctx context.Context, req *GetVideoCommentsRequest) (r *GetVideoCommentsResponse, err error) {
 	var _args CommentServiceGetVideoCommentsArgs
 	_args.Req = req
@@ -2047,6 +2049,7 @@ func NewCommentServiceProcessor(handler CommentService) *CommentServiceProcessor
 	self.AddToProcessorMap("GetVideoComments", &commentServiceProcessorGetVideoComments{handler: handler})
 	return self
 }
+
 func (p *CommentServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
@@ -2229,6 +2232,7 @@ func (p *CommentServiceCreateCommentArgs) GetReq() (v *CreateCommentRequest) {
 	}
 	return p.Req
 }
+
 func (p *CommentServiceCreateCommentArgs) SetReq(val *CreateCommentRequest) {
 	p.Req = val
 }
@@ -2242,7 +2246,6 @@ func (p *CommentServiceCreateCommentArgs) IsSetReq() bool {
 }
 
 func (p *CommentServiceCreateCommentArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2318,7 +2321,6 @@ func (p *CommentServiceCreateCommentArgs) Write(oprot thrift.TProtocol) (err err
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2374,7 +2376,6 @@ func (p *CommentServiceCreateCommentArgs) DeepEqual(ano *CommentServiceCreateCom
 }
 
 func (p *CommentServiceCreateCommentArgs) Field1DeepEqual(src *CreateCommentRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -2401,6 +2402,7 @@ func (p *CommentServiceCreateCommentResult) GetSuccess() (v *CreateCommentRespon
 	}
 	return p.Success
 }
+
 func (p *CommentServiceCreateCommentResult) SetSuccess(x interface{}) {
 	p.Success = x.(*CreateCommentResponse)
 }
@@ -2414,7 +2416,6 @@ func (p *CommentServiceCreateCommentResult) IsSetSuccess() bool {
 }
 
 func (p *CommentServiceCreateCommentResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2490,7 +2491,6 @@ func (p *CommentServiceCreateCommentResult) Write(oprot thrift.TProtocol) (err e
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2548,7 +2548,6 @@ func (p *CommentServiceCreateCommentResult) DeepEqual(ano *CommentServiceCreateC
 }
 
 func (p *CommentServiceCreateCommentResult) Field0DeepEqual(src *CreateCommentResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -2575,6 +2574,7 @@ func (p *CommentServiceDeleteCommentArgs) GetReq() (v *DeleteCommentRequest) {
 	}
 	return p.Req
 }
+
 func (p *CommentServiceDeleteCommentArgs) SetReq(val *DeleteCommentRequest) {
 	p.Req = val
 }
@@ -2588,7 +2588,6 @@ func (p *CommentServiceDeleteCommentArgs) IsSetReq() bool {
 }
 
 func (p *CommentServiceDeleteCommentArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2664,7 +2663,6 @@ func (p *CommentServiceDeleteCommentArgs) Write(oprot thrift.TProtocol) (err err
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2720,7 +2718,6 @@ func (p *CommentServiceDeleteCommentArgs) DeepEqual(ano *CommentServiceDeleteCom
 }
 
 func (p *CommentServiceDeleteCommentArgs) Field1DeepEqual(src *DeleteCommentRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -2747,6 +2744,7 @@ func (p *CommentServiceDeleteCommentResult) GetSuccess() (v *DeleteCommentRespon
 	}
 	return p.Success
 }
+
 func (p *CommentServiceDeleteCommentResult) SetSuccess(x interface{}) {
 	p.Success = x.(*DeleteCommentResponse)
 }
@@ -2760,7 +2758,6 @@ func (p *CommentServiceDeleteCommentResult) IsSetSuccess() bool {
 }
 
 func (p *CommentServiceDeleteCommentResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2836,7 +2833,6 @@ func (p *CommentServiceDeleteCommentResult) Write(oprot thrift.TProtocol) (err e
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2894,7 +2890,6 @@ func (p *CommentServiceDeleteCommentResult) DeepEqual(ano *CommentServiceDeleteC
 }
 
 func (p *CommentServiceDeleteCommentResult) Field0DeepEqual(src *DeleteCommentResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -2921,6 +2916,7 @@ func (p *CommentServiceGetVideoCommentsArgs) GetReq() (v *GetVideoCommentsReques
 	}
 	return p.Req
 }
+
 func (p *CommentServiceGetVideoCommentsArgs) SetReq(val *GetVideoCommentsRequest) {
 	p.Req = val
 }
@@ -2934,7 +2930,6 @@ func (p *CommentServiceGetVideoCommentsArgs) IsSetReq() bool {
 }
 
 func (p *CommentServiceGetVideoCommentsArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3010,7 +3005,6 @@ func (p *CommentServiceGetVideoCommentsArgs) Write(oprot thrift.TProtocol) (err 
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3066,7 +3060,6 @@ func (p *CommentServiceGetVideoCommentsArgs) DeepEqual(ano *CommentServiceGetVid
 }
 
 func (p *CommentServiceGetVideoCommentsArgs) Field1DeepEqual(src *GetVideoCommentsRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3093,6 +3086,7 @@ func (p *CommentServiceGetVideoCommentsResult) GetSuccess() (v *GetVideoComments
 	}
 	return p.Success
 }
+
 func (p *CommentServiceGetVideoCommentsResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetVideoCommentsResponse)
 }
@@ -3106,7 +3100,6 @@ func (p *CommentServiceGetVideoCommentsResult) IsSetSuccess() bool {
 }
 
 func (p *CommentServiceGetVideoCommentsResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3182,7 +3175,6 @@ func (p *CommentServiceGetVideoCommentsResult) Write(oprot thrift.TProtocol) (er
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3240,7 +3232,6 @@ func (p *CommentServiceGetVideoCommentsResult) DeepEqual(ano *CommentServiceGetV
 }
 
 func (p *CommentServiceGetVideoCommentsResult) Field0DeepEqual(src *GetVideoCommentsResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}

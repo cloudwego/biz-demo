@@ -4,6 +4,7 @@ package videoservice
 
 import (
 	"context"
+
 	douyinvideo "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinvideo"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"

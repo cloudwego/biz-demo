@@ -5,8 +5,9 @@ package message
 import (
 	"context"
 	"fmt"
-	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
+
+	"github.com/apache/thrift/lib/go/thrift"
 )
 
 type BaseResp struct {
@@ -29,9 +30,11 @@ func (p *BaseResp) GetStatusCode() (v int64) {
 func (p *BaseResp) GetStatusMessage() (v string) {
 	return p.StatusMessage
 }
+
 func (p *BaseResp) SetStatusCode(val int64) {
 	p.StatusCode = val
 }
+
 func (p *BaseResp) SetStatusMessage(val string) {
 	p.StatusMessage = val
 }
@@ -42,7 +45,6 @@ var fieldIDToName_BaseResp = map[int16]string{
 }
 
 func (p *BaseResp) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -218,14 +220,13 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 }
 
 func (p *BaseResp) Field1DeepEqual(src int64) bool {
-
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *BaseResp) Field2DeepEqual(src string) bool {
 
+func (p *BaseResp) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.StatusMessage, src) != 0 {
 		return false
 	}
@@ -267,18 +268,23 @@ func (p *Message) GetContent() (v string) {
 func (p *Message) GetCreateTime() (v int64) {
 	return p.CreateTime
 }
+
 func (p *Message) SetId(val int64) {
 	p.Id = val
 }
+
 func (p *Message) SetToUserId(val int64) {
 	p.ToUserId = val
 }
+
 func (p *Message) SetFromUserId(val int64) {
 	p.FromUserId = val
 }
+
 func (p *Message) SetContent(val string) {
 	p.Content = val
 }
+
 func (p *Message) SetCreateTime(val int64) {
 	p.CreateTime = val
 }
@@ -292,7 +298,6 @@ var fieldIDToName_Message = map[int16]string{
 }
 
 func (p *Message) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -597,35 +602,34 @@ func (p *Message) DeepEqual(ano *Message) bool {
 }
 
 func (p *Message) Field1DeepEqual(src int64) bool {
-
 	if p.Id != src {
 		return false
 	}
 	return true
 }
-func (p *Message) Field2DeepEqual(src int64) bool {
 
+func (p *Message) Field2DeepEqual(src int64) bool {
 	if p.ToUserId != src {
 		return false
 	}
 	return true
 }
-func (p *Message) Field3DeepEqual(src int64) bool {
 
+func (p *Message) Field3DeepEqual(src int64) bool {
 	if p.FromUserId != src {
 		return false
 	}
 	return true
 }
-func (p *Message) Field4DeepEqual(src string) bool {
 
+func (p *Message) Field4DeepEqual(src string) bool {
 	if strings.Compare(p.Content, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *Message) Field5DeepEqual(src int64) bool {
 
+func (p *Message) Field5DeepEqual(src int64) bool {
 	if p.CreateTime != src {
 		return false
 	}
@@ -657,12 +661,15 @@ func (p *FirstMessage) GetMsgType() (v int64) {
 func (p *FirstMessage) GetFriendId() (v int64) {
 	return p.FriendId
 }
+
 func (p *FirstMessage) SetMessage(val string) {
 	p.Message = val
 }
+
 func (p *FirstMessage) SetMsgType(val int64) {
 	p.MsgType = val
 }
+
 func (p *FirstMessage) SetFriendId(val int64) {
 	p.FriendId = val
 }
@@ -674,7 +681,6 @@ var fieldIDToName_FirstMessage = map[int16]string{
 }
 
 func (p *FirstMessage) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -893,21 +899,20 @@ func (p *FirstMessage) DeepEqual(ano *FirstMessage) bool {
 }
 
 func (p *FirstMessage) Field1DeepEqual(src string) bool {
-
 	if strings.Compare(p.Message, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *FirstMessage) Field2DeepEqual(src int64) bool {
 
+func (p *FirstMessage) Field2DeepEqual(src int64) bool {
 	if p.MsgType != src {
 		return false
 	}
 	return true
 }
-func (p *FirstMessage) Field3DeepEqual(src int64) bool {
 
+func (p *FirstMessage) Field3DeepEqual(src int64) bool {
 	if p.FriendId != src {
 		return false
 	}
@@ -939,12 +944,15 @@ func (p *CreateMessageRequest) GetToUserId() (v int64) {
 func (p *CreateMessageRequest) GetContent() (v string) {
 	return p.Content
 }
+
 func (p *CreateMessageRequest) SetFromUserId(val int64) {
 	p.FromUserId = val
 }
+
 func (p *CreateMessageRequest) SetToUserId(val int64) {
 	p.ToUserId = val
 }
+
 func (p *CreateMessageRequest) SetContent(val string) {
 	p.Content = val
 }
@@ -956,7 +964,6 @@ var fieldIDToName_CreateMessageRequest = map[int16]string{
 }
 
 func (p *CreateMessageRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1175,21 +1182,20 @@ func (p *CreateMessageRequest) DeepEqual(ano *CreateMessageRequest) bool {
 }
 
 func (p *CreateMessageRequest) Field1DeepEqual(src int64) bool {
-
 	if p.FromUserId != src {
 		return false
 	}
 	return true
 }
-func (p *CreateMessageRequest) Field2DeepEqual(src int64) bool {
 
+func (p *CreateMessageRequest) Field2DeepEqual(src int64) bool {
 	if p.ToUserId != src {
 		return false
 	}
 	return true
 }
-func (p *CreateMessageRequest) Field3DeepEqual(src string) bool {
 
+func (p *CreateMessageRequest) Field3DeepEqual(src string) bool {
 	if strings.Compare(p.Content, src) != 0 {
 		return false
 	}
@@ -1226,12 +1232,15 @@ func (p *CreateMessageResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *CreateMessageResponse) SetId(val int64) {
 	p.Id = val
 }
+
 func (p *CreateMessageResponse) SetCreateTime(val int64) {
 	p.CreateTime = val
 }
+
 func (p *CreateMessageResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -1247,7 +1256,6 @@ func (p *CreateMessageResponse) IsSetBaseResp() bool {
 }
 
 func (p *CreateMessageResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1465,21 +1473,20 @@ func (p *CreateMessageResponse) DeepEqual(ano *CreateMessageResponse) bool {
 }
 
 func (p *CreateMessageResponse) Field1DeepEqual(src int64) bool {
-
 	if p.Id != src {
 		return false
 	}
 	return true
 }
-func (p *CreateMessageResponse) Field2DeepEqual(src int64) bool {
 
+func (p *CreateMessageResponse) Field2DeepEqual(src int64) bool {
 	if p.CreateTime != src {
 		return false
 	}
 	return true
 }
-func (p *CreateMessageResponse) Field3DeepEqual(src *BaseResp) bool {
 
+func (p *CreateMessageResponse) Field3DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -1511,12 +1518,15 @@ func (p *GetMessageListRequest) GetToUserId() (v int64) {
 func (p *GetMessageListRequest) GetPreMsgTime() (v int64) {
 	return p.PreMsgTime
 }
+
 func (p *GetMessageListRequest) SetFromUserId(val int64) {
 	p.FromUserId = val
 }
+
 func (p *GetMessageListRequest) SetToUserId(val int64) {
 	p.ToUserId = val
 }
+
 func (p *GetMessageListRequest) SetPreMsgTime(val int64) {
 	p.PreMsgTime = val
 }
@@ -1528,7 +1538,6 @@ var fieldIDToName_GetMessageListRequest = map[int16]string{
 }
 
 func (p *GetMessageListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1747,21 +1756,20 @@ func (p *GetMessageListRequest) DeepEqual(ano *GetMessageListRequest) bool {
 }
 
 func (p *GetMessageListRequest) Field1DeepEqual(src int64) bool {
-
 	if p.FromUserId != src {
 		return false
 	}
 	return true
 }
-func (p *GetMessageListRequest) Field2DeepEqual(src int64) bool {
 
+func (p *GetMessageListRequest) Field2DeepEqual(src int64) bool {
 	if p.ToUserId != src {
 		return false
 	}
 	return true
 }
-func (p *GetMessageListRequest) Field3DeepEqual(src int64) bool {
 
+func (p *GetMessageListRequest) Field3DeepEqual(src int64) bool {
 	if p.PreMsgTime != src {
 		return false
 	}
@@ -1793,9 +1801,11 @@ func (p *GetMessageListResponse) GetBaseResp() (v *BaseResp) {
 func (p *GetMessageListResponse) GetMessageList() (v []*Message) {
 	return p.MessageList
 }
+
 func (p *GetMessageListResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
+
 func (p *GetMessageListResponse) SetMessageList(val []*Message) {
 	p.MessageList = val
 }
@@ -1810,7 +1820,6 @@ func (p *GetMessageListResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetMessageListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2004,14 +2013,13 @@ func (p *GetMessageListResponse) DeepEqual(ano *GetMessageListResponse) bool {
 }
 
 func (p *GetMessageListResponse) Field1DeepEqual(src *BaseResp) bool {
-
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
 	return true
 }
-func (p *GetMessageListResponse) Field2DeepEqual(src []*Message) bool {
 
+func (p *GetMessageListResponse) Field2DeepEqual(src []*Message) bool {
 	if len(p.MessageList) != len(src) {
 		return false
 	}
@@ -2044,9 +2052,11 @@ func (p *GetFirstMessageRequest) GetId() (v int64) {
 func (p *GetFirstMessageRequest) GetFriendIds() (v []int64) {
 	return p.FriendIds
 }
+
 func (p *GetFirstMessageRequest) SetId(val int64) {
 	p.Id = val
 }
+
 func (p *GetFirstMessageRequest) SetFriendIds(val []int64) {
 	p.FriendIds = val
 }
@@ -2057,7 +2067,6 @@ var fieldIDToName_GetFirstMessageRequest = map[int16]string{
 }
 
 func (p *GetFirstMessageRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2254,14 +2263,13 @@ func (p *GetFirstMessageRequest) DeepEqual(ano *GetFirstMessageRequest) bool {
 }
 
 func (p *GetFirstMessageRequest) Field1DeepEqual(src int64) bool {
-
 	if p.Id != src {
 		return false
 	}
 	return true
 }
-func (p *GetFirstMessageRequest) Field2DeepEqual(src []int64) bool {
 
+func (p *GetFirstMessageRequest) Field2DeepEqual(src []int64) bool {
 	if len(p.FriendIds) != len(src) {
 		return false
 	}
@@ -2299,9 +2307,11 @@ func (p *GetFirstMessageResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *GetFirstMessageResponse) SetFirstMessageList(val []*FirstMessage) {
 	p.FirstMessageList = val
 }
+
 func (p *GetFirstMessageResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -2316,7 +2326,6 @@ func (p *GetFirstMessageResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetFirstMessageResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2510,7 +2519,6 @@ func (p *GetFirstMessageResponse) DeepEqual(ano *GetFirstMessageResponse) bool {
 }
 
 func (p *GetFirstMessageResponse) Field1DeepEqual(src []*FirstMessage) bool {
-
 	if len(p.FirstMessageList) != len(src) {
 		return false
 	}
@@ -2522,8 +2530,8 @@ func (p *GetFirstMessageResponse) Field1DeepEqual(src []*FirstMessage) bool {
 	}
 	return true
 }
-func (p *GetFirstMessageResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *GetFirstMessageResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -2573,6 +2581,7 @@ func (p *MessageServiceClient) CreateMessage(ctx context.Context, req *CreateMes
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *MessageServiceClient) GetMessageList(ctx context.Context, req *GetMessageListRequest) (r *GetMessageListResponse, err error) {
 	var _args MessageServiceGetMessageListArgs
 	_args.Req = req
@@ -2582,6 +2591,7 @@ func (p *MessageServiceClient) GetMessageList(ctx context.Context, req *GetMessa
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *MessageServiceClient) GetFirstMessage(ctx context.Context, req *GetFirstMessageRequest) (r *GetFirstMessageResponse, err error) {
 	var _args MessageServiceGetFirstMessageArgs
 	_args.Req = req
@@ -2617,6 +2627,7 @@ func NewMessageServiceProcessor(handler MessageService) *MessageServiceProcessor
 	self.AddToProcessorMap("GetFirstMessage", &messageServiceProcessorGetFirstMessage{handler: handler})
 	return self
 }
+
 func (p *MessageServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
@@ -2799,6 +2810,7 @@ func (p *MessageServiceCreateMessageArgs) GetReq() (v *CreateMessageRequest) {
 	}
 	return p.Req
 }
+
 func (p *MessageServiceCreateMessageArgs) SetReq(val *CreateMessageRequest) {
 	p.Req = val
 }
@@ -2812,7 +2824,6 @@ func (p *MessageServiceCreateMessageArgs) IsSetReq() bool {
 }
 
 func (p *MessageServiceCreateMessageArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2888,7 +2899,6 @@ func (p *MessageServiceCreateMessageArgs) Write(oprot thrift.TProtocol) (err err
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2944,7 +2954,6 @@ func (p *MessageServiceCreateMessageArgs) DeepEqual(ano *MessageServiceCreateMes
 }
 
 func (p *MessageServiceCreateMessageArgs) Field1DeepEqual(src *CreateMessageRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -2971,6 +2980,7 @@ func (p *MessageServiceCreateMessageResult) GetSuccess() (v *CreateMessageRespon
 	}
 	return p.Success
 }
+
 func (p *MessageServiceCreateMessageResult) SetSuccess(x interface{}) {
 	p.Success = x.(*CreateMessageResponse)
 }
@@ -2984,7 +2994,6 @@ func (p *MessageServiceCreateMessageResult) IsSetSuccess() bool {
 }
 
 func (p *MessageServiceCreateMessageResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3060,7 +3069,6 @@ func (p *MessageServiceCreateMessageResult) Write(oprot thrift.TProtocol) (err e
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3118,7 +3126,6 @@ func (p *MessageServiceCreateMessageResult) DeepEqual(ano *MessageServiceCreateM
 }
 
 func (p *MessageServiceCreateMessageResult) Field0DeepEqual(src *CreateMessageResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -3145,6 +3152,7 @@ func (p *MessageServiceGetMessageListArgs) GetReq() (v *GetMessageListRequest) {
 	}
 	return p.Req
 }
+
 func (p *MessageServiceGetMessageListArgs) SetReq(val *GetMessageListRequest) {
 	p.Req = val
 }
@@ -3158,7 +3166,6 @@ func (p *MessageServiceGetMessageListArgs) IsSetReq() bool {
 }
 
 func (p *MessageServiceGetMessageListArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3234,7 +3241,6 @@ func (p *MessageServiceGetMessageListArgs) Write(oprot thrift.TProtocol) (err er
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3290,7 +3296,6 @@ func (p *MessageServiceGetMessageListArgs) DeepEqual(ano *MessageServiceGetMessa
 }
 
 func (p *MessageServiceGetMessageListArgs) Field1DeepEqual(src *GetMessageListRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3317,6 +3322,7 @@ func (p *MessageServiceGetMessageListResult) GetSuccess() (v *GetMessageListResp
 	}
 	return p.Success
 }
+
 func (p *MessageServiceGetMessageListResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetMessageListResponse)
 }
@@ -3330,7 +3336,6 @@ func (p *MessageServiceGetMessageListResult) IsSetSuccess() bool {
 }
 
 func (p *MessageServiceGetMessageListResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3406,7 +3411,6 @@ func (p *MessageServiceGetMessageListResult) Write(oprot thrift.TProtocol) (err 
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3464,7 +3468,6 @@ func (p *MessageServiceGetMessageListResult) DeepEqual(ano *MessageServiceGetMes
 }
 
 func (p *MessageServiceGetMessageListResult) Field0DeepEqual(src *GetMessageListResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -3491,6 +3494,7 @@ func (p *MessageServiceGetFirstMessageArgs) GetReq() (v *GetFirstMessageRequest)
 	}
 	return p.Req
 }
+
 func (p *MessageServiceGetFirstMessageArgs) SetReq(val *GetFirstMessageRequest) {
 	p.Req = val
 }
@@ -3504,7 +3508,6 @@ func (p *MessageServiceGetFirstMessageArgs) IsSetReq() bool {
 }
 
 func (p *MessageServiceGetFirstMessageArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3580,7 +3583,6 @@ func (p *MessageServiceGetFirstMessageArgs) Write(oprot thrift.TProtocol) (err e
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3636,7 +3638,6 @@ func (p *MessageServiceGetFirstMessageArgs) DeepEqual(ano *MessageServiceGetFirs
 }
 
 func (p *MessageServiceGetFirstMessageArgs) Field1DeepEqual(src *GetFirstMessageRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3663,6 +3664,7 @@ func (p *MessageServiceGetFirstMessageResult) GetSuccess() (v *GetFirstMessageRe
 	}
 	return p.Success
 }
+
 func (p *MessageServiceGetFirstMessageResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetFirstMessageResponse)
 }
@@ -3676,7 +3678,6 @@ func (p *MessageServiceGetFirstMessageResult) IsSetSuccess() bool {
 }
 
 func (p *MessageServiceGetFirstMessageResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3752,7 +3753,6 @@ func (p *MessageServiceGetFirstMessageResult) Write(oprot thrift.TProtocol) (err
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3810,7 +3810,6 @@ func (p *MessageServiceGetFirstMessageResult) DeepEqual(ano *MessageServiceGetFi
 }
 
 func (p *MessageServiceGetFirstMessageResult) Field0DeepEqual(src *GetFirstMessageResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}

@@ -5,8 +5,9 @@ package relation
 import (
 	"context"
 	"fmt"
-	"github.com/apache/thrift/lib/go/thrift"
 	"strings"
+
+	"github.com/apache/thrift/lib/go/thrift"
 )
 
 type BaseResp struct {
@@ -29,9 +30,11 @@ func (p *BaseResp) GetStatusCode() (v int64) {
 func (p *BaseResp) GetStatusMessage() (v string) {
 	return p.StatusMessage
 }
+
 func (p *BaseResp) SetStatusCode(val int64) {
 	p.StatusCode = val
 }
+
 func (p *BaseResp) SetStatusMessage(val string) {
 	p.StatusMessage = val
 }
@@ -42,7 +45,6 @@ var fieldIDToName_BaseResp = map[int16]string{
 }
 
 func (p *BaseResp) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -218,14 +220,13 @@ func (p *BaseResp) DeepEqual(ano *BaseResp) bool {
 }
 
 func (p *BaseResp) Field1DeepEqual(src int64) bool {
-
 	if p.StatusCode != src {
 		return false
 	}
 	return true
 }
-func (p *BaseResp) Field2DeepEqual(src string) bool {
 
+func (p *BaseResp) Field2DeepEqual(src string) bool {
 	if strings.Compare(p.StatusMessage, src) != 0 {
 		return false
 	}
@@ -252,9 +253,11 @@ func (p *CreateRelationRequest) GetFollowId() (v int64) {
 func (p *CreateRelationRequest) GetFollowerId() (v int64) {
 	return p.FollowerId
 }
+
 func (p *CreateRelationRequest) SetFollowId(val int64) {
 	p.FollowId = val
 }
+
 func (p *CreateRelationRequest) SetFollowerId(val int64) {
 	p.FollowerId = val
 }
@@ -265,7 +268,6 @@ var fieldIDToName_CreateRelationRequest = map[int16]string{
 }
 
 func (p *CreateRelationRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -441,14 +443,13 @@ func (p *CreateRelationRequest) DeepEqual(ano *CreateRelationRequest) bool {
 }
 
 func (p *CreateRelationRequest) Field1DeepEqual(src int64) bool {
-
 	if p.FollowId != src {
 		return false
 	}
 	return true
 }
-func (p *CreateRelationRequest) Field2DeepEqual(src int64) bool {
 
+func (p *CreateRelationRequest) Field2DeepEqual(src int64) bool {
 	if p.FollowerId != src {
 		return false
 	}
@@ -475,9 +476,11 @@ func (p *DeleteRelationRequest) GetFollowId() (v int64) {
 func (p *DeleteRelationRequest) GetFollowerId() (v int64) {
 	return p.FollowerId
 }
+
 func (p *DeleteRelationRequest) SetFollowId(val int64) {
 	p.FollowId = val
 }
+
 func (p *DeleteRelationRequest) SetFollowerId(val int64) {
 	p.FollowerId = val
 }
@@ -488,7 +491,6 @@ var fieldIDToName_DeleteRelationRequest = map[int16]string{
 }
 
 func (p *DeleteRelationRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -664,14 +666,13 @@ func (p *DeleteRelationRequest) DeepEqual(ano *DeleteRelationRequest) bool {
 }
 
 func (p *DeleteRelationRequest) Field1DeepEqual(src int64) bool {
-
 	if p.FollowId != src {
 		return false
 	}
 	return true
 }
-func (p *DeleteRelationRequest) Field2DeepEqual(src int64) bool {
 
+func (p *DeleteRelationRequest) Field2DeepEqual(src int64) bool {
 	if p.FollowerId != src {
 		return false
 	}
@@ -693,6 +694,7 @@ func (p *GetFollowListRequest) InitDefault() {
 func (p *GetFollowListRequest) GetFollowerId() (v int64) {
 	return p.FollowerId
 }
+
 func (p *GetFollowListRequest) SetFollowerId(val int64) {
 	p.FollowerId = val
 }
@@ -702,7 +704,6 @@ var fieldIDToName_GetFollowListRequest = map[int16]string{
 }
 
 func (p *GetFollowListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -779,7 +780,6 @@ func (p *GetFollowListRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -835,7 +835,6 @@ func (p *GetFollowListRequest) DeepEqual(ano *GetFollowListRequest) bool {
 }
 
 func (p *GetFollowListRequest) Field1DeepEqual(src int64) bool {
-
 	if p.FollowerId != src {
 		return false
 	}
@@ -857,6 +856,7 @@ func (p *GetFollowerListRequest) InitDefault() {
 func (p *GetFollowerListRequest) GetFollowId() (v int64) {
 	return p.FollowId
 }
+
 func (p *GetFollowerListRequest) SetFollowId(val int64) {
 	p.FollowId = val
 }
@@ -866,7 +866,6 @@ var fieldIDToName_GetFollowerListRequest = map[int16]string{
 }
 
 func (p *GetFollowerListRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -943,7 +942,6 @@ func (p *GetFollowerListRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -999,7 +997,6 @@ func (p *GetFollowerListRequest) DeepEqual(ano *GetFollowerListRequest) bool {
 }
 
 func (p *GetFollowerListRequest) Field1DeepEqual(src int64) bool {
-
 	if p.FollowId != src {
 		return false
 	}
@@ -1031,9 +1028,11 @@ func (p *GetFollowListResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *GetFollowListResponse) SetFollowIds(val []int64) {
 	p.FollowIds = val
 }
+
 func (p *GetFollowListResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -1048,7 +1047,6 @@ func (p *GetFollowListResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetFollowListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1244,7 +1242,6 @@ func (p *GetFollowListResponse) DeepEqual(ano *GetFollowListResponse) bool {
 }
 
 func (p *GetFollowListResponse) Field1DeepEqual(src []int64) bool {
-
 	if len(p.FollowIds) != len(src) {
 		return false
 	}
@@ -1256,8 +1253,8 @@ func (p *GetFollowListResponse) Field1DeepEqual(src []int64) bool {
 	}
 	return true
 }
-func (p *GetFollowListResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *GetFollowListResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -1289,9 +1286,11 @@ func (p *GetFollowerListResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *GetFollowerListResponse) SetFollowerIds(val []int64) {
 	p.FollowerIds = val
 }
+
 func (p *GetFollowerListResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -1306,7 +1305,6 @@ func (p *GetFollowerListResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetFollowerListResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1502,7 +1500,6 @@ func (p *GetFollowerListResponse) DeepEqual(ano *GetFollowerListResponse) bool {
 }
 
 func (p *GetFollowerListResponse) Field1DeepEqual(src []int64) bool {
-
 	if len(p.FollowerIds) != len(src) {
 		return false
 	}
@@ -1514,8 +1511,8 @@ func (p *GetFollowerListResponse) Field1DeepEqual(src []int64) bool {
 	}
 	return true
 }
-func (p *GetFollowerListResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *GetFollowerListResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -1537,6 +1534,7 @@ func (p *GetFriendRequest) InitDefault() {
 func (p *GetFriendRequest) GetMeId() (v int64) {
 	return p.MeId
 }
+
 func (p *GetFriendRequest) SetMeId(val int64) {
 	p.MeId = val
 }
@@ -1546,7 +1544,6 @@ var fieldIDToName_GetFriendRequest = map[int16]string{
 }
 
 func (p *GetFriendRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1623,7 +1620,6 @@ func (p *GetFriendRequest) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -1679,7 +1675,6 @@ func (p *GetFriendRequest) DeepEqual(ano *GetFriendRequest) bool {
 }
 
 func (p *GetFriendRequest) Field1DeepEqual(src int64) bool {
-
 	if p.MeId != src {
 		return false
 	}
@@ -1711,9 +1706,11 @@ func (p *GetFriendResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *GetFriendResponse) SetFriendIds(val []int64) {
 	p.FriendIds = val
 }
+
 func (p *GetFriendResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -1728,7 +1725,6 @@ func (p *GetFriendResponse) IsSetBaseResp() bool {
 }
 
 func (p *GetFriendResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -1924,7 +1920,6 @@ func (p *GetFriendResponse) DeepEqual(ano *GetFriendResponse) bool {
 }
 
 func (p *GetFriendResponse) Field1DeepEqual(src []int64) bool {
-
 	if len(p.FriendIds) != len(src) {
 		return false
 	}
@@ -1936,8 +1931,8 @@ func (p *GetFriendResponse) Field1DeepEqual(src []int64) bool {
 	}
 	return true
 }
-func (p *GetFriendResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *GetFriendResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -1964,9 +1959,11 @@ func (p *ValidIfFollowRequest) GetFollowId() (v int64) {
 func (p *ValidIfFollowRequest) GetFollowerId() (v int64) {
 	return p.FollowerId
 }
+
 func (p *ValidIfFollowRequest) SetFollowId(val int64) {
 	p.FollowId = val
 }
+
 func (p *ValidIfFollowRequest) SetFollowerId(val int64) {
 	p.FollowerId = val
 }
@@ -1977,7 +1974,6 @@ var fieldIDToName_ValidIfFollowRequest = map[int16]string{
 }
 
 func (p *ValidIfFollowRequest) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2153,14 +2149,13 @@ func (p *ValidIfFollowRequest) DeepEqual(ano *ValidIfFollowRequest) bool {
 }
 
 func (p *ValidIfFollowRequest) Field1DeepEqual(src int64) bool {
-
 	if p.FollowId != src {
 		return false
 	}
 	return true
 }
-func (p *ValidIfFollowRequest) Field2DeepEqual(src int64) bool {
 
+func (p *ValidIfFollowRequest) Field2DeepEqual(src int64) bool {
 	if p.FollowerId != src {
 		return false
 	}
@@ -2192,9 +2187,11 @@ func (p *ValidIfFollowResponse) GetBaseResp() (v *BaseResp) {
 	}
 	return p.BaseResp
 }
+
 func (p *ValidIfFollowResponse) SetIfFollow(val bool) {
 	p.IfFollow = val
 }
+
 func (p *ValidIfFollowResponse) SetBaseResp(val *BaseResp) {
 	p.BaseResp = val
 }
@@ -2209,7 +2206,6 @@ func (p *ValidIfFollowResponse) IsSetBaseResp() bool {
 }
 
 func (p *ValidIfFollowResponse) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2384,14 +2380,13 @@ func (p *ValidIfFollowResponse) DeepEqual(ano *ValidIfFollowResponse) bool {
 }
 
 func (p *ValidIfFollowResponse) Field1DeepEqual(src bool) bool {
-
 	if p.IfFollow != src {
 		return false
 	}
 	return true
 }
-func (p *ValidIfFollowResponse) Field2DeepEqual(src *BaseResp) bool {
 
+func (p *ValidIfFollowResponse) Field2DeepEqual(src *BaseResp) bool {
 	if !p.BaseResp.DeepEqual(src) {
 		return false
 	}
@@ -2447,6 +2442,7 @@ func (p *RelationServiceClient) CreateRelation(ctx context.Context, req *CreateR
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *RelationServiceClient) DeleteRelation(ctx context.Context, req *DeleteRelationRequest) (r *BaseResp, err error) {
 	var _args RelationServiceDeleteRelationArgs
 	_args.Req = req
@@ -2456,6 +2452,7 @@ func (p *RelationServiceClient) DeleteRelation(ctx context.Context, req *DeleteR
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *RelationServiceClient) GetFollow(ctx context.Context, req *GetFollowListRequest) (r *GetFollowListResponse, err error) {
 	var _args RelationServiceGetFollowArgs
 	_args.Req = req
@@ -2465,6 +2462,7 @@ func (p *RelationServiceClient) GetFollow(ctx context.Context, req *GetFollowLis
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *RelationServiceClient) GetFollower(ctx context.Context, req *GetFollowerListRequest) (r *GetFollowerListResponse, err error) {
 	var _args RelationServiceGetFollowerArgs
 	_args.Req = req
@@ -2474,6 +2472,7 @@ func (p *RelationServiceClient) GetFollower(ctx context.Context, req *GetFollowe
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *RelationServiceClient) GetFriend(ctx context.Context, req *GetFriendRequest) (r *GetFriendResponse, err error) {
 	var _args RelationServiceGetFriendArgs
 	_args.Req = req
@@ -2483,6 +2482,7 @@ func (p *RelationServiceClient) GetFriend(ctx context.Context, req *GetFriendReq
 	}
 	return _result.GetSuccess(), nil
 }
+
 func (p *RelationServiceClient) ValidIfFollowRequest(ctx context.Context, req *ValidIfFollowRequest) (r *ValidIfFollowResponse, err error) {
 	var _args RelationServiceValidIfFollowRequestArgs
 	_args.Req = req
@@ -2521,6 +2521,7 @@ func NewRelationServiceProcessor(handler RelationService) *RelationServiceProces
 	self.AddToProcessorMap("ValidIfFollowRequest", &relationServiceProcessorValidIfFollowRequest{handler: handler})
 	return self
 }
+
 func (p *RelationServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
 	name, _, seqId, err := iprot.ReadMessageBegin()
 	if err != nil {
@@ -2847,6 +2848,7 @@ func (p *RelationServiceCreateRelationArgs) GetReq() (v *CreateRelationRequest) 
 	}
 	return p.Req
 }
+
 func (p *RelationServiceCreateRelationArgs) SetReq(val *CreateRelationRequest) {
 	p.Req = val
 }
@@ -2860,7 +2862,6 @@ func (p *RelationServiceCreateRelationArgs) IsSetReq() bool {
 }
 
 func (p *RelationServiceCreateRelationArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -2936,7 +2937,6 @@ func (p *RelationServiceCreateRelationArgs) Write(oprot thrift.TProtocol) (err e
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2992,7 +2992,6 @@ func (p *RelationServiceCreateRelationArgs) DeepEqual(ano *RelationServiceCreate
 }
 
 func (p *RelationServiceCreateRelationArgs) Field1DeepEqual(src *CreateRelationRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3019,6 +3018,7 @@ func (p *RelationServiceCreateRelationResult) GetSuccess() (v *BaseResp) {
 	}
 	return p.Success
 }
+
 func (p *RelationServiceCreateRelationResult) SetSuccess(x interface{}) {
 	p.Success = x.(*BaseResp)
 }
@@ -3032,7 +3032,6 @@ func (p *RelationServiceCreateRelationResult) IsSetSuccess() bool {
 }
 
 func (p *RelationServiceCreateRelationResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3108,7 +3107,6 @@ func (p *RelationServiceCreateRelationResult) Write(oprot thrift.TProtocol) (err
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3166,7 +3164,6 @@ func (p *RelationServiceCreateRelationResult) DeepEqual(ano *RelationServiceCrea
 }
 
 func (p *RelationServiceCreateRelationResult) Field0DeepEqual(src *BaseResp) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -3193,6 +3190,7 @@ func (p *RelationServiceDeleteRelationArgs) GetReq() (v *DeleteRelationRequest) 
 	}
 	return p.Req
 }
+
 func (p *RelationServiceDeleteRelationArgs) SetReq(val *DeleteRelationRequest) {
 	p.Req = val
 }
@@ -3206,7 +3204,6 @@ func (p *RelationServiceDeleteRelationArgs) IsSetReq() bool {
 }
 
 func (p *RelationServiceDeleteRelationArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3282,7 +3279,6 @@ func (p *RelationServiceDeleteRelationArgs) Write(oprot thrift.TProtocol) (err e
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3338,7 +3334,6 @@ func (p *RelationServiceDeleteRelationArgs) DeepEqual(ano *RelationServiceDelete
 }
 
 func (p *RelationServiceDeleteRelationArgs) Field1DeepEqual(src *DeleteRelationRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3365,6 +3360,7 @@ func (p *RelationServiceDeleteRelationResult) GetSuccess() (v *BaseResp) {
 	}
 	return p.Success
 }
+
 func (p *RelationServiceDeleteRelationResult) SetSuccess(x interface{}) {
 	p.Success = x.(*BaseResp)
 }
@@ -3378,7 +3374,6 @@ func (p *RelationServiceDeleteRelationResult) IsSetSuccess() bool {
 }
 
 func (p *RelationServiceDeleteRelationResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3454,7 +3449,6 @@ func (p *RelationServiceDeleteRelationResult) Write(oprot thrift.TProtocol) (err
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3512,7 +3506,6 @@ func (p *RelationServiceDeleteRelationResult) DeepEqual(ano *RelationServiceDele
 }
 
 func (p *RelationServiceDeleteRelationResult) Field0DeepEqual(src *BaseResp) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -3539,6 +3532,7 @@ func (p *RelationServiceGetFollowArgs) GetReq() (v *GetFollowListRequest) {
 	}
 	return p.Req
 }
+
 func (p *RelationServiceGetFollowArgs) SetReq(val *GetFollowListRequest) {
 	p.Req = val
 }
@@ -3552,7 +3546,6 @@ func (p *RelationServiceGetFollowArgs) IsSetReq() bool {
 }
 
 func (p *RelationServiceGetFollowArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3628,7 +3621,6 @@ func (p *RelationServiceGetFollowArgs) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3684,7 +3676,6 @@ func (p *RelationServiceGetFollowArgs) DeepEqual(ano *RelationServiceGetFollowAr
 }
 
 func (p *RelationServiceGetFollowArgs) Field1DeepEqual(src *GetFollowListRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -3711,6 +3702,7 @@ func (p *RelationServiceGetFollowResult) GetSuccess() (v *GetFollowListResponse)
 	}
 	return p.Success
 }
+
 func (p *RelationServiceGetFollowResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetFollowListResponse)
 }
@@ -3724,7 +3716,6 @@ func (p *RelationServiceGetFollowResult) IsSetSuccess() bool {
 }
 
 func (p *RelationServiceGetFollowResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3800,7 +3791,6 @@ func (p *RelationServiceGetFollowResult) Write(oprot thrift.TProtocol) (err erro
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -3858,7 +3848,6 @@ func (p *RelationServiceGetFollowResult) DeepEqual(ano *RelationServiceGetFollow
 }
 
 func (p *RelationServiceGetFollowResult) Field0DeepEqual(src *GetFollowListResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -3885,6 +3874,7 @@ func (p *RelationServiceGetFollowerArgs) GetReq() (v *GetFollowerListRequest) {
 	}
 	return p.Req
 }
+
 func (p *RelationServiceGetFollowerArgs) SetReq(val *GetFollowerListRequest) {
 	p.Req = val
 }
@@ -3898,7 +3888,6 @@ func (p *RelationServiceGetFollowerArgs) IsSetReq() bool {
 }
 
 func (p *RelationServiceGetFollowerArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -3974,7 +3963,6 @@ func (p *RelationServiceGetFollowerArgs) Write(oprot thrift.TProtocol) (err erro
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4030,7 +4018,6 @@ func (p *RelationServiceGetFollowerArgs) DeepEqual(ano *RelationServiceGetFollow
 }
 
 func (p *RelationServiceGetFollowerArgs) Field1DeepEqual(src *GetFollowerListRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -4057,6 +4044,7 @@ func (p *RelationServiceGetFollowerResult) GetSuccess() (v *GetFollowerListRespo
 	}
 	return p.Success
 }
+
 func (p *RelationServiceGetFollowerResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetFollowerListResponse)
 }
@@ -4070,7 +4058,6 @@ func (p *RelationServiceGetFollowerResult) IsSetSuccess() bool {
 }
 
 func (p *RelationServiceGetFollowerResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4146,7 +4133,6 @@ func (p *RelationServiceGetFollowerResult) Write(oprot thrift.TProtocol) (err er
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4204,7 +4190,6 @@ func (p *RelationServiceGetFollowerResult) DeepEqual(ano *RelationServiceGetFoll
 }
 
 func (p *RelationServiceGetFollowerResult) Field0DeepEqual(src *GetFollowerListResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -4231,6 +4216,7 @@ func (p *RelationServiceGetFriendArgs) GetReq() (v *GetFriendRequest) {
 	}
 	return p.Req
 }
+
 func (p *RelationServiceGetFriendArgs) SetReq(val *GetFriendRequest) {
 	p.Req = val
 }
@@ -4244,7 +4230,6 @@ func (p *RelationServiceGetFriendArgs) IsSetReq() bool {
 }
 
 func (p *RelationServiceGetFriendArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4320,7 +4305,6 @@ func (p *RelationServiceGetFriendArgs) Write(oprot thrift.TProtocol) (err error)
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4376,7 +4360,6 @@ func (p *RelationServiceGetFriendArgs) DeepEqual(ano *RelationServiceGetFriendAr
 }
 
 func (p *RelationServiceGetFriendArgs) Field1DeepEqual(src *GetFriendRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -4403,6 +4386,7 @@ func (p *RelationServiceGetFriendResult) GetSuccess() (v *GetFriendResponse) {
 	}
 	return p.Success
 }
+
 func (p *RelationServiceGetFriendResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetFriendResponse)
 }
@@ -4416,7 +4400,6 @@ func (p *RelationServiceGetFriendResult) IsSetSuccess() bool {
 }
 
 func (p *RelationServiceGetFriendResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4492,7 +4475,6 @@ func (p *RelationServiceGetFriendResult) Write(oprot thrift.TProtocol) (err erro
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4550,7 +4532,6 @@ func (p *RelationServiceGetFriendResult) DeepEqual(ano *RelationServiceGetFriend
 }
 
 func (p *RelationServiceGetFriendResult) Field0DeepEqual(src *GetFriendResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}
@@ -4577,6 +4558,7 @@ func (p *RelationServiceValidIfFollowRequestArgs) GetReq() (v *ValidIfFollowRequ
 	}
 	return p.Req
 }
+
 func (p *RelationServiceValidIfFollowRequestArgs) SetReq(val *ValidIfFollowRequest) {
 	p.Req = val
 }
@@ -4590,7 +4572,6 @@ func (p *RelationServiceValidIfFollowRequestArgs) IsSetReq() bool {
 }
 
 func (p *RelationServiceValidIfFollowRequestArgs) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4666,7 +4647,6 @@ func (p *RelationServiceValidIfFollowRequestArgs) Write(oprot thrift.TProtocol) 
 			fieldId = 1
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4722,7 +4702,6 @@ func (p *RelationServiceValidIfFollowRequestArgs) DeepEqual(ano *RelationService
 }
 
 func (p *RelationServiceValidIfFollowRequestArgs) Field1DeepEqual(src *ValidIfFollowRequest) bool {
-
 	if !p.Req.DeepEqual(src) {
 		return false
 	}
@@ -4749,6 +4728,7 @@ func (p *RelationServiceValidIfFollowRequestResult) GetSuccess() (v *ValidIfFoll
 	}
 	return p.Success
 }
+
 func (p *RelationServiceValidIfFollowRequestResult) SetSuccess(x interface{}) {
 	p.Success = x.(*ValidIfFollowResponse)
 }
@@ -4762,7 +4742,6 @@ func (p *RelationServiceValidIfFollowRequestResult) IsSetSuccess() bool {
 }
 
 func (p *RelationServiceValidIfFollowRequestResult) Read(iprot thrift.TProtocol) (err error) {
-
 	var fieldTypeId thrift.TType
 	var fieldId int16
 
@@ -4838,7 +4817,6 @@ func (p *RelationServiceValidIfFollowRequestResult) Write(oprot thrift.TProtocol
 			fieldId = 0
 			goto WriteFieldError
 		}
-
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4896,7 +4874,6 @@ func (p *RelationServiceValidIfFollowRequestResult) DeepEqual(ano *RelationServi
 }
 
 func (p *RelationServiceValidIfFollowRequestResult) Field0DeepEqual(src *ValidIfFollowResponse) bool {
-
 	if !p.Success.DeepEqual(src) {
 		return false
 	}

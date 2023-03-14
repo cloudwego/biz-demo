@@ -4,6 +4,7 @@ package userservice
 
 import (
 	"context"
+
 	douyinuser "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/douyinuser"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -47,6 +48,7 @@ func createUserHandler(ctx context.Context, handler interface{}, arg, result int
 	realResult.Success = success
 	return nil
 }
+
 func newUserServiceCreateUserArgs() interface{} {
 	return douyinuser.NewUserServiceCreateUserArgs()
 }
@@ -65,6 +67,7 @@ func checkUserHandler(ctx context.Context, handler interface{}, arg, result inte
 	realResult.Success = success
 	return nil
 }
+
 func newUserServiceCheckUserArgs() interface{} {
 	return douyinuser.NewUserServiceCheckUserArgs()
 }
@@ -83,6 +86,7 @@ func mGetUserHandler(ctx context.Context, handler interface{}, arg, result inter
 	realResult.Success = success
 	return nil
 }
+
 func newUserServiceMGetUserArgs() interface{} {
 	return douyinuser.NewUserServiceMGetUserArgs()
 }

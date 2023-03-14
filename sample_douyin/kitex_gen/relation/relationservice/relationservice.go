@@ -4,6 +4,7 @@ package relationservice
 
 import (
 	"context"
+
 	relation "github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/relation"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -50,6 +51,7 @@ func createRelationHandler(ctx context.Context, handler interface{}, arg, result
 	realResult.Success = success
 	return nil
 }
+
 func newRelationServiceCreateRelationArgs() interface{} {
 	return relation.NewRelationServiceCreateRelationArgs()
 }
@@ -68,6 +70,7 @@ func deleteRelationHandler(ctx context.Context, handler interface{}, arg, result
 	realResult.Success = success
 	return nil
 }
+
 func newRelationServiceDeleteRelationArgs() interface{} {
 	return relation.NewRelationServiceDeleteRelationArgs()
 }
@@ -86,6 +89,7 @@ func getFollowHandler(ctx context.Context, handler interface{}, arg, result inte
 	realResult.Success = success
 	return nil
 }
+
 func newRelationServiceGetFollowArgs() interface{} {
 	return relation.NewRelationServiceGetFollowArgs()
 }
@@ -104,6 +108,7 @@ func getFollowerHandler(ctx context.Context, handler interface{}, arg, result in
 	realResult.Success = success
 	return nil
 }
+
 func newRelationServiceGetFollowerArgs() interface{} {
 	return relation.NewRelationServiceGetFollowerArgs()
 }
@@ -122,6 +127,7 @@ func getFriendHandler(ctx context.Context, handler interface{}, arg, result inte
 	realResult.Success = success
 	return nil
 }
+
 func newRelationServiceGetFriendArgs() interface{} {
 	return relation.NewRelationServiceGetFriendArgs()
 }
@@ -140,6 +146,7 @@ func validIfFollowRequestHandler(ctx context.Context, handler interface{}, arg, 
 	realResult.Success = success
 	return nil
 }
+
 func newRelationServiceValidIfFollowRequestArgs() interface{} {
 	return relation.NewRelationServiceValidIfFollowRequestArgs()
 }

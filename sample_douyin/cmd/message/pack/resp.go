@@ -17,6 +17,7 @@ package pack
 
 import (
 	"errors"
+
 	"github.com/cloudwego/biz-demo/sample_douyin/kitex_gen/message"
 	"github.com/cloudwego/biz-demo/sample_douyin/pkg/errno"
 )
