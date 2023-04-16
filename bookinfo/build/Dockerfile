@@ -1,6 +1,11 @@
 FROM golang:1.16 as builder
+
+ENV GO111MODULE=on \
+    GOPROXY=https://goproxy.cn,direct
+
 COPY . /go/src/github.com/cloudwego/biz-demo/bookinfo
 WORKDIR /go/src/github.com/cloudwego/biz-demo/bookinfo
+
 RUN make build-linux
 
 FROM alpine:latest
