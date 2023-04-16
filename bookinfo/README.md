@@ -90,7 +90,6 @@ You see the following output, indicating that the deployment was successful!
 {"ID":"1","Title":"《Also sprach Zarathustra》","Author":"Friedrich Nietzsche","Description":"Thus Spoke Zarathustra: A Book for All and None, also translated as Thus Spake Zarathustra, is a work of philosophical fiction written by German philosopher Friedrich Nietzsche between 1883 and 1885.","Rating":0}
 ```
 
-
 ## Traffic routing example
 
 #### Define routing rules
