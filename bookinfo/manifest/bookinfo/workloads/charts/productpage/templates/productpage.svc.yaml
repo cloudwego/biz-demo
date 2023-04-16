@@ -9,6 +9,7 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       protocol: TCP
+      name: thrift
   selector:
     app.kubernetes.io/instance: {{ .Values.service.name }}
     app.kubernetes.io/name: {{ .Values.service.name }}

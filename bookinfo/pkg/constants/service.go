@@ -25,3 +25,8 @@ const (
 	// DetailsServiceName details service name
 	DetailsServiceName = "details"
 )
+
+const (
+	// IstiodSvrName istiod svr name
+	IstiodSvrName = "istiod.istio-system.svc"
+)

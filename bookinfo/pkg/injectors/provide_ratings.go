@@ -24,6 +24,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/xds"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	xdsmanager "github.com/kitex-contrib/xds"
+	"github.com/kitex-contrib/xds/core/manager"
 	"github.com/kitex-contrib/xds/xdssuite"
 )
 
@@ -32,13 +33,15 @@ type RatingsClientOptions struct {
 	Endpoint  string `mapstructure:"endpoint"`
 	EnableXDS bool   `mapstructure:"enableXDS"`
 	XDSAddr   string `mapstructure:"xdsAddr"`
+	XDSAuth   bool   `mapstructure:"xdsAuth"`
 }
 
 func DefaultRatingsClientOptions() *RatingsClientOptions {
 	return &RatingsClientOptions{
 		Endpoint:  "ratings:8083",
 		EnableXDS: false,
-		XDSAddr:   "istiod.istio-system.svc:15010",
+		XDSAddr:   "istiod.istio-system.svc:15012",
+		XDSAuth:   true,
 	}
 }
 
@@ -48,7 +51,13 @@ func DefaultRatingsClientOptions() *RatingsClientOptions {
 // 3、enable opentelemetry
 func ProvideRatingsClient(opts *RatingsClientOptions) (ratingservice.Client, error) {
 	if opts.EnableXDS {
-		if err := xdsmanager.Init(xdsmanager.WithXDSServerAddress(opts.XDSAddr)); err != nil {
+		if err := xdsmanager.Init(
+			xdsmanager.WithXDSServerConfig(&manager.XDSServerConfig{
+				SvrName: constants.IstiodSvrName,
+				SvrAddr: opts.XDSAddr,
+				XDSAuth: opts.XDSAuth,
+			}),
+		); err != nil {
 			klog.Fatal(err)
 		}
 		return ratingservice.NewClient(
