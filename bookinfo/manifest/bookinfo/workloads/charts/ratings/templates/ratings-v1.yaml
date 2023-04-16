@@ -18,6 +18,7 @@ spec:
     metadata:
       annotations:
         sidecar.istio.io/inject: "false"
+        checksum/config: {{ include (print $.Template.BasePath "/ratings.cm.yaml") . | sha256sum }}
       labels:
         app.kubernetes.io/instance: {{ .Values.service.name }}
         app.kubernetes.io/name: {{ .Values.service.name }}

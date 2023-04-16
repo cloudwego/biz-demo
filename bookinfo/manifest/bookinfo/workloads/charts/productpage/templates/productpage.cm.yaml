@@ -8,7 +8,7 @@ data:
       enableXDS: {{ .Values.upstreamServices.reviews.enableXDS }}
       xdsAddr: {{ .Values.global.xdsAddr }}
     details:
-      endpoint: {{ .Values.upstreamServices.details.endpoints }}
+      endpoint: {{ .Values.upstreamServices.details.endpoint }}
 kind: ConfigMap
 metadata:
   name: {{ .Values.service.name }}

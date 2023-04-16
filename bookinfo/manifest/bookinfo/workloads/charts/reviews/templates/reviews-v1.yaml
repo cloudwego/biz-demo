@@ -16,6 +16,7 @@ spec:
     metadata:
       annotations:
         sidecar.istio.io/inject: "false"
+        checksum/config: {{ include (print $.Template.BasePath "/reviews.cm.yaml") . | sha256sum }}
       labels:
         app.kubernetes.io/instance: {{ .Values.service.name }}
         app.kubernetes.io/name: {{ .Values.service.name }}
@@ -29,7 +30,7 @@ spec:
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: service.version=v1
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: http://host.docker.internal:4317
+              value: {{ .Values.otel.endpoint }}
             - name: ENABLE_RATINGS
               value: "enable"
             - name: TZ

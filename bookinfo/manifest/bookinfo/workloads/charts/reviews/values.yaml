@@ -9,3 +9,6 @@ upstreamServices:
     enableXDS: true
 
 image: cr-cn-beijing.volces.com/proxyless-test/bookinfo
+
+otel:
+  endpoint: http://host.docker.internal:4317

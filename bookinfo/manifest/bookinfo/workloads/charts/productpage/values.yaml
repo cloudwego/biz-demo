@@ -10,3 +10,6 @@ upstreamServices:
     enableXDS: true
   details:
     endpoint: details.default.svc.cluster.local:8084
+
+otel:
+  endpoint: http://host.docker.internal:4317
