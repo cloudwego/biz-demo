@@ -8,6 +8,29 @@
 ## Lane
 ![lane.png](./docs/lane.svg)
 
+## QuickStart
+
+### Prerequisites
+#### Kubernetes cluster
+> If you don't have an existing K8S cluster, you can use minikube to quickly launch one
+
+1. install [minikube](https://minikube.sigs.k8s.io/docs/start/)
+2. `minikube start`
+
+#### Istio
+Refer to [the doc of Istio](https://istio.io/latest/docs/setup/install/istioctl/) to deploy a set of istio to the K8S cluster
+
+#### Helm
+Refer to [the doc of Helm](https://helm.sh/docs/intro/install/) to install the helm command-line tool
+
+### Deploy Bookinfo Application
+```bash
+helm install bookinfo ./manifest/bookinfo/workloads
+```
+After successful deploy, you can see that the pods are running：
+
+![img.png](docs/pods.png)
+
 ## Traffic routing example
 
 #### Define routing rules
