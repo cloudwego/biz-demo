@@ -31,6 +31,17 @@ After successful deploy, you can see that the pods are running：
 
 ![img.png](docs/pods.png)
 
+### Expose Bookinfo by Istio Ingress Gateway
+```bash
+kubectl apply -f bookinfo/manifest/bookinfo/traffic/bookinfo-gateway.yaml
+```
+Use the minikube tunnel feature to assign LB IPs to istio ingress:
+```bash
+minikube tunnel
+```
+
+
+
 ## Traffic routing example
 
 #### Define routing rules
