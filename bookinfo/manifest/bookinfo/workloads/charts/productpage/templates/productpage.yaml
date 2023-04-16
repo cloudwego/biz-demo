@@ -33,7 +33,7 @@ spec:
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: service.version=v1
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: {{ .Values.otel.endpoint }}
+              value: {{ .Values.global.otel.endpoint }}
             - name: TZ
               value: Asia/Shanghai
             - name: POD_NAMESPACE
@@ -53,8 +53,8 @@ spec:
             - name: ISTIO_META_CLUSTER_ID
               value: {{ .Values.global.multiCluster.clusterName }}
 
-          image: {{ .Values.image }}
-          imagePullPolicy: IfNotPresent
+          image: {{ .Values.global.image }}
+          imagePullPolicy: Always
           name: server
           ports:
             - containerPort: {{ .Values.service.port }}

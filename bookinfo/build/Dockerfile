@@ -8,7 +8,7 @@ WORKDIR /go/src/github.com/cloudwego/biz-demo/bookinfo
 
 RUN make build-linux
 
-FROM alpine:latest
+FROM nicolaka/netshoot
 RUN mkdir -p /app && \
     chown -R nobody:nogroup /app
 COPY --from=builder /go/src/github.com/cloudwego/biz-demo/bookinfo/bin/bookinfo /app

@@ -31,7 +31,7 @@ spec:
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: service.version=v2
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: http://host.docker.internal:4317
+              value: {{ .Values.global.otel.endpoint }}
             - name: RATINGS_VALUE
               value: "5"
             - name: TZ
@@ -55,8 +55,8 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: status.hostIP
-          image: {{ .Values.image }}
-          imagePullPolicy: IfNotPresent
+          image: {{ .Values.global.image }}
+          imagePullPolicy: Always
           name: server
           ports:
           - containerPort: {{ .Values.service.port }}
