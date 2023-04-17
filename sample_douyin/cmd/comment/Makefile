@@ -1,0 +1,2 @@
+kitex_gen_server:
+	kitex -module github.com/cloudwego/biz-demo/sample_douyin -service douyincomment -use github.com/cloudwego/biz-demo/sample_douyin/kitex_gen ../../idl/comment.thrift # execute in cmd/comment
