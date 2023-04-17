@@ -8,6 +8,7 @@ metadata:
 spec:
   ports:
     - port: {{ .Values.service.port }}
+
       protocol: TCP
   selector:
     app.kubernetes.io/instance: {{ .Values.service.name }}

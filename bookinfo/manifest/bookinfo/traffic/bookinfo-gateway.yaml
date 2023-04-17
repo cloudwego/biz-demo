@@ -8,7 +8,7 @@ spec:
   servers:
   - port:
       number: 80
-      name: http
+      name: thrift
       protocol: HTTP
     hosts:
     - "*"

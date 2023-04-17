@@ -24,6 +24,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/xds"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	xdsmanager "github.com/kitex-contrib/xds"
+	"github.com/kitex-contrib/xds/core/manager"
 	"github.com/kitex-contrib/xds/xdssuite"
 )
 
@@ -32,6 +33,7 @@ type DetailsClientOptions struct {
 	Endpoint  string `mapstructure:"endpoint"`
 	EnableXDS bool   `mapstructure:"enableXDS"`
 	XDSAddr   string `mapstructure:"xdsAddr"`
+	XDSAuth   bool   `mapstructure:"xdsAuth"`
 }
 
 // DefaultDetailsClientOptions default options
@@ -39,7 +41,8 @@ func DefaultDetailsClientOptions() *DetailsClientOptions {
 	return &DetailsClientOptions{
 		Endpoint:  "details:8084",
 		EnableXDS: false,
-		XDSAddr:   "istiod.istio-system.svc:15010",
+		XDSAddr:   "istiod.istio-system.svc:15012",
+		XDSAuth:   true,
 	}
 }
 
@@ -49,7 +52,13 @@ func DefaultDetailsClientOptions() *DetailsClientOptions {
 // 3、enable opentelemetry
 func ProvideDetailsClient(opts *DetailsClientOptions) (detailsservice.Client, error) {
 	if opts.EnableXDS {
-		if err := xdsmanager.Init(xdsmanager.WithXDSServerAddress(opts.XDSAddr)); err != nil {
+		if err := xdsmanager.Init(
+			xdsmanager.WithXDSServerConfig(&manager.XDSServerConfig{
+				SvrName: constants.IstiodSvrName,
+				SvrAddr: opts.XDSAddr,
+				XDSAuth: opts.XDSAuth,
+			}),
+		); err != nil {
 			klog.Fatal(err)
 		}
 		return detailsservice.NewClient(
