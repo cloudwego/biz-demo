@@ -175,3 +175,60 @@ The book-shop application is divided into four microservices:
 
 #### Contributors & Maintainers
 [@bodhisatan](https://github.com/bodhisatan)
+
+### 5. [FreeCar](https://github.com/CyanAsterisk/FreeCar)
+
+#### Description
+##### What is it about and what problem does it solve?
+- How to use the idea of domain-driven development to develop in Kitex?
+- How to develop Hertz and Kitex through RPC + AGW mode?
+
+##### What is the business scenario?
+>Time-sharing car rental system kit in the cloud-native era.
+
+The FreeCar application is divided into six microservices:
+
+- **api** is an HTTP service that handles HTTP requests and calls other services via RPC.
+- **user** is an RPC service that handles user related operations.
+- **profile** is an RPC service that handles profile related operations.
+- **blob** is an RPC service that handles blob related operations.
+- **car** is an RPC service that handles car related operations.
+- **trip** is an RPC service that handles trip related operations.
+
+##### What are the core technologies/projects used?
+
+- [x] Use `hz` and `kitex` to generate code
+- [x] Use Hertz `paseto`, `cors`, `gzip`, `http2`, `limiter`, `opensergo`, `pprof`, `websocket` middlewares
+- [x] Use `obs-opentelemetry` for tracing
+- [x] Use `consul` as service registry and config center.
+- [x] Use `GORM` for implementing repository.
+- [x] Use `MySQL` as RDBMS.
+- [x] Use `MongoDB` as DOCDB.
+- [x] Use `Redis` as cache.
+- [x] Use `MinIO` as object storage center.
+- [x] Use `RabbitMQ` as MQ.
+- [x] Implement a [FreeCar-Admin](https://github.com/CyanAsterisk/FreeCar-Admin) using `arco-design` react.
+- [x] Implement a [FreeCar-MP](https://github.com/CyanAsterisk/FreeCar-MP) using WeChat applet.
+
+##### Which CloudWeGo subprojects are used? List all technologies used.
+- [Hertz](https://github.com/cloudwego/hertz)
+  - [obs-opentelemetry](https://github.com/hertz-contrib/obs-opentelemetry)
+  - [registry](https://github.com/hertz-contrib/registry)
+  - [paseto](https://github.com/hertz-contrib/paseto)
+  - [cors](https://github.com/hertz-contrib/cors)
+  - [pprof](https://github.com/hertz-contrib/pprof)
+  - [gzip](https://github.com/hertz-contrib/gzip)
+  - [http2](https://github.com/hertz-contrib/http2)
+  - [limiter](https://github.com/hertz-contrib/limiter)
+  - [opensergo](https://github.com/hertz-contrib/opensergo)
+  - [websocket](https://github.com/hertz-contrib/websocket)
+- [Kitex](https://github.com/cloudwego/kitex)
+  - [obs-opentelemetry](https://github.com/kitex-contrib/obs-opentelemetry)
+  - [registry-consul](https://github.com/kitex-contrib/registry-consul)
+
+##### Detailed documentation
+[FreeCar](https://github.com/CyanAsterisk/FreeCar/blob/dev/README.md)
+
+#### Contributors & Maintainers
+- [@L2ncE](https://github.com/L2ncE)
+- [@Claude-Zq](https://github.com/Claude-Zq)
