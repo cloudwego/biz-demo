@@ -7,8 +7,8 @@ replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 require (
 	entgo.io/ent v0.11.9
 	github.com/apache/thrift v0.16.0
-	github.com/cloudwego/hertz v0.6.0
-	github.com/cloudwego/kitex v0.5.0
+	github.com/cloudwego/hertz v0.6.6
+	github.com/cloudwego/kitex v0.6.1
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/google/wire v0.5.0
 	github.com/kitex-contrib/registry-nacos v0.0.1
@@ -23,15 +23,16 @@ require (
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/bytedance/go-tagexpr/v2 v2.9.2 // indirect
-	github.com/bytedance/gopkg v0.0.0-20220817015305-b879a72dc90f // indirect
-	github.com/bytedance/sonic v1.8.1 // indirect
+	github.com/bytedance/gopkg v0.0.0-20230531144706-a12972768317 // indirect
+	github.com/bytedance/sonic v1.8.8 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
 	github.com/chenzhuoyu/iasm v0.0.0-20230222070914-0b1b64b0e762 // indirect
 	github.com/choleraehyq/pid v0.0.16 // indirect
-	github.com/cloudwego/fastpb v0.0.4-0.20230131074846-6fc453d58b96 // indirect
+	github.com/cloudwego/configmanager v0.2.0 // indirect
+	github.com/cloudwego/fastpb v0.0.4 // indirect
 	github.com/cloudwego/frugal v0.1.6 // indirect
-	github.com/cloudwego/netpoll v0.3.2 // indirect
-	github.com/cloudwego/thriftgo v0.2.8 // indirect
+	github.com/cloudwego/netpoll v0.4.0 // indirect
+	github.com/cloudwego/thriftgo v0.2.11 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect
@@ -64,7 +65,7 @@ require (
 	go.uber.org/zap v1.21.0 // indirect
 	golang.org/x/arch v0.2.0 // indirect
 	golang.org/x/mod v0.8.0 // indirect
-	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
+	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b // indirect
 	golang.org/x/sync v0.1.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
