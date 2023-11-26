@@ -1,0 +1,51 @@
+path: /rpc/{{ ReplaceString (ReplaceString .RealServiceName "." "_" -1) "/" "_" -1 }}/{{ ReplaceString (ReplaceString .RealServiceName "." "_" -1) "/" "_" -1 }}_default.go
+update_behavior:
+  type: cover
+body: |-
+  package {{ ReplaceString (ReplaceString .RealServiceName "." "_" -1) "/" "_" -1 }}
+  import (
+      {{- range $path, $aliases := .Imports}}
+      	{{- if not $aliases }}
+      		"{{$path}}"
+           {{- else if or (eq $path "github.com/cloudwego/kitex/client") (eq $path "github.com/cloudwego/kitex/pkg/serviceinfo")}}
+      	{{- else}}
+      		{{- range $alias, $is := $aliases}}
+      			{{$alias}} "{{$path}}"
+      		{{- end}}
+      	{{- end}}
+      {{- end}}
+      "github.com/cloudwego/kitex/client/callopt"
+      "github.com/cloudwego/kitex/pkg/klog"
+  )
+  {{range .AllMethods}}
+      {{- if or .ClientStreaming .ServerStreaming}}
+          func {{.Name}} ({{if not .ClientStreaming}}{{range .Args}}{{LowerFirst .Name}} {{.Type}}, {{end}}{{end}}stream {{.PkgRefName}}.{{.ServiceName}}_{{.RawName}}Server) (err error){
+             err = defaultClient.{{.Name}}(ctx, {{- range .Args}}{{LowerFirst .Name}},{{end}} callOptions...)
+             if err != nil {
+             	klog.CtxErrorf(ctx, "{{.Name}} call failed,err =%+v", err)
+             	return err
+             }
+             return err
+          }
+      {{ else }}
+      {{- if .Oneway}}
+         func {{.Name}}(ctx context.Context, {{- range .Args}} {{LowerFirst .Name}} {{.Type}}, {{end}} callOptions ...callopt.Option) (err error){
+             err = defaultClient.{{.Name}}(ctx, {{- range .Args}} {{LowerFirst .Name}}, {{end}} callOptions...)
+             if err != nil {
+              klog.CtxErrorf(ctx, "{{.Name}} call failed,err =%+v", err)
+              return err
+             }
+             return nil
+        }
+      {{else -}}
+          func {{.Name}}(ctx context.Context, {{range .Args}} {{LowerFirst .Name}} {{.Type}} ,{{end}} callOptions ...callopt.Option) (resp {{.Resp.Type}}, err error){
+            resp, err = defaultClient.{{.Name}}(ctx, {{- range .Args}} {{LowerFirst .Name}}, {{end}} callOptions...)
+            if err != nil {
+             klog.CtxErrorf(ctx, "{{.Name}} call failed,err =%+v", err)
+             return nil,err
+            }
+            return resp, nil
+           }
+  {{end}}
+  {{end}}
+  {{end}}

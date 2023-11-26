@@ -1,0 +1,83 @@
+path: /rpc/{{ ReplaceString (ReplaceString .RealServiceName "." "_" -1) "/" "_" -1 }}/{{ ReplaceString (ReplaceString .RealServiceName "." "_" -1) "/" "_" -1 }}_client.go
+update_behavior:
+  type: cover
+body: |-
+  package {{ ReplaceString (ReplaceString .RealServiceName "." "_" -1) "/" "_" -1 }}
+  import (
+      "context"
+
+      {{- range $path, $aliases := .Imports}}
+      	{{- if not $aliases }}
+      		"{{$path}}"
+           {{- else if or (eq $path "github.com/cloudwego/kitex/client") (eq $path "github.com/cloudwego/kitex/pkg/serviceinfo")}}
+      	{{- else}}
+      		{{- range $alias, $is := $aliases}}
+      			{{$alias}} "{{$path}}"
+      		{{- end}}
+      	{{- end}}
+      {{- end}}
+
+      "{{.ImportPath}}/{{ToLower .ServiceName}}"
+      "github.com/cloudwego/kitex/client"
+      "github.com/cloudwego/kitex/client/callopt"
+  )
+
+  type RPCClient interface {
+  	KitexClient() {{ToLower .ServiceName}}.Client
+  	Service() string
+  {{range .AllMethods}}
+  {{- if or .ClientStreaming .ServerStreaming}}
+      {{.Name}}({{if not .ClientStreaming}}{{range .Args}}{{LowerFirst .Name}} {{.Type}}, {{end}}{{end}}stream {{.PkgRefName}}.{{.ServiceName}}_{{.RawName}}Server) (err error)
+  {{- else}}
+  {{- if .Oneway}}
+      {{.Name}}(ctx context.Context {{- range .Args}}, {{LowerFirst .Name}} {{.Type}}{{end}}, callOptions ...callopt.Option) (err error)
+  {{else -}}
+      {{.Name}}(ctx context.Context {{range .Args}}, {{LowerFirst .Name}} {{.Type}}{{end}}, callOptions ...callopt.Option) (resp {{.Resp.Type}}, err error)
+  {{end}}
+  {{end}}
+  {{end}}
+  }
+
+  func NewRPCClient(dstService string, opts ...client.Option) (RPCClient, error) {
+  	kitexClient, err := {{ToLower .ServiceName}}.NewClient(dstService, opts...)
+  	if err != nil {
+  		return nil, err
+  	}
+  	cli := &clientImpl{
+  		service:     dstService,
+  		kitexClient: kitexClient,
+  	}
+
+  	return cli, nil
+  }
+
+  type clientImpl struct {
+  	service     string
+  	kitexClient {{ToLower .ServiceName}}.Client
+  }
+
+  func (c *clientImpl) Service() string {
+  	return c.service
+  }
+
+  func (c *clientImpl) KitexClient() {{ToLower .ServiceName}}.Client {
+  	return c.kitexClient
+  }
+
+  {{range .AllMethods}}
+  {{- if or .ClientStreaming .ServerStreaming}}
+     func(c *clientImpl) {{.Name}}({{if not .ClientStreaming}}{{range .Args}}{{LowerFirst .Name}} {{.Type}}, {{end}}{{end}}stream {{.PkgRefName}}.{{.ServiceName}}_{{.RawName}}Server) (err error){
+         return c.kitexClient.{{.Name}}(ctx, {{- range .Args}} {{LowerFirst .Name}},{{end}} callOptions...)
+     }
+  {{- else}}
+  {{- if .Oneway}}
+      func(c *clientImpl) {{.Name}}(ctx context.Context {{- range .Args}}, {{LowerFirst .Name}} {{.Type}}{{end}}, callOptions ...callopt.Option) (err error){
+         return c.kitexClient.{{.Name}}(ctx, {{- range .Args}} {{LowerFirst .Name}}, {{end}} callOptions...)
+      }
+  {{else -}}
+      func(c *clientImpl) {{.Name}}(ctx context.Context {{range .Args}}, {{LowerFirst .Name}} {{.Type}}{{end}}, callOptions ...callopt.Option) (resp {{.Resp.Type}}, err error){
+        return c.kitexClient.{{.Name}}(ctx, {{- range .Args}} {{LowerFirst .Name}}, {{end}} callOptions...)
+      }
+  {{end}}
+  {{end}}
+  {{end}}
