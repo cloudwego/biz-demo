@@ -1,9 +1,9 @@
-path: biz/dal/redis/init.go
+path: infra/redis/init.go
 update_behavior:
   type: skip
 body: |-
   package redis
-  
+
   import (
     "context"
 

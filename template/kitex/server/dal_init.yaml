@@ -1,12 +1,12 @@
-path: biz/dal/init.go
+path: infra/init.go
 update_behavior:
   type: skip
 body: |-
   package dal
-  
+
   import (
-    "{{.Module}}/biz/dal/mysql"
-    "{{.Module}}/biz/dal/redis"
+    "{{.Module}}/infra/mysql"
+    "{{.Module}}/infra/redis"
   )
 
   func Init() {

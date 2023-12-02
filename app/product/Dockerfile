@@ -1,0 +1,26 @@
+FROM golang:alpine
+
+WORKDIR /opt/ops
+
+ENV GOPROXY=https://goproxy.cn
+
+COPY go.mod go.sum .
+RUN go mod download
+
+COPY . /opt/ops
+
+RUN go build -o app .
+
+FROM alpine:latest
+
+ENV GO_ENV=online
+
+RUN set sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+apk --no-cache add ca-certificates
+
+WORKDIR /opt/ops
+
+COPY --from=0 /opt/ops/app ./
+COPY conf /opt/ops/conf
+
+CMD ["./app"]

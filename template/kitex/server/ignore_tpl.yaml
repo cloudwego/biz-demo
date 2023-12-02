@@ -37,3 +37,4 @@ body: |-
   /.vscode
   /output
   *.local.yml
+  /log

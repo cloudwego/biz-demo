@@ -1,9 +1,9 @@
-path: biz/dal/mysql/init.go
+path: infra/mysql/init.go
 update_behavior:
   type: skip
 body: |-
   package mysql
-  
+
   import (
     "{{.Module}}/conf"
     
