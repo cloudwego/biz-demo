@@ -168,8 +168,8 @@ github.com/jung-kurt/gofpdf v1.0.0/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+
 github.com/jung-kurt/gofpdf v1.0.3-0.20190309125859-24315acbbda5/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+r32jIOes=
 github.com/kisielk/errcheck v1.5.0/go.mod h1:pFxgyoBC7bSaBwPgfKdkLd5X25qrDl4LWUI2bnpBCr8=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
-github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20231124154343-122aaec4e1d1 h1:BGsiyQkpFg8VrV9guq3EjWtd7A4+LqYabq6oZGgncoU=
-github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20231124154343-122aaec4e1d1/go.mod h1:oQTDyY/+vIlKG/9FGhtYASfb+UybIiianqn1RLVhJ3A=
+github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20231203043712-cd275418e0bf h1:nV5cek6DD0m/nee6Y4gN//k0k75fteJ+a7eJbVD7RcQ=
+github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20231203043712-cd275418e0bf/go.mod h1:oQTDyY/+vIlKG/9FGhtYASfb+UybIiianqn1RLVhJ3A=
 github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
 github.com/klauspost/cpuid/v2 v2.1.0/go.mod h1:RVVoqg1df56z8g3pUjL/3lE5UfnlrJX8tyFgg4nqhuY=
 github.com/klauspost/cpuid/v2 v2.2.4 h1:acbojRNwl3o09bUq+yDCtZFc1aiwaAAxtcn8YkZXnvk=

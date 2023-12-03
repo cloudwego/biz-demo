@@ -1,10 +1,9 @@
-package server
+package main
 
 import (
 	"context"
-
-	"github.com/baiyutang/gomall/app/product/internal/service"
 	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
+	"github.com/baiyutang/gomall/app/product/biz/service"
 )
 
 // ProductCatalogServiceImpl implements the last service interface defined in the IDL.

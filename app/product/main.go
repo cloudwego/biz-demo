@@ -1,6 +1,7 @@
-package server
+package main
 
 import (
+	"log"
 	"net"
 
 	"github.com/baiyutang/gomall/app/product/conf"
@@ -12,15 +13,12 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func Run() {
+func main() {
 	opts := kitexInit()
 
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)
 
-	err := svr.Run()
-	if err != nil {
-		klog.Error(err.Error())
-	}
+	log.Fatal(svr.Run())
 }
 
 func kitexInit() (opts []server.Option) {

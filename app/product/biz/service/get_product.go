@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-
 	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
 )
 
@@ -17,5 +16,5 @@ func NewGetProductService(ctx context.Context) *GetProductService {
 func (s *GetProductService) Run(req *product.GetProductRequest) (resp *product.Product, err error) {
 	// Finish your business logic.
 
-	return &product.Product{Id: "first", Name: "first goods"}, nil
+	return
 }
