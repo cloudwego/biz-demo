@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package order;
+
+import "payment.proto";
+import "cart.proto";
+
+option go_package = "order";
+
+service CheckoutService {
+  rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse) {}
+}
+
+message Address {
+  string street_address = 1;
+  string city = 2;
+  string state = 3;
+  string country = 4;
+  int32 zip_code = 5;
+}
+
+message PlaceOrderRequest {
+  string user_id = 1;
+  string user_currency = 2;
+
+  Address address = 3;
+  string email = 5;
+  payment.CreditCardInfo credit_card = 6;
+}
+
+message OrderItem {
+  cart.CartItem item = 1;
+  payment.Money cost = 2;
+}
+
+message OrderResult {
+  string   order_id = 1;
+  string   shipping_tracking_id = 2;
+  payment.Money shipping_cost = 3;
+  Address  shipping_address = 4;
+  repeated OrderItem items = 5;
+}
+
+message PlaceOrderResponse {
+  OrderResult order = 1;
+}
