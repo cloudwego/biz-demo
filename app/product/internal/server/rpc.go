@@ -1,18 +1,18 @@
-package main
+package server
 
 import (
 	"net"
 
+	"github.com/baiyutang/gomall/app/product/conf"
+	"github.com/baiyutang/gomall/app/product/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/baiyutang/gomall/app/product/conf"
-	"github.com/baiyutang/gomall/app/product/kitex_gen/product/productcatalogservice"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func main() {
+func Run() {
 	opts := kitexInit()
 
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)

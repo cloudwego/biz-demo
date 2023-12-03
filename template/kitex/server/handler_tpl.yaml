@@ -1,4 +1,4 @@
-path: handler.go
+path: internal/server/handler.go
 update_behavior:
   type: append
   key: "{{ (index .Methods 0).Name }}"
@@ -50,7 +50,7 @@ body: |-
   			{{- end}}
   		{{- end}}
   	{{- end}}
-   "{{.Module}}/biz/service"
+   "{{.Module}}/internal/service"
   )
 
   // {{.ServiceName}}Impl implements the last service interface defined in the IDL.

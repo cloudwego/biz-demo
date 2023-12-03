@@ -4,16 +4,16 @@ update_behavior:
 body: |-
   FROM golang:alpine
 
-  WORKDIR /opt/ops
-  
+  WORKDIR /opt/application
+
   ENV GOPROXY=https://goproxy.cn
-  
+
   COPY go.mod go.sum .
   RUN go mod download
 
-  COPY . /opt/ops
+  COPY . /opt/application
 
-  RUN go build -o app .
+  RUN go build -o app cmd/
 
   FROM alpine:latest
 
@@ -22,9 +22,9 @@ body: |-
   RUN set sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
   apk --no-cache add ca-certificates
 
-  WORKDIR /opt/ops
+  WORKDIR /opt/application
 
-  COPY --from=0 /opt/ops/app ./
-  COPY conf /opt/ops/conf
+  COPY --from=0 /opt/application/app ./
+  COPY conf /opt/application/conf
 
   CMD ["./app"]
