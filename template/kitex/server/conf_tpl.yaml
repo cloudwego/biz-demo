@@ -83,7 +83,6 @@ body: |-
       panic(err)
     }
     conf.Env = GetEnv()
-    pretty.Printf("%+v\n", conf)
   }
 
   func GetEnv() string {

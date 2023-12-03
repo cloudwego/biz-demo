@@ -1,4 +1,4 @@
-path: biz/service/{{ SnakeString (index .Methods 0).Name }}.go
+path: internal/service/{{ SnakeString (index .Methods 0).Name }}.go
 loop_method: true
 update_behavior:
   type: skip
@@ -40,7 +40,7 @@ body: |-
   {{- if .Void}}
   {{- if .Oneway}}
   {{- end}}
-  
+
   // New{{.Name}}Service new {{.Name}}Service
   func New{{.Name}}Service(ctx context.Context) *{{.Name}}Service {
     return &{{.Name}}Service{ctx: ctx}
@@ -53,7 +53,7 @@ body: |-
     return nil
   }
   {{else -}}
-  
+
   // New{{.Name}}Service new {{.Name}}Service
   func New{{.Name}}Service(ctx context.Context) *{{.Name}}Service {
     return &{{.Name}}Service{ctx: ctx}

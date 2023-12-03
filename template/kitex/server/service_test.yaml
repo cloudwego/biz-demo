@@ -1,4 +1,4 @@
-path: biz/service/{{ SnakeString (index .Methods 0).Name }}_test.go
+path: internal/service/{{ SnakeString (index .Methods 0).Name }}_test.go
 loop_method: true
 update_behavior:
   type: skip

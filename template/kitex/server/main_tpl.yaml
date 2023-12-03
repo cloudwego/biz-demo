@@ -1,4 +1,4 @@
-path: main.go
+path: internal/server/rpc.go
 update_behavior:
   type: skip
 body: |-
