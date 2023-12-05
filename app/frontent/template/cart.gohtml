@@ -1,0 +1,31 @@
+{{ define "cart" }}
+    {{ template "header" . }}
+    <main role="main" class="home" style="min-height:calc(100vh - 212px);">
+        <div class="container">
+            <div class="row">
+
+                <div class="card border-0" style="width: 100%;">
+                    <div class="card-body row">
+                        <img src="/static/image/logo.jpg" class="col-lg-4 col-sm-12" alt="...">
+                        <div class='col-lg-2'></div>
+                        <div class="col-lg-5 col-sm-12 flex-column align-self-end">
+                            <form action="">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk
+                                    of
+                                    the card's content.</p>
+                                <label for="productNum">数量：</label>
+                                <input type="number" class="form-control" id="productNum" value="" placeholder="1"
+                                       min="1"/>
+                                <input type="submit" href="#" class="btn btn-primary mt-3" value="Add to Cart">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {{ template "footer" . }}
+
+{{ end }}

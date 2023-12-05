@@ -31,7 +31,7 @@
               crossorigin="anonymous" referrerpolicy="no-referrer"/>
     </head>
 
-    <body>
+    <body class="min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container">
@@ -40,24 +40,26 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="/static/image/logo.jpg" style="height: 50px" alt=""> CloudWego Shop
                 </a>
-                <i class="fa-solid fa-cart-shopping ms-lg-3 d-block d-lg-none d-xl-none" style="font-size: 2rem"></i>
+                <div class=" ms-lg-3 d-block d-lg-none d-xl-none">
+                    {{ template "cart-num" . }}
+                </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
-                               Categories 
+                                Categories
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">T-shirt</a></li>
-                                <li><a class="dropdown-item" href="#">Sticker</a></li>
+                                <li><a class="dropdown-item" href="/category">T-shirt</a></li>
+                                <li><a class="dropdown-item" href="/category">Sticker</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="/about">About</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -65,7 +67,10 @@
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
-                <i class="fa-solid fa-cart-shopping ms-lg-3 d-none d-lg-block d-xl-block" style="font-size: 2rem"></i>
+                <div class="ms-lg-3 d-none d-lg-block d-xl-block">
+                    {{ template "cart-num" . }}
+                </div>
+
             </div>
         </nav>
     </header>
