@@ -26,34 +26,34 @@ func main() {
 			})
 		}
 		c.HTML(http.StatusOK, "home", utils.H{
-			"title":    "hello cloudwego",
+			"title":    "Hot sale",
 			"cart_num": 10,
 			"items":    items,
 		})
 	})
 	h.GET("/category", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "category", utils.H{
-			"title": "category",
+			"title": "Category",
 		})
 	})
 	h.GET("/product", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "product", utils.H{
-			"title": "product",
+			"title": "Product",
 		})
 	})
 	h.GET("/cart", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "cart", utils.H{
-			"title": "cart",
+			"title": "Cart",
 		})
 	})
 	h.GET("/order", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "order", utils.H{
-			"title": "order",
+			"title": "Order",
 		})
 	})
 	h.GET("/about", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "about", utils.H{
-			"title": "about",
+			"title": "About",
 		})
 
 	})
