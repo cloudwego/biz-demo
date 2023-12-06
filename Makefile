@@ -12,4 +12,3 @@ gen-product:
 .PHONY: run-product
 run-product:
 	cd app/product && go run .
-
