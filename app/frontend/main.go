@@ -3,17 +3,17 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
+
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	"net/http"
-	"time"
 )
 
 func main() {
-	h := server.Default(server.WithDisablePrintRoute(false), server.WithAutoReloadRender(true, time.Second))
+	h := server.Default(server.WithDisablePrintRoute(false))
 	hlog.SetLevel(hlog.LevelTrace)
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
@@ -55,7 +55,6 @@ func main() {
 		c.HTML(consts.StatusOK, "about", utils.H{
 			"title": "About",
 		})
-
 	})
 	h.Static("/static", "./")
 	h.Spin()
