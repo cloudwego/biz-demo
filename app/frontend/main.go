@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"time"
+
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	"net/http"
-	"time"
 )
 
 func main() {

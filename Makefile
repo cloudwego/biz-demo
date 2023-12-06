@@ -12,3 +12,7 @@ gen-product:
 .PHONY: run-product
 run-product:
 	cd app/product && go run .
+
+.PHONY: frontend
+frontend:
+	cd app/frontend && go run .
