@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/baiyutang/gomall/app/frontend/routes"
 	"net/http"
 
 	"github.com/cloudwego/hertz/pkg/app"
@@ -36,11 +37,7 @@ func main() {
 			"title": "Category",
 		})
 	})
-	h.GET("/product", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "product", utils.H{
-			"title": "Product",
-		})
-	})
+	routes.RegisterProductRoute(h)
 	h.GET("/cart", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "cart", utils.H{
 			"title": "Cart",

@@ -5,39 +5,40 @@ package product;
 option go_package = "/product";
 
 service ProductCatalogService {
-    rpc ListProducts(Empty) returns (ListProductsResponse) {}
-    rpc GetProduct(GetProductRequest) returns (Product) {}
-    rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse) {}
+  rpc ListProducts(ListProductsReq) returns (ListProductsResponse) {}
+  rpc GetProduct(GetProductRequest) returns (Product) {}
+  rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse) {}
 }
 
-message Empty{
+message ListProductsReq{
+  int32 page = 1;
+  int64 pageSize = 2;
 
+  repeated string categoryNames = 3;
 }
 
 message Product {
-    string id = 1;
-    string name = 2;
-    string description = 3;
-    string picture = 4;
-    float price_usd = 5;
+  uint32 id = 1;
+  string name = 2;
+  string description = 3;
+  string picture = 4;
+  float price = 5;
 
-    // Categories such as "clothing" or "kitchen" that can be used to look up
-    // other related products.
-    repeated string categories = 6;
+  repeated string categories = 6;
 }
 
 message ListProductsResponse {
-    repeated Product products = 1;
+  repeated Product products = 1;
 }
 
 message GetProductRequest {
-    string id = 1;
+  string id = 1;
 }
 
 message SearchProductsRequest {
-    string query = 1;
+  string query = 1;
 }
 
 message SearchProductsResponse {
-    repeated Product results = 1;
+  repeated Product results = 1;
 }
