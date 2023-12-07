@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"github.com/baiyutang/gomall/app/product/biz/dal/mysql"
+	"github.com/baiyutang/gomall/app/product/biz/model"
 	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
 )
 
@@ -15,6 +17,16 @@ func NewSearchProductsService(ctx context.Context) *SearchProductsService {
 // Run create note info
 func (s *SearchProductsService) Run(req *product.SearchProductsRequest) (resp *product.SearchProductsResponse, err error) {
 	// Finish your business logic.
-
-	return
+	p, err := model.SearchProduct(mysql.DB, req.Query)
+	var results []*product.Product
+	for _, v := range p {
+		results = append(results, &product.Product{
+			Id:          uint32(v.ID),
+			Name:        v.Name,
+			Description: v.Description,
+			Picture:     v.Picture,
+			Price:       v.Price,
+		})
+	}
+	return &product.SearchProductsResponse{Results: results}, err
 }

@@ -14,7 +14,7 @@ message ListProductsReq{
   int32 page = 1;
   int64 pageSize = 2;
 
-  repeated string categoryNames = 3;
+  string categoryName = 3;
 }
 
 message Product {
@@ -32,7 +32,7 @@ message ListProductsResponse {
 }
 
 message GetProductRequest {
-  string id = 1;
+  uint32 id = 1;
 }
 
 message SearchProductsRequest {

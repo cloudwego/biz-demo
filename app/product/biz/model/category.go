@@ -1,23 +1,21 @@
 package model
 
-import "github.com/baiyutang/gomall/app/product/biz/dal/mysql"
+import (
+	"gorm.io/gorm"
+)
 
 type Category struct {
 	Base
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
-	Product     []Product `json:"product" gorm:"many2many:product_category"`
+	Products    []Product `json:"product" gorm:"many2many:product_category"`
 }
 
 func (c Category) TableName() string {
 	return "category"
 }
 
-func (c Category) List() {
-
-}
-
-func (c Category) GetByName(name string) (category *Category, err error) {
-	err = mysql.DB.Model(&Category{Name: name}).Preload("Product").First(&category).Error
+func GetProductsByCategoryName(db *gorm.DB, name string) (category []Category, err error) {
+	err = db.Model(&Category{}).Where(&Category{Name: name}).Preload("Products").Find(&category).Error
 	return category, err
 }

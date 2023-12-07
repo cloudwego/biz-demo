@@ -53,17 +53,17 @@
                                 Categories
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/category">T-shirt</a></li>
-                                <li><a class="dropdown-item" href="/category">Sticker</a></li>
+                                <li><a class="dropdown-item" href="/category/t-shirt">T-shirt</a></li>
+                                <li><a class="dropdown-item" href="/category/sticker">Sticker</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/about">About</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search" method="get">
+                    <form class="d-flex" role="search" action="/search" method="get">
                         <input class="form-control me-2" type="search" name="q" placeholder="Search"
-                               aria-label="Search">
+                               aria-label="Search" value="{{ .q }}">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>

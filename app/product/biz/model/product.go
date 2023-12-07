@@ -1,6 +1,8 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type Product struct {
 	Base
@@ -15,11 +17,12 @@ func (p Product) TableName() string {
 	return "product"
 }
 
-func GetProductsByCategories(db *gorm.DB, categoryNames []string) (p []Product, err error) {
-	var categories []Category
-	for _, categoryName := range categoryNames {
-		categories = append(categories, Category{Name: categoryName})
-	}
-	err = db.Model(&Product{Categories: categories}).Find(&p).Error
-	return p, err
+func GetProductById(db *gorm.DB, productId int) (product Product, err error) {
+	err = db.Model(&Product{}).Where(&Product{Base: Base{ID: productId}}).First(&product).Error
+	return product, err
+}
+
+func SearchProduct(db *gorm.DB, q string) (product []*Product, err error) {
+	err = db.Model(&Product{}).Find(&product, "name like ? or description like ?", "%"+q+"%", "%"+q+"%").Error
+	return product, err
 }

@@ -1,25 +1,22 @@
 {{ define "category" }}
     {{ template "header" . }}
     <div class="row">
-        <div class="card border-0" style="width: 100%;">
-            <div class="card-body row">
-                <img src="/static/image/logo.jpg" class="col-lg-4 col-sm-12" alt="...">
-                <div class='col-lg-2'></div>
-                <div class="col-lg-5 col-sm-12 flex-column align-self-end">
-                    <form action="">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the
-                            bulk
-                            of
-                            the card's content.</p>
-                        <label for="productNum">数量：</label>
-                        <input type="number" class="form-control" id="productNum" value="" placeholder="1"
-                               min="1"/>
-                        <input type="submit" href="#" class="btn btn-primary mt-3" value="Add to Cart">
-                    </form>
-                </div>
+        {{ range $.items}}
+            <div class="card border-0 col-lg-4 col-md-6 col-sm-12 p-1">
+                <a href="/product?id={{ .Id }}" class="btn">
+                    <div class="card-body row">
+                        <img src="{{ .Picture }}" class="col-lg-6 col-sm-12" alt="..."
+                             style="max-height: 100%; min-height: 100%;">
+                        <div class="col-lg-6 col-sm-12 flex-column align-self-end">
+                            <div class="m-2">
+                                {{ .Name }}
+                            </div>
+                            <div class="m-1">${{ .Price }}</div>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
+        {{ end}}
     </div>
     {{ template "footer" . }}
 {{ end }}

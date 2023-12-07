@@ -2,29 +2,25 @@ package routes
 
 import (
 	"context"
-	"fmt"
+	"net/http"
+
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/cloudwego/kitex/client"
-	"strconv"
 
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 )
 
-func RegisterProduct(h *server.Hertz) {
+func RegisterHome(h *server.Hertz) {
 	productClient, _ := productcatalogservice.NewClient("product", client.WithHostPorts("localhost:8881"))
-	h.GET("/product", func(ctx context.Context, c *app.RequestContext) {
-		productId := c.Query("id")
-		id64, _ := strconv.ParseUint(productId, 10, 32)
-		fmt.Println(id64)
-
-		p, _ := productClient.GetProduct(context.Background(), &product.GetProductRequest{Id: uint32(id64)})
-		c.HTML(consts.StatusOK, "product", utils.H{
+	h.GET("/", func(ctx context.Context, c *app.RequestContext) {
+		p, _ := productClient.ListProducts(ctx, &product.ListProductsReq{})
+		c.HTML(http.StatusOK, "home", utils.H{
+			"title":    "Hot sale",
 			"cart_num": 10,
-			"item":     p,
+			"items":    p.Products,
 		})
 	})
 }
