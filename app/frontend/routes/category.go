@@ -2,7 +2,6 @@ package routes
 
 import (
 	"context"
-	"fmt"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -17,7 +16,6 @@ func RegisterCategory(h *server.Hertz) {
 	productClient, _ := productcatalogservice.NewClient("product", client.WithHostPorts("localhost:8881"))
 	h.GET("/category/:category", func(ctx context.Context, c *app.RequestContext) {
 		category := c.Param("category")
-		fmt.Println(category)
 		p, _ := productClient.ListProducts(ctx, &product.ListProductsReq{CategoryName: category})
 		c.HTML(consts.StatusOK, "category", utils.H{
 			"title":    "Category",

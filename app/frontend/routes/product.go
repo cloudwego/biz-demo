@@ -2,7 +2,6 @@ package routes
 
 import (
 	"context"
-	"fmt"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
@@ -19,7 +18,6 @@ func RegisterProduct(h *server.Hertz) {
 	h.GET("/product", func(ctx context.Context, c *app.RequestContext) {
 		productId := c.Query("id")
 		id64, _ := strconv.ParseUint(productId, 10, 32)
-		fmt.Println(id64)
 
 		p, _ := productClient.GetProduct(context.Background(), &product.GetProductRequest{Id: uint32(id64)})
 		c.HTML(consts.StatusOK, "product", utils.H{
