@@ -10,6 +10,8 @@ import (
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+
+	"github.com/baiyutang/gomall/app/frontend/routes"
 )
 
 func main() {
@@ -18,11 +20,33 @@ func main() {
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
 	h.GET("/", func(ctx context.Context, c *app.RequestContext) {
-		var items []map[string]string
-		for i := 1; i <= 10; i++ {
+		items := []map[string]string{
+			{
+				"title":       "T-shirt",
+				"description": "T-shirt",
+				"picture":     "/static/image/t-shirt.jpeg",
+			},
+			{
+				"title":       "Mouse Pad",
+				"description": "Mouse Pad",
+				"picture":     "/static/image/mouse-pad.jpeg",
+			},
+			{
+				"title":       "Notebook",
+				"description": "Notebook",
+				"picture":     "/static/image/notebook.jpeg",
+			},
+			{
+				"title":       "Sweatshirt",
+				"description": "Sweatshirt",
+				"picture":     "/static/image/sweatshirt.jpeg",
+			},
+		}
+		for i := 1; i <= 6; i++ {
 			items = append(items, map[string]string{
 				"title":       fmt.Sprintf("product%d", i),
 				"description": fmt.Sprintf("product description %d", i),
+				"picture":     "/static/image/logo.jpg",
 			})
 		}
 		c.HTML(http.StatusOK, "home", utils.H{
