@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -14,7 +13,7 @@ import (
 )
 
 func main() {
-	h := server.Default(server.WithDisablePrintRoute(false), server.WithAutoReloadRender(true, time.Second))
+	h := server.Default(server.WithDisablePrintRoute(false))
 	hlog.SetLevel(hlog.LevelTrace)
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
@@ -37,11 +36,7 @@ func main() {
 			"title": "Category",
 		})
 	})
-	h.GET("/product", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "product", utils.H{
-			"title": "Product",
-		})
-	})
+	routes.RegisterProductRoute(h)
 	h.GET("/cart", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "cart", utils.H{
 			"title": "Cart",
@@ -56,7 +51,6 @@ func main() {
 		c.HTML(consts.StatusOK, "about", utils.H{
 			"title": "About",
 		})
-
 	})
 	h.Static("/static", "./")
 	h.Spin()
