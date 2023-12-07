@@ -1,6 +1,6 @@
 module github.com/baiyutang/gomall/app/frontend
 
-go 1.21.4
+go 1.20
 
 require (
 	github.com/cloudwego/fastpb v0.0.4
