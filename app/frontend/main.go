@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"os"
+
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -34,6 +36,13 @@ func main() {
 			"title": "About",
 		})
 	})
+	if os.Getenv("GO_ENV") != "online" {
+		h.GET("/robots.txt", func(ctx context.Context, c *app.RequestContext) {
+			c.Data(consts.StatusOK, "text/plain", []byte(`User-agent: *
+Disallow: /`))
+		})
+	}
+
 	h.Static("/static", "./")
 	h.Spin()
 }
