@@ -43,6 +43,18 @@ func main() {
 			"cart_num": 10,
 		})
 	})
+	h.GET("/checkout", func(ctx context.Context, c *app.RequestContext) {
+		var items []string
+		for i := 1; i <= 10; i++ {
+			items = append(items, "hello")
+		}
+		c.HTML(consts.StatusOK, "checkout", utils.H{
+			"title":    "Checkout",
+			"items":    items,
+			"cart_num": 10,
+		})
+
+	})
 	h.GET("/order", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "order", utils.H{
 			"title": "Order",

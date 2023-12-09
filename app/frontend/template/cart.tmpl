@@ -1,22 +1,18 @@
 {{ define "cart" }}
     {{ template "header" . }}
     <div class="row">
-
-        <div class="card border-0" style="width: 100%;">
-        </div>
         <ul class="list-group">
             {{ range $.items }}
                 <li class="list-group-item">
                     <div class="card border-0">
-                        <div class="card-title">abc</div>
                         <div class="card-body row">
                             <div class="col-4">
                                 <img src="/static/image/logo.jpg" style="max-width: 100px;max-height: 50px" alt="">
                             </div>
                             <div class="col-8">
+                                <div class="mt-1">abc</div>
                                 <div class="mt-1">Single Price: $100</div>
                                 <div class="mt-1">Qty: 10</div>
-                                <div class="mt-1">Total Price: 1000</div>
                             </div>
                         </div>
                     </div>
@@ -25,7 +21,8 @@
         </ul>
         <div class="mt-3 mb-5">
             <div class="float-end">
-                <button class="btn btn-lg btn-success float-end">Check out</button>
+                <div class="m-3 text-danger">Total: $100000</div>
+                <a href="/checkout" class="btn btn-lg btn-success float-end">Check out</a>
             </div>
         </div>
     </div>
