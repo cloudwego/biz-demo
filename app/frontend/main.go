@@ -19,9 +19,26 @@ func main() {
 	routes.RegisterProduct(h)
 	routes.RegisterHome(h)
 	routes.RegisterCategory(h)
+	h.GET("sign-in", func(ctx context.Context, c *app.RequestContext) {
+		c.HTML(consts.StatusOK, "sign-in", utils.H{
+			"title": "Sign in",
+		})
+
+	})
+	h.GET("sign-up", func(ctx context.Context, c *app.RequestContext) {
+		c.HTML(consts.StatusOK, "sign-up", utils.H{
+			"title": "Sign up",
+		})
+	})
 	h.GET("/cart", func(ctx context.Context, c *app.RequestContext) {
+		var items []string
+		for i := 1; i <= 10; i++ {
+			items = append(items, "hello")
+		}
 		c.HTML(consts.StatusOK, "cart", utils.H{
-			"title": "Cart",
+			"title":    "Cart",
+			"items":    items,
+			"cart_num": 10,
 		})
 	})
 	h.GET("/order", func(ctx context.Context, c *app.RequestContext) {

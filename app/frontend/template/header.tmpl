@@ -28,6 +28,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/solid.min.css"
               integrity="sha512-pZlKGs7nEqF4zoG0egeK167l6yovsuL8ap30d07kA5AJUq+WysFlQ02DLXAmN3n0+H3JVz5ni8SJZnrOaYXWBA=="
               crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css"
+              integrity="sha512-8RxmFOVaKQe/xtg6lbscU9DU0IRhURWEuiI0tXevv+lXbAHfkpamD4VKFQRto9WgfOJDwOZ74c/s9Yesv3VvIQ=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
     </head>
 
     <body class="min-vh-100">
@@ -66,6 +69,9 @@
                                aria-label="Search" value="{{ .q }}">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
+                    <div class="btn-group ms-3" role="group" aria-label="Basic mixed styles example">
+                        <a href="/sign-in" class="btn btn-primary">Sign in</a>
+                    </div>
                 </div>
                 <div class="ms-lg-3 d-none d-lg-block d-xl-block">
                     {{ template "cart-num" . }}
