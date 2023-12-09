@@ -43,6 +43,9 @@ func main() {
 			"cart_num": 10,
 		})
 	})
+	h.POST("cart", func(ctx context.Context, c *app.RequestContext) {
+		c.Redirect(consts.StatusFound, []byte("/cart"))
+	})
 	h.GET("/checkout/waiting", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "waiting", utils.H{
 			"title":    "waiting",

@@ -36,14 +36,14 @@
                 </div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-5 col-sm-12 flex-column align-self-center">
-                    <form action="">
+                    <form action="/cart" method="post">
                         <h5 class="card-title">{{ .item.Name }}</h5>
                         <p class="card-text">{{ .item.Description }}</p>
                         <p class="card-text">${{ .item.Price }}</p>
                         <label for="productNum">数量：</label>
                         <input type="number" class="form-control mt-3" id="productNum" value="" placeholder="1"
                                min="1"/>
-                        <input type="submit" href="#" class="btn btn-primary mt-3" value="Add to Cart">
+                        <input type="submit" class="btn btn-primary mt-3" value="Add to Cart">
                     </form>
                 </div>
             </div>
