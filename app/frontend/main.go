@@ -43,6 +43,19 @@ func main() {
 			"cart_num": 10,
 		})
 	})
+	h.GET("/checkout/waiting", func(ctx context.Context, c *app.RequestContext) {
+		c.HTML(consts.StatusOK, "waiting", utils.H{
+			"title":    "waiting",
+			"redirect": "/checkout/result",
+		})
+	})
+
+	h.GET("/checkout/result", func(ctx context.Context, c *app.RequestContext) {
+		c.HTML(consts.StatusOK, "result", utils.H{
+			"title": "result",
+		})
+	})
+
 	h.GET("/checkout", func(ctx context.Context, c *app.RequestContext) {
 		var items []string
 		for i := 1; i <= 10; i++ {
