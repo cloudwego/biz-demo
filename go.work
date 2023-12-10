@@ -1,6 +1,7 @@
-go 1.20
+go 1.21.4
 
 use (
+	./app/cart
 	./app/frontend
 	./app/product
 )

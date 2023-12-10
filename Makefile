@@ -24,3 +24,7 @@ run-frontend:
 .PHONY: watch-frontend
 watch-frontend:
 	cd app/frontend && air
+
+.PHONY: gen-cart
+gen-cart:
+	cd app/cart && cwgo server -I ../../idl --type RPC --service cart --module github.com/baiyutang/gomall/app/cart --idl ../../idl/cart.proto
