@@ -7,7 +7,7 @@ require (
 	github.com/cloudwego/hertz v0.7.3
 	github.com/cloudwego/kitex v0.8.0
 	github.com/hertz-contrib/logger/zap v1.1.0
-	github.com/hertz-contrib/monitor-prometheus v0.1.0
+	github.com/hertz-contrib/monitor-prometheus v0.1.1
 	github.com/hertz-contrib/obs-opentelemetry/provider v0.2.3
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.3.1
 	github.com/joho/godotenv v1.5.1

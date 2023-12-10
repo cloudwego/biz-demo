@@ -32,10 +32,10 @@ func main() {
 		server.WithDisablePrintRoute(false),
 		server.WithTracer(
 			hertzprom.NewServerTracer(
-				":10086",
-				"/metrics",
+				"",
+				"",
 				hertzprom.WithRegistry(mtl.Registry),
-				//hertzprom.WithDisableServer(true),
+				hertzprom.WithDisableServer(true),
 			),
 		),
 		tracer,
