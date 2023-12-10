@@ -2,20 +2,45 @@ package main
 
 import (
 	"context"
+	"github.com/joho/godotenv"
 	"os"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
-	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
+	hertzprom "github.com/hertz-contrib/monitor-prometheus"
+	hertzotelprovider "github.com/hertz-contrib/obs-opentelemetry/provider"
+	hertzoteltracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
 
+	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/routes"
 )
 
 func main() {
-	h := server.Default(server.WithDisablePrintRoute(false))
-	hlog.SetLevel(hlog.LevelTrace)
+	_ = godotenv.Load()
+
+	mtl.InitMtl()
+
+	p := hertzotelprovider.NewOpenTelemetryProvider(
+		hertzotelprovider.WithSdkTracerProvider(mtl.TracerProvider),
+		hertzotelprovider.WithEnableMetrics(false),
+	)
+	defer p.Shutdown(context.Background())
+	tracer, cfg := hertzoteltracing.NewServerTracer()
+	h := server.Default(
+		server.WithDisablePrintRoute(false),
+		server.WithTracer(
+			hertzprom.NewServerTracer(
+				":10086",
+				"/metrics",
+				hertzprom.WithRegistry(mtl.Registry),
+				//hertzprom.WithDisableServer(true),
+			),
+		),
+		tracer,
+	)
+	h.Use(hertzoteltracing.ServerMiddleware(cfg))
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
 	routes.RegisterProduct(h)
