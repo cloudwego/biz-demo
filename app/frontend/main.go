@@ -2,8 +2,9 @@ package main
 
 import (
 	"context"
-	"github.com/joho/godotenv"
 	"os"
+
+	"github.com/joho/godotenv"
 
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -50,7 +51,6 @@ func main() {
 		c.HTML(consts.StatusOK, "sign-in", utils.H{
 			"title": "Sign in",
 		})
-
 	})
 	h.GET("sign-up", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "sign-up", utils.H{
@@ -94,7 +94,6 @@ func main() {
 			"items":    items,
 			"cart_num": 10,
 		})
-
 	})
 	h.GET("/order", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "order", utils.H{
