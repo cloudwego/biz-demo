@@ -2,6 +2,10 @@ package main
 
 import (
 	"context"
+	"github.com/baiyutang/gomall/app/frontend/middleware"
+	"github.com/baiyutang/gomall/app/frontend/routes"
+	"github.com/hertz-contrib/sessions"
+	"github.com/hertz-contrib/sessions/redis"
 	"os"
 	"time"
 
@@ -16,7 +20,7 @@ import (
 	hertzoteltracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
 
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
-	"github.com/baiyutang/gomall/app/frontend/routes"
+	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 )
 
 func main() {
@@ -43,12 +47,25 @@ func main() {
 		),
 		tracer,
 	)
+
+	store, err := redis.NewStore(2048, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
+
+	frontendutils.MustHandleError(err)
+
+	h.Use(sessions.New("cloudwego-shop", store))
+
 	h.Use(hertzoteltracing.ServerMiddleware(cfg))
-	h.LoadHTMLGlob("template/*")
-	h.Delims("{{", "}}")
+	middleware.RegisterMiddleware(h)
+
 	routes.RegisterProduct(h)
 	routes.RegisterHome(h)
 	routes.RegisterCategory(h)
+	routes.RegisterAuth(h)
+	routes.RegisterCart(h)
+	routes.RegisterCheckout(h)
+
+	h.LoadHTMLGlob("template/*")
+	h.Delims("{{", "}}")
 	h.GET("sign-in", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "sign-in", utils.H{
 			"title": "Sign in",
@@ -57,44 +74,6 @@ func main() {
 	h.GET("sign-up", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "sign-up", utils.H{
 			"title": "Sign up",
-		})
-	})
-	h.GET("/cart", func(ctx context.Context, c *app.RequestContext) {
-		var items []string
-		for i := 1; i <= 10; i++ {
-			items = append(items, "hello")
-		}
-		c.HTML(consts.StatusOK, "cart", utils.H{
-			"title":    "Cart",
-			"items":    items,
-			"cart_num": 10,
-		})
-	})
-	h.POST("cart", func(ctx context.Context, c *app.RequestContext) {
-		c.Redirect(consts.StatusFound, []byte("/cart"))
-	})
-	h.GET("/checkout/waiting", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "waiting", utils.H{
-			"title":    "waiting",
-			"redirect": "/checkout/result",
-		})
-	})
-
-	h.GET("/checkout/result", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "result", utils.H{
-			"title": "result",
-		})
-	})
-
-	h.GET("/checkout", func(ctx context.Context, c *app.RequestContext) {
-		var items []string
-		for i := 1; i <= 10; i++ {
-			items = append(items, "hello")
-		}
-		c.HTML(consts.StatusOK, "checkout", utils.H{
-			"title":    "Checkout",
-			"items":    items,
-			"cart_num": 10,
 		})
 	})
 	h.GET("/order", func(ctx context.Context, c *app.RequestContext) {

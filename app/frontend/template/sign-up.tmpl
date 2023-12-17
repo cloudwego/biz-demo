@@ -2,7 +2,7 @@
     {{ template "header" . }}
     <div class="container row p-5">
         <div class="col-3"></div>
-        <form method="post" class="col-6" action="/sign-up">
+        <form method="post" class="col-6" action="/auth/register">
             <div class="mb-3">
                 <label for="email" class="form-label">Email {{template "required"}}</label>
                 <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">

@@ -2,6 +2,7 @@ package routes
 
 import (
 	"context"
+	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
@@ -20,9 +21,9 @@ func RegisterProduct(h *server.Hertz) {
 		id64, _ := strconv.ParseUint(productId, 10, 32)
 
 		p, _ := productClient.GetProduct(context.Background(), &product.GetProductRequest{Id: uint32(id64)})
-		c.HTML(consts.StatusOK, "product", utils.H{
+		c.HTML(consts.StatusOK, "product", frontendutils.WarpResponse(ctx, c, utils.H{
 			"cart_num": 10,
 			"item":     p,
-		})
+		}))
 	})
 }

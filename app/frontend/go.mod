@@ -10,6 +10,7 @@ require (
 	github.com/hertz-contrib/monitor-prometheus v0.1.1
 	github.com/hertz-contrib/obs-opentelemetry/provider v0.2.3
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.3.1
+	github.com/hertz-contrib/sessions v1.0.3
 	github.com/joho/godotenv v1.5.1
 	github.com/prometheus/client_golang v1.17.0
 	go.opentelemetry.io/otel v1.21.0
@@ -43,7 +44,11 @@ require (
 	github.com/go-logr/logr v1.3.0 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/gomodule/redigo v1.8.9 // indirect
 	github.com/google/pprof v0.0.0-20220608213341-c488b8fa1db3 // indirect
+	github.com/gorilla/context v1.1.2 // indirect
+	github.com/gorilla/securecookie v1.1.2 // indirect
+	github.com/gorilla/sessions v1.2.2 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/jhump/protoreflect v1.8.2 // indirect
