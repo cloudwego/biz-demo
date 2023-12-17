@@ -2,12 +2,13 @@ package main
 
 import (
 	"context"
+	"os"
+	"time"
+
 	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"github.com/baiyutang/gomall/app/frontend/routes"
 	"github.com/hertz-contrib/sessions"
 	"github.com/hertz-contrib/sessions/redis"
-	"os"
-	"time"
 
 	"github.com/joho/godotenv"
 

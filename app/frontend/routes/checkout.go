@@ -11,16 +11,16 @@ import (
 
 func RegisterCheckout(h *server.Hertz) {
 	h.GET("/checkout/waiting", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "waiting", utils.H{
+		c.HTML(consts.StatusOK, "waiting", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "waiting",
 			"redirect": "/checkout/result",
-		})
+		}))
 	})
 
 	h.GET("/checkout/result", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "result", utils.H{
+		c.HTML(consts.StatusOK, "result", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title": "result",
-		})
+		}))
 	})
 
 	h.GET("/checkout", func(ctx context.Context, c *app.RequestContext) {
@@ -33,5 +33,5 @@ func RegisterCheckout(h *server.Hertz) {
 			"items":    items,
 			"cart_num": 10,
 		}))
-	}
+	})
 }
