@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
 
@@ -30,6 +31,7 @@ func main() {
 	defer p.Shutdown(context.Background())
 	tracer, cfg := hertzoteltracing.NewServerTracer()
 	h := server.Default(
+		server.WithExitWaitTime(time.Second),
 		server.WithDisablePrintRoute(false),
 		server.WithTracer(
 			hertzprom.NewServerTracer(
