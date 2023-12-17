@@ -40,3 +40,11 @@ run-user:
 .PHONY: gen-user-client
 gen-user-client:
 	cd app/frontend && cwgo client -I ../../idl --type RPC --service user --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/user.proto && go mod tidy
+
+.PHONY: gen-checkout
+gen-checkout:
+	cd app/checkout && cwgo server -I ../../idl --type RPC --service checkout --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/checkout.proto && go mod tidy
+
+.PHONY: gen-payment
+gen-payment:
+	cd app/payment && cwgo server -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/payment --idl ../../idl/payment.proto && go mod tidy

@@ -6,31 +6,39 @@
                 <h4 class="mb-3 mt-3">Contact</h4>
                 <label for="email" class="form-label col-12">
                     <input class="form-control" id="email" type="email" placeholder="Email"
-                           aria-label="email">
+                           aria-label="email" value="abc@example.com">
                 </label>
                 <h4 class="mb-3 mt-3">Delivery</h4>
-                <label for="region" class="form-label col-12">
-                    <input type="text" class="form-control" id="region" name="region" placeholder="Region">
-                </label>
                 <div class="mb-3 mt-3 col-12 row">
-                    <label for="first-name" class="col-md-6 col-sm-12">
-                        <input type="text" class="form-control" placeholder="First name" name="first-name">
+                    <label for="firstname" class="col-md-6 col-sm-12">
+                        <input type="text" id="firstname" class="form-control" placeholder="First name"
+                               name="firstname" value="world">
                     </label>
-                    <label for="last-name" class="col-md-6 col-sm-12">
-                        <input type="text" class="form-control" placeholder="Last name" name="last-name">
+                    <label for="lastname" class="col-md-6 col-sm-12">
+                        <input type="text" id="lastname" class="form-control" placeholder="Last name" name="lastname"
+                               value="hello">
                     </label>
                 </div>
                 <label for="address" class="mb-3 mt-3 col-12 form-label">
-                    <input type="text" class="form-control" placeholder="Address" name="address">
+                    <input type="text" class="form-control" placeholder="Address" name="address" value="7th street">
+                </label>
+                <label for="zip_code" class="mb-3 mt-3 form-label col-12">
+                    <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="zip code"
+                           value="310000">
                 </label>
                 <div class="mb-3 mt-3 col-12 row">
                     <label for="city" class="col-md-6 col-sm-12">
-                        <input type="text" id="city" class="form-control" placeholder="City" name="city">
+                        <input type="text" id="city" class="form-control" placeholder="City" name="city"
+                               value="hangzhou">
                     </label>
                     <label for="province" class="col-md-6 col-sm-12">
-                        <input type="text" id="province" class="form-control" placeholder="Province">
+                        <input type="text" id="province" class="form-control" placeholder="Province" value="zhejiang">
                     </label>
                 </div>
+                <label for="country" class="mb-3 mt-3 form-label col-12">
+                    <input type="text" class="form-control" id="country" name="country" placeholder="Country"
+                           value="china">
+                </label>
                 <h4 class="mb-3 mt-3">
                     Payment
                 </h4>
@@ -47,6 +55,12 @@
                 {{/*                    </label>*/}}
                 {{/*                </div>*/}}
                 <div class="form-check">
+                    <input class="form-check-input" type="radio" name="payment" id="stripe" checked>
+                    <label class="form-check-label" for="stripe">
+                        Stripe
+                    </label>
+                </div>
+                <div class="form-check">
                     <input class="form-check-input" type="radio" name="payment" id="paypal">
                     <label class="form-check-label" for="paypal">
                         Paypal
@@ -59,7 +73,7 @@
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="payment" id="alipay" checked>
+                    <input class="form-check-input" type="radio" name="payment" id="alipay">
                     <label class="form-check-label" for="alipay">
                         Alipay
                     </label>
@@ -67,7 +81,7 @@
                 <div class="mt-3 mb-3">
                     <div class="float-end">
                         <div class="m-3 text-danger">Total: $100000</div>
-                        <a href="/checkout/waiting" class="btn btn-lg btn-success float-end">Check out</a>
+                        <a href="/checkout/waiting" class="btn btn-lg btn-success float-end">Pay</a>
                     </div>
                 </div>
             </form>
