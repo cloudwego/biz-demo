@@ -21,6 +21,7 @@ func RegisterHome(h *server.Hertz) {
 			"title":    "Hot sale",
 			"cart_num": 10,
 			"items":    p.Products,
+			"user_id":  1,
 		})
 	})
 }

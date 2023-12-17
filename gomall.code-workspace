@@ -1,14 +1,17 @@
 {
   "folders": [
-	{
-		"path": "."
-	},
-	{
-		"path": "app/frontend"
-	},
-	{
-		"path": "app/product"
-	}
-],
+    {
+      "path": "."
+    },
+    {
+      "path": "app/frontend"
+    },
+    {
+      "path": "app/product"
+    },
+    {
+      "path": "app/user"
+    }
+  ],
   "settings": {}
 }

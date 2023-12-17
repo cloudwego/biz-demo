@@ -34,7 +34,7 @@
                     {{ template "cart-num" . }}
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mb-2 mb-lg-0 w-100">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
@@ -48,15 +48,30 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/about">About</a>
                         </li>
+                        <form class="d-flex ms-auto" role="search" action="/search" method="get">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Search"
+                                   aria-label="Search" value="{{ .q }}">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                        {{ if .user_id }}
+                            <div class="nav-item dropdown ms-3">
+
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                   aria-expanded="false"><i class="fa-solid fa-user me-2"></i>Hello</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Order Center</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                                </ul>
+                            </div>
+                        {{ else }}
+                            <div class="btn-group ms-3" role="group" aria-label="Basic mixed styles example">
+                                <a href="/sign-in" class="btn btn-primary">Sign in</a>
+                            </div>
+                        {{ end }}
                     </ul>
-                    <form class="d-flex" role="search" action="/search" method="get">
-                        <input class="form-control me-2" type="search" name="q" placeholder="Search"
-                               aria-label="Search" value="{{ .q }}">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                    <div class="btn-group ms-3" role="group" aria-label="Basic mixed styles example">
-                        <a href="/sign-in" class="btn btn-primary">Sign in</a>
-                    </div>
                 </div>
                 <div class="ms-lg-3 d-none d-lg-block d-xl-block">
                     {{ template "cart-num" . }}
