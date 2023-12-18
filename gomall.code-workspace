@@ -11,6 +11,15 @@
     },
     {
       "path": "app/user"
+    },
+    {
+      "path": "app/payment"
+    },
+    {
+      "path": "app/order"
+    },
+    {
+      "path": "app/checkout"
     }
   ],
   "settings": {}
