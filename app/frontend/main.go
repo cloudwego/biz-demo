@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"os"
 	"time"
 
@@ -28,6 +29,7 @@ func main() {
 	_ = godotenv.Load()
 
 	mtl.InitMtl()
+	rpc.InitClient()
 
 	p := hertzotelprovider.NewOpenTelemetryProvider(
 		hertzotelprovider.WithSdkTracerProvider(mtl.TracerProvider),
@@ -49,7 +51,8 @@ func main() {
 		tracer,
 	)
 
-	store, err := redis.NewStore(2048, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
+	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
+	store.Options(sessions.Options{MaxAge: 86400})
 
 	frontendutils.MustHandleError(err)
 

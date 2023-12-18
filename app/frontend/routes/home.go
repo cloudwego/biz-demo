@@ -2,22 +2,26 @@ package routes
 
 import (
 	"context"
+	"fmt"
+	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
+	"github.com/cloudwego/kitex/pkg/klog"
 	"net/http"
 
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
+	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	"github.com/cloudwego/kitex/client"
-
-	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
-	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 )
 
 func RegisterHome(h *server.Hertz) {
-	productClient, _ := productcatalogservice.NewClient("product", client.WithHostPorts("localhost:8881"))
+	productClient := rpc.ProductClient
+	fmt.Printf("%#v", productClient)
 	h.GET("/", func(ctx context.Context, c *app.RequestContext) {
-		p, _ := productClient.ListProducts(ctx, &product.ListProductsReq{})
+		p, err := productClient.ListProducts(ctx, &product.ListProductsReq{})
+		if err != nil {
+			klog.Error(err)
+		}
 		c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "Hot sale",
 			"cart_num": 10,

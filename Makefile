@@ -1,3 +1,6 @@
+export REGISTRY_ENABLE = true
+export REGISTRY_ADDR = 10.152.183.21:8500
+
 .PHONY: all
 all: help
 

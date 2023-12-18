@@ -12,6 +12,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexzap "github.com/kitex-contrib/obs-opentelemetry/logging/zap"
+	consul "github.com/kitex-contrib/registry-consul"
 )
 
 func main() {
@@ -34,6 +35,14 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
+	klog.Info(os.Getenv("REGISTRY_ADDR"))
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulRegister(os.Getenv("REGISTRY_ADDR"))
+		if err != nil {
+			klog.Fatal(err)
+		}
+		opts = append(opts, server.WithRegistry(r))
+	}
 
 	// klog
 	if os.Getenv("GO_ENV") != "online" {

@@ -7,8 +7,11 @@ import (
 )
 
 func initLog() {
-	log := hertzzap.NewLogger()
-	hlog.SetLogger(log)
-	hlog.SetOutput(os.Stdout)
-	hlog.SetLevel(hlog.LevelTrace)
+	// use zap in production mode
+	if os.Getenv("GO_ENV") == "online" {
+		log := hertzzap.NewLogger()
+		hlog.SetLogger(log)
+		hlog.SetOutput(os.Stdout)
+		hlog.SetLevel(hlog.LevelTrace)
+	}
 }
