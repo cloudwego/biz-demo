@@ -37,7 +37,6 @@ gen-order:
 gen-payment:
 	cd app/payment && cwgo server -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/payment --idl ../../idl/payment.proto
 
-
 .PHONY: run-frontend
 run-frontend:
 	cd app/frontend && go run .

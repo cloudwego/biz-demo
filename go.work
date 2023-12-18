@@ -4,6 +4,8 @@ use (
 	./app/cart
 	./app/frontend
 	./app/product
+	./app/payment
+	./app/order
 )
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
