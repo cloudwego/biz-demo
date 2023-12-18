@@ -27,7 +27,7 @@ func RegisterAuth(h *server.Hertz) {
 		err = session.Save()
 		frontendutils.MustHandleError(err)
 
-		c.Redirect(consts.StatusTemporaryRedirect, []byte("/"))
+		c.Redirect(consts.StatusFound, []byte("/"))
 	})
 	h.POST("/auth/login", func(ctx context.Context, c *app.RequestContext) {
 		//p, _ := userClient.Login(context.Background(), &user.LoginReq{Email: "abc@abc.com", Password: "hello@password"})
@@ -36,13 +36,13 @@ func RegisterAuth(h *server.Hertz) {
 		err := session.Save()
 		frontendutils.MustHandleError(err)
 
-		c.Redirect(consts.StatusTemporaryRedirect, []byte("/"))
+		c.Redirect(consts.StatusFound, []byte("/"))
 	})
 	h.GET("/auth/logout", func(ctx context.Context, c *app.RequestContext) {
 		session := sessions.Default(c)
 		session.Clear()
 		session.Save()
 
-		c.Redirect(consts.StatusTemporaryRedirect, []byte("/"))
+		c.Redirect(consts.StatusFound, []byte("/"))
 	})
 }
