@@ -67,51 +67,6 @@ func (x *CreditCardInfo) fastReadField4(buf []byte, _type int8) (offset int, err
 	return offset, err
 }
 
-func (x *Money) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
-	switch number {
-	case 1:
-		offset, err = x.fastReadField1(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 2:
-		offset, err = x.fastReadField2(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 3:
-		offset, err = x.fastReadField3(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	default:
-		offset, err = fastpb.Skip(buf, _type, number)
-		if err != nil {
-			goto SkipFieldError
-		}
-	}
-	return offset, nil
-SkipFieldError:
-	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
-ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_Money[number], err)
-}
-
-func (x *Money) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.CurrencyCode, offset, err = fastpb.ReadString(buf, _type)
-	return offset, err
-}
-
-func (x *Money) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	x.Units, offset, err = fastpb.ReadInt64(buf, _type)
-	return offset, err
-}
-
-func (x *Money) fastReadField3(buf []byte, _type int8) (offset int, err error) {
-	x.Nanos, offset, err = fastpb.ReadInt32(buf, _type)
-	return offset, err
-}
-
 func (x *ChargeRequest) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
 	case 1:
@@ -138,13 +93,8 @@ ReadFieldError:
 }
 
 func (x *ChargeRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	var v Money
-	offset, err = fastpb.ReadMessage(buf, _type, &v)
-	if err != nil {
-		return offset, err
-	}
-	x.Amount = &v
-	return offset, nil
+	x.Amount, offset, err = fastpb.ReadFloat(buf, _type)
+	return offset, err
 }
 
 func (x *ChargeRequest) fastReadField2(buf []byte, _type int8) (offset int, err error) {
@@ -225,40 +175,6 @@ func (x *CreditCardInfo) fastWriteField4(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *Money) FastWrite(buf []byte) (offset int) {
-	if x == nil {
-		return offset
-	}
-	offset += x.fastWriteField1(buf[offset:])
-	offset += x.fastWriteField2(buf[offset:])
-	offset += x.fastWriteField3(buf[offset:])
-	return offset
-}
-
-func (x *Money) fastWriteField1(buf []byte) (offset int) {
-	if x.CurrencyCode == "" {
-		return offset
-	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetCurrencyCode())
-	return offset
-}
-
-func (x *Money) fastWriteField2(buf []byte) (offset int) {
-	if x.Units == 0 {
-		return offset
-	}
-	offset += fastpb.WriteInt64(buf[offset:], 2, x.GetUnits())
-	return offset
-}
-
-func (x *Money) fastWriteField3(buf []byte) (offset int) {
-	if x.Nanos == 0 {
-		return offset
-	}
-	offset += fastpb.WriteInt32(buf[offset:], 3, x.GetNanos())
-	return offset
-}
-
 func (x *ChargeRequest) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
@@ -269,10 +185,10 @@ func (x *ChargeRequest) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *ChargeRequest) fastWriteField1(buf []byte) (offset int) {
-	if x.Amount == nil {
+	if x.Amount == 0 {
 		return offset
 	}
-	offset += fastpb.WriteMessage(buf[offset:], 1, x.GetAmount())
+	offset += fastpb.WriteFloat(buf[offset:], 1, x.GetAmount())
 	return offset
 }
 
@@ -343,40 +259,6 @@ func (x *CreditCardInfo) sizeField4() (n int) {
 	return n
 }
 
-func (x *Money) Size() (n int) {
-	if x == nil {
-		return n
-	}
-	n += x.sizeField1()
-	n += x.sizeField2()
-	n += x.sizeField3()
-	return n
-}
-
-func (x *Money) sizeField1() (n int) {
-	if x.CurrencyCode == "" {
-		return n
-	}
-	n += fastpb.SizeString(1, x.GetCurrencyCode())
-	return n
-}
-
-func (x *Money) sizeField2() (n int) {
-	if x.Units == 0 {
-		return n
-	}
-	n += fastpb.SizeInt64(2, x.GetUnits())
-	return n
-}
-
-func (x *Money) sizeField3() (n int) {
-	if x.Nanos == 0 {
-		return n
-	}
-	n += fastpb.SizeInt32(3, x.GetNanos())
-	return n
-}
-
 func (x *ChargeRequest) Size() (n int) {
 	if x == nil {
 		return n
@@ -387,10 +269,10 @@ func (x *ChargeRequest) Size() (n int) {
 }
 
 func (x *ChargeRequest) sizeField1() (n int) {
-	if x.Amount == nil {
+	if x.Amount == 0 {
 		return n
 	}
-	n += fastpb.SizeMessage(1, x.GetAmount())
+	n += fastpb.SizeFloat(1, x.GetAmount())
 	return n
 }
 
@@ -423,12 +305,6 @@ var fieldIDToName_CreditCardInfo = map[int32]string{
 	2: "CreditCardCvv",
 	3: "CreditCardExpirationYear",
 	4: "CreditCardExpirationMonth",
-}
-
-var fieldIDToName_Money = map[int32]string{
-	1: "CurrencyCode",
-	2: "Units",
-	3: "Nanos",
 }
 
 var fieldIDToName_ChargeRequest = map[int32]string{
