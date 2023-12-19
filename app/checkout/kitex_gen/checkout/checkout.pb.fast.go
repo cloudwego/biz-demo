@@ -106,6 +106,11 @@ func (x *CheckoutReq) FastRead(buf []byte, _type int8, number int32) (offset int
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 6:
+		offset, err = x.fastReadField6(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -120,21 +125,26 @@ ReadFieldError:
 }
 
 func (x *CheckoutReq) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.Firstname, offset, err = fastpb.ReadString(buf, _type)
+	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
 func (x *CheckoutReq) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	x.Lastname, offset, err = fastpb.ReadString(buf, _type)
+	x.Firstname, offset, err = fastpb.ReadString(buf, _type)
 	return offset, err
 }
 
 func (x *CheckoutReq) fastReadField3(buf []byte, _type int8) (offset int, err error) {
-	x.Email, offset, err = fastpb.ReadString(buf, _type)
+	x.Lastname, offset, err = fastpb.ReadString(buf, _type)
 	return offset, err
 }
 
 func (x *CheckoutReq) fastReadField4(buf []byte, _type int8) (offset int, err error) {
+	x.Email, offset, err = fastpb.ReadString(buf, _type)
+	return offset, err
+}
+
+func (x *CheckoutReq) fastReadField5(buf []byte, _type int8) (offset int, err error) {
 	var v Address
 	offset, err = fastpb.ReadMessage(buf, _type, &v)
 	if err != nil {
@@ -144,7 +154,7 @@ func (x *CheckoutReq) fastReadField4(buf []byte, _type int8) (offset int, err er
 	return offset, nil
 }
 
-func (x *CheckoutReq) fastReadField5(buf []byte, _type int8) (offset int, err error) {
+func (x *CheckoutReq) fastReadField6(buf []byte, _type int8) (offset int, err error) {
 	var v payment.CreditCardInfo
 	offset, err = fastpb.ReadMessage(buf, _type, &v)
 	if err != nil {
@@ -360,46 +370,55 @@ func (x *CheckoutReq) FastWrite(buf []byte) (offset int) {
 	offset += x.fastWriteField3(buf[offset:])
 	offset += x.fastWriteField4(buf[offset:])
 	offset += x.fastWriteField5(buf[offset:])
+	offset += x.fastWriteField6(buf[offset:])
 	return offset
 }
 
 func (x *CheckoutReq) fastWriteField1(buf []byte) (offset int) {
-	if x.Firstname == "" {
+	if x.UserId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetFirstname())
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetUserId())
 	return offset
 }
 
 func (x *CheckoutReq) fastWriteField2(buf []byte) (offset int) {
-	if x.Lastname == "" {
+	if x.Firstname == "" {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 2, x.GetLastname())
+	offset += fastpb.WriteString(buf[offset:], 2, x.GetFirstname())
 	return offset
 }
 
 func (x *CheckoutReq) fastWriteField3(buf []byte) (offset int) {
-	if x.Email == "" {
+	if x.Lastname == "" {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 3, x.GetEmail())
+	offset += fastpb.WriteString(buf[offset:], 3, x.GetLastname())
 	return offset
 }
 
 func (x *CheckoutReq) fastWriteField4(buf []byte) (offset int) {
-	if x.Address == nil {
+	if x.Email == "" {
 		return offset
 	}
-	offset += fastpb.WriteMessage(buf[offset:], 4, x.GetAddress())
+	offset += fastpb.WriteString(buf[offset:], 4, x.GetEmail())
 	return offset
 }
 
 func (x *CheckoutReq) fastWriteField5(buf []byte) (offset int) {
+	if x.Address == nil {
+		return offset
+	}
+	offset += fastpb.WriteMessage(buf[offset:], 5, x.GetAddress())
+	return offset
+}
+
+func (x *CheckoutReq) fastWriteField6(buf []byte) (offset int) {
 	if x.CreditCard == nil {
 		return offset
 	}
-	offset += fastpb.WriteMessage(buf[offset:], 5, x.GetCreditCard())
+	offset += fastpb.WriteMessage(buf[offset:], 6, x.GetCreditCard())
 	return offset
 }
 
@@ -559,46 +578,55 @@ func (x *CheckoutReq) Size() (n int) {
 	n += x.sizeField3()
 	n += x.sizeField4()
 	n += x.sizeField5()
+	n += x.sizeField6()
 	return n
 }
 
 func (x *CheckoutReq) sizeField1() (n int) {
-	if x.Firstname == "" {
+	if x.UserId == 0 {
 		return n
 	}
-	n += fastpb.SizeString(1, x.GetFirstname())
+	n += fastpb.SizeUint32(1, x.GetUserId())
 	return n
 }
 
 func (x *CheckoutReq) sizeField2() (n int) {
-	if x.Lastname == "" {
+	if x.Firstname == "" {
 		return n
 	}
-	n += fastpb.SizeString(2, x.GetLastname())
+	n += fastpb.SizeString(2, x.GetFirstname())
 	return n
 }
 
 func (x *CheckoutReq) sizeField3() (n int) {
-	if x.Email == "" {
+	if x.Lastname == "" {
 		return n
 	}
-	n += fastpb.SizeString(3, x.GetEmail())
+	n += fastpb.SizeString(3, x.GetLastname())
 	return n
 }
 
 func (x *CheckoutReq) sizeField4() (n int) {
-	if x.Address == nil {
+	if x.Email == "" {
 		return n
 	}
-	n += fastpb.SizeMessage(4, x.GetAddress())
+	n += fastpb.SizeString(4, x.GetEmail())
 	return n
 }
 
 func (x *CheckoutReq) sizeField5() (n int) {
+	if x.Address == nil {
+		return n
+	}
+	n += fastpb.SizeMessage(5, x.GetAddress())
+	return n
+}
+
+func (x *CheckoutReq) sizeField6() (n int) {
 	if x.CreditCard == nil {
 		return n
 	}
-	n += fastpb.SizeMessage(5, x.GetCreditCard())
+	n += fastpb.SizeMessage(6, x.GetCreditCard())
 	return n
 }
 
@@ -706,11 +734,12 @@ var fieldIDToName_Address = map[int32]string{
 }
 
 var fieldIDToName_CheckoutReq = map[int32]string{
-	1: "Firstname",
-	2: "Lastname",
-	3: "Email",
-	4: "Address",
-	5: "CreditCard",
+	1: "UserId",
+	2: "Firstname",
+	3: "Lastname",
+	4: "Email",
+	5: "Address",
+	6: "CreditCard",
 }
 
 var fieldIDToName_OrderItem = map[int32]string{
