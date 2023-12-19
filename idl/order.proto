@@ -2,12 +2,11 @@ syntax = "proto3";
 
 package order;
 
-import "payment.proto";
 import "cart.proto";
 
 option go_package = "order";
 
-service CheckoutService {
+service OrderService {
   rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse) {}
 }
 
@@ -25,7 +24,6 @@ message PlaceOrderRequest {
 
   Address address = 3;
   string email = 5;
-  payment.CreditCardInfo credit_card = 6;
 }
 
 message OrderItem {

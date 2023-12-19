@@ -22,7 +22,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "CheckoutService"
 	handlerType := (*checkout.CheckoutService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"PlaceOrder": kitex.NewMethodInfo(placeOrderHandler, newPlaceOrderArgs, newPlaceOrderResult, false),
+		"Checkout": kitex.NewMethodInfo(checkoutHandler, newCheckoutArgs, newCheckoutResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "checkout",
@@ -38,73 +38,73 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	return svcInfo
 }
 
-func placeOrderHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+func checkoutHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(checkout.PlaceOrderReq)
+		req := new(checkout.CheckoutReq)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
-		resp, err := handler.(checkout.CheckoutService).PlaceOrder(ctx, req)
+		resp, err := handler.(checkout.CheckoutService).Checkout(ctx, req)
 		if err != nil {
 			return err
 		}
 		if err := st.SendMsg(resp); err != nil {
 			return err
 		}
-	case *PlaceOrderArgs:
-		success, err := handler.(checkout.CheckoutService).PlaceOrder(ctx, s.Req)
+	case *CheckoutArgs:
+		success, err := handler.(checkout.CheckoutService).Checkout(ctx, s.Req)
 		if err != nil {
 			return err
 		}
-		realResult := result.(*PlaceOrderResult)
+		realResult := result.(*CheckoutResult)
 		realResult.Success = success
 	}
 	return nil
 }
-func newPlaceOrderArgs() interface{} {
-	return &PlaceOrderArgs{}
+func newCheckoutArgs() interface{} {
+	return &CheckoutArgs{}
 }
 
-func newPlaceOrderResult() interface{} {
-	return &PlaceOrderResult{}
+func newCheckoutResult() interface{} {
+	return &CheckoutResult{}
 }
 
-type PlaceOrderArgs struct {
-	Req *checkout.PlaceOrderReq
+type CheckoutArgs struct {
+	Req *checkout.CheckoutReq
 }
 
-func (p *PlaceOrderArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+func (p *CheckoutArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetReq() {
-		p.Req = new(checkout.PlaceOrderReq)
+		p.Req = new(checkout.CheckoutReq)
 	}
 	return p.Req.FastRead(buf, _type, number)
 }
 
-func (p *PlaceOrderArgs) FastWrite(buf []byte) (n int) {
+func (p *CheckoutArgs) FastWrite(buf []byte) (n int) {
 	if !p.IsSetReq() {
 		return 0
 	}
 	return p.Req.FastWrite(buf)
 }
 
-func (p *PlaceOrderArgs) Size() (n int) {
+func (p *CheckoutArgs) Size() (n int) {
 	if !p.IsSetReq() {
 		return 0
 	}
 	return p.Req.Size()
 }
 
-func (p *PlaceOrderArgs) Marshal(out []byte) ([]byte, error) {
+func (p *CheckoutArgs) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetReq() {
-		return out, fmt.Errorf("No req in PlaceOrderArgs")
+		return out, fmt.Errorf("No req in CheckoutArgs")
 	}
 	return proto.Marshal(p.Req)
 }
 
-func (p *PlaceOrderArgs) Unmarshal(in []byte) error {
-	msg := new(checkout.PlaceOrderReq)
+func (p *CheckoutArgs) Unmarshal(in []byte) error {
+	msg := new(checkout.CheckoutReq)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -112,59 +112,59 @@ func (p *PlaceOrderArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var PlaceOrderArgs_Req_DEFAULT *checkout.PlaceOrderReq
+var CheckoutArgs_Req_DEFAULT *checkout.CheckoutReq
 
-func (p *PlaceOrderArgs) GetReq() *checkout.PlaceOrderReq {
+func (p *CheckoutArgs) GetReq() *checkout.CheckoutReq {
 	if !p.IsSetReq() {
-		return PlaceOrderArgs_Req_DEFAULT
+		return CheckoutArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-func (p *PlaceOrderArgs) IsSetReq() bool {
+func (p *CheckoutArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *PlaceOrderArgs) GetFirstArgument() interface{} {
+func (p *CheckoutArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-type PlaceOrderResult struct {
-	Success *checkout.PlaceOrderRes
+type CheckoutResult struct {
+	Success *checkout.CheckoutRes
 }
 
-var PlaceOrderResult_Success_DEFAULT *checkout.PlaceOrderRes
+var CheckoutResult_Success_DEFAULT *checkout.CheckoutRes
 
-func (p *PlaceOrderResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+func (p *CheckoutResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetSuccess() {
-		p.Success = new(checkout.PlaceOrderRes)
+		p.Success = new(checkout.CheckoutRes)
 	}
 	return p.Success.FastRead(buf, _type, number)
 }
 
-func (p *PlaceOrderResult) FastWrite(buf []byte) (n int) {
+func (p *CheckoutResult) FastWrite(buf []byte) (n int) {
 	if !p.IsSetSuccess() {
 		return 0
 	}
 	return p.Success.FastWrite(buf)
 }
 
-func (p *PlaceOrderResult) Size() (n int) {
+func (p *CheckoutResult) Size() (n int) {
 	if !p.IsSetSuccess() {
 		return 0
 	}
 	return p.Success.Size()
 }
 
-func (p *PlaceOrderResult) Marshal(out []byte) ([]byte, error) {
+func (p *CheckoutResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
-		return out, fmt.Errorf("No req in PlaceOrderResult")
+		return out, fmt.Errorf("No req in CheckoutResult")
 	}
 	return proto.Marshal(p.Success)
 }
 
-func (p *PlaceOrderResult) Unmarshal(in []byte) error {
-	msg := new(checkout.PlaceOrderRes)
+func (p *CheckoutResult) Unmarshal(in []byte) error {
+	msg := new(checkout.CheckoutRes)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -172,22 +172,22 @@ func (p *PlaceOrderResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *PlaceOrderResult) GetSuccess() *checkout.PlaceOrderRes {
+func (p *CheckoutResult) GetSuccess() *checkout.CheckoutRes {
 	if !p.IsSetSuccess() {
-		return PlaceOrderResult_Success_DEFAULT
+		return CheckoutResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-func (p *PlaceOrderResult) SetSuccess(x interface{}) {
-	p.Success = x.(*checkout.PlaceOrderRes)
+func (p *CheckoutResult) SetSuccess(x interface{}) {
+	p.Success = x.(*checkout.CheckoutRes)
 }
 
-func (p *PlaceOrderResult) IsSetSuccess() bool {
+func (p *CheckoutResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *PlaceOrderResult) GetResult() interface{} {
+func (p *CheckoutResult) GetResult() interface{} {
 	return p.Success
 }
 
@@ -201,11 +201,11 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) PlaceOrder(ctx context.Context, Req *checkout.PlaceOrderReq) (r *checkout.PlaceOrderRes, err error) {
-	var _args PlaceOrderArgs
+func (p *kClient) Checkout(ctx context.Context, Req *checkout.CheckoutReq) (r *checkout.CheckoutRes, err error) {
+	var _args CheckoutArgs
 	_args.Req = Req
-	var _result PlaceOrderResult
-	if err = p.c.Call(ctx, "PlaceOrder", &_args, &_result); err != nil {
+	var _result CheckoutResult
+	if err = p.c.Call(ctx, "Checkout", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

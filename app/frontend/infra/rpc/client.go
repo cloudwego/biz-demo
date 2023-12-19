@@ -18,8 +18,10 @@ var (
 )
 
 func InitClient() {
-	initProductClient()
-	initUserClient()
+	once.Do(func() {
+		initProductClient()
+		initUserClient()
+	})
 }
 
 func initProductClient() {
