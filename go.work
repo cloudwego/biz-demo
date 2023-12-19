@@ -3,9 +3,9 @@ go 1.21.4
 use (
 	./app/cart
 	./app/frontend
-	./app/product
-	./app/payment
 	./app/order
+	./app/payment
+	./app/product
 	./app/user
 )
 

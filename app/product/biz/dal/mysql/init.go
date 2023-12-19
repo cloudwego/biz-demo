@@ -3,10 +3,12 @@ package mysql
 import (
 	"fmt"
 	"github.com/baiyutang/gomall/app/product/conf"
+	"github.com/baiyutang/gomall/app/product/infra/mtl"
 	"os"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/plugin/opentelemetry/tracing"
 )
 
 var (
@@ -22,6 +24,9 @@ func Init() {
 		},
 	)
 	if err != nil {
+		panic(err)
+	}
+	if err := DB.Use(tracing.NewPlugin(tracing.WithoutMetrics(), tracing.WithTracerProvider(mtl.TracerProvider))); err != nil {
 		panic(err)
 	}
 }
