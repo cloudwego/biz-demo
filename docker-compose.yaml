@@ -1,0 +1,18 @@
+version: "3.1"
+services:
+  mysql:
+    image: "mysql"
+    volumes:
+      - ./configs/sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    restart: always
+  nacos:
+    image: "nacos/nacos-server:2.0.3"
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    environment:
+      MODE: standalone
