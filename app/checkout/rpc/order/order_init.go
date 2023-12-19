@@ -1,4 +1,4 @@
-package checkout
+package order
 
 import (
 	"sync"
@@ -9,7 +9,7 @@ import (
 var (
 	// todo edit custom config
 	defaultClient     RPCClient
-	defaultDstService = "checkout"
+	defaultDstService = "order"
 	defaultClientOpts = []client.Option{
 		client.WithHostPorts("127.0.0.1:8888"),
 	}

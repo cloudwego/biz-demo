@@ -1,4 +1,4 @@
-package checkout
+package order
 
 import (
 	"context"

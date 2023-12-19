@@ -51,4 +51,4 @@ run-payment:
 
 .PHONY: gen-checkout-client
 gen-checkout-client:
-	cd app/checkout && cwgo client -I ../../idl --type RPC --service checkout --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/order.proto
+	cd app/checkout && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/order.proto
