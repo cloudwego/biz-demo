@@ -19,6 +19,7 @@ message CreditCardInfo {
 message ChargeRequest {
   float amount = 1;
   CreditCardInfo credit_card = 2;
+  string order_id = 3;
 }
 
 message ChargeResponse {
