@@ -2,12 +2,11 @@ syntax = "proto3";
 
 package order;
 
-import "payment.proto";
 import "cart.proto";
 
 option go_package = "order";
 
-service CheckoutService {
+service OrderService {
   rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse) {}
 }
 
@@ -20,12 +19,12 @@ message Address {
 }
 
 message PlaceOrderRequest {
-  string user_id = 1;
+  uint32 user_id = 1;
   string user_currency = 2;
 
   Address address = 3;
   string email = 5;
-  payment.CreditCardInfo credit_card = 6;
+  repeated OrderItem orderItems = 6;
 }
 
 message OrderItem {
@@ -35,10 +34,6 @@ message OrderItem {
 
 message OrderResult {
   string   order_id = 1;
-  string   shipping_tracking_id = 2;
-  float shipping_cost = 3;
-  Address  shipping_address = 4;
-  repeated OrderItem items = 5;
 }
 
 message PlaceOrderResponse {

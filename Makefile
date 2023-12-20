@@ -21,6 +21,10 @@ watch-frontend:
 gen-cart:
 	cd app/cart && cwgo server -I ../../idl --type RPC --service cart --module github.com/baiyutang/gomall/app/cart --idl ../../idl/cart.proto
 
+.PHONY: gen-checkout
+gen-checkout:
+	cd app/checkout && cwgo server -I ../../idl --type RPC --service checkout --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/checkout.proto
+
 .PHONY: gen-order
 gen-order:
 	cd app/order && cwgo server -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/order --idl ../../idl/order.proto
@@ -41,3 +45,8 @@ lint:
 .PHONY: run
 run:
 	scripts/run.sh ${svc}
+
+.PHONY: gen-checkout-client
+gen-checkout-client:
+	cd app/checkout && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/order.proto
+

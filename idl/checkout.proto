@@ -8,7 +8,7 @@ import "cart.proto";
 option go_package = "/checkout";
 
 service CheckoutService {
-  rpc PlaceOrder(PlaceOrderReq) returns (PlaceOrderRes) {}
+  rpc Checkout(CheckoutReq) returns (CheckoutRes) {}
 }
 
 message Address {
@@ -19,12 +19,13 @@ message Address {
   int32 zip_code = 5;
 }
 
-message PlaceOrderReq {
-  string firstname = 1;
-  string lastname = 2;
-  string email = 3;
-  Address address = 4;
-  payment.CreditCardInfo credit_card = 5;
+message CheckoutReq {
+  uint32 user_id = 1;
+  string firstname = 2;
+  string lastname = 3;
+  string email = 4;
+  Address address = 5;
+  payment.CreditCardInfo credit_card = 6;
 }
 
 message OrderItem {
@@ -40,6 +41,6 @@ message OrderResult {
   repeated OrderItem items = 5;
 }
 
-message PlaceOrderRes{
+message CheckoutRes{
   OrderResult order = 1;
 }

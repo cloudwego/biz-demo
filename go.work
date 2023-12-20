@@ -2,6 +2,7 @@ go 1.21.4
 
 use (
 	./app/cart
+	./app/checkout
 	./app/frontend
 	./app/order
 	./app/payment

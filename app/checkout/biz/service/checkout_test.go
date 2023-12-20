@@ -6,12 +6,12 @@ import (
 	checkout "github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout"
 )
 
-func TestPlaceOrder_Run(t *testing.T) {
+func TestCheckout_Run(t *testing.T) {
 	ctx := context.Background()
-	s := NewPlaceOrderService(ctx)
+	s := NewCheckoutService(ctx)
 	// init req and assert value
 
-	req := &checkout.PlaceOrderReq{}
+	req := &checkout.CheckoutReq{}
 	resp, err := s.Run(req)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
