@@ -13,14 +13,6 @@ gen-product:
 gen-product-client:
 	cd app/frontend && cwgo client -I ../../idl --type RPC --service product --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/product.proto
 
-.PHONY: run-product
-run-product:
-	cd app/product && go run .
-
-.PHONY: run-frontend
-run-frontend:
-	cd app/frontend && go run .
-
 .PHONY: watch-frontend
 watch-frontend:
 	cd app/frontend && air
@@ -37,10 +29,15 @@ gen-order:
 gen-payment:
 	cd app/payment && cwgo server -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/payment --idl ../../idl/payment.proto
 
-.PHONY: run-order
-run-order:
-	cd app/order && go run .
+.PHONY: tidy
+tidy:
+	scripts/tidy.sh
 
-.PHONY: run-payment
-run-payment:
-	cd app/payment && go run .
+.PHONY: lint
+lint:
+	scripts/lint.sh
+
+# example: `make run svc=cart`
+.PHONY: run
+run:
+	scripts/run.sh ${svc}
