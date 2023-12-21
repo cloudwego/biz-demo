@@ -2,6 +2,8 @@ package rpc
 
 import (
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/order/orderservice"
+	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/transport"
 	"os"
 	"sync"
@@ -24,7 +26,10 @@ var (
 )
 
 var (
-	commonOpts = []client.Option{client.WithTransportProtocol(transport.GRPC)}
+	commonOpts = []client.Option{
+		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
+		client.WithTransportProtocol(transport.GRPC),
+	}
 )
 
 func InitClient() {
@@ -45,6 +50,7 @@ func initProductClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "checkout-product-client"}))
 	opts = append(opts, commonOpts...)
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	checkoututils.MustHandleError(err)
@@ -59,7 +65,7 @@ func initCartClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
-	opts = append(opts, client.WithTransportProtocol(transport.GRPC))
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "checkout-cart-client"}))
 	opts = append(opts, commonOpts...)
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	checkoututils.MustHandleError(err)
@@ -74,7 +80,7 @@ func initPaymentClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
-	opts = append(opts, client.WithTransportProtocol(transport.GRPC))
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "checkout-payment-client"}))
 	opts = append(opts, commonOpts...)
 	PaymentClient, err = paymentservice.NewClient("payment", opts...)
 	checkoututils.MustHandleError(err)
@@ -89,7 +95,7 @@ func initOrderClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
-	opts = append(opts, client.WithTransportProtocol(transport.GRPC))
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "checkout-order-client"}))
 	opts = append(opts, commonOpts...)
 	OrderClient, err = orderservice.NewClient("order", opts...)
 	checkoututils.MustHandleError(err)

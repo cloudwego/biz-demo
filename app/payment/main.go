@@ -1,7 +1,10 @@
 package main
 
 import (
+	"github.com/baiyutang/gomall/app/payment/middleware"
+	"github.com/cloudwego/kitex/pkg/transmeta"
 	"net"
+	"os"
 
 	"github.com/baiyutang/gomall/app/payment/conf"
 	"github.com/baiyutang/gomall/app/payment/kitex_gen/payment/paymentservice"
@@ -9,7 +12,6 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func main() {
@@ -35,16 +37,20 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
+	opts = append(opts, server.WithMetaHandler(transmeta.ServerHTTP2Handler), server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "payment"}),
+		server.WithMiddleware(middleware.ServerMiddleware))
 
 	// klog
 	logger := kitexlogrus.NewLogger()
 	klog.SetLogger(logger)
 	klog.SetLevel(conf.LogLevel())
-	klog.SetOutput(&lumberjack.Logger{
-		Filename:   conf.GetConf().Kitex.LogFileName,
-		MaxSize:    conf.GetConf().Kitex.LogMaxSize,
-		MaxBackups: conf.GetConf().Kitex.LogMaxBackups,
-		MaxAge:     conf.GetConf().Kitex.LogMaxAge,
-	})
+	klog.SetOutput(os.Stdout)
+
+	//klog.SetOutput(&lumberjack.Logger{
+	//	Filename:   conf.GetConf().Kitex.LogFileName,
+	//	MaxSize:    conf.GetConf().Kitex.LogMaxSize,
+	//	MaxBackups: conf.GetConf().Kitex.LogMaxBackups,
+	//	MaxAge:     conf.GetConf().Kitex.LogMaxAge,
+	//})
 	return
 }
