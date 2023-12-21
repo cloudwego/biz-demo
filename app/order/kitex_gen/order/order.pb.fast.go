@@ -5,7 +5,6 @@ package order
 import (
 	fmt "fmt"
 	cart "github.com/baiyutang/gomall/app/order/kitex_gen/cart"
-	payment "github.com/baiyutang/gomall/app/order/kitex_gen/payment"
 	fastpb "github.com/cloudwego/fastpb"
 )
 
@@ -120,7 +119,7 @@ ReadFieldError:
 }
 
 func (x *PlaceOrderRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadString(buf, _type)
+	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -145,12 +144,12 @@ func (x *PlaceOrderRequest) fastReadField5(buf []byte, _type int8) (offset int, 
 }
 
 func (x *PlaceOrderRequest) fastReadField6(buf []byte, _type int8) (offset int, err error) {
-	var v payment.CreditCardInfo
+	var v OrderItem
 	offset, err = fastpb.ReadMessage(buf, _type, &v)
 	if err != nil {
 		return offset, err
 	}
-	x.CreditCard = &v
+	x.OrderItems = append(x.OrderItems, &v)
 	return offset, nil
 }
 
@@ -201,26 +200,6 @@ func (x *OrderResult) FastRead(buf []byte, _type int8, number int32) (offset int
 		if err != nil {
 			goto ReadFieldError
 		}
-	case 2:
-		offset, err = x.fastReadField2(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 3:
-		offset, err = x.fastReadField3(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 4:
-		offset, err = x.fastReadField4(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
-	case 5:
-		offset, err = x.fastReadField5(buf, _type)
-		if err != nil {
-			goto ReadFieldError
-		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -237,36 +216,6 @@ ReadFieldError:
 func (x *OrderResult) fastReadField1(buf []byte, _type int8) (offset int, err error) {
 	x.OrderId, offset, err = fastpb.ReadString(buf, _type)
 	return offset, err
-}
-
-func (x *OrderResult) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	x.ShippingTrackingId, offset, err = fastpb.ReadString(buf, _type)
-	return offset, err
-}
-
-func (x *OrderResult) fastReadField3(buf []byte, _type int8) (offset int, err error) {
-	x.ShippingCost, offset, err = fastpb.ReadFloat(buf, _type)
-	return offset, err
-}
-
-func (x *OrderResult) fastReadField4(buf []byte, _type int8) (offset int, err error) {
-	var v Address
-	offset, err = fastpb.ReadMessage(buf, _type, &v)
-	if err != nil {
-		return offset, err
-	}
-	x.ShippingAddress = &v
-	return offset, nil
-}
-
-func (x *OrderResult) fastReadField5(buf []byte, _type int8) (offset int, err error) {
-	var v OrderItem
-	offset, err = fastpb.ReadMessage(buf, _type, &v)
-	if err != nil {
-		return offset, err
-	}
-	x.Items = append(x.Items, &v)
-	return offset, nil
 }
 
 func (x *PlaceOrderResponse) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
@@ -364,10 +313,10 @@ func (x *PlaceOrderRequest) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *PlaceOrderRequest) fastWriteField1(buf []byte) (offset int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetUserId())
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetUserId())
 	return offset
 }
 
@@ -396,10 +345,12 @@ func (x *PlaceOrderRequest) fastWriteField5(buf []byte) (offset int) {
 }
 
 func (x *PlaceOrderRequest) fastWriteField6(buf []byte) (offset int) {
-	if x.CreditCard == nil {
+	if x.OrderItems == nil {
 		return offset
 	}
-	offset += fastpb.WriteMessage(buf[offset:], 6, x.GetCreditCard())
+	for i := range x.GetOrderItems() {
+		offset += fastpb.WriteMessage(buf[offset:], 6, x.GetOrderItems()[i])
+	}
 	return offset
 }
 
@@ -433,10 +384,6 @@ func (x *OrderResult) FastWrite(buf []byte) (offset int) {
 		return offset
 	}
 	offset += x.fastWriteField1(buf[offset:])
-	offset += x.fastWriteField2(buf[offset:])
-	offset += x.fastWriteField3(buf[offset:])
-	offset += x.fastWriteField4(buf[offset:])
-	offset += x.fastWriteField5(buf[offset:])
 	return offset
 }
 
@@ -445,40 +392,6 @@ func (x *OrderResult) fastWriteField1(buf []byte) (offset int) {
 		return offset
 	}
 	offset += fastpb.WriteString(buf[offset:], 1, x.GetOrderId())
-	return offset
-}
-
-func (x *OrderResult) fastWriteField2(buf []byte) (offset int) {
-	if x.ShippingTrackingId == "" {
-		return offset
-	}
-	offset += fastpb.WriteString(buf[offset:], 2, x.GetShippingTrackingId())
-	return offset
-}
-
-func (x *OrderResult) fastWriteField3(buf []byte) (offset int) {
-	if x.ShippingCost == 0 {
-		return offset
-	}
-	offset += fastpb.WriteFloat(buf[offset:], 3, x.GetShippingCost())
-	return offset
-}
-
-func (x *OrderResult) fastWriteField4(buf []byte) (offset int) {
-	if x.ShippingAddress == nil {
-		return offset
-	}
-	offset += fastpb.WriteMessage(buf[offset:], 4, x.GetShippingAddress())
-	return offset
-}
-
-func (x *OrderResult) fastWriteField5(buf []byte) (offset int) {
-	if x.Items == nil {
-		return offset
-	}
-	for i := range x.GetItems() {
-		offset += fastpb.WriteMessage(buf[offset:], 5, x.GetItems()[i])
-	}
 	return offset
 }
 
@@ -563,10 +476,10 @@ func (x *PlaceOrderRequest) Size() (n int) {
 }
 
 func (x *PlaceOrderRequest) sizeField1() (n int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return n
 	}
-	n += fastpb.SizeString(1, x.GetUserId())
+	n += fastpb.SizeUint32(1, x.GetUserId())
 	return n
 }
 
@@ -595,10 +508,12 @@ func (x *PlaceOrderRequest) sizeField5() (n int) {
 }
 
 func (x *PlaceOrderRequest) sizeField6() (n int) {
-	if x.CreditCard == nil {
+	if x.OrderItems == nil {
 		return n
 	}
-	n += fastpb.SizeMessage(6, x.GetCreditCard())
+	for i := range x.GetOrderItems() {
+		n += fastpb.SizeMessage(6, x.GetOrderItems()[i])
+	}
 	return n
 }
 
@@ -632,10 +547,6 @@ func (x *OrderResult) Size() (n int) {
 		return n
 	}
 	n += x.sizeField1()
-	n += x.sizeField2()
-	n += x.sizeField3()
-	n += x.sizeField4()
-	n += x.sizeField5()
 	return n
 }
 
@@ -644,40 +555,6 @@ func (x *OrderResult) sizeField1() (n int) {
 		return n
 	}
 	n += fastpb.SizeString(1, x.GetOrderId())
-	return n
-}
-
-func (x *OrderResult) sizeField2() (n int) {
-	if x.ShippingTrackingId == "" {
-		return n
-	}
-	n += fastpb.SizeString(2, x.GetShippingTrackingId())
-	return n
-}
-
-func (x *OrderResult) sizeField3() (n int) {
-	if x.ShippingCost == 0 {
-		return n
-	}
-	n += fastpb.SizeFloat(3, x.GetShippingCost())
-	return n
-}
-
-func (x *OrderResult) sizeField4() (n int) {
-	if x.ShippingAddress == nil {
-		return n
-	}
-	n += fastpb.SizeMessage(4, x.GetShippingAddress())
-	return n
-}
-
-func (x *OrderResult) sizeField5() (n int) {
-	if x.Items == nil {
-		return n
-	}
-	for i := range x.GetItems() {
-		n += fastpb.SizeMessage(5, x.GetItems()[i])
-	}
 	return n
 }
 
@@ -710,7 +587,7 @@ var fieldIDToName_PlaceOrderRequest = map[int32]string{
 	2: "UserCurrency",
 	3: "Address",
 	5: "Email",
-	6: "CreditCard",
+	6: "OrderItems",
 }
 
 var fieldIDToName_OrderItem = map[int32]string{
@@ -720,15 +597,10 @@ var fieldIDToName_OrderItem = map[int32]string{
 
 var fieldIDToName_OrderResult = map[int32]string{
 	1: "OrderId",
-	2: "ShippingTrackingId",
-	3: "ShippingCost",
-	4: "ShippingAddress",
-	5: "Items",
 }
 
 var fieldIDToName_PlaceOrderResponse = map[int32]string{
 	1: "Order",
 }
 
-var _ = payment.File_payment_proto
 var _ = cart.File_cart_proto

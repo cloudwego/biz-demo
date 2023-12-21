@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"testing"
 	user "github.com/baiyutang/gomall/app/user/kitex_gen/user"
+	"testing"
 )
 
 func TestLogin_Run(t *testing.T) {

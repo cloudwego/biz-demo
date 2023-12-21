@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
 	"github.com/baiyutang/gomall/app/order/biz/service"
+	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
 )
 
 // CheckoutServiceImpl implements the last service interface defined in the IDL.
