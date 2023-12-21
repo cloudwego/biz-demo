@@ -38,7 +38,7 @@ ReadFieldError:
 }
 
 func (x *CartItem) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.ProductId, offset, err = fastpb.ReadString(buf, _type)
+	x.ProductId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -73,7 +73,7 @@ ReadFieldError:
 }
 
 func (x *AddItemRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadString(buf, _type)
+	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -108,7 +108,7 @@ ReadFieldError:
 }
 
 func (x *EmptyCartRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadString(buf, _type)
+	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -133,7 +133,7 @@ ReadFieldError:
 }
 
 func (x *GetCartRequest) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadString(buf, _type)
+	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -163,7 +163,7 @@ ReadFieldError:
 }
 
 func (x *Cart) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadString(buf, _type)
+	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -200,10 +200,10 @@ func (x *CartItem) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *CartItem) fastWriteField1(buf []byte) (offset int) {
-	if x.ProductId == "" {
+	if x.ProductId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetProductId())
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetProductId())
 	return offset
 }
 
@@ -225,10 +225,10 @@ func (x *AddItemRequest) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *AddItemRequest) fastWriteField1(buf []byte) (offset int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetUserId())
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetUserId())
 	return offset
 }
 
@@ -249,10 +249,10 @@ func (x *EmptyCartRequest) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *EmptyCartRequest) fastWriteField1(buf []byte) (offset int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetUserId())
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetUserId())
 	return offset
 }
 
@@ -265,10 +265,10 @@ func (x *GetCartRequest) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *GetCartRequest) fastWriteField1(buf []byte) (offset int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetUserId())
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetUserId())
 	return offset
 }
 
@@ -282,10 +282,10 @@ func (x *Cart) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *Cart) fastWriteField1(buf []byte) (offset int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 1, x.GetUserId())
+	offset += fastpb.WriteUint32(buf[offset:], 1, x.GetUserId())
 	return offset
 }
 
@@ -316,10 +316,10 @@ func (x *CartItem) Size() (n int) {
 }
 
 func (x *CartItem) sizeField1() (n int) {
-	if x.ProductId == "" {
+	if x.ProductId == 0 {
 		return n
 	}
-	n += fastpb.SizeString(1, x.GetProductId())
+	n += fastpb.SizeUint32(1, x.GetProductId())
 	return n
 }
 
@@ -341,10 +341,10 @@ func (x *AddItemRequest) Size() (n int) {
 }
 
 func (x *AddItemRequest) sizeField1() (n int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return n
 	}
-	n += fastpb.SizeString(1, x.GetUserId())
+	n += fastpb.SizeUint32(1, x.GetUserId())
 	return n
 }
 
@@ -365,10 +365,10 @@ func (x *EmptyCartRequest) Size() (n int) {
 }
 
 func (x *EmptyCartRequest) sizeField1() (n int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return n
 	}
-	n += fastpb.SizeString(1, x.GetUserId())
+	n += fastpb.SizeUint32(1, x.GetUserId())
 	return n
 }
 
@@ -381,10 +381,10 @@ func (x *GetCartRequest) Size() (n int) {
 }
 
 func (x *GetCartRequest) sizeField1() (n int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return n
 	}
-	n += fastpb.SizeString(1, x.GetUserId())
+	n += fastpb.SizeUint32(1, x.GetUserId())
 	return n
 }
 
@@ -398,10 +398,10 @@ func (x *Cart) Size() (n int) {
 }
 
 func (x *Cart) sizeField1() (n int) {
-	if x.UserId == "" {
+	if x.UserId == 0 {
 		return n
 	}
-	n += fastpb.SizeString(1, x.GetUserId())
+	n += fastpb.SizeUint32(1, x.GetUserId())
 	return n
 }
 

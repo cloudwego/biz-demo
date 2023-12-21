@@ -5,33 +5,22 @@ all: help
 help:
 	@echo "Usage: make gen"
 
-.PHONY: gen-product
-gen-product:
-	cd app/product && cwgo server -I ../../idl --type RPC --service product --module github.com/baiyutang/gomall/app/product --idl ../../idl/product.proto
+# example: make gen svc=product
+.PHONY: gen
+gen:
+	scripts/gen.sh ${svc}
 
 .PHONY: gen-product-client
 gen-product-client:
 	cd app/frontend && cwgo client -I ../../idl --type RPC --service product --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/product.proto
 
+.PHONY: gen-checkout-client
+gen-checkout-client:
+	cd app/checkout && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/order.proto
+
 .PHONY: watch-frontend
 watch-frontend:
 	cd app/frontend && air
-
-.PHONY: gen-cart
-gen-cart:
-	cd app/cart && cwgo server -I ../../idl --type RPC --service cart --module github.com/baiyutang/gomall/app/cart --idl ../../idl/cart.proto
-
-.PHONY: gen-checkout
-gen-checkout:
-	cd app/checkout && cwgo server -I ../../idl --type RPC --service checkout --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/checkout.proto
-
-.PHONY: gen-order
-gen-order:
-	cd app/order && cwgo server -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/order --idl ../../idl/order.proto
-
-.PHONY: gen-payment
-gen-payment:
-	cd app/payment && cwgo server -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/payment --idl ../../idl/payment.proto
 
 .PHONY: tidy
 tidy:
@@ -45,8 +34,4 @@ lint:
 .PHONY: run
 run:
 	scripts/run.sh ${svc}
-
-.PHONY: gen-checkout-client
-gen-checkout-client:
-	cd app/checkout && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/order.proto
 
