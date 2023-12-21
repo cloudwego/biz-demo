@@ -2,9 +2,8 @@ package rpc
 
 import (
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/order/orderservice"
+	"github.com/baiyutang/gomall/app/common/suite"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
-	"github.com/cloudwego/kitex/pkg/transmeta"
-	"github.com/cloudwego/kitex/transport"
 	"os"
 	"sync"
 
@@ -26,10 +25,7 @@ var (
 )
 
 var (
-	commonOpts = []client.Option{
-		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
-		client.WithTransportProtocol(transport.GRPC),
-	}
+	commonOpts = []client.Option{}
 )
 
 func InitClient() {
@@ -42,17 +38,13 @@ func InitClient() {
 }
 
 func initProductClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		checkoututils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8881"))
-	}
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "checkout-product-client"}))
-	opts = append(opts, commonOpts...)
-	ProductClient, err = productcatalogservice.NewClient("product", opts...)
+	ProductClient, err = productcatalogservice.NewClient(
+		"product",
+		client.WithSuite(suite.CommonGrpcClientSuite{
+			DestServiceAddr:    "localhost:8881",
+			CurrentServiceName: "checkout",
+		}),
+	)
 	checkoututils.MustHandleError(err)
 }
 
