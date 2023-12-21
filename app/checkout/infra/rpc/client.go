@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/order/orderservice"
+	"github.com/cloudwego/kitex/transport"
 	"os"
 	"sync"
 
@@ -22,10 +23,16 @@ var (
 	err           error
 )
 
+var (
+	commonOpts = []client.Option{client.WithTransportProtocol(transport.GRPC)}
+)
+
 func InitClient() {
 	once.Do(func() {
 		initCartClient()
 		initProductClient()
+		initPaymentClient()
+		initOrderClient()
 	})
 }
 
@@ -38,6 +45,7 @@ func initProductClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
+	opts = append(opts, commonOpts...)
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	checkoututils.MustHandleError(err)
 }
@@ -51,6 +59,38 @@ func initCartClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
+	opts = append(opts, client.WithTransportProtocol(transport.GRPC))
+	opts = append(opts, commonOpts...)
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
+	checkoututils.MustHandleError(err)
+}
+
+func initPaymentClient() {
+	var opts []client.Option
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
+		checkoututils.MustHandleError(err)
+		opts = append(opts, client.WithResolver(r))
+	} else {
+		opts = append(opts, client.WithHostPorts("localhost:8881"))
+	}
+	opts = append(opts, client.WithTransportProtocol(transport.GRPC))
+	opts = append(opts, commonOpts...)
+	PaymentClient, err = paymentservice.NewClient("payment", opts...)
+	checkoututils.MustHandleError(err)
+}
+
+func initOrderClient() {
+	var opts []client.Option
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
+		checkoututils.MustHandleError(err)
+		opts = append(opts, client.WithResolver(r))
+	} else {
+		opts = append(opts, client.WithHostPorts("localhost:8881"))
+	}
+	opts = append(opts, client.WithTransportProtocol(transport.GRPC))
+	opts = append(opts, commonOpts...)
+	OrderClient, err = orderservice.NewClient("order", opts...)
 	checkoututils.MustHandleError(err)
 }
