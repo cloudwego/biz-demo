@@ -25,7 +25,7 @@ var (
 )
 
 var (
-	commonOpts = []client.Option{}
+	commonOpts []client.Option
 )
 
 func InitClient() {
