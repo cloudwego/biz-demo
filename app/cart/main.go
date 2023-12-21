@@ -3,12 +3,12 @@ package main
 import (
 	"net"
 
+	"github.com/baiyutang/gomall/app/cart/conf"
+	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/baiyutang/gomall/app/cart/conf"
-	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 

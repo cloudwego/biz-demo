@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"testing"
 	cart "github.com/baiyutang/gomall/app/cart/kitex_gen/cart"
+	"testing"
 )
 
 func TestGetCart_Run(t *testing.T) {

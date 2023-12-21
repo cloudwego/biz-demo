@@ -3,12 +3,12 @@ package main
 import (
 	"net"
 
+	"github.com/baiyutang/gomall/app/payment/conf"
+	"github.com/baiyutang/gomall/app/payment/kitex_gen/payment/paymentservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"github.com/baiyutang/gomall/app/payment/conf"
-	"github.com/baiyutang/gomall/app/payment/kitex_gen/payment/paymentservice"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 

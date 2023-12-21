@@ -39,7 +39,7 @@ tidy:
 
 .PHONY: lint
 lint:
-	scripts/lint.sh
+	gofmt -l -w app
 
 # example: `make run svc=cart`
 .PHONY: run

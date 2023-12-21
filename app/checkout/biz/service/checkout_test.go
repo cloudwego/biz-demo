@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"testing"
 	checkout "github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout"
+	"testing"
 )
 
 func TestCheckout_Run(t *testing.T) {
