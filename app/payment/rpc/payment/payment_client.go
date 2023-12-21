@@ -2,7 +2,6 @@ package payment
 
 import (
 	"context"
-	"context"
 	payment "github.com/baiyutang/gomall/app/payment/kitex_gen/payment"
 
 	"github.com/baiyutang/gomall/app/payment/kitex_gen/payment/paymentservice"

@@ -2,7 +2,6 @@ package cart
 
 import (
 	"context"
-	"context"
 	cart "github.com/baiyutang/gomall/app/cart/kitex_gen/cart"
 
 	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"

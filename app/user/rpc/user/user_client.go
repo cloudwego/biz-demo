@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"context"
 	user "github.com/baiyutang/gomall/app/user/kitex_gen/user"
 
 	"github.com/baiyutang/gomall/app/user/kitex_gen/user/userservice"

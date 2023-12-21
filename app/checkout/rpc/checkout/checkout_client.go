@@ -2,7 +2,6 @@ package checkout
 
 import (
 	"context"
-	"context"
 	checkout "github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout"
 
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout/checkoutservice"
