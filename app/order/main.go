@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/baiyutang/gomall/app/order/kitex_gen/order/orderservice"
 	"net"
 
 	"github.com/baiyutang/gomall/app/order/conf"
-	"github.com/baiyutang/gomall/app/order/kitex_gen/order/checkoutservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
@@ -15,7 +15,7 @@ import (
 func main() {
 	opts := kitexInit()
 
-	svr := checkoutservice.NewServer(new(CheckoutServiceImpl), opts...)
+	svr := orderservice.NewServer(new(CheckoutServiceImpl), opts...)
 
 	err := svr.Run()
 	if err != nil {

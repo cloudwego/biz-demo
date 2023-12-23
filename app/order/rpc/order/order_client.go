@@ -12,7 +12,7 @@ import (
 type RPCClient interface {
 	KitexClient() orderservice.Client
 	Service() string
-	PlaceOrder(ctx context.Context, req *order.PlaceOrderRequest, callOptions ...callopt.Option) (resp *order.PlaceOrderResponse, err error)
+	PlaceOrder(ctx context.Context, Req *order.PlaceOrderRequest, callOptions ...callopt.Option) (r *order.PlaceOrderResponse, err error)
 }
 
 func NewRPCClient(dstService string, opts ...client.Option) (RPCClient, error) {
@@ -41,6 +41,6 @@ func (c *clientImpl) KitexClient() orderservice.Client {
 	return c.kitexClient
 }
 
-func (c *clientImpl) PlaceOrder(ctx context.Context, req *order.PlaceOrderRequest, callOptions ...callopt.Option) (resp *order.PlaceOrderResponse, err error) {
-	return c.kitexClient.PlaceOrder(ctx, req, callOptions...)
+func (c *clientImpl) PlaceOrder(ctx context.Context, Req *order.PlaceOrderRequest, callOptions ...callopt.Option) (r *order.PlaceOrderResponse, err error) {
+	return c.kitexClient.PlaceOrder(ctx, Req, callOptions...)
 }
