@@ -52,6 +52,9 @@ func initProductClient() {
 
 	opts = append(opts, client.WithCircuitBreaker(cbs), client.WithFallback(fallback.NewFallbackPolicy(fallback.UnwrapHelper(func(ctx context.Context, req, resp interface{}, err error) (fbResp interface{}, fbErr error) {
 		methodName := rpcinfo.GetRPCInfo(ctx).To().Method()
+		if err == nil {
+			return resp, err
+		}
 		if methodName != "ListProducts" {
 			return resp, err
 		}
