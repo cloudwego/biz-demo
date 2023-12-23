@@ -7,12 +7,12 @@
                     <div class="card border-0">
                         <div class="card-body row">
                             <div class="col-4">
-                                <img src="/static/image/logo.jpg" style="max-width: 100px;max-height: 50px" alt="">
+                                <img src="{{ .Picture }}" style="max-width: 100px;max-height: 50px" alt="">
                             </div>
                             <div class="col-8">
-                                <div class="mt-1">abc</div>
-                                <div class="mt-1">Single Price: $100</div>
-                                <div class="mt-1">Qty: 10</div>
+                                <div class="mt-1">{{ .Name }}</div>
+                                <div class="mt-1">Single Price: ${{ .Price }}</div>
+                                <div class="mt-1">Qty: {{ .Qty }}</div>
                             </div>
                         </div>
                     </div>

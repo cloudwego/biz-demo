@@ -1,7 +1,16 @@
 package main
 
 import (
+	"context"
+	"github.com/baiyutang/gomall/app/cart/biz/dal"
+	"github.com/baiyutang/gomall/app/cart/infra/mtl"
+	"github.com/baiyutang/gomall/app/cart/infra/rpc"
+	"github.com/joho/godotenv"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	consul "github.com/kitex-contrib/registry-consul"
 	"net"
+	"os"
 
 	"github.com/baiyutang/gomall/app/cart/conf"
 	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"
@@ -13,6 +22,10 @@ import (
 )
 
 func main() {
+	_ = godotenv.Load()
+	rpc.InitClient()
+	mtl.InitMtl()
+	dal.Init()
 	opts := kitexInit()
 
 	svr := cartservice.NewServer(new(CartServiceImpl), opts...)
@@ -35,6 +48,20 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
+
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulRegister(os.Getenv("REGISTRY_ADDR"))
+		if err != nil {
+			klog.Fatal(err)
+		}
+		opts = append(opts, server.WithRegistry(r))
+	}
+	p := provider.NewOpenTelemetryProvider(
+		provider.WithSdkTracerProvider(mtl.TracerProvider),
+		provider.WithEnableMetrics(false),
+	)
+	defer p.Shutdown(context.Background())
+	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
 
 	// klog
 	logger := kitexlogrus.NewLogger()

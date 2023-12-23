@@ -2,7 +2,9 @@ package rpc
 
 import (
 	"context"
+	"fmt"
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart/cartservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user/userservice"
@@ -21,6 +23,7 @@ import (
 var (
 	ProductClient productcatalogservice.Client
 	UserClient    userservice.Client
+	CartClient    cartservice.Client
 	once          sync.Once
 	err           error
 )
@@ -29,6 +32,7 @@ func InitClient() {
 	once.Do(func() {
 		initProductClient()
 		initUserClient()
+		initCartClient()
 	})
 }
 
@@ -41,7 +45,7 @@ func initProductClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
-	p := provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider))
+	p := provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
 	defer p.Shutdown(context.Background())
 	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
 
@@ -85,5 +89,23 @@ func initUserClient() {
 	}
 
 	UserClient, err = userservice.NewClient("user", opts...)
+	frontendutils.MustHandleError(err)
+}
+
+func initCartClient() {
+	var opts []client.Option
+	//if os.Getenv("REGISTRY_ENABLE") == "true" {
+	//	r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
+	//	frontendutils.MustHandleError(err)
+	//	opts = append(opts, client.WithResolver(r))
+	//} else {
+	opts = append(opts, client.WithHostPorts("localhost:8883"))
+	//}
+	p := provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
+	defer p.Shutdown(context.Background())
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
+
+	CartClient, err = cartservice.NewClient("cart", opts...)
+	fmt.Println(err, "cart client error")
 	frontendutils.MustHandleError(err)
 }
