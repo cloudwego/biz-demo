@@ -3,10 +3,14 @@ package rpc
 import (
 	"context"
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user/userservice"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/kitex/client"
+	"github.com/cloudwego/kitex/pkg/circuitbreak"
+	"github.com/cloudwego/kitex/pkg/fallback"
+	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
@@ -39,7 +43,29 @@ func initProductClient() {
 	}
 	p := provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider))
 	defer p.Shutdown(context.Background())
-	opts = append(opts, client.WithSuite(tracing.NewClientSuite()))
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
+
+	cbs := circuitbreak.NewCBSuite(func(ri rpcinfo.RPCInfo) string {
+		return circuitbreak.RPCInfo2Key(ri)
+	})
+	cbs.UpdateServiceCBConfig("shop-frontend/product/GetProduct", circuitbreak.CBConfig{Enable: true, ErrRate: 0.5, MinSample: 2})
+
+	opts = append(opts, client.WithCircuitBreaker(cbs), client.WithFallback(fallback.NewFallbackPolicy(fallback.UnwrapHelper(func(ctx context.Context, req, resp interface{}, err error) (fbResp interface{}, fbErr error) {
+		methodName := rpcinfo.GetRPCInfo(ctx).To().Method()
+		if methodName != "ListProducts" {
+			return resp, err
+		}
+		return &product.ListProductsResponse{
+			Products: []*product.Product{{
+				Price:       6.6,
+				Id:          3,
+				Picture:     "/static/image/t-shirt.jpeg",
+				Name:        "T-Shirt",
+				Description: "CloudWeGo T-Shirt"},
+			},
+		}, nil
+
+	}))))
 
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	frontendutils.MustHandleError(err)
