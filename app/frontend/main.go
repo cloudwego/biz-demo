@@ -48,6 +48,7 @@ func main() {
 				hertzprom.WithDisableServer(true),
 			),
 		),
+		server.WithHostPorts(":8080"),
 		tracer,
 	)
 
