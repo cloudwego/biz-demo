@@ -1,10 +1,14 @@
 package rpc
 
 import (
+	"context"
+	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user/userservice"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/kitex/client"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
 	"os"
 	"sync"
@@ -33,6 +37,9 @@ func initProductClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
+	p := provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider))
+	defer p.Shutdown(context.Background())
+	opts = append(opts, client.WithSuite(tracing.NewClientSuite()))
 
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	frontendutils.MustHandleError(err)

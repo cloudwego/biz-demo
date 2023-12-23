@@ -1,6 +1,8 @@
 package model
 
 import (
+	"context"
+
 	"gorm.io/gorm"
 )
 
@@ -17,12 +19,12 @@ func (p Product) TableName() string {
 	return "product"
 }
 
-func GetProductById(db *gorm.DB, productId int) (product Product, err error) {
-	err = db.Model(&Product{}).Where(&Product{Base: Base{ID: productId}}).First(&product).Error
+func GetProductById(db *gorm.DB, ctx context.Context, productId int) (product Product, err error) {
+	err = db.WithContext(ctx).Model(&Product{}).Where(&Product{Base: Base{ID: productId}}).First(&product).Error
 	return product, err
 }
 
-func SearchProduct(db *gorm.DB, q string) (product []*Product, err error) {
-	err = db.Model(&Product{}).Find(&product, "name like ? or description like ?", "%"+q+"%", "%"+q+"%").Error
+func SearchProduct(db *gorm.DB, ctx context.Context, q string) (product []*Product, err error) {
+	err = db.WithContext(ctx).Model(&Product{}).Find(&product, "name like ? or description like ?", "%"+q+"%", "%"+q+"%").Error
 	return product, err
 }

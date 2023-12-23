@@ -1,7 +1,6 @@
 package conf
 
 import (
-	"github.com/joho/godotenv"
 	"os"
 	"path/filepath"
 	"sync"
@@ -62,11 +61,6 @@ func GetConf() *Config {
 }
 
 func initConf() {
-	err := godotenv.Load()
-	if err != nil {
-		klog.Fatal("Error loading .env file")
-	}
-
 	prefix := "conf"
 	confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
 	content, err := os.ReadFile(confFileRelPath)

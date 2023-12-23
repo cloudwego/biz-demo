@@ -17,7 +17,7 @@ func NewGetProductService(ctx context.Context) *GetProductService {
 // Run create note info
 func (s *GetProductService) Run(req *product.GetProductRequest) (resp *product.Product, err error) {
 	// Finish your business logic.
-	p, err := model.GetProductById(mysql.DB, int(req.Id))
+	p, err := model.GetProductById(mysql.DB, s.ctx, int(req.Id))
 	return &product.Product{
 		Id:          uint32(p.ID),
 		Picture:     p.Picture,

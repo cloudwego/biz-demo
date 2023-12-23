@@ -1,10 +1,16 @@
 package main
 
 import (
-	"github.com/baiyutang/gomall/app/product/biz/dal"
+	"context"
+	"github.com/baiyutang/gomall/app/product/infra/mtl"
+	"github.com/joho/godotenv"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	"log"
 	"net"
 	"os"
+
+	"github.com/baiyutang/gomall/app/product/biz/dal"
 
 	"github.com/baiyutang/gomall/app/product/conf"
 	"github.com/baiyutang/gomall/app/product/kitex_gen/product/productcatalogservice"
@@ -16,6 +22,12 @@ import (
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		klog.Fatal("Error loading .env file")
+	}
+
+	mtl.InitMtl()
 	opts := kitexInit()
 
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)
@@ -43,6 +55,12 @@ func kitexInit() (opts []server.Option) {
 		}
 		opts = append(opts, server.WithRegistry(r))
 	}
+	p := provider.NewOpenTelemetryProvider(
+		provider.WithSdkTracerProvider(mtl.TracerProvider),
+		provider.WithEnableMetrics(false),
+	)
+	defer p.Shutdown(context.Background())
+	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
 
 	// klog
 	if os.Getenv("GO_ENV") != "online" {

@@ -1,3 +1,3 @@
 package utils
 
-const ServiceName = "product"
+const ServiceName = "shop-product"

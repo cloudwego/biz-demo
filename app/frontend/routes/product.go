@@ -20,7 +20,7 @@ func RegisterProduct(h *server.Hertz) {
 		productId := c.Query("id")
 		id64, _ := strconv.ParseUint(productId, 10, 32)
 
-		p, _ := productClient.GetProduct(context.Background(), &product.GetProductRequest{Id: uint32(id64)})
+		p, _ := productClient.GetProduct(ctx, &product.GetProductRequest{Id: uint32(id64)})
 		c.HTML(consts.StatusOK, "product", frontendutils.WarpResponse(ctx, c, utils.H{
 			"cart_num": 10,
 			"item":     p,

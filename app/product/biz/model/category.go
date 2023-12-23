@@ -1,6 +1,7 @@
 package model
 
 import (
+	"context"
 	"gorm.io/gorm"
 )
 
@@ -15,7 +16,7 @@ func (c Category) TableName() string {
 	return "category"
 }
 
-func GetProductsByCategoryName(db *gorm.DB, name string) (category []Category, err error) {
-	err = db.Model(&Category{}).Where(&Category{Name: name}).Preload("Products").Find(&category).Error
+func GetProductsByCategoryName(db *gorm.DB, ctx context.Context, name string) (category []Category, err error) {
+	err = db.WithContext(ctx).Model(&Category{}).Where(&Category{Name: name}).Preload("Products").Find(&category).Error
 	return category, err
 }
