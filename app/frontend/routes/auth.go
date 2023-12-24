@@ -34,7 +34,7 @@ func RegisterAuth(h *server.Hertz) {
 		err := session.Save()
 		frontendutils.MustHandleError(err)
 		redirect := "/"
-		next := c.Param("next")
+		next := c.Query("next")
 		if frontendutils.ValidateNext(next) {
 			redirect = next
 		}

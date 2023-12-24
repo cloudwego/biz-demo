@@ -80,6 +80,7 @@ func main() {
 		session.Set("user_id", 1)
 		c.HTML(consts.StatusOK, "sign-in", utils.H{
 			"title": "Sign in",
+			"next":  c.Query("next"),
 		})
 	})
 	h.GET("sign-up", func(ctx context.Context, c *app.RequestContext) {
