@@ -58,7 +58,12 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	}
 	fmt.Println(emptyResult)
 	// charge
-	paymentResult, err := rpc.PaymentClient.Charge(s.ctx, &payment.ChargeRequest{Amount: 1, CreditCard: &payment.CreditCardInfo{}})
+	paymentResult, err := rpc.PaymentClient.Charge(s.ctx, &payment.ChargeRequest{Amount: 1, CreditCard: &payment.CreditCardInfo{
+		CreditCardNumber:          req.CreditCard.CreditCardNumber,
+		CreditCardExpirationYear:  req.CreditCard.CreditCardExpirationYear,
+		CreditCardExpirationMonth: req.CreditCard.CreditCardExpirationMonth,
+		CreditCardCvv:             req.CreditCard.CreditCardCvv,
+	}})
 	if err != nil {
 		klog.Error(err)
 	}

@@ -1,8 +1,13 @@
 package main
 
 import (
+	"github.com/baiyutang/gomall/app/payment/infra/mtl"
 	"github.com/baiyutang/gomall/app/payment/middleware"
 	"github.com/cloudwego/kitex/pkg/transmeta"
+	"github.com/joho/godotenv"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	consul "github.com/kitex-contrib/registry-consul"
 	"net"
 	"os"
 
@@ -15,6 +20,8 @@ import (
 )
 
 func main() {
+	_ = godotenv.Load()
+	mtl.InitMtl()
 	opts := kitexInit()
 
 	svr := paymentservice.NewServer(new(PaymentServiceImpl), opts...)
@@ -39,6 +46,19 @@ func kitexInit() (opts []server.Option) {
 	}))
 	opts = append(opts, server.WithMetaHandler(transmeta.ServerHTTP2Handler), server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: "payment"}),
 		server.WithMiddleware(middleware.ServerMiddleware))
+
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulRegister(os.Getenv("REGISTRY_ADDR"))
+		if err != nil {
+			klog.Fatal(err)
+		}
+		opts = append(opts, server.WithRegistry(r))
+	}
+	_ = provider.NewOpenTelemetryProvider(
+		provider.WithSdkTracerProvider(mtl.TracerProvider),
+		provider.WithEnableMetrics(false),
+	)
+	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
 
 	// klog
 	logger := kitexlogrus.NewLogger()
