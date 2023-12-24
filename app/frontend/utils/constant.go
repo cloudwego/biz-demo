@@ -1,6 +1,6 @@
 package utils
 
-const ServiceName = "shop-frontend"
+const ServiceName = "frontend"
 
 type SessionUserIdKey string
 

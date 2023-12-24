@@ -3,7 +3,7 @@ package mtl
 import (
 	"context"
 
-	"github.com/baiyutang/gomall/app/cart/utils"
+	"github.com/baiyutang/gomall/app/cart/conf"
 	"github.com/cloudwego/kitex/server"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -20,7 +20,7 @@ func InitTracing() {
 		panic(err)
 	}
 	processor := tracesdk.NewBatchSpanProcessor(exporter)
-	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(utils.ServiceName)))
+	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(conf.GetConf().Kitex.Service)))
 	if err != nil {
 		res = resource.Default()
 	}

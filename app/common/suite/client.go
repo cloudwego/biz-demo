@@ -1,7 +1,6 @@
 package suite
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/baiyutang/gomall/app/common/utils"
@@ -32,7 +31,7 @@ func (s CommonGrpcClientSuite) Options() []client.Option {
 		opts = append(opts, client.WithHostPorts(s.DestServiceAddr))
 	}
 	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{
-		ServiceName: fmt.Sprintf("%s-%s-client", s.CurrentServiceName, s.DestServiceName),
+		ServiceName: s.CurrentServiceName,
 	}))
 
 	return opts
