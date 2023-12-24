@@ -2,17 +2,25 @@ package main
 
 import (
 	"net"
+	"os"
 
 	"github.com/baiyutang/gomall/app/checkout/conf"
+	"github.com/baiyutang/gomall/app/checkout/infra/mtl"
+	"github.com/baiyutang/gomall/app/checkout/infra/rpc"
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout/checkoutservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
-	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
-	"gopkg.in/natefinch/lumberjack.v2"
+	"github.com/joho/godotenv"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	consul "github.com/kitex-contrib/registry-consul"
 )
 
 func main() {
+	_ = godotenv.Load()
+	mtl.InitMtl()
+	rpc.InitClient()
 	opts := kitexInit()
 
 	svr := checkoutservice.NewServer(new(CheckoutServiceImpl), opts...)
@@ -36,15 +44,21 @@ func kitexInit() (opts []server.Option) {
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
 
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulRegister(os.Getenv("REGISTRY_ADDR"))
+		if err != nil {
+			klog.Fatal(err)
+		}
+		opts = append(opts, server.WithRegistry(r))
+	}
+	_ = provider.NewOpenTelemetryProvider(
+		provider.WithSdkTracerProvider(mtl.TracerProvider),
+		provider.WithEnableMetrics(false),
+	)
+	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
+
 	// klog
-	logger := kitexlogrus.NewLogger()
-	klog.SetLogger(logger)
 	klog.SetLevel(conf.LogLevel())
-	klog.SetOutput(&lumberjack.Logger{
-		Filename:   conf.GetConf().Kitex.LogFileName,
-		MaxSize:    conf.GetConf().Kitex.LogMaxSize,
-		MaxBackups: conf.GetConf().Kitex.LogMaxBackups,
-		MaxAge:     conf.GetConf().Kitex.LogMaxAge,
-	})
+	klog.SetOutput(os.Stdout)
 	return
 }

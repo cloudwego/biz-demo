@@ -29,7 +29,7 @@ func (s CommonGrpcClientSuite) Options() []client.Option {
 		utils.MustHandleError(err)
 		opts = append(opts, client.WithResolver(r))
 	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8881"))
+		opts = append(opts, client.WithHostPorts(s.DestServiceAddr))
 	}
 	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: fmt.Sprintf("%s-%s-client", s.CurrentServiceName, s.DestServiceName),

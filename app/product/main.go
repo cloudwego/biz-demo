@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"github.com/baiyutang/gomall/app/product/infra/mtl"
 	"github.com/joho/godotenv"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
@@ -47,7 +46,6 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 		ServiceName: conf.GetConf().Kitex.Service,
 	}))
-	klog.Info(os.Getenv("REGISTRY_ADDR"))
 	if os.Getenv("REGISTRY_ENABLE") == "true" {
 		r, err := consul.NewConsulRegister(os.Getenv("REGISTRY_ADDR"))
 		if err != nil {
@@ -55,11 +53,10 @@ func kitexInit() (opts []server.Option) {
 		}
 		opts = append(opts, server.WithRegistry(r))
 	}
-	p := provider.NewOpenTelemetryProvider(
+	_ = provider.NewOpenTelemetryProvider(
 		provider.WithSdkTracerProvider(mtl.TracerProvider),
 		provider.WithEnableMetrics(false),
 	)
-	defer p.Shutdown(context.Background())
 	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
 
 	// klog

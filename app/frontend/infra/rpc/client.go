@@ -2,9 +2,9 @@ package rpc
 
 import (
 	"context"
-	"fmt"
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart/cartservice"
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/checkout/checkoutservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user/userservice"
@@ -21,11 +21,12 @@ import (
 )
 
 var (
-	ProductClient productcatalogservice.Client
-	UserClient    userservice.Client
-	CartClient    cartservice.Client
-	once          sync.Once
-	err           error
+	ProductClient  productcatalogservice.Client
+	UserClient     userservice.Client
+	CartClient     cartservice.Client
+	CheckoutClient checkoutservice.Client
+	once           sync.Once
+	err            error
 )
 
 func InitClient() {
@@ -33,6 +34,7 @@ func InitClient() {
 		initProductClient()
 		initUserClient()
 		initCartClient()
+		initCheckoutClient()
 	})
 }
 
@@ -45,8 +47,7 @@ func initProductClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
-	p := provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-	defer p.Shutdown(context.Background())
+	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
 	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
 
 	cbs := circuitbreak.NewCBSuite(func(ri rpcinfo.RPCInfo) string {
@@ -94,18 +95,32 @@ func initUserClient() {
 
 func initCartClient() {
 	var opts []client.Option
-	//if os.Getenv("REGISTRY_ENABLE") == "true" {
-	//	r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-	//	frontendutils.MustHandleError(err)
-	//	opts = append(opts, client.WithResolver(r))
-	//} else {
-	opts = append(opts, client.WithHostPorts("localhost:8883"))
-	//}
-	p := provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-	defer p.Shutdown(context.Background())
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
+		frontendutils.MustHandleError(err)
+		opts = append(opts, client.WithResolver(r))
+	} else {
+		opts = append(opts, client.WithHostPorts("localhost:8883"))
+	}
+	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
 	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
 
 	CartClient, err = cartservice.NewClient("cart", opts...)
-	fmt.Println(err, "cart client error")
+	frontendutils.MustHandleError(err)
+}
+
+func initCheckoutClient() {
+	var opts []client.Option
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
+		frontendutils.MustHandleError(err)
+		opts = append(opts, client.WithResolver(r))
+	} else {
+		opts = append(opts, client.WithHostPorts("localhost:8884"))
+	}
+	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
+
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
+	CheckoutClient, err = checkoutservice.NewClient("checkout", opts...)
 	frontendutils.MustHandleError(err)
 }
