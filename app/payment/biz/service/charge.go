@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-	"fmt"
 	payment "github.com/baiyutang/gomall/app/payment/kitex_gen/payment"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	creditcard "github.com/durango/go-credit-card"
@@ -19,7 +18,6 @@ func NewChargeService(ctx context.Context) *ChargeService {
 
 // Run create note info
 func (s *ChargeService) Run(req *payment.ChargeRequest) (resp *payment.ChargeResponse, err error) {
-	fmt.Printf("%#v", req.CreditCard)
 	card := creditcard.Card{
 		Number: req.CreditCard.CreditCardNumber,
 		Cvv:    strconv.Itoa(int(req.CreditCard.CreditCardCvv)),
@@ -27,7 +25,6 @@ func (s *ChargeService) Run(req *payment.ChargeRequest) (resp *payment.ChargeRes
 		Year:   strconv.Itoa(int(req.CreditCard.CreditCardExpirationYear)),
 	}
 
-	fmt.Printf("%#v", card)
 	err = card.Validate(true)
 
 	if err != nil {
