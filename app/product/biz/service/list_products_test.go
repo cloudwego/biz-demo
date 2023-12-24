@@ -2,8 +2,9 @@ package service
 
 import (
 	"context"
-	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
 	"testing"
+
+	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
 )
 
 func TestListProducts_Run(t *testing.T) {
@@ -11,7 +12,7 @@ func TestListProducts_Run(t *testing.T) {
 	s := NewListProductsService(ctx)
 	// init req and assert value
 
-	req := &product.Empty{}
+	req := &product.ListProductsReq{}
 	resp, err := s.Run(req)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
