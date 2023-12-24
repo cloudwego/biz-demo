@@ -54,6 +54,10 @@ func main() {
 
 	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
 	store.Options(sessions.Options{MaxAge: 86400})
+	rs, err := redis.GetRedisStore(store)
+	if err == nil {
+		rs.SetSerializer(sessions.JSONSerializer{})
+	}
 
 	frontendutils.MustHandleError(err)
 
@@ -72,6 +76,8 @@ func main() {
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
 	h.GET("sign-in", func(ctx context.Context, c *app.RequestContext) {
+		session := sessions.Default(c)
+		session.Set("user_id", 1)
 		c.HTML(consts.StatusOK, "sign-in", utils.H{
 			"title": "Sign in",
 		})

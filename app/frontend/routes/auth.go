@@ -33,8 +33,13 @@ func RegisterAuth(h *server.Hertz) {
 		session.Set("user_id", 1)
 		err := session.Save()
 		frontendutils.MustHandleError(err)
+		redirect := "/"
+		next := c.Param("next")
+		if frontendutils.ValidateNext(next) {
+			redirect = next
+		}
 
-		c.Redirect(consts.StatusFound, []byte("/"))
+		c.Redirect(consts.StatusFound, []byte(redirect))
 	})
 	h.GET("/auth/logout", func(ctx context.Context, c *app.RequestContext) {
 		session := sessions.Default(c)
