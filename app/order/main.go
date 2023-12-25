@@ -28,7 +28,7 @@ func main() {
 
 	svr := orderservice.NewServer(new(CheckoutServiceImpl), opts...)
 
-	err = svr.Run()
+	err := svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
 	}

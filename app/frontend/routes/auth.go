@@ -2,7 +2,6 @@ package routes
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user"

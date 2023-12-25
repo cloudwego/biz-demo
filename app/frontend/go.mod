@@ -12,6 +12,7 @@ require (
 	github.com/hertz-contrib/obs-opentelemetry/tracing v0.3.1
 	github.com/hertz-contrib/sessions v1.0.3
 	github.com/joho/godotenv v1.5.1
+	github.com/kitex-contrib/obs-opentelemetry v0.2.5
 	github.com/kitex-contrib/registry-consul v0.0.0-20230406075225-7d341f036654
 	github.com/prometheus/client_golang v1.17.0
 	go.opentelemetry.io/otel v1.21.0
