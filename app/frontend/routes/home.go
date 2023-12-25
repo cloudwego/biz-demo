@@ -6,7 +6,6 @@ import (
 
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
-	"github.com/baiyutang/gomall/app/frontend/types"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -27,7 +26,7 @@ func RegisterHome(h *server.Hertz) {
 			items = p.Products
 		}
 		session := sessions.Default(c)
-		userId := session.Get(types.USER_ID)
+		userId := session.Get(utils.UserIdKey)
 		c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "Hot sale",
 			"cart_num": 10,

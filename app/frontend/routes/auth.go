@@ -6,6 +6,7 @@ import (
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user"
 	"github.com/baiyutang/gomall/app/frontend/types"
+	"github.com/baiyutang/gomall/app/frontend/utils"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -31,8 +32,8 @@ func RegisterAuth(h *server.Hertz) {
 		frontendutils.MustHandleError(err)
 
 		session := sessions.Default(c)
-		session.Set(types.USER_ID, resp.Userid)
-		hlog.Info("session user_id:", session.Get(types.USER_ID))
+		session.Set(utils.UserIdKey, resp.Userid)
+		hlog.Info("session user_id:", session.Get(utils.UserIdKey))
 		err = session.Save()
 		frontendutils.MustHandleError(err)
 
@@ -48,7 +49,7 @@ func RegisterAuth(h *server.Hertz) {
 		frontendutils.MustHandleError(err)
 
 		session := sessions.Default(c)
-		session.Set(types.USER_ID, resp.Userid)
+		session.Set(utils.UserIdKey, resp.Userid)
 		err = session.Save()
 		frontendutils.MustHandleError(err)
 		c.Redirect(consts.StatusFound, []byte("/"))
