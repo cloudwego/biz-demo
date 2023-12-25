@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/baiyutang/gomall/app/product/biz/dal/mysql"
 	"github.com/baiyutang/gomall/app/product/biz/model"
 	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
