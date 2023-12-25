@@ -2,18 +2,14 @@ package main
 
 import (
 	"context"
+	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"os"
 	"time"
 
+	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
-
-	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"github.com/baiyutang/gomall/app/frontend/routes"
-	"github.com/hertz-contrib/sessions"
-	"github.com/hertz-contrib/sessions/redis"
-
-	"github.com/joho/godotenv"
-
+	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
@@ -21,9 +17,9 @@ import (
 	hertzprom "github.com/hertz-contrib/monitor-prometheus"
 	hertzotelprovider "github.com/hertz-contrib/obs-opentelemetry/provider"
 	hertzoteltracing "github.com/hertz-contrib/obs-opentelemetry/tracing"
-
-	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
+	"github.com/hertz-contrib/sessions"
+	"github.com/hertz-contrib/sessions/redis"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -54,7 +50,7 @@ func main() {
 	)
 
 	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
-	store.Options(sessions.Options{MaxAge: 86400,Path: "/"})
+	store.Options(sessions.Options{MaxAge: 86400, Path: "/"})
 	rs, err := redis.GetRedisStore(store)
 	if err == nil {
 		rs.SetSerializer(sessions.JSONSerializer{})
@@ -63,9 +59,9 @@ func main() {
 	frontendutils.MustHandleError(err)
 
 	h.Use(sessions.New("cloudwego-shop", store))
+	middleware.RegisterMiddleware(h)
 
 	h.Use(hertzoteltracing.ServerMiddleware(cfg))
-	middleware.RegisterMiddleware(h)
 
 	routes.RegisterProduct(h)
 	routes.RegisterHome(h)
@@ -93,9 +89,9 @@ func main() {
 		})
 	})
 	h.GET("/about", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "about", utils.H{
+		c.HTML(consts.StatusOK, "about", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title": "About",
-		})
+		}))
 	})
 	h.GET("/redirect", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "about", utils.H{

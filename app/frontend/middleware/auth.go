@@ -20,7 +20,6 @@ func GlobalAuth() app.HandlerFunc {
 		ctx = context.WithValue(ctx, utils.UserIdKey, userId)
 		c.Next(ctx)
 	}
-
 }
 
 func Auth() app.HandlerFunc {
