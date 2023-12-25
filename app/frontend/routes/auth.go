@@ -2,6 +2,7 @@ package routes
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user"
@@ -38,6 +39,7 @@ func RegisterAuth(h *server.Hertz) {
 
 		c.Redirect(consts.StatusFound, []byte("/"))
 	})
+
 	h.POST("/auth/login", func(ctx context.Context, c *app.RequestContext) {
 		req := &types.LoginReq{}
 		if err := c.BindByContentType(req); err != nil {
@@ -45,14 +47,22 @@ func RegisterAuth(h *server.Hertz) {
 			return
 		}
 		resp, err := userClient.Login(ctx, &user.LoginReq{Email: req.Email, Password: req.Password})
-		frontendutils.MustHandleError(err)
+		if err != nil {
+			c.HTML(http.StatusOK, "error", map[string]interface{}{"message": err})
+			return
+		}
 
 		session := sessions.Default(c)
 		session.Set("user_id", resp.Userid)
 		err = session.Save()
-		frontendutils.MustHandleError(err)
+		if err != nil {
+			c.HTML(http.StatusOK, "error", map[string]interface{}{"message": err})
+			return
+		}
+
 		c.Redirect(consts.StatusFound, []byte("/"))
 	})
+
 	h.GET("/auth/logout", func(ctx context.Context, c *app.RequestContext) {
 		session := sessions.Default(c)
 		session.Clear()

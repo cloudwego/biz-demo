@@ -54,7 +54,7 @@ func main() {
 	)
 
 	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
-	store.Options(sessions.Options{MaxAge: 86400})
+	store.Options(sessions.Options{MaxAge: 86400, Path: "/"})
 
 	frontendutils.MustHandleError(err)
 
@@ -90,6 +90,11 @@ func main() {
 	h.GET("/about", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "about", utils.H{
 			"title": "About",
+		})
+	})
+	h.GET("/redirect", func(ctx context.Context, c *app.RequestContext) {
+		c.HTML(consts.StatusOK, "about", utils.H{
+			"title": "Error",
 		})
 	})
 	if os.Getenv("GO_ENV") != "online" {

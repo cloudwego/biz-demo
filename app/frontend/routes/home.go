@@ -11,7 +11,6 @@ import (
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/hertz-contrib/sessions"
 )
 
 func RegisterHome(h *server.Hertz) {
@@ -25,13 +24,10 @@ func RegisterHome(h *server.Hertz) {
 		if p != nil {
 			items = p.Products
 		}
-		session := sessions.Default(c)
-		userId := session.Get(frontendutils.UserIdKey)
 		c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "Hot sale",
 			"cart_num": 10,
 			"items":    items,
-			"user_id":  userId,
 		}))
 	})
 }
