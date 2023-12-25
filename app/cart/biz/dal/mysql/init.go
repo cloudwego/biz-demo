@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/baiyutang/gomall/app/cart/biz/model"
 	"github.com/baiyutang/gomall/app/cart/conf"
 	"github.com/baiyutang/gomall/app/cart/infra/mtl"
 	"gorm.io/driver/mysql"
@@ -28,5 +29,10 @@ func Init() {
 	}
 	if err := DB.Use(tracing.NewPlugin(tracing.WithoutMetrics(), tracing.WithTracerProvider(mtl.TracerProvider))); err != nil {
 		panic(err)
+	}
+	if os.Getenv("GO_ENV") != "online" {
+		DB.AutoMigrate(
+			&model.Cart{},
+		)
 	}
 }

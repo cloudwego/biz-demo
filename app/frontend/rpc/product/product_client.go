@@ -2,8 +2,8 @@ package product
 
 import (
 	"context"
-	product "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 
+	product "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"

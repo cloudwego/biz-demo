@@ -2,8 +2,8 @@ package cart
 
 import (
 	"context"
-	cart "github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
 
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"

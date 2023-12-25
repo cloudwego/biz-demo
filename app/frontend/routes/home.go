@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
@@ -16,7 +17,7 @@ import (
 func RegisterHome(h *server.Hertz) {
 	productClient := rpc.ProductClient
 	h.GET("/", func(ctx context.Context, c *app.RequestContext) {
-		p, err := productClient.ListProducts(ctx, &product.ListProductsReq{CategoryName: "Sticker"})
+		p, err := productClient.ListProducts(ctx, &product.ListProductsReq{})
 		if err != nil {
 			klog.Error(err)
 		}
@@ -24,9 +25,14 @@ func RegisterHome(h *server.Hertz) {
 		if p != nil {
 			items = p.Products
 		}
+		var cartNum int
+		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{})
+		if cartResp != nil {
+			cartNum = len(cartResp.Items)
+		}
 		c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "Hot sale",
-			"cart_num": 10,
+			"cart_num": cartNum,
 			"items":    items,
 		}))
 	})
