@@ -40,9 +40,9 @@
                         <h5 class="card-title">{{ .item.Name }}</h5>
                         <p class="card-text">{{ .item.Description }}</p>
                         <p class="card-text">${{ .item.Price }}</p>
-                        <label for="productNum">数量：</label>
-                        <input type="number" class="form-control mt-3" id="productNum" value="" placeholder="1"
-                               min="1"/>
+                        <label for="productQuantity">数量：</label>
+                        <input type="text" class="form-control mt-3" name="quantity" id="productQuantity" value="1" placeholder="1" min="1"/>
+                        <input type="hidden" name="product_id" value="{{ .item.Id }}" />
                         <input type="submit" class="btn btn-primary mt-3" value="Add to Cart">
                     </form>
                 </div>
