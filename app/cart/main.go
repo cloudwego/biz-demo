@@ -2,22 +2,22 @@ package main
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/cart/biz/dal"
-	"github.com/baiyutang/gomall/app/cart/infra/mtl"
-	"github.com/baiyutang/gomall/app/cart/infra/rpc"
-	"github.com/joho/godotenv"
-	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/obs-opentelemetry/tracing"
-	consul "github.com/kitex-contrib/registry-consul"
 	"net"
 	"os"
 
+	"github.com/baiyutang/gomall/app/cart/biz/dal"
 	"github.com/baiyutang/gomall/app/cart/conf"
+	"github.com/baiyutang/gomall/app/cart/infra/mtl"
+	"github.com/baiyutang/gomall/app/cart/infra/rpc"
 	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
+	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	consul "github.com/kitex-contrib/registry-consul"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -30,13 +30,14 @@ func main() {
 
 	svr := cartservice.NewServer(new(CartServiceImpl), opts...)
 
-	err := svr.Run()
+	err = svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
 	}
 }
 
 func kitexInit() (opts []server.Option) {
+	dal.Init()
 	// address
 	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
 	if err != nil {
