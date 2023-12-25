@@ -6,10 +6,8 @@ import (
 
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
-	"github.com/cloudwego/hertz/pkg/common/utils"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 
@@ -24,10 +22,11 @@ func RegisterHome(h *server.Hertz) {
 		if p != nil {
 			items = p.Products
 		}
-		c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
-			"title":    "Hot sale",
-			"cart_num": 10,
-			"items":    items,
-		}))
+		c.JSON(http.StatusOK, items)
+		// c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
+		// 	"title":    "Hot sale",
+		// 	"cart_num": 10,
+		// 	"items":    items,
+		// }))
 	})
 }
