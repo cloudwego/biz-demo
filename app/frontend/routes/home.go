@@ -26,7 +26,7 @@ func RegisterHome(h *server.Hertz) {
 			items = p.Products
 		}
 		session := sessions.Default(c)
-		userId := session.Get(utils.UserIdKey)
+		userId := session.Get(frontendutils.UserIdKey)
 		c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "Hot sale",
 			"cart_num": 10,
