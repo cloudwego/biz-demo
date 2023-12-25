@@ -2,10 +2,11 @@ package mysql
 
 import (
 	"fmt"
-	"github.com/baiyutang/gomall/app/product/conf"
-	"github.com/baiyutang/gomall/app/product/infra/mtl"
 	"os"
 
+	"github.com/baiyutang/gomall/app/product/biz/model"
+	"github.com/baiyutang/gomall/app/product/conf"
+	"github.com/baiyutang/gomall/app/product/infra/mtl"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/plugin/opentelemetry/tracing"
@@ -17,7 +18,8 @@ var (
 )
 
 func Init() {
-	DB, err = gorm.Open(mysql.Open(fmt.Sprintf(conf.GetConf().MySQL.DSN, os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASSWORD"), os.Getenv("MYSQL_HOST"))),
+	dsn := fmt.Sprintf(conf.GetConf().MySQL.DSN, os.Getenv("MYSQL_USER"), os.Getenv("MYSQL_PASSWORD"), os.Getenv("MYSQL_HOST"))
+	DB, err = gorm.Open(mysql.Open(dsn),
 		&gorm.Config{
 			PrepareStmt:            true,
 			SkipDefaultTransaction: true,
@@ -25,6 +27,12 @@ func Init() {
 	)
 	if err != nil {
 		panic(err)
+	}
+	if os.Getenv("GO_ENV") != "online" {
+		DB.AutoMigrate(
+			&model.Product{},
+			&model.Category{},
+		)
 	}
 	if err := DB.Use(tracing.NewPlugin(tracing.WithoutMetrics(), tracing.WithTracerProvider(mtl.TracerProvider))); err != nil {
 		panic(err)

@@ -1,8 +1,11 @@
 package main
 
 import (
-	"github.com/baiyutang/gomall/app/order/kitex_gen/order/orderservice"
 	"net"
+
+	"github.com/baiyutang/gomall/app/order/biz/dal"
+	"github.com/baiyutang/gomall/app/order/kitex_gen/order/orderservice"
+	"github.com/joho/godotenv"
 
 	"github.com/baiyutang/gomall/app/order/conf"
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -13,17 +16,23 @@ import (
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		klog.Fatal("Error loading .env file")
+	}
+
 	opts := kitexInit()
 
 	svr := orderservice.NewServer(new(CheckoutServiceImpl), opts...)
 
-	err := svr.Run()
+	err = svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
 	}
 }
 
 func kitexInit() (opts []server.Option) {
+	dal.Init()
 	// address
 	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
 	if err != nil {

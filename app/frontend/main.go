@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"os"
 	"time"
+
+	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 
 	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"github.com/baiyutang/gomall/app/frontend/routes"

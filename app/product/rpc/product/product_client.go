@@ -2,6 +2,7 @@ package product
 
 import (
 	"context"
+
 	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
 
 	"github.com/baiyutang/gomall/app/product/kitex_gen/product/productcatalogservice"

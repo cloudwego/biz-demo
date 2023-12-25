@@ -2,22 +2,21 @@ package main
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/product/infra/mtl"
-	"github.com/joho/godotenv"
-	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	"log"
 	"net"
 	"os"
 
 	"github.com/baiyutang/gomall/app/product/biz/dal"
-
 	"github.com/baiyutang/gomall/app/product/conf"
+	"github.com/baiyutang/gomall/app/product/infra/mtl"
 	"github.com/baiyutang/gomall/app/product/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
+	"github.com/joho/godotenv"
 	kitexzap "github.com/kitex-contrib/obs-opentelemetry/logging/zap"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
 )
 
