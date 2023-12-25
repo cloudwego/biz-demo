@@ -1,27 +1,28 @@
 package main
 
 import (
+	"net"
+	"os"
+
+	"github.com/baiyutang/gomall/app/payment/biz/dal"
+	"github.com/baiyutang/gomall/app/payment/conf"
 	"github.com/baiyutang/gomall/app/payment/infra/mtl"
+	"github.com/baiyutang/gomall/app/payment/kitex_gen/payment/paymentservice"
 	"github.com/baiyutang/gomall/app/payment/middleware"
+	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/transmeta"
+	"github.com/cloudwego/kitex/server"
 	"github.com/joho/godotenv"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
-	"net"
-	"os"
-
-	"github.com/baiyutang/gomall/app/payment/conf"
-	"github.com/baiyutang/gomall/app/payment/kitex_gen/payment/paymentservice"
-	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/cloudwego/kitex/pkg/rpcinfo"
-	"github.com/cloudwego/kitex/server"
-	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 )
 
 func main() {
 	_ = godotenv.Load()
 	mtl.InitMtl()
+	dal.Init()
 	opts := kitexInit()
 
 	svr := paymentservice.NewServer(new(PaymentServiceImpl), opts...)
@@ -61,9 +62,9 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
 
 	// klog
-	logger := kitexlogrus.NewLogger()
-	klog.SetLogger(logger)
-	klog.SetLevel(conf.LogLevel())
+	//logger := kitexlogrus.NewLogger()
+	//klog.SetLogger(logger)
+	//klog.SetLevel(conf.LogLevel())
 	klog.SetOutput(os.Stdout)
 
 	//klog.SetOutput(&lumberjack.Logger{

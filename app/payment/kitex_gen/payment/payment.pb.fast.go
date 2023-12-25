@@ -84,6 +84,11 @@ func (x *ChargeRequest) FastRead(buf []byte, _type int8, number int32) (offset i
 		if err != nil {
 			goto ReadFieldError
 		}
+	case 4:
+		offset, err = x.fastReadField4(buf, _type)
+		if err != nil {
+			goto ReadFieldError
+		}
 	default:
 		offset, err = fastpb.Skip(buf, _type, number)
 		if err != nil {
@@ -114,6 +119,11 @@ func (x *ChargeRequest) fastReadField2(buf []byte, _type int8) (offset int, err 
 
 func (x *ChargeRequest) fastReadField3(buf []byte, _type int8) (offset int, err error) {
 	x.OrderId, offset, err = fastpb.ReadString(buf, _type)
+	return offset, err
+}
+
+func (x *ChargeRequest) fastReadField4(buf []byte, _type int8) (offset int, err error) {
+	x.UserId, offset, err = fastpb.ReadUint32(buf, _type)
 	return offset, err
 }
 
@@ -192,6 +202,7 @@ func (x *ChargeRequest) FastWrite(buf []byte) (offset int) {
 	offset += x.fastWriteField1(buf[offset:])
 	offset += x.fastWriteField2(buf[offset:])
 	offset += x.fastWriteField3(buf[offset:])
+	offset += x.fastWriteField4(buf[offset:])
 	return offset
 }
 
@@ -216,6 +227,14 @@ func (x *ChargeRequest) fastWriteField3(buf []byte) (offset int) {
 		return offset
 	}
 	offset += fastpb.WriteString(buf[offset:], 3, x.GetOrderId())
+	return offset
+}
+
+func (x *ChargeRequest) fastWriteField4(buf []byte) (offset int) {
+	if x.UserId == 0 {
+		return offset
+	}
+	offset += fastpb.WriteUint32(buf[offset:], 4, x.GetUserId())
 	return offset
 }
 
@@ -285,6 +304,7 @@ func (x *ChargeRequest) Size() (n int) {
 	n += x.sizeField1()
 	n += x.sizeField2()
 	n += x.sizeField3()
+	n += x.sizeField4()
 	return n
 }
 
@@ -309,6 +329,14 @@ func (x *ChargeRequest) sizeField3() (n int) {
 		return n
 	}
 	n += fastpb.SizeString(3, x.GetOrderId())
+	return n
+}
+
+func (x *ChargeRequest) sizeField4() (n int) {
+	if x.UserId == 0 {
+		return n
+	}
+	n += fastpb.SizeUint32(4, x.GetUserId())
 	return n
 }
 
@@ -339,6 +367,7 @@ var fieldIDToName_ChargeRequest = map[int32]string{
 	1: "Amount",
 	2: "CreditCard",
 	3: "OrderId",
+	4: "UserId",
 }
 
 var fieldIDToName_ChargeResponse = map[int32]string{
