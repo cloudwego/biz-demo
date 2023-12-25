@@ -49,7 +49,7 @@ func RegisterAuth(h *server.Hertz) {
 		frontendutils.MustHandleError(err)
 
 		session := sessions.Default(c)
-		session.Set(utils.UserIdKey, resp.Userid)
+		session.Set("user_id", resp.Userid)
 		err = session.Save()
 		frontendutils.MustHandleError(err)
 		c.Redirect(consts.StatusFound, []byte("/"))
