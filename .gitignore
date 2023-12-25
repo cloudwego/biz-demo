@@ -1,2 +1,2 @@
 .DS_Store
-app/*.env
+app/.../.env

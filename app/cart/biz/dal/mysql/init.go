@@ -32,7 +32,7 @@ func Init() {
 	}
 	if os.Getenv("GO_ENV") != "online" {
 		DB.AutoMigrate(
-			&model.CartItem{},
+			&model.Cart{},
 		)
 	}
 }
