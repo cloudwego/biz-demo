@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"os"
 	"time"
+
+	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 
 	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"github.com/baiyutang/gomall/app/frontend/routes"
@@ -53,7 +54,7 @@ func main() {
 	)
 
 	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
-	store.Options(sessions.Options{MaxAge: 86400})
+	store.Options(sessions.Options{MaxAge: 86400,Path: "/"})
 	rs, err := redis.GetRedisStore(store)
 	if err == nil {
 		rs.SetSerializer(sessions.JSONSerializer{})
@@ -76,8 +77,6 @@ func main() {
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
 	h.GET("sign-in", func(ctx context.Context, c *app.RequestContext) {
-		session := sessions.Default(c)
-		session.Set("user_id", 1)
 		c.HTML(consts.StatusOK, "sign-in", utils.H{
 			"title": "Sign in",
 			"next":  c.Query("next"),
@@ -96,6 +95,11 @@ func main() {
 	h.GET("/about", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "about", utils.H{
 			"title": "About",
+		})
+	})
+	h.GET("/redirect", func(ctx context.Context, c *app.RequestContext) {
+		c.HTML(consts.StatusOK, "about", utils.H{
+			"title": "Error",
 		})
 	})
 	if os.Getenv("GO_ENV") != "online" {

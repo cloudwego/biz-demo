@@ -1,6 +1,8 @@
 package mysql
 
 import (
+	"os"
+
 	"github.com/baiyutang/gomall/app/checkout/conf"
 
 	"gorm.io/driver/mysql"
@@ -21,5 +23,8 @@ func Init() {
 	)
 	if err != nil {
 		panic(err)
+	}
+	if os.Getenv("GO_ENV") != "online" {
+		DB.AutoMigrate()
 	}
 }

@@ -11,6 +11,8 @@ import (
 	"net"
 	"os"
 
+	"github.com/baiyutang/gomall/app/order/biz/dal"
+
 	"github.com/baiyutang/gomall/app/order/conf"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
@@ -26,13 +28,14 @@ func main() {
 
 	svr := orderservice.NewServer(new(CheckoutServiceImpl), opts...)
 
-	err := svr.Run()
+	err = svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
 	}
 }
 
 func kitexInit() (opts []server.Option) {
+	dal.Init()
 	// address
 	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
 	if err != nil {

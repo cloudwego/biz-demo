@@ -4,6 +4,7 @@ import (
 	"net"
 	"os"
 
+	"github.com/baiyutang/gomall/app/user/biz/dal"
 	"github.com/baiyutang/gomall/app/user/conf"
 	"github.com/baiyutang/gomall/app/user/infra/mtl"
 	"github.com/baiyutang/gomall/app/user/kitex_gen/user/userservice"
@@ -20,19 +21,23 @@ import (
 )
 
 func main() {
-	_ = godotenv.Load()
+	err := godotenv.Load()
+	if err != nil {
+		klog.Fatal("Error loading .env file")
+	}
 	mtl.InitMtl()
 	opts := kitexInit()
 
 	svr := userservice.NewServer(new(UserServiceImpl), opts...)
 
-	err := svr.Run()
+	err = svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
 	}
 }
 
 func kitexInit() (opts []server.Option) {
+	dal.Init()
 	// address
 	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
 	if err != nil {

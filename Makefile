@@ -35,3 +35,14 @@ lint:
 run:
 	scripts/run.sh ${svc}
 
+.PHONY: env-start
+env-start:
+	docker-compose up -d
+
+.PHONY: env-stop
+env-stop:
+	docker-compose down
+
+.PHONY: run.all
+run.all:
+	go run app/cart/*.go

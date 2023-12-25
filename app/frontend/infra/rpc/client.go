@@ -2,6 +2,9 @@ package rpc
 
 import (
 	"context"
+	"os"
+	"sync"
+
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart/cartservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/checkout/checkoutservice"
@@ -16,8 +19,6 @@ import (
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
-	"os"
-	"sync"
 )
 
 var (

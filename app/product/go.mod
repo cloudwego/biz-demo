@@ -8,6 +8,7 @@ require (
 	github.com/cloudwego/fastpb v0.0.4
 	github.com/cloudwego/kitex v0.8.0
 	github.com/joho/godotenv v1.5.1
+	github.com/kitex-contrib/obs-opentelemetry v0.2.5
 	github.com/kitex-contrib/obs-opentelemetry/logging/zap v0.0.0-20231203043712-cd275418e0bf
 	github.com/kitex-contrib/registry-consul v0.0.0-20230406075225-7d341f036654
 	github.com/kr/pretty v0.3.1
@@ -67,7 +68,6 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/kitex-contrib/obs-opentelemetry v0.2.5 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.6 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
