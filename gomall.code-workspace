@@ -21,6 +21,9 @@
     {
       "path": "app/checkout"
     }
+    {
+      "path": "app/cart"
+    }
   ],
   "settings": {}
 }
