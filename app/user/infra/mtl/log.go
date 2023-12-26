@@ -1,7 +1,6 @@
 package mtl
 
 import (
-	"io"
 	"os"
 	"time"
 
@@ -14,14 +13,14 @@ import (
 
 func initLog() {
 	var opts []kitexzap.Option
-	var output io.Writer
+	var output zapcore.WriteSyncer
 	if os.Getenv("GO_ENV") == "online" {
 		opts = append(opts, kitexzap.WithCoreEnc(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())))
 		output = os.Stdout
 	} else {
 		opts = append(opts, kitexzap.WithCoreEnc(zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig())))
 		// async log
-		output := &zapcore.BufferedWriteSyncer{
+		output = &zapcore.BufferedWriteSyncer{
 			WS:            zapcore.AddSync(os.Stdout),
 			FlushInterval: time.Minute,
 		}
