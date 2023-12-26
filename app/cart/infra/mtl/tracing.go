@@ -14,11 +14,14 @@ import (
 
 var TracerProvider *tracesdk.TracerProvider
 
-func InitTracing() {
+func initTracing() {
 	exporter, err := otlptracegrpc.New(context.Background())
 	if err != nil {
 		panic(err)
 	}
+	server.RegisterShutdownHook(func() {
+		exporter.Shutdown(context.Background())
+	})
 	processor := tracesdk.NewBatchSpanProcessor(exporter)
 	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(conf.GetConf().Kitex.Service)))
 	if err != nil {

@@ -1,17 +1,36 @@
 package mtl
 
 import (
-	"github.com/cloudwego/kitex/pkg/klog"
-	kitexzap "github.com/kitex-contrib/obs-opentelemetry/logging/zap"
+	"io"
 	"os"
+	"time"
+
+	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/cloudwego/kitex/server"
+	kitexzap "github.com/kitex-contrib/obs-opentelemetry/logging/zap"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 func initLog() {
-	// use zap in production mode
+	var opts []kitexzap.Option
+	var output io.Writer
 	if os.Getenv("GO_ENV") == "online" {
-		log := kitexzap.NewLogger()
-		klog.SetLogger(log)
-		klog.SetOutput(os.Stdout)
-		klog.SetLevel(klog.LevelTrace)
+		opts = append(opts, kitexzap.WithCoreEnc(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())))
+		output = os.Stdout
+	} else {
+		opts = append(opts, kitexzap.WithCoreEnc(zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig())))
+		// async log
+		output := &zapcore.BufferedWriteSyncer{
+			WS:            zapcore.AddSync(os.Stdout),
+			FlushInterval: time.Minute,
+		}
+		server.RegisterShutdownHook(func() {
+			output.Sync()
+		})
 	}
+	log := kitexzap.NewLogger(opts...)
+	klog.SetLogger(log)
+	klog.SetLevel(klog.LevelTrace)
+	klog.SetOutput(output)
 }

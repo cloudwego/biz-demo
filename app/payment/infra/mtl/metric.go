@@ -1,6 +1,7 @@
 package mtl
 
 import (
+	"github.com/baiyutang/gomall/app/payment/conf"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -16,5 +17,5 @@ func initMetric() {
 	Registry.MustRegister(collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}))
 
 	http.Handle("/metrics", promhttp.HandlerFor(Registry, promhttp.HandlerOpts{}))
-	go http.ListenAndServe(":8090", nil)
+	go http.ListenAndServe(conf.GetConf().Kitex.MetricsPort, nil)
 }
