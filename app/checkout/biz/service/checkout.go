@@ -65,14 +65,17 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	}
 	orderResult, err := rpc.OrderClient.PlaceOrder(s.ctx, orderReq)
 	if err != nil {
-		klog.Error(err)
+		err = fmt.Errorf("PlaceOrder.err:%v", err)
+		return
 	}
+	klog.Info("orderResult", orderResult)
 	// empty cart
 	emptyResult, err := rpc.CartClient.EmptyCart(s.ctx, &cart.EmptyCartRequest{UserId: req.UserId})
 	if err != nil {
-		klog.Error(err)
+		err = fmt.Errorf("EmptyCart.err:%v", err)
+		return
 	}
-	fmt.Println(emptyResult)
+	klog.Info(emptyResult)
 	// charge
 	paymentResult, err := rpc.PaymentClient.Charge(s.ctx, &payment.ChargeRequest{UserId: req.UserId, OrderId: orderResult.Order.OrderId, Amount: 1, CreditCard: &payment.CreditCardInfo{
 		CreditCardNumber:          req.CreditCard.CreditCardNumber,
@@ -81,12 +84,13 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		CreditCardCvv:             req.CreditCard.CreditCardCvv,
 	}})
 	if err != nil {
-		klog.Error(err)
+		err = fmt.Errorf("Charge.err:%v", err)
+		return
 	}
 
-	fmt.Println(paymentResult)
+	klog.Info(paymentResult)
 	// change order state
-	fmt.Println(orderResult)
+	klog.Info(orderResult)
 
 	return
 }

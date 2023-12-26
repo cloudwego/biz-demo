@@ -20,9 +20,12 @@
     },
     {
       "path": "app/checkout"
-    }
+    },
     {
       "path": "app/cart"
+    },
+    {
+      "path": "idl"
     }
   ],
   "settings": {}

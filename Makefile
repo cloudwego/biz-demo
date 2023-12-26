@@ -50,3 +50,11 @@ env-stop:
 .PHONY: run.all
 run.all:
 	go run app/cart/*.go
+
+# .PHONY: open.gomall
+# open.gomall
+# 	open "http://localhost:8080/"
+
+# .PHONY: open.consul
+# open.consul
+# 	open "http://127.0.0.1:8500/ui"

@@ -11,7 +11,6 @@ require (
 	github.com/google/uuid v1.5.0
 	github.com/joho/godotenv v1.5.1
 	github.com/kitex-contrib/obs-opentelemetry v0.2.5
-	github.com/kitex-contrib/obs-opentelemetry/logging/logrus v0.0.0-20231211030816-1f9e0f7bcee3
 	github.com/kitex-contrib/obs-opentelemetry/logging/zap v0.0.0-20231211030816-1f9e0f7bcee3
 	github.com/kitex-contrib/registry-consul v0.0.0-20230406075225-7d341f036654
 	github.com/kr/pretty v0.3.1
@@ -82,7 +81,6 @@ require (
 	github.com/prometheus/common v0.44.0 // indirect
 	github.com/prometheus/procfs v0.11.1 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
-	github.com/sirupsen/logrus v1.9.2 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/tidwall/gjson v1.17.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect

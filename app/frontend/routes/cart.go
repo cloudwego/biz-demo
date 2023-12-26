@@ -3,6 +3,7 @@ package routes
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"strconv"
 
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
@@ -24,7 +25,7 @@ func RegisterCart(h *server.Hertz) {
 		var items []map[string]string
 		carts, err := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: uint32(ctx.Value(frontendutils.UserIdKey).(float64))})
 		if err != nil {
-			c.JSON(500, "get cart error")
+			c.HTML(http.StatusOK, "error", map[string]interface{}{"message": err})
 		}
 		var total float32
 		for _, v := range carts.Items {

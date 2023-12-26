@@ -81,7 +81,7 @@ func RegisterCheckout(h *server.Hertz) {
 		c.HTML(consts.StatusOK, "checkout", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "Checkout",
 			"items":    items,
-			"cart_num": 10,
+			"cart_num": len(items),
 			"total":    strconv.FormatFloat(float64(total), 'f', 2, 64),
 		}))
 	})

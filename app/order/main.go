@@ -1,23 +1,22 @@
 package main
 
 import (
-	"github.com/baiyutang/gomall/app/order/infra/mtl"
-	"github.com/baiyutang/gomall/app/order/kitex_gen/order/orderservice"
-	"github.com/cloudwego/kitex/pkg/transmeta"
-	"github.com/joho/godotenv"
-	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/obs-opentelemetry/tracing"
-	consul "github.com/kitex-contrib/registry-consul"
 	"net"
 	"os"
 
 	"github.com/baiyutang/gomall/app/order/biz/dal"
-
 	"github.com/baiyutang/gomall/app/order/conf"
+	"github.com/baiyutang/gomall/app/order/infra/mtl"
+	"github.com/baiyutang/gomall/app/order/kitex_gen/order/orderservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/server"
+	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
+	"github.com/kitex-contrib/obs-opentelemetry/tracing"
+	consul "github.com/kitex-contrib/registry-consul"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
@@ -26,7 +25,7 @@ func main() {
 	mtl.InitMtl()
 	opts := kitexInit()
 
-	svr := orderservice.NewServer(new(CheckoutServiceImpl), opts...)
+	svr := orderservice.NewServer(new(OrderServiceImpl), opts...)
 
 	err := svr.Run()
 	if err != nil {

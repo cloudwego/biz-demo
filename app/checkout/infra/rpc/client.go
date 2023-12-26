@@ -1,11 +1,12 @@
 package rpc
 
 import (
+	"os"
+	"sync"
+
 	"github.com/baiyutang/gomall/app/checkout/conf"
 	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/transport"
-	"os"
-	"sync"
 
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/cart/cartservice"
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/order/orderservice"
