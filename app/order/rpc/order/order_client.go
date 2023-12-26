@@ -2,7 +2,6 @@ package order
 
 import (
 	"context"
-	"context"
 	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
 
 	"github.com/baiyutang/gomall/app/order/kitex_gen/order/orderservice"

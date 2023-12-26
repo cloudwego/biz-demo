@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"testing"
 	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
+	"testing"
 )
 
 func TestListOrder_Run(t *testing.T) {

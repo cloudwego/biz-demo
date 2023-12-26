@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strconv"
 
@@ -39,18 +40,37 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	cartResult, err := rpc.CartClient.GetCart(s.ctx, &cart.GetCartRequest{UserId: req.UserId})
 	if err != nil {
 		klog.Error(err)
+		err = fmt.Errorf("GetCart.err:%v", err)
+		return
 	}
-	var oi []*order.OrderItem
+	if cartResult == nil || len(cartResult.Items) == 0 {
+		err = errors.New("cart is empty")
+		return
+	}
+	var (
+		oi    []*order.OrderItem
+		total float32
+	)
 	for _, cartItem := range cartResult.Items {
-		p, err := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductRequest{Id: cartItem.ProductId})
-		if err != nil {
-			klog.Error(err)
+		p, resultErr := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductRequest{Id: cartItem.ProductId})
+		if resultErr != nil {
+			klog.Error(resultErr)
+			err = resultErr
+			return
 		}
-		oi = append(oi, &order.OrderItem{Item: &cart.CartItem{ProductId: cartItem.ProductId, Quantity: cartItem.Quantity}, Cost: p.Price * float32(cartItem.Quantity)})
+		cost := p.Price * float32(cartItem.Quantity)
+		total += cost
+		oi = append(oi, &order.OrderItem{
+			Item: &cart.CartItem{ProductId: cartItem.ProductId, Quantity: cartItem.Quantity},
+			Cost: cost,
+		})
 	}
 	// create order
 	orderReq := &order.PlaceOrderRequest{
-		UserId: req.UserId,
+		UserId:       req.UserId,
+		UserCurrency: "USD",
+		OrderItems:   oi,
+		Email:        req.Email,
 	}
 	if req.Address != nil {
 		addr := req.Address
@@ -77,12 +97,21 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	}
 	klog.Info(emptyResult)
 	// charge
-	paymentResult, err := rpc.PaymentClient.Charge(s.ctx, &payment.ChargeRequest{UserId: req.UserId, OrderId: orderResult.Order.OrderId, Amount: 1, CreditCard: &payment.CreditCardInfo{
-		CreditCardNumber:          req.CreditCard.CreditCardNumber,
-		CreditCardExpirationYear:  req.CreditCard.CreditCardExpirationYear,
-		CreditCardExpirationMonth: req.CreditCard.CreditCardExpirationMonth,
-		CreditCardCvv:             req.CreditCard.CreditCardCvv,
-	}})
+	var orderId string
+	if orderResult != nil || orderResult.Order != nil {
+		orderId = orderResult.Order.OrderId
+	}
+	payReq := &payment.ChargeRequest{
+		UserId:  req.UserId,
+		OrderId: orderId,
+		Amount:  total,
+		CreditCard: &payment.CreditCardInfo{
+			CreditCardNumber:          req.CreditCard.CreditCardNumber,
+			CreditCardExpirationYear:  req.CreditCard.CreditCardExpirationYear,
+			CreditCardExpirationMonth: req.CreditCard.CreditCardExpirationMonth,
+			CreditCardCvv:             req.CreditCard.CreditCardCvv,
+		}}
+	paymentResult, err := rpc.PaymentClient.Charge(s.ctx, payReq)
 	if err != nil {
 		err = fmt.Errorf("Charge.err:%v", err)
 		return
@@ -92,5 +121,10 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 	// change order state
 	klog.Info(orderResult)
 
+	resp = &checkout.CheckoutRes{
+		Order: &checkout.OrderResult{
+			OrderId: orderId,
+		},
+	}
 	return
 }

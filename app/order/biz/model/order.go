@@ -12,6 +12,7 @@ type Consignee struct {
 
 type Order struct {
 	Base
+	OrderId      string `gorm:"uniqueIndex;size:256"`
 	UserId       uint32
 	UserCurrency string
 	Consignee    Consignee `gorm:"embedded"`

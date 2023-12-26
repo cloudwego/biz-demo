@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/baiyutang/gomall/app/payment/biz/model"
 	"github.com/baiyutang/gomall/app/payment/conf"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -27,6 +27,8 @@ func Init() {
 		panic(err)
 	}
 	if os.Getenv("GO_ENV") != "online" {
-		DB.AutoMigrate()
+		DB.AutoMigrate(
+			&model.PaymentLog{},
+		)
 	}
 }

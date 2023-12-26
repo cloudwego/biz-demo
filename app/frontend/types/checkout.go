@@ -1,6 +1,7 @@
 package types
 
 type CheckoutForm struct {
+	Email           string `json:"email" form:"email"`
 	Firstname       string `json:"firstname" form:"firstname"`
 	Lastname        string `json:"lastname" form:"lastname"`
 	Street          string `json:"street" form:"street"`

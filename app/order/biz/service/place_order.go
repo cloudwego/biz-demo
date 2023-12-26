@@ -7,6 +7,7 @@ import (
 	"github.com/baiyutang/gomall/app/order/biz/dal/mysql"
 	"github.com/baiyutang/gomall/app/order/biz/model"
 	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -24,13 +25,24 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderRequest) (resp *order.Place
 		err = fmt.Errorf("OrderItems empty")
 		return
 	}
+
 	mysql.DB.Transaction(func(tx *gorm.DB) error {
+		orderId, _ := uuid.NewUUID()
+
 		o := &model.Order{
+			OrderId:      orderId.String(),
 			UserId:       req.UserId,
 			UserCurrency: req.UserCurrency,
 			Consignee: model.Consignee{
 				Email: req.Email,
 			},
+		}
+		if req.Address != nil {
+			a := req.Address
+			o.Consignee.Country = a.Country
+			o.Consignee.State = a.State
+			o.Consignee.City = a.City
+			o.Consignee.StreetAddress = a.StreetAddress
 		}
 		if err := tx.Create(o).Error; err != nil {
 			return err
@@ -43,6 +55,12 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderRequest) (resp *order.Place
 		if err := tx.Create(&itemList).Error; err != nil {
 			return err
 		}
+		resp = &order.PlaceOrderResponse{
+			Order: &order.OrderResult{
+				OrderId: orderId.String(),
+			},
+		}
+
 		return nil
 	})
 

@@ -22,12 +22,16 @@ func RegisterCheckout(h *server.Hertz) {
 
 	h.POST("/checkout/waiting", func(ctx context.Context, c *app.RequestContext) {
 		var f types.CheckoutForm
+
 		err := c.BindAndValidate(&f)
 		if err != nil {
 			klog.Error(err)
 		}
+		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
+
 		_, err = rpc.CheckoutClient.Checkout(ctx, &checkout.CheckoutReq{
-			UserId:    uint32(ctx.Value(frontendutils.UserIdKey).(float64)),
+			UserId:    userId,
+			Email:     f.Email,
 			Firstname: f.Firstname,
 			Lastname:  f.Lastname,
 			Address: &checkout.Address{
@@ -63,8 +67,9 @@ func RegisterCheckout(h *server.Hertz) {
 
 	h.GET("/checkout", func(ctx context.Context, c *app.RequestContext) {
 		var items []map[string]string
+		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
 
-		carts, err := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: uint32(ctx.Value(frontendutils.UserIdKey).(float64))})
+		carts, err := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
 		if err != nil {
 
 		}
