@@ -24,7 +24,6 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderRequest) (resp *order.Place
 		err = fmt.Errorf("OrderItems empty")
 		return
 	}
-	// 扣减库存
 	mysql.DB.Transaction(func(tx *gorm.DB) error {
 		o := &model.Order{
 			UserId:       req.UserId,

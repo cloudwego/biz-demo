@@ -8,6 +8,7 @@ import (
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart/cartservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/checkout/checkoutservice"
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/order/orderservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product/productcatalogservice"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/user/userservice"
@@ -26,6 +27,7 @@ var (
 	UserClient     userservice.Client
 	CartClient     cartservice.Client
 	CheckoutClient checkoutservice.Client
+	OrderClient    orderservice.Client
 	once           sync.Once
 	err            error
 )
@@ -36,6 +38,7 @@ func InitClient() {
 		initUserClient()
 		initCartClient()
 		initCheckoutClient()
+		initOrderClient()
 	})
 }
 
@@ -123,5 +126,21 @@ func initCheckoutClient() {
 
 	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
 	CheckoutClient, err = checkoutservice.NewClient("checkout", opts...)
+	frontendutils.MustHandleError(err)
+}
+
+func initOrderClient() {
+	var opts []client.Option
+	if os.Getenv("REGISTRY_ENABLE") == "true" {
+		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
+		frontendutils.MustHandleError(err)
+		opts = append(opts, client.WithResolver(r))
+	} else {
+		opts = append(opts, client.WithHostPorts("localhost:8885"))
+	}
+	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
+
+	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
+	OrderClient, err = orderservice.NewClient("order", opts...)
 	frontendutils.MustHandleError(err)
 }

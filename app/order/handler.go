@@ -15,3 +15,10 @@ func (s *CheckoutServiceImpl) PlaceOrder(ctx context.Context, req *order.PlaceOr
 
 	return resp, err
 }
+
+// ListOrder implements the OrderServiceImpl interface.
+func (s *OrderServiceImpl) ListOrder(ctx context.Context, req *order.ListOrderRequest) (resp *order.ListOrderResponse, err error) {
+	resp, err = service.NewListOrderService(ctx).Run(req)
+
+	return resp, err
+}

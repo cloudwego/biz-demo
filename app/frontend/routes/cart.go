@@ -3,9 +3,10 @@ package routes
 import (
 	"context"
 	"fmt"
+	"strconv"
+
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/middleware"
-	"strconv"
 
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
@@ -38,7 +39,7 @@ func RegisterCart(h *server.Hertz) {
 			"title":    "Cart",
 			"items":    items,
 			"total":    total,
-			"cart_num": 10,
+			"cart_num": len(items),
 		}))
 	})
 	type form struct {
@@ -48,12 +49,11 @@ func RegisterCart(h *server.Hertz) {
 	g.POST("/", func(ctx context.Context, c *app.RequestContext) {
 		var f form
 		c.BindAndValidate(&f)
-
-		r, err := rpc.CartClient.AddItem(ctx, &cart.AddItemRequest{UserId: uint32(ctx.Value(frontendutils.UserIdKey).(float64)), Item: &cart.CartItem{
+		_, err := rpc.CartClient.AddItem(ctx, &cart.AddItemRequest{UserId: uint32(ctx.Value(frontendutils.UserIdKey).(float64)), Item: &cart.CartItem{
 			ProductId: f.ProductId,
 			Quantity:  int32(f.ProductNum),
 		}})
-		fmt.Println(r, err)
+		fmt.Println(err)
 		c.Redirect(consts.StatusFound, []byte("/cart"))
 	})
 }

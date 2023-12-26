@@ -24,7 +24,8 @@ func RegisterProduct(h *server.Hertz) {
 		p, _ := productClient.GetProduct(ctx, &product.GetProductRequest{Id: uint32(id64)})
 
 		var cartNum int
-		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{})
+		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
+		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
 		if cartResp != nil {
 			cartNum = len(cartResp.Items)
 		}

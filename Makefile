@@ -18,6 +18,10 @@ gen-product-client:
 gen-checkout-client:
 	cd app/checkout && cwgo client -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/payment.proto
 
+.PHONY: gen-order-client
+gen-order-client:
+	cd app/frontend && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/order.proto
+
 .PHONY: watch-frontend
 watch-frontend:
 	cd app/frontend && air

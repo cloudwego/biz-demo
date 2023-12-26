@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
+	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -26,7 +26,8 @@ func RegisterHome(h *server.Hertz) {
 			items = p.Products
 		}
 		var cartNum int
-		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{})
+		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
+		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
 		if cartResp != nil {
 			cartNum = len(cartResp.Items)
 		}

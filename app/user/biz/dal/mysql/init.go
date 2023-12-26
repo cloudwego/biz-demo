@@ -30,8 +30,12 @@ func Init() {
 		panic(err)
 	}
 	if os.Getenv("GO_ENV") != "online" {
+		needDemoData := !DB.Migrator().HasTable(&model.User{})
 		DB.AutoMigrate(
 			&model.User{},
 		)
+		if needDemoData {
+			DB.Exec("INSERT INTO `user` (`id`,`created_at`,`updated_at`,`email`,`password_hashed`) VALUES (1,'2023-12-26 09:46:19.852','2023-12-26 09:46:19.852','123@admin.com','$2a$10$jTvUFh7Z8Kw0hLV8WrAws.PRQTeuH4gopJ7ZMoiFvwhhz5Vw.bj7C')")
+		}
 	}
 }

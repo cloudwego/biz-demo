@@ -3,6 +3,8 @@ package service
 import (
 	"context"
 	"fmt"
+	"strconv"
+
 	"github.com/baiyutang/gomall/app/checkout/infra/rpc"
 	"github.com/baiyutang/gomall/app/checkout/kitex_gen/cart"
 	checkout "github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout"
@@ -47,7 +49,21 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		oi = append(oi, &order.OrderItem{Item: &cart.CartItem{ProductId: cartItem.ProductId, Quantity: cartItem.Quantity}, Cost: p.Price * float32(cartItem.Quantity)})
 	}
 	// create order
-	orderResult, err := rpc.OrderClient.PlaceOrder(s.ctx, &order.PlaceOrderRequest{UserId: req.UserId})
+	orderReq := &order.PlaceOrderRequest{
+		UserId: req.UserId,
+	}
+	if req.Address != nil {
+		addr := req.Address
+		zipCodeInt, _ := strconv.Atoi(addr.ZipCode)
+		orderReq.Address = &order.Address{
+			StreetAddress: addr.StreetAddress,
+			City:          addr.City,
+			Country:       addr.Country,
+			State:         addr.State,
+			ZipCode:       int32(zipCodeInt),
+		}
+	}
+	orderResult, err := rpc.OrderClient.PlaceOrder(s.ctx, orderReq)
 	if err != nil {
 		klog.Error(err)
 	}

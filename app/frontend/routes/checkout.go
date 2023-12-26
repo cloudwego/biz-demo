@@ -2,7 +2,6 @@ package routes
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
@@ -10,6 +9,7 @@ import (
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/checkout"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/payment"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
+	"github.com/baiyutang/gomall/app/frontend/types"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/server"
@@ -19,27 +19,14 @@ import (
 )
 
 func RegisterCheckout(h *server.Hertz) {
-	type form struct {
-		Firstname       string `json:"firstname" form:"firstname"`
-		Lastname        string `json:"lastname" form:"lastname"`
-		Street          string `json:"street" form:"street"`
-		Zipcode         string `json:"zipcode" form:"city"`
-		Province        string `json:"province" form:"province"`
-		Country         string `json:"country" form:"country"`
-		City            string `json:"city" form:"city"`
-		CardNum         string `json:"cardNum" form:"cardNum"`
-		ExpirationMonth int32  `json:"expirationMonth" form:"expirationMonth"`
-		ExpirationYear  int32  `json:"expirationYear" form:"expirationYear"`
-		Cvv             int32  `json:"cvv" form:"cvv"`
-		Payment         string `json:"payment" form:"payment"`
-	}
+
 	h.POST("/checkout/waiting", func(ctx context.Context, c *app.RequestContext) {
-		var f form
+		var f types.CheckoutForm
 		err := c.BindAndValidate(&f)
 		if err != nil {
 			klog.Error(err)
 		}
-		r, err := rpc.CheckoutClient.Checkout(ctx, &checkout.CheckoutReq{
+		_, err = rpc.CheckoutClient.Checkout(ctx, &checkout.CheckoutReq{
 			UserId:    uint32(ctx.Value(frontendutils.UserIdKey).(float64)),
 			Firstname: f.Firstname,
 			Lastname:  f.Lastname,
@@ -58,9 +45,9 @@ func RegisterCheckout(h *server.Hertz) {
 			},
 		})
 		if err != nil {
-			fmt.Println(err)
+			c.HTML(consts.StatusOK, "error", map[string]interface{}{"message": err})
+			return
 		}
-		fmt.Println(r)
 
 		c.HTML(consts.StatusOK, "waiting", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "waiting",

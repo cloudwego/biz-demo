@@ -20,3 +20,13 @@ type Order struct {
 func (o Order) TableName() string {
 	return "order"
 }
+
+type OrderState string
+
+const (
+	OrderStatePlaced    OrderState = "placed"
+	OrderStatePayed     OrderState = "payed"
+	OrderStateCanceled  OrderState = "canceled"
+	OrderStateDelivered OrderState = "delivered"
+	OrderStateReceived  OrderState = "received"
+)
