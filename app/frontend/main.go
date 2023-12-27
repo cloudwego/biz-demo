@@ -51,7 +51,7 @@ func main() {
 	)
 
 	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
-	store.Options(sessions.Options{MaxAge: 86400, Path: "/"})
+	store.Options(sessions.Options{MaxAge: 86400})
 	rs, err := redis.GetRedisStore(store)
 	if err == nil {
 		rs.SetSerializer(sessions.JSONSerializer{})

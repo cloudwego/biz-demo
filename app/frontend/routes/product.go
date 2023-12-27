@@ -15,7 +15,6 @@ import (
 )
 
 func RegisterProduct(h *server.Hertz) {
-
 	productClient := rpc.ProductClient
 	h.GET("/product", func(ctx context.Context, c *app.RequestContext) {
 		productId := c.Query("id")

@@ -2,7 +2,9 @@ package service
 
 import (
 	"context"
+
 	"github.com/baiyutang/gomall/app/product/biz/dal/mysql"
+	"github.com/baiyutang/gomall/app/product/biz/dal/redis"
 	"github.com/baiyutang/gomall/app/product/biz/model"
 	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
 	"github.com/cloudwego/kitex/pkg/kerrors"
@@ -21,7 +23,8 @@ func (s *GetProductService) Run(req *product.GetProductRequest) (resp *product.P
 	if req.Id == 0 {
 		return nil, kerrors.NewBizStatusError(40000, "product id is required")
 	}
-	p, err := model.GetProductById(mysql.DB, s.ctx, int(req.Id))
+
+	p, err := model.NewCachedProductQuery(model.NewProductQuery(s.ctx, mysql.DB), redis.RedisClient).GetById(int(req.Id))
 	return &product.Product{
 		Id:          uint32(p.ID),
 		Picture:     p.Picture,

@@ -2,6 +2,7 @@ package mtl
 
 import (
 	"context"
+	"github.com/cloudwego/kitex/server"
 
 	"github.com/baiyutang/gomall/app/product/conf"
 	"go.opentelemetry.io/otel"
@@ -13,8 +14,11 @@ import (
 
 var TracerProvider *tracesdk.TracerProvider
 
-func InitTracing() {
+func initTracing() {
 	exporter, err := otlptracegrpc.New(context.Background())
+	server.RegisterShutdownHook(func() {
+		exporter.Shutdown(context.Background())
+	})
 	if err != nil {
 		panic(err)
 	}
