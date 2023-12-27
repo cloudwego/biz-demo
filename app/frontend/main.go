@@ -20,6 +20,7 @@ import (
 	"github.com/hertz-contrib/sessions"
 	"github.com/hertz-contrib/sessions/redis"
 	"github.com/joho/godotenv"
+	oteltrace "go.opentelemetry.io/otel/trace"
 )
 
 func main() {
@@ -33,7 +34,9 @@ func main() {
 		hertzotelprovider.WithEnableMetrics(false),
 	)
 	defer p.Shutdown(context.Background())
-	tracer, cfg := hertzoteltracing.NewServerTracer()
+	tracer, cfg := hertzoteltracing.NewServerTracer(hertzoteltracing.WithCustomResponseHandler(func(ctx context.Context, c *app.RequestContext) {
+		c.Header("shop-trace-id", oteltrace.SpanFromContext(ctx).SpanContext().TraceID().String())
+	}))
 	h := server.Default(
 		server.WithExitWaitTime(time.Second),
 		server.WithDisablePrintRoute(false),
