@@ -4,26 +4,44 @@
 
 ### 环境准备
 
-`make env-start`
+```
+make env-start
+```
 
 ### 启动服务
 
-`make run svc=user`
+```
+make run svc=user
+```
 
-`make run svc=product`
+```
+make run svc=product
+```
 
-`make run svc=frontend`
+```
+make run svc=frontend
+```
 
-`make run svc=cart`
+```
+make run svc=cart
+```
 
-`make run svc=checkout`
+```
+make run svc=checkout
+```
 
-`make run svc=order`
+```
+make run svc=order
+```
 
-`make run svc=payment`
+```
+make run svc=payment
+```
 
-### 检查服务
-`make open.consul`
+### 检查注册中心
+```
+make open.consul
+```
 
 ### 默认数据
 - 分类 2 个
@@ -32,6 +50,12 @@
 
 ### 业务流程演示
 
+1. 未登录整体效果
+1. 用户校验，订单、购物车等需登录
+
+`http://localhost:8080/cart`
+
+`http://localhost:8080/order`
 1. 注册
 1. 登录
 1. 分类浏览
