@@ -6,6 +6,7 @@ import (
 
 	"github.com/baiyutang/gomall/app/product/conf"
 	"github.com/cloudwego/kitex/pkg/registry"
+	"github.com/cloudwego/kitex/server"
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
@@ -15,7 +16,6 @@ import (
 var Registry *prometheus.Registry
 
 func initMetric() {
-
 	Registry = prometheus.NewRegistry()
 	Registry.MustRegister(collectors.NewGoCollector())
 	Registry.MustRegister(collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}))
@@ -30,11 +30,17 @@ func initMetric() {
 		panic(err)
 	}
 
-	err = r.Register(&registry.Info{
+	registryInfo := &registry.Info{
 		ServiceName: "prometheus",
 		Addr:        addr,
 		Weight:      1,
 		Tags:        map[string]string{"service": conf.GetConf().Kitex.Service},
+	}
+
+	err = r.Register(registryInfo)
+
+	server.RegisterShutdownHook(func() {
+		r.Deregister(registryInfo)
 	})
 
 	if err != nil {
