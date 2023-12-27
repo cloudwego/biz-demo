@@ -35,7 +35,6 @@ tidy: # run `go mod tidy` for all go mudule
 lint: # run `gofmt` for all go mudule
 	gofmt -l -w app
 
-# example: `make run svc=cart`
 .PHONY: run
 run: # run {svc} server. example: make run svc=product
 	scripts/run.sh ${svc}

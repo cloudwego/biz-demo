@@ -57,7 +57,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	store.Options(sessions.Options{MaxAge: 86400})
+	store.Options(sessions.Options{MaxAge: 86400, Path: "/"})
 	rs, err := redis.GetRedisStore(store)
 	if err == nil {
 		rs.SetSerializer(sessions.JSONSerializer{})
