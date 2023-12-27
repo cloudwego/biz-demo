@@ -4,8 +4,6 @@ import (
 	"sync"
 
 	"github.com/cloudwego/kitex/client"
-	"github.com/cloudwego/kitex/pkg/transmeta"
-	"github.com/cloudwego/kitex/transport"
 )
 
 var (

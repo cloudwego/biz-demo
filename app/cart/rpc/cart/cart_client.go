@@ -4,7 +4,7 @@ import (
 	"context"
 
 	cart "github.com/baiyutang/gomall/app/cart/kitex_gen/cart"
-
+	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )
