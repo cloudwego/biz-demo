@@ -40,6 +40,6 @@ const (
 )
 
 func ListOrder(db *gorm.DB, ctx context.Context, userId uint32) (orders []Order, err error) {
-	err = db.Debug()Model(&Order{}).Where(&Order{UserId: userId}).Preload("OrderItems").Find(&orders).Error
+	err = db.Debug().Model(&Order{}).Where(&Order{UserId: userId}).Preload("OrderItems").Find(&orders).Error
 	return
 }
