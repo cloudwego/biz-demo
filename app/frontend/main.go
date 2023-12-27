@@ -9,6 +9,7 @@ import (
 
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
+	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"github.com/baiyutang/gomall/app/frontend/routes"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -49,8 +50,12 @@ func main() {
 		server.WithHostPorts(":8080"),
 		tracer,
 	)
+	h.OnShutdown = append(h.OnShutdown, mtl.Hooks...)
 
 	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
+	if err != nil {
+		panic(err)
+	}
 	store.Options(sessions.Options{MaxAge: 86400})
 	rs, err := redis.GetRedisStore(store)
 	if err == nil {

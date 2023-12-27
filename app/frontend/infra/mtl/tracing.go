@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/baiyutang/gomall/app/frontend/utils"
+	"github.com/cloudwego/hertz/pkg/route"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/sdk/resource"
@@ -13,7 +14,7 @@ import (
 
 var TracerProvider *tracesdk.TracerProvider
 
-func InitTracing() {
+func InitTracing() route.CtxCallback {
 	exporter, err := otlptracegrpc.New(context.Background())
 	if err != nil {
 		panic(err)
@@ -25,4 +26,8 @@ func InitTracing() {
 	}
 	TracerProvider = tracesdk.NewTracerProvider(tracesdk.WithSpanProcessor(processor), tracesdk.WithResource(res))
 	otel.SetTracerProvider(TracerProvider)
+
+	return route.CtxCallback(func(ctx context.Context) {
+		exporter.Shutdown(ctx)
+	})
 }

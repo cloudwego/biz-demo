@@ -17,6 +17,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/circuitbreak"
 	"github.com/cloudwego/kitex/pkg/fallback"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	prometheus "github.com/kitex-contrib/monitor-prometheus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
@@ -68,16 +69,18 @@ func initProductClient() {
 			return resp, err
 		}
 		return &product.ListProductsResponse{
-			Products: []*product.Product{{
-				Price:       6.6,
-				Id:          3,
-				Picture:     "/static/image/t-shirt.jpeg",
-				Name:        "T-Shirt",
-				Description: "CloudWeGo T-Shirt"},
+			Products: []*product.Product{
+				{
+					Price:       6.6,
+					Id:          3,
+					Picture:     "/static/image/t-shirt.jpeg",
+					Name:        "T-Shirt",
+					Description: "CloudWeGo T-Shirt",
+				},
 			},
 		}, nil
-
 	}))))
+	opts = append(opts, client.WithTracer(prometheus.NewClientTracer("", "", prometheus.WithDisableServer(true), prometheus.WithRegistry(mtl.Registry))))
 
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	frontendutils.MustHandleError(err)
