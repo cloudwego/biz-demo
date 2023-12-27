@@ -27,7 +27,7 @@ func RegisterCheckout(h *server.Hertz) {
 		if err != nil {
 			klog.Error(err)
 		}
-		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
+		userId := frontendutils.GetUserIdFromCtx(ctx)
 
 		_, err = rpc.CheckoutClient.Checkout(ctx, &checkout.CheckoutReq{
 			UserId:    userId,
@@ -67,7 +67,7 @@ func RegisterCheckout(h *server.Hertz) {
 
 	h.GET("/checkout", func(ctx context.Context, c *app.RequestContext) {
 		var items []map[string]string
-		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
+		userId := frontendutils.GetUserIdFromCtx(ctx)
 
 		carts, err := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
 		if err != nil {

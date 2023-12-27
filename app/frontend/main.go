@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"os"
 	"time"
+
+	"github.com/baiyutang/gomall/app/frontend/middleware"
 
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
@@ -69,6 +70,7 @@ func main() {
 	routes.RegisterAuth(h)
 	routes.RegisterCart(h)
 	routes.RegisterCheckout(h)
+	routes.RegisterOrder(h)
 
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
@@ -81,11 +83,6 @@ func main() {
 	h.GET("sign-up", func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "sign-up", utils.H{
 			"title": "Sign up",
-		})
-	})
-	h.GET("/order", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "order", utils.H{
-			"title": "Order",
 		})
 	})
 	h.GET("/about", func(ctx context.Context, c *app.RequestContext) {

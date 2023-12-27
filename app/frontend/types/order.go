@@ -1,6 +1,17 @@
 package types
 
+type Consignee struct {
+	Email string
+
+	StreetAddress string
+	City          string
+	State         string
+	Country       string
+	ZipCode       int32
+}
+
 type Order struct {
+	Consignee  Consignee
 	OrderId    string
 	CreatedAt  int32
 	OrderState string
@@ -9,7 +20,6 @@ type Order struct {
 }
 
 type OrderItem struct {
-	OrderId     string
 	ProductId   uint32
 	ProductName string
 	Qty         uint32

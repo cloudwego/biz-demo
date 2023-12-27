@@ -26,7 +26,7 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderRequest) (resp *order.Place
 		return
 	}
 
-	mysql.DB.Transaction(func(tx *gorm.DB) error {
+	err = mysql.DB.Transaction(func(tx *gorm.DB) error {
 		orderId, _ := uuid.NewUUID()
 
 		o := &model.Order{
@@ -50,7 +50,12 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderRequest) (resp *order.Place
 
 		var itemList []*model.OrderItem
 		for _, v := range req.OrderItems {
-			itemList = append(itemList, &model.OrderItem{OrderID: o.ID, ProductId: v.Item.ProductId, Quantity: v.Item.Quantity})
+			itemList = append(itemList, &model.OrderItem{
+				OrderIdRefer: o.OrderId,
+				ProductId:    v.Item.ProductId,
+				Quantity:     v.Item.Quantity,
+				Cost:         v.Cost,
+			})
 		}
 		if err := tx.Create(&itemList).Error; err != nil {
 			return err
