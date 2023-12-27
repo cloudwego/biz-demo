@@ -15,7 +15,6 @@ import (
 )
 
 func RegisterProduct(h *server.Hertz) {
-
 	productClient := rpc.ProductClient
 	h.GET("/product", func(ctx context.Context, c *app.RequestContext) {
 		productId := c.Query("id")
@@ -24,10 +23,13 @@ func RegisterProduct(h *server.Hertz) {
 		p, _ := productClient.GetProduct(ctx, &product.GetProductRequest{Id: uint32(id64)})
 
 		var cartNum int
-		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
-		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
-		if cartResp != nil {
-			cartNum = len(cartResp.Items)
+		tryUserId := ctx.Value(frontendutils.UserIdKey)
+		if tryUserId != nil {
+			userId := uint32(tryUserId.(float64))
+			cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
+			if cartResp != nil {
+				cartNum = len(cartResp.Items)
+			}
 		}
 
 		c.HTML(consts.StatusOK, "product", frontendutils.WarpResponse(ctx, c, utils.H{

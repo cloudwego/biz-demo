@@ -9,6 +9,7 @@ import (
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/checkout"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/payment"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
+	"github.com/baiyutang/gomall/app/frontend/middleware"
 	"github.com/baiyutang/gomall/app/frontend/types"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -19,8 +20,7 @@ import (
 )
 
 func RegisterCheckout(h *server.Hertz) {
-
-	h.POST("/checkout/waiting", func(ctx context.Context, c *app.RequestContext) {
+	h.POST("/checkout/waiting", middleware.Auth(), func(ctx context.Context, c *app.RequestContext) {
 		var f types.CheckoutForm
 
 		err := c.BindAndValidate(&f)
@@ -59,19 +59,18 @@ func RegisterCheckout(h *server.Hertz) {
 		}))
 	})
 
-	h.GET("/checkout/result", func(ctx context.Context, c *app.RequestContext) {
+	h.GET("/checkout/result", middleware.Auth(), func(ctx context.Context, c *app.RequestContext) {
 		c.HTML(consts.StatusOK, "result", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title": "result",
 		}))
 	})
 
-	h.GET("/checkout", func(ctx context.Context, c *app.RequestContext) {
+	h.GET("/checkout", middleware.Auth(), func(ctx context.Context, c *app.RequestContext) {
 		var items []map[string]string
 		userId := uint32(ctx.Value(frontendutils.UserIdKey).(float64))
 
 		carts, err := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
 		if err != nil {
-
 		}
 		var total float32
 		for _, v := range carts.Items {

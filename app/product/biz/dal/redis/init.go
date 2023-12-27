@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+
 	"github.com/baiyutang/gomall/app/product/infra/mtl"
 
 	"github.com/baiyutang/gomall/app/product/conf"
@@ -11,9 +12,7 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-var (
-	RedisClient *redis.Client
-)
+var RedisClient *redis.Client
 
 func Init() {
 	RedisClient = redis.NewClient(&redis.Options{
@@ -31,4 +30,5 @@ func Init() {
 	if err := mtl.Registry.Register(redisprometheus.NewCollector("default", "product", RedisClient)); err != nil {
 		klog.Error("redis metric collect error ", err)
 	}
+	redisotel.InstrumentTracing(RedisClient)
 }
