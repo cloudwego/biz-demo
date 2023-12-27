@@ -41,7 +41,7 @@ func initMetric() route.CtxCallback {
 
 	http.Handle("/metrics", promhttp.HandlerFor(Registry, promhttp.HandlerOpts{}))
 	go http.ListenAndServe(":8090", nil)
-	return route.CtxCallback(func(ctx context.Context) {
+	return func(ctx context.Context) {
 		r.Deregister(registryInfo)
-	})
+	}
 }
