@@ -49,7 +49,7 @@ env-stop:
 
 .PHONY: run.all
 run.all:
-	go run app/cart/*.go
+	scripts/run_all.sh
 
 # .PHONY: open.gomall
 # open.gomall
