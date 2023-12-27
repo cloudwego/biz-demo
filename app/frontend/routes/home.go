@@ -26,13 +26,10 @@ func RegisterHome(h *server.Hertz) {
 			items = p.Products
 		}
 		var cartNum int
-		tryUserId := ctx.Value(frontendutils.UserIdKey)
-		if tryUserId != nil {
-			userId := uint32(tryUserId.(float64))
-			cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
-			if cartResp != nil {
-				cartNum = len(cartResp.Items)
-			}
+		userId := frontendutils.GetUserIdFromCtx(ctx)
+		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
+		if cartResp != nil {
+			cartNum = len(cartResp.Items)
 		}
 		c.HTML(http.StatusOK, "home", frontendutils.WarpResponse(ctx, c, utils.H{
 			"title":    "Hot sale",

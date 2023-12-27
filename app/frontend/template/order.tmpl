@@ -2,25 +2,20 @@
     {{ template "header" . }}
     <div class="row">
         <div class="card border-0" style="width: 100%;">
-            <div class="card-body row">
-                <ul class="list-group">
                     {{ range $.orders }}
-                        <li class="list-group-item">
-                            <div class="card border-0">
-                                <div class="card-body row">
-                                    <div class="col-4">
-                                        <img src="{{ .Picture }}" style="max-width: 100px;max-height: 50px" alt="">
-                                    </div>
-                                    <div class="col-8">
-                                        <div class="mt-1">{{ .Name }}</div>
-                                        <div class="mt-1">Single Price: ${{ .Price }}</div>
-                                        <div class="mt-1">Qty: {{ .Qty }}</div>
-                                    </div>
-                                </div>
+                    <div class="card-body row">
+                        <div class="card">
+                            <div class="card-body">
+                              <h5 class="card-title">Order ID:{{ .OrderId }}</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">Consignee:{{ .Consignee.Email }},   CreatedAt:{{.CreatedAt}}</h6>
+                              {{ range .Items }}
+                              <p class="card-text">{{ .ProductName }}</p>
+                              {{ end }}
+                              <a href="#" class="card-link">Detail</a>
                             </div>
-                        </li>
+                          </div>
+                          <p/>
                     {{ end}}
-                </ul>
             </div>
         </div>
     </div>

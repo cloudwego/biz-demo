@@ -23,13 +23,10 @@ func RegisterProduct(h *server.Hertz) {
 		p, _ := productClient.GetProduct(ctx, &product.GetProductRequest{Id: uint32(id64)})
 
 		var cartNum int
-		tryUserId := ctx.Value(frontendutils.UserIdKey)
-		if tryUserId != nil {
-			userId := uint32(tryUserId.(float64))
-			cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
-			if cartResp != nil {
-				cartNum = len(cartResp.Items)
-			}
+		userId := frontendutils.GetUserIdFromCtx(ctx)
+		cartResp, _ := rpc.CartClient.GetCart(ctx, &cart.GetCartRequest{UserId: userId})
+		if cartResp != nil {
+			cartNum = len(cartResp.Items)
 		}
 
 		c.HTML(consts.StatusOK, "product", frontendutils.WarpResponse(ctx, c, utils.H{
