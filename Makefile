@@ -47,14 +47,10 @@ env-start:
 env-stop:
 	docker-compose down
 
-.PHONY: run.all
-run.all:
-	scripts/run_all.sh
+.PHONY: open.gomall
+open.gomall:
+	open "http://localhost:8080/"
 
-# .PHONY: open.gomall
-# open.gomall
-# 	open "http://localhost:8080/"
-
-# .PHONY: open.consul
-# open.consul
-# 	open "http://127.0.0.1:8500/ui"
+.PHONY: open.consul
+open.consul:
+	open "http://localhost:8500/ui/"

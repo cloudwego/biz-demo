@@ -5,8 +5,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/baiyutang/gomall/app/frontend/middleware"
-
 	"github.com/baiyutang/gomall/app/frontend/infra/mtl"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/middleware"
