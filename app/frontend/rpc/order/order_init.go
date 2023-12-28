@@ -11,7 +11,7 @@ var (
 	defaultClient     RPCClient
 	defaultDstService = "order"
 	defaultClientOpts = []client.Option{
-		client.WithHostPorts("127.0.0.1:8885"),
+		client.WithHostPorts("127.0.0.1:8888"),
 	}
 	once sync.Once
 )

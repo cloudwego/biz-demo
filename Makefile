@@ -11,17 +11,21 @@ help: # Show help for each of the Makefile recipes.
 gen: # gen client code of {svc}. example: make gen svc=product
 	scripts/gen.sh ${svc}
 
-.PHONY: gen-product-client
-gen-product-client:
-	cd app/frontend && cwgo client -I ../../idl --type RPC --service product --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/product.proto
-
 .PHONY: gen-checkout-client
 gen-checkout-client:
-	cd app/checkout && cwgo client -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/payment.proto
+	cd app/frontend && cwgo client -I ../../idl --type RPC --service checkout --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/checkout.proto
+
+# .PHONY: gen-checkout-client
+# gen-checkout-client:
+# 	cd app/checkout && cwgo client -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/payment.proto
 
 .PHONY: gen-order-client
 gen-order-client:
 	cd app/frontend && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/order.proto
+
+.PHONY: gen-front
+gen-front:
+	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/frontend/home.proto
 
 .PHONY: watch-frontend
 watch-frontend:

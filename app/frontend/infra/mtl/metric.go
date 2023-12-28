@@ -22,7 +22,7 @@ func initMetric() route.CtxCallback {
 	Registry.MustRegister(collectors.NewGoCollector())
 	Registry.MustRegister(collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}))
 	config := consulapi.DefaultConfig()
-	config.Address = "127.0.0.1:8500"
+	config.Address = "10.152.183.21:8500"
 	consulClient, _ := consulapi.NewClient(config)
 	r := consul.NewConsulRegister(consulClient, consul.WithAdditionInfo(&consul.AdditionInfo{
 		Tags: []string{"service:frontend"},

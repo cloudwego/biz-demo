@@ -2,8 +2,8 @@ package order
 
 import (
 	"context"
-
 	order "github.com/baiyutang/gomall/app/frontend/kitex_gen/order"
+
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/order/orderservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
@@ -12,9 +12,8 @@ import (
 type RPCClient interface {
 	KitexClient() orderservice.Client
 	Service() string
-	PlaceOrder(ctx context.Context, req *order.PlaceOrderRequest, callOptions ...callopt.Option) (resp *order.PlaceOrderResponse, err error)
-
-	ListOrder(ctx context.Context, req *order.ListOrderRequest, callOptions ...callopt.Option) (resp *order.ListOrderResponse, err error)
+	PlaceOrder(ctx context.Context, Req *order.PlaceOrderRequest, callOptions ...callopt.Option) (r *order.PlaceOrderResponse, err error)
+	ListOrder(ctx context.Context, Req *order.ListOrderRequest, callOptions ...callopt.Option) (r *order.ListOrderResponse, err error)
 }
 
 func NewRPCClient(dstService string, opts ...client.Option) (RPCClient, error) {
@@ -43,10 +42,10 @@ func (c *clientImpl) KitexClient() orderservice.Client {
 	return c.kitexClient
 }
 
-func (c *clientImpl) PlaceOrder(ctx context.Context, req *order.PlaceOrderRequest, callOptions ...callopt.Option) (resp *order.PlaceOrderResponse, err error) {
-	return c.kitexClient.PlaceOrder(ctx, req, callOptions...)
+func (c *clientImpl) PlaceOrder(ctx context.Context, Req *order.PlaceOrderRequest, callOptions ...callopt.Option) (r *order.PlaceOrderResponse, err error) {
+	return c.kitexClient.PlaceOrder(ctx, Req, callOptions...)
 }
 
-func (c *clientImpl) ListOrder(ctx context.Context, req *order.ListOrderRequest, callOptions ...callopt.Option) (resp *order.ListOrderResponse, err error) {
-	return c.kitexClient.ListOrder(ctx, req, callOptions...)
+func (c *clientImpl) ListOrder(ctx context.Context, Req *order.ListOrderRequest, callOptions ...callopt.Option) (r *order.ListOrderResponse, err error) {
+	return c.kitexClient.ListOrder(ctx, Req, callOptions...)
 }
