@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	home "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/home"
+	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	"github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -20,7 +20,7 @@ func NewHomeService(Context context.Context, RequestContext *app.RequestContext)
 	return &HomeService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *HomeService) Run(req *home.Empty) (res map[string]any, err error) {
+func (h *HomeService) Run(req *common.Empty) (res map[string]any, err error) {
 	ctx := h.Context
 	p, err := rpc.ProductClient.ListProducts(ctx, &product.ListProductsReq{})
 	if err != nil {
