@@ -33,7 +33,7 @@ require (
 	github.com/apache/thrift v0.19.0 // indirect
 	github.com/armon/go-metrics v0.4.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/bytedance/gopkg v0.0.0-20230728082804-614d0af6619b // indirect
+	github.com/bytedance/gopkg v0.0.0-20231219111115-a5eedbe96960 // indirect
 	github.com/bytedance/sonic v1.10.2 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect

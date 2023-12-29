@@ -29,14 +29,7 @@ func main() {
 	mtl.InitMtl()
 	rpc.InitClient()
 
-	p := hertzotelprovider.NewOpenTelemetryProvider(
-		hertzotelprovider.WithSdkTracerProvider(mtl.TracerProvider),
-		hertzotelprovider.WithEnableMetrics(false),
-	)
-	defer p.Shutdown(context.Background())
-	tracer, cfg := hertzoteltracing.NewServerTracer(hertzoteltracing.WithCustomResponseHandler(func(ctx context.Context, c *app.RequestContext) {
-		c.Header("shop-trace-id", oteltrace.SpanFromContext(ctx).SpanContext().TraceID().String())
-	}))
+
 	h := server.Default(
 		server.WithExitWaitTime(time.Second),
 		server.WithDisablePrintRoute(false),
@@ -51,8 +44,6 @@ func main() {
 		server.WithHostPorts(":8080"),
 		tracer,
 	)
-	h.OnShutdown = append(h.OnShutdown, mtl.Hooks...)
-
 
 
 	frontendutils.MustHandleError(err)

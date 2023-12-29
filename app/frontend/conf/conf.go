@@ -38,6 +38,7 @@ type Redis struct {
 
 type Hertz struct {
 	Address         string `yaml:"address"`
+	MetricsPort     int    `yaml:"metrics_port"`
 	EnablePprof     bool   `yaml:"enable_pprof"`
 	EnableGzip      bool   `yaml:"enable_gzip"`
 	EnableAccessLog bool   `yaml:"enable_access_log"`
@@ -46,6 +47,7 @@ type Hertz struct {
 	LogMaxSize      int    `yaml:"log_max_size"`
 	LogMaxBackups   int    `yaml:"log_max_backups"`
 	LogMaxAge       int    `yaml:"log_max_age"`
+	RegistryAddr    string `yaml:"registry_addr"`
 }
 
 // GetConf gets configuration instance

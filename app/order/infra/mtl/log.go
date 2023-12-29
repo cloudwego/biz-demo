@@ -14,7 +14,7 @@ import (
 func initLog() {
 	var opts []kitexzap.Option
 	var output zapcore.WriteSyncer
-	if os.Getenv("GO_ENV") == "online" {
+	if os.Getenv("GO_ENV") != "online" {
 		opts = append(opts, kitexzap.WithCoreEnc(zapcore.NewConsoleEncoder(zap.NewDevelopmentEncoderConfig())))
 		output = os.Stdout
 	} else {
