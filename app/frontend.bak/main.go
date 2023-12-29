@@ -53,19 +53,10 @@ func main() {
 	)
 	h.OnShutdown = append(h.OnShutdown, mtl.Hooks...)
 
-	store, err := redis.NewStore(100, "tcp", "localhost:6379", "", []byte("AMoIKVVcitM="))
-	if err != nil {
-		panic(err)
-	}
-	store.Options(sessions.Options{MaxAge: 86400, Path: "/"})
-	rs, err := redis.GetRedisStore(store)
-	if err == nil {
-		rs.SetSerializer(sessions.JSONSerializer{})
-	}
+
 
 	frontendutils.MustHandleError(err)
 
-	h.Use(sessions.New("cloudwego-shop", store))
 	middleware.RegisterMiddleware(h)
 
 	h.Use(hertzoteltracing.ServerMiddleware(cfg))
@@ -80,33 +71,7 @@ func main() {
 
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
-	h.GET("sign-in", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "sign-in", utils.H{
-			"title": "Sign in",
-			"next":  c.Query("next"),
-		})
-	})
-	h.GET("sign-up", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "sign-up", utils.H{
-			"title": "Sign up",
-		})
-	})
-	h.GET("/about", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "about", frontendutils.WarpResponse(ctx, c, utils.H{
-			"title": "About",
-		}))
-	})
-	h.GET("/redirect", func(ctx context.Context, c *app.RequestContext) {
-		c.HTML(consts.StatusOK, "about", utils.H{
-			"title": "Error",
-		})
-	})
-	if os.Getenv("GO_ENV") != "online" {
-		h.GET("/robots.txt", func(ctx context.Context, c *app.RequestContext) {
-			c.Data(consts.StatusOK, "text/plain", []byte(`User-agent: *
-Disallow: /`))
-		})
-	}
+
 
 	h.Static("/static", "./")
 	h.Spin()

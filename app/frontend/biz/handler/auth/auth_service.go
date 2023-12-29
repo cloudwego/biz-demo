@@ -48,7 +48,7 @@ func Login(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+	c.Redirect(consts.StatusFound, []byte(resp))
 }
 
 // Logout .
