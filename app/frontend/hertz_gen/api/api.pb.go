@@ -7,9 +7,9 @@
 package api
 
 import (
+	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	descriptorpb "google.golang.org/protobuf/types/descriptorpb"
 	reflect "reflect"
 )
 
@@ -22,7 +22,7 @@ const (
 
 var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50101,
 		Name:          "api.raw_body",
@@ -30,7 +30,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50102,
 		Name:          "api.query",
@@ -38,7 +38,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50103,
 		Name:          "api.header",
@@ -46,7 +46,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50104,
 		Name:          "api.cookie",
@@ -54,7 +54,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50105,
 		Name:          "api.body",
@@ -62,7 +62,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50106,
 		Name:          "api.path",
@@ -70,7 +70,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50107,
 		Name:          "api.vd",
@@ -78,7 +78,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50108,
 		Name:          "api.form",
@@ -86,7 +86,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50109,
 		Name:          "api.js_conv",
@@ -94,7 +94,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50110,
 		Name:          "api.file_name",
@@ -102,7 +102,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50111,
 		Name:          "api.none",
@@ -110,7 +110,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50131,
 		Name:          "api.form_compatible",
@@ -118,7 +118,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50132,
 		Name:          "api.js_conv_compatible",
@@ -126,7 +126,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50133,
 		Name:          "api.file_name_compatible",
@@ -134,7 +134,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50134,
 		Name:          "api.none_compatible",
@@ -142,7 +142,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.FieldOptions)(nil),
+		ExtendedType:  (*descriptor.FieldOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         51001,
 		Name:          "api.go_tag",
@@ -150,7 +150,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50201,
 		Name:          "api.get",
@@ -158,7 +158,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50202,
 		Name:          "api.post",
@@ -166,7 +166,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50203,
 		Name:          "api.put",
@@ -174,7 +174,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50204,
 		Name:          "api.delete",
@@ -182,7 +182,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50205,
 		Name:          "api.patch",
@@ -190,7 +190,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50206,
 		Name:          "api.options",
@@ -198,7 +198,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50207,
 		Name:          "api.head",
@@ -206,7 +206,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50208,
 		Name:          "api.any",
@@ -214,7 +214,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50301,
 		Name:          "api.gen_path",
@@ -222,7 +222,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50302,
 		Name:          "api.api_version",
@@ -230,7 +230,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50303,
 		Name:          "api.tag",
@@ -238,7 +238,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50304,
 		Name:          "api.name",
@@ -246,7 +246,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50305,
 		Name:          "api.api_level",
@@ -254,7 +254,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50306,
 		Name:          "api.serializer",
@@ -262,7 +262,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50307,
 		Name:          "api.param",
@@ -270,7 +270,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50308,
 		Name:          "api.baseurl",
@@ -278,7 +278,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50309,
 		Name:          "api.handler_path",
@@ -286,7 +286,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MethodOptions)(nil),
+		ExtendedType:  (*descriptor.MethodOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50331,
 		Name:          "api.handler_path_compatible",
@@ -294,7 +294,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.EnumValueOptions)(nil),
+		ExtendedType:  (*descriptor.EnumValueOptions)(nil),
 		ExtensionType: (*int32)(nil),
 		Field:         50401,
 		Name:          "api.http_code",
@@ -302,7 +302,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.ServiceOptions)(nil),
+		ExtendedType:  (*descriptor.ServiceOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50402,
 		Name:          "api.base_domain",
@@ -310,7 +310,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.ServiceOptions)(nil),
+		ExtendedType:  (*descriptor.ServiceOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50731,
 		Name:          "api.base_domain_compatible",
@@ -318,7 +318,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.ServiceOptions)(nil),
+		ExtendedType:  (*descriptor.ServiceOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50732,
 		Name:          "api.service_path",
@@ -326,7 +326,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 		Filename:      "api.proto",
 	},
 	{
-		ExtendedType:  (*descriptorpb.MessageOptions)(nil),
+		ExtendedType:  (*descriptor.MessageOptions)(nil),
 		ExtensionType: (*string)(nil),
 		Field:         50830,
 		Name:          "api.reserve",
@@ -335,7 +335,7 @@ var file_api_proto_extTypes = []protoimpl.ExtensionInfo{
 	},
 }
 
-// Extension fields to descriptorpb.FieldOptions.
+// Extension fields to descriptor.FieldOptions.
 var (
 	// optional string raw_body = 50101;
 	E_RawBody = &file_api_proto_extTypes[0]
@@ -373,7 +373,7 @@ var (
 	E_GoTag = &file_api_proto_extTypes[15]
 )
 
-// Extension fields to descriptorpb.MethodOptions.
+// Extension fields to descriptor.MethodOptions.
 var (
 	// optional string get = 50201;
 	E_Get = &file_api_proto_extTypes[16]
@@ -392,9 +392,13 @@ var (
 	// optional string any = 50208;
 	E_Any = &file_api_proto_extTypes[23]
 	// optional string gen_path = 50301;
-	E_GenPath = &file_api_proto_extTypes[24] // The path specified by the user when the client code is generated, with a higher priority than api_version
+	E_GenPath = &file_api_proto_extTypes[24] // The path specified by the user when the client code is
+	// generated, with a higher priority than api_version
+	//
 	// optional string api_version = 50302;
-	E_ApiVersion = &file_api_proto_extTypes[25] // Specify the value of the :version variable in path when the client code is generated
+	E_ApiVersion = &file_api_proto_extTypes[25] // Specify the value of the :version variable in path when the
+	// client code is generated
+	//
 	// optional string tag = 50303;
 	E_Tag = &file_api_proto_extTypes[26] // rpc tag, can be multiple, separated by commas
 	// optional string name = 50304;
@@ -415,13 +419,13 @@ var (
 	E_HandlerPathCompatible = &file_api_proto_extTypes[33] // handler_path specifies the path to generate the method
 )
 
-// Extension fields to descriptorpb.EnumValueOptions.
+// Extension fields to descriptor.EnumValueOptions.
 var (
 	// optional int32 http_code = 50401;
 	E_HttpCode = &file_api_proto_extTypes[34]
 )
 
-// Extension fields to descriptorpb.ServiceOptions.
+// Extension fields to descriptor.ServiceOptions.
 var (
 	// optional string base_domain = 50402;
 	E_BaseDomain = &file_api_proto_extTypes[35]
@@ -433,7 +437,7 @@ var (
 	E_ServicePath = &file_api_proto_extTypes[37]
 )
 
-// Extension fields to descriptorpb.MessageOptions.
+// Extension fields to descriptor.MessageOptions.
 var (
 	// optional string reserve = 50830;
 	E_Reserve = &file_api_proto_extTypes[38]
@@ -610,11 +614,11 @@ var file_api_proto_rawDesc = []byte{
 }
 
 var file_api_proto_goTypes = []interface{}{
-	(*descriptorpb.FieldOptions)(nil),     // 0: google.protobuf.FieldOptions
-	(*descriptorpb.MethodOptions)(nil),    // 1: google.protobuf.MethodOptions
-	(*descriptorpb.EnumValueOptions)(nil), // 2: google.protobuf.EnumValueOptions
-	(*descriptorpb.ServiceOptions)(nil),   // 3: google.protobuf.ServiceOptions
-	(*descriptorpb.MessageOptions)(nil),   // 4: google.protobuf.MessageOptions
+	(*descriptor.FieldOptions)(nil),     // 0: google.protobuf.FieldOptions
+	(*descriptor.MethodOptions)(nil),    // 1: google.protobuf.MethodOptions
+	(*descriptor.EnumValueOptions)(nil), // 2: google.protobuf.EnumValueOptions
+	(*descriptor.ServiceOptions)(nil),   // 3: google.protobuf.ServiceOptions
+	(*descriptor.MessageOptions)(nil),   // 4: google.protobuf.MessageOptions
 }
 var file_api_proto_depIdxs = []int32{
 	0,  // 0: api.raw_body:extendee -> google.protobuf.FieldOptions
