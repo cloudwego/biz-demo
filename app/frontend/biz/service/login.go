@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
+	auth "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/auth"
 	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
-	frontend_product "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend_product"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -17,7 +17,7 @@ func NewLoginService(Context context.Context, RequestContext *app.RequestContext
 	return &LoginService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *LoginService) Run(req *frontend_product.LoginReq) (resp *common.Empty, err error) {
+func (h *LoginService) Run(req *auth.LoginReq) (resp *common.Empty, err error) {
 	//defer func() {
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)

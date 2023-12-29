@@ -2,7 +2,6 @@ package home
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/baiyutang/gomall/app/frontend/biz/service"
 	"github.com/baiyutang/gomall/app/frontend/biz/utils"
@@ -22,9 +21,8 @@ func Home(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	//resp, err :=
+	// resp, err :=
 	resp, err := service.NewHomeService(ctx, c).Run(&req)
-	fmt.Println(resp)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return

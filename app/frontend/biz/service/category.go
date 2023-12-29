@@ -3,8 +3,8 @@ package service
 import (
 	"context"
 
+	category "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/category"
 	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
-	frontend_product "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend_product"
 	"github.com/cloudwego/hertz/pkg/app"
 )
 
@@ -17,7 +17,7 @@ func NewCategoryService(Context context.Context, RequestContext *app.RequestCont
 	return &CategoryService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *CategoryService) Run(req *frontend_product.CategoryReq) (resp *common.Empty, err error) {
+func (h *CategoryService) Run(req *category.CategoryReq) (resp *common.Empty, err error) {
 	//defer func() {
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)

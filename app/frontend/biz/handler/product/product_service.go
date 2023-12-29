@@ -5,7 +5,6 @@ import (
 
 	"github.com/baiyutang/gomall/app/frontend/biz/service"
 	"github.com/baiyutang/gomall/app/frontend/biz/utils"
-	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
 	product "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/product"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
