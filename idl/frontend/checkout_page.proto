@@ -8,19 +8,19 @@ import "frontend/common.proto";
 import "api.proto";
 
 message CheckoutReq {
-  string Email = 1 [ (api.form) = "email" ];
-  string Firstname = 2 [ (api.form) = "firstname" ];
-  string Lastname = 3 [ (api.form) = "lastname" ];
-  string Street = 4 [ (api.form) = "street" ];
-  string Zipcode = 5 [ (api.form) = "zipcode" ];
-  string Province = 6 [ (api.form) = "province" ];
-  string Country = 7 [ (api.form) = "country" ];
-  string City = 8 [ (api.form) = "city" ];
-  string CardNum = 9 [ (api.form) = "cartNum" ];
-  uint32 ExpirationMonth = 10 [ (api.form) = "expirationMonth" ];
-  uint32 ExpirationYear = 11 [ (api.form) = "expirationYear" ];
-  uint32 Cvv = 12 [ (api.form) = "cvv" ];
-  string Payment = 13 [ (api.form) = "payment" ];
+  string email = 1 [ (api.form) = "email" ];
+  string firstname = 2 [ (api.form) = "firstname" ];
+  string lastname = 3 [ (api.form) = "lastname" ];
+  string street = 4 [ (api.form) = "street" ];
+  string zipcode = 5 [ (api.form) = "zipcode" ];
+  string province = 6 [ (api.form) = "province" ];
+  string country = 7 [ (api.form) = "country" ];
+  string city = 8 [ (api.form) = "city" ];
+  string card_num = 9 [ (api.form) = "cartNum" ];
+  int32 expiration_month = 10 [ (api.form) = "expirationMonth" ];
+  int32 expiration_year = 11 [ (api.form) = "expirationYear" ];
+  int32 cvv = 12 [ (api.form) = "cvv" ];
+  string payment = 13 [ (api.form) = "payment" ];
 }
 
 service CheckoutService {
