@@ -61,7 +61,11 @@ func initCartClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8883"))
 	}
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}), client.WithTransportProtocol(transport.GRPC), client.WithMetaHandler(transmeta.ServerHTTP2Handler))
+	opts = append(opts,
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
+		client.WithTransportProtocol(transport.GRPC),
+		client.WithMetaHandler(transmeta.ServerHTTP2Handler),
+	)
 	opts = append(opts, commonOpts...)
 	CartClient, err = cartservice.NewClient("cart", opts...)
 	checkoututils.MustHandleError(err)

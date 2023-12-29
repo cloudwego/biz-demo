@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/cloudwego/kitex/pkg/transmeta"
 	"log"
 	"net"
 	"os"
@@ -44,6 +45,7 @@ func kitexInit() (opts []server.Option) {
 	opts = append(opts,
 		server.WithSuite(tracing.NewServerSuite()),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
+		server.WithMetaHandler(transmeta.ServerHTTP2Handler),
 		server.WithTracer(prometheus.NewServerTracer("", "", prometheus.WithDisableServer(true), prometheus.WithRegistry(mtl.Registry))),
 	)
 

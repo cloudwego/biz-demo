@@ -22,13 +22,13 @@ func AddCartItem(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	resp, err := service.NewAddCartItemService(ctx, c).Run(&req)
+	_, err = service.NewAddCartItemService(ctx, c).Run(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
 	}
 
-	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+	c.Redirect(consts.StatusFound, []byte("/cart"))
 }
 
 // GetCart .
@@ -42,11 +42,10 @@ func GetCart(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	_, err = service.NewGetCartService(ctx, c).Run(&req)
+	resp, err := service.NewGetCartService(ctx, c).Run(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
 	}
-
-	c.Redirect(consts.StatusFound, []byte("/"))
+	c.HTML(consts.StatusOK, "cart", utils.WarpResponse(ctx, c, resp))
 }

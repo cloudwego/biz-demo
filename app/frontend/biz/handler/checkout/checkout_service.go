@@ -28,14 +28,14 @@ func Checkout(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+	c.HTML(consts.StatusOK, "checkout", utils.WarpResponse(ctx, c, resp))
 }
 
 // CheckoutWaiting .
 // @router /checkout/waiting [POST]
 func CheckoutWaiting(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req common.Empty
+	var req checkout.CheckoutReq
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
@@ -48,7 +48,7 @@ func CheckoutWaiting(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+	c.HTML(consts.StatusOK, "waiting", utils.WarpResponse(ctx, c, resp))
 }
 
 // CheckoutResult .
@@ -68,5 +68,5 @@ func CheckoutResult(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+	c.HTML(consts.StatusOK, "result", utils.WarpResponse(ctx, c, resp))
 }

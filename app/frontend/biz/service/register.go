@@ -2,6 +2,9 @@ package service
 
 import (
 	"context"
+	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
+	rpcuser "github.com/baiyutang/gomall/app/frontend/kitex_gen/user"
+	"github.com/hertz-contrib/sessions"
 
 	auth "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/auth"
 	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
@@ -18,10 +21,22 @@ func NewRegisterService(Context context.Context, RequestContext *app.RequestCont
 }
 
 func (h *RegisterService) Run(req *auth.RegisterReq) (resp *common.Empty, err error) {
-	//defer func() {
-	// hlog.CtxInfof(h.Context, "req = %+v", req)
-	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
-	//}()
-	// todo edit your code
+	res, err := rpc.UserClient.Register(h.Context, &rpcuser.RegisterReq{
+		Email:           req.Email,
+		Password:        req.Password,
+		ConfirmPassword: req.Password,
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	session := sessions.Default(h.RequestContext)
+	session.Set("user_id", res.Userid)
+	err = session.Save()
+
+	if err != nil {
+		return nil, err
+	}
 	return
 }

@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
+	"github.com/baiyutang/gomall/app/cart/infra/rpc"
 	"net"
 	"os"
 
 	"github.com/baiyutang/gomall/app/cart/biz/dal"
 	"github.com/baiyutang/gomall/app/cart/conf"
 	"github.com/baiyutang/gomall/app/cart/infra/mtl"
-	"github.com/baiyutang/gomall/app/cart/infra/rpc"
 	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
@@ -23,8 +23,8 @@ import (
 
 func main() {
 	_ = godotenv.Load()
-	rpc.InitClient()
 	mtl.InitMtl()
+	rpc.InitClient()
 	dal.Init()
 	opts := kitexInit()
 

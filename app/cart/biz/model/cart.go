@@ -23,7 +23,17 @@ func GetCartByUserId(db *gorm.DB, ctx context.Context, userId uint32) (cartList 
 }
 
 func AddCart(db *gorm.DB, ctx context.Context, c *Cart) error {
-	return db.Debug().WithContext(ctx).Model(&Cart{}).Create(c).Error
+	var find Cart
+	err := db.WithContext(ctx).Model(&Cart{}).Where(&Cart{UserId: c.UserId, ProductId: c.ProductId}).First(&find).Error
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+		return err
+	}
+	if find.ID != 0 {
+		err = db.WithContext(ctx).Model(&Cart{}).Where(&Cart{UserId: c.UserId, ProductId: c.ProductId}).UpdateColumn("qty", gorm.Expr("qty+?", c.Qty)).Error
+	} else {
+		err = db.WithContext(ctx).Model(&Cart{}).Create(c).Error
+	}
+	return err
 }
 
 func EmptyCart(db *gorm.DB, ctx context.Context, userId uint32) error {

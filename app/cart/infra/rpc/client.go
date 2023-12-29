@@ -1,6 +1,8 @@
 package rpc
 
 import (
+	"github.com/cloudwego/kitex/pkg/transmeta"
+	"github.com/cloudwego/kitex/transport"
 	"os"
 	"sync"
 
@@ -37,7 +39,12 @@ func initProductClient() {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
 	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}), client.WithSuite(tracing.NewClientSuite()))
+	opts = append(opts,
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
+		client.WithTransportProtocol(transport.GRPC),
+		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
+		client.WithSuite(tracing.NewClientSuite()),
+	)
 
 	ProductClient, err = productcatalogservice.NewClient("product", opts...)
 	cartutils.MustHandleError(err)
