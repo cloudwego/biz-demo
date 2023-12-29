@@ -7,7 +7,21 @@ option go_package = "/frontend/checkout";
 import "frontend/common.proto";
 import "api.proto";
 
-message CheckoutReq { string category = 1; }
+message CheckoutReq {
+  string Email = 1 [ (api.form) = "email" ];
+  string Firstname = 2 [ (api.form) = "firstname" ];
+  string Lastname = 3 [ (api.form) = "lastname" ];
+  string Street = 4 [ (api.form) = "street" ];
+  string Zipcode = 5 [ (api.form) = "zipcode" ];
+  string Province = 6 [ (api.form) = "province" ];
+  string Country = 7 [ (api.form) = "country" ];
+  string City = 8 [ (api.form) = "city" ];
+  string CardNum = 9 [ (api.form) = "cartNum" ];
+  uint32 ExpirationMonth = 10 [ (api.form) = "expirationMonth" ];
+  uint32 ExpirationYear = 11 [ (api.form) = "expirationYear" ];
+  uint32 Cvv = 12 [ (api.form) = "cvv" ];
+  string Payment = 13 [ (api.form) = "payment" ];
+}
 
 service CheckoutService {
   rpc Checkout(CheckoutReq) returns (common.Empty) {

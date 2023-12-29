@@ -25,7 +25,7 @@ gen-order-client:
 
 .PHONY: gen-frontend
 gen-frontend:
-	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/frontend/order_page.proto
+	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/frontend/checkout_page.proto
 
 .PHONY: watch-frontend
 watch-frontend:
