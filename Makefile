@@ -23,9 +23,9 @@ gen-checkout-client:
 gen-order-client:
 	cd app/frontend && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/order.proto
 
-.PHONY: gen-front
-gen-front:
-	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/frontend/home.proto
+.PHONY: gen-frontend
+gen-frontend:
+	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/frontend/order_page.proto
 
 .PHONY: watch-frontend
 watch-frontend:

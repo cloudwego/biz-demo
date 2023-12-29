@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package frontend.checkout;
+
+option go_package = "/frontend/checkout";
+
+import "frontend/common.proto";
+import "api.proto";
+
+message CheckoutReq { string category = 1; }
+
+service CheckoutService {
+  rpc Checkout(CheckoutReq) returns (common.Empty) {
+    option (api.get) = "/checkout";
+  }
+  rpc CheckoutWaiting(common.Empty) returns (common.Empty) {
+    option (api.post) = "/checkout/waiting";
+  }
+  rpc CheckoutResult(common.Empty) returns (common.Empty) {
+    option (api.get) = "/checkout/result";
+  }
+}
