@@ -1,69 +1,84 @@
-# gomall
+## Gomall
+This is a teaching project for newbie using CloudWeGo
 
-## 演示步骤
+## Technology Stack
+| technology | introduce |
+|------------|-----------|
+| cwgo       | -         |
+| kitex      | -         |
+| Hertz      | -         |
+| MySQL      | -         |
+| Redis      | -         |
+| ES         | -         |
+| Prometheus | -         |
+| Jaeger     | -         |
+| Docker     | -         |
 
-### 环境准备
+## Biz Logic
+- [x] The pages check auth
+- [x] Register
+- [x] Login
+- [x] Logout
+- [x] Product categories
+- [x] Products
+- [x] Add to cart
+- [x] The number badge of cart products
+- [x] Checkout
+- [x] Payment
+- [x] Orders center
 
+## How to use
+### Prepare 
+List required
+- Go
+- IDE / Code Editor
+- Docker
+- [cwgo](https://github.com/cloudwego/cwgo)
+- kitex `go install github.com/cloudwego/kitex/tool/cmd/kitex@latest`
+- [Air](https://github.com/cosmtrek/air)
+- ...
+
+### Clone code
+```
+git clone ...
+```
+
+### Copy `.env` file
+```
+make init
+```
+*Note:*`You must generate and input SESSION_SECRET random value for session`
+
+### Download go module
+```
+make tidy
+```
+
+### Start Docker Compose
 ```
 make env-start
 ```
+if you want to stop their docker application,you can run `make env-stop`.
 
-### 启动服务
+### Run Service
+This cmd must appoint a service.
 
+*Note:* `Run the Go server using air. So it must be installed`
 ```
-make run svc=user
+make run svc=`svcName`
 ```
-
+### View Gomall Website
 ```
-make run svc=product
+make open-gomall
 ```
-
+### Check Registry
 ```
-make run svc=frontend
+make open-consul
 ```
-
+### Make Usage
 ```
-make run svc=cart
+make
 ```
-
-```
-make run svc=checkout
-```
-
-```
-make run svc=order
-```
-
-```
-make run svc=payment
-```
-
-### 检查注册中心
-```
-make open.consul
-```
-
-### 默认数据
-- 分类 2 个
-- 产品 多个
-- 账号 1 个
-
-### 业务流程演示
-
-1. 未登录整体效果
-1. 用户校验，订单、购物车等需登录
-
-`http://localhost:8080/cart`
-
-`http://localhost:8080/order`
-1. 注册
-1. 登录
-1. 分类浏览
-1. 产品浏览
-1. 加购
-1. 购物车商品数量角标
-1. 下单
-1. 订单中心
-1. 退出
-
-### 可观测性
+## Contributors
+- [rogerogers](https://github.com/rogerogers)
+- [baiyutang](https://github.com/baiyutang)

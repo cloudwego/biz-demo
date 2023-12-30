@@ -45,7 +45,6 @@ func (h *CheckoutService) Run(req *checkout.CheckoutReq) (resp map[string]any, e
 	}
 
 	return utils.H{
-
 		"title":    "Checkout",
 		"items":    items,
 		"cart_num": len(items),

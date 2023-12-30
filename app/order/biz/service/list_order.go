@@ -37,7 +37,6 @@ func (s *ListOrderService) Run(req *order.ListOrderRequest) (resp *order.ListOrd
 				},
 			})
 		}
-		klog.Warn("v.CreatedAt.Second()")
 		o := &order.Order{
 			OrderId:      v.OrderId,
 			UserId:       v.UserId,

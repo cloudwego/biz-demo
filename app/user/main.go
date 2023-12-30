@@ -22,17 +22,14 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		klog.Fatal("Error loading .env file")
-	}
+	_ = godotenv.Load()
 	dal.Init()
 	mtl.InitMtl()
 	opts := kitexInit()
 
 	svr := userservice.NewServer(new(UserServiceImpl), opts...)
 
-	err = svr.Run()
+	err := svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
 	}

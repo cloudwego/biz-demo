@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"net"
 	"os"
 
@@ -24,17 +23,16 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		klog.Fatal("Error loading .env file")
-	}
-
+	_ = godotenv.Load()
 	mtl.InitMtl()
 	dal.Init()
 	opts := kitexInit()
 
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)
-	log.Fatal(svr.Run())
+	err := svr.Run()
+	if err != nil {
+		klog.Error(err.Error())
+	}
 }
 
 func kitexInit() (opts []server.Option) {

@@ -30,12 +30,10 @@ import (
 )
 
 func main() {
-	// init dal
 	_ = godotenv.Load()
 
 	mtl.InitMtl()
 	rpc.InitClient()
-	//dal.Init()
 	address := conf.GetConf().Hertz.Address
 
 	p := hertzotelprovider.NewOpenTelemetryProvider(

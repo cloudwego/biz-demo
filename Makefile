@@ -4,20 +4,23 @@ all: help
 default: help
 
 .PHONY: help
-help: # Show help for each of the Makefile recipes.
-	@grep -E '^[a-zA-Z0-9 - .]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
+help: ## Display this help.
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+##@ Initialize Project
+.PHONY: init
+init: ## Just copy `.env.example` to `.env` with one click, executed once.
+	@scripts/copy_env.sh
+
+##@ Build
 
 .PHONY: gen
-gen: # gen client code of {svc}. example: make gen svc=product
-	scripts/gen.sh ${svc}
+gen: ## gen client code of {svc}. example: make gen svc=product
+	@scripts/gen.sh ${svc}
 
 .PHONY: gen-checkout-client
 gen-checkout-client:
 	cd app/frontend && cwgo client -I ../../idl --type RPC --service checkout --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/checkout.proto
-
-# .PHONY: gen-checkout-client
-# gen-checkout-client:
-# 	cd app/checkout && cwgo client -I ../../idl --type RPC --service payment --module github.com/baiyutang/gomall/app/checkout --idl ../../idl/payment.proto
 
 .PHONY: gen-order-client
 gen-order-client:
@@ -27,43 +30,53 @@ gen-order-client:
 gen-frontend:
 	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/frontend/checkout_page.proto
 
+##@ Build
+
 .PHONY: watch-frontend
 watch-frontend:
-	cd app/frontend && air
+	@cd app/frontend && air
 
 .PHONY: tidy
-tidy: # run `go mod tidy` for all go mudule
+tidy: ## run `go mod tidy` for all go module
 	@scripts/tidy.sh
 
 .PHONY: lint
-lint: # run `gofmt` for all go mudule
-	gofmt -l -w app
+lint: ## run `gofmt` for all go module
+	@gofmt -l -w app
+
+.PHONY: vet
+vet: ## run `go vet` for all go module
+	@scripts/vet.sh
 
 .PHONY: run
-run: # run {svc} server. example: make run svc=product
+run: ## run {svc} server. example: make run svc=product
 	scripts/run.sh ${svc}
 
+##@ Development Env
+
 .PHONY: env-start
-env-start:  # launch all middleware software as the docker 
+env-start:  ## launch all middleware software as the docker
 	docker-compose up -d
 
 .PHONY: env-stop
-env-stop: # stop all docker
+env-stop: ## stop all docker
 	docker-compose down
 
+##@ Open Browser
+
 .PHONY: open.gomall
-open.gomall: # open `gomall` website in the default browser
+open-gomall: ## open `gomall` website in the default browser
 	open "http://localhost:8080/"
 
 .PHONY: open.consul
-open.consul: # open `consul ui` in the default browser
+open-consul: ## open `consul ui` in the default browser
 	open "http://localhost:8500/ui/"
 
 .PHONY: open.jaeger
-open.jaeger: # open `jaeger ui` in the default browser
+open-jaeger: ## open `jaeger ui` in the default browser
 	open "http://localhost:16686/search"
 
 .PHONY: open.prometheus
-open.prometheus: # open `prometheus ui` in the default browser
+open-prometheus: ## open `prometheus ui` in the default browser
 	open "http://localhost:9090"
 
