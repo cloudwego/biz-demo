@@ -37,12 +37,13 @@ func (s *ListOrderService) Run(req *order.ListOrderRequest) (resp *order.ListOrd
 				},
 			})
 		}
+		klog.Warn("v.CreatedAt.Second()")
 		o := &order.Order{
 			OrderId:      v.OrderId,
 			UserId:       v.UserId,
 			UserCurrency: v.UserCurrency,
 			Email:        v.Consignee.Email,
-			CreatedAt:    int32(v.CreatedAt.Second()),
+			CreatedAt:    int32(v.CreatedAt.Unix()),
 			Address: &order.Address{
 				Country:       v.Consignee.Country,
 				City:          v.Consignee.City,

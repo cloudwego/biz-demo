@@ -11,17 +11,18 @@ type Consignee struct {
 }
 
 type Order struct {
-	Consignee  Consignee
-	OrderId    string
-	CreatedAt  int32
-	OrderState string
-	Cost       float32
-	Items      []OrderItem
+	Consignee   Consignee
+	OrderId     string
+	CreatedDate string
+	OrderState  string
+	Cost        float32
+	Items       []OrderItem
 }
 
 type OrderItem struct {
 	ProductId   uint32
 	ProductName string
+	Picture     string
 	Qty         uint32
 	Cost        float32
 }

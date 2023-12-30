@@ -2,10 +2,12 @@ package service
 
 import (
 	"context"
-	"fmt"
+	"time"
+
 	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
 	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
 	rpcorder "github.com/baiyutang/gomall/app/frontend/kitex_gen/order"
+	rpcproduct "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
 	"github.com/baiyutang/gomall/app/frontend/types"
 	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
@@ -28,30 +30,41 @@ func (h *OrderListService) Run(req *common.Empty) (resp map[string]any, err erro
 	if err != nil {
 		return nil, err
 	}
-	if listOrderResp != nil && len(listOrderResp.Orders) > 0 {
-		for _, v := range listOrderResp.Orders {
-			var items []types.OrderItem
-			var total float32
-			if len(v.OrderItems) > 0 {
-				for _, vv := range v.OrderItems {
-					total += vv.Cost
-					i := vv.Item
-					items = append(items, types.OrderItem{
-						ProductId:   i.ProductId,
-						Qty:         uint32(i.Quantity),
-						ProductName: fmt.Sprintf("product - name %d", i.ProductId),
-						Cost:        vv.Cost,
-					})
+	if listOrderResp == nil || len(listOrderResp.Orders) == 0 {
+		return utils.H{
+			"title":  "Order",
+			"orders": orders,
+		}, nil
+	}
+
+	for _, v := range listOrderResp.Orders {
+		var items []types.OrderItem
+		var total float32
+		if len(v.OrderItems) > 0 {
+			for _, vv := range v.OrderItems {
+				total += vv.Cost
+				i := vv.Item
+				p, err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductRequest{Id: i.ProductId})
+				if err != nil {
+					return nil, err
 				}
+				items = append(items, types.OrderItem{
+					ProductId:   i.ProductId,
+					Qty:         uint32(i.Quantity),
+					ProductName: p.Name,
+					Picture:     p.Picture,
+					Cost:        vv.Cost,
+				})
 			}
-			orders = append(orders, &types.Order{
-				Cost:      total,
-				Items:     items,
-				CreatedAt: v.CreatedAt,
-				OrderId:   v.OrderId,
-				Consignee: types.Consignee{Email: v.Email},
-			})
 		}
+		timeObj := time.Unix(int64(v.CreatedAt), 0)
+		orders = append(orders, &types.Order{
+			Cost:        total,
+			Items:       items,
+			CreatedDate: timeObj.Format("2006-01-02 15:04:05"),
+			OrderId:     v.OrderId,
+			Consignee:   types.Consignee{Email: v.Email},
+		})
 	}
 
 	return utils.H{
