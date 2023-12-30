@@ -1,3 +1,4 @@
 .DS_Store
 app/**/.env
 app/**/nohup.out
+.idea/

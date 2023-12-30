@@ -33,7 +33,7 @@ watch-frontend:
 
 .PHONY: tidy
 tidy: # run `go mod tidy` for all go mudule
-	scripts/tidy.sh
+	@scripts/tidy.sh
 
 .PHONY: lint
 lint: # run `gofmt` for all go mudule
