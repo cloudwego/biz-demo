@@ -10,6 +10,7 @@ require (
 	github.com/durango/go-credit-card v0.0.0-20220404131259-a9e175ba4082
 	github.com/google/uuid v1.5.0
 	github.com/joho/godotenv v1.5.1
+	github.com/kitex-contrib/config-etcd v0.1.0
 	github.com/kitex-contrib/monitor-prometheus v0.2.0
 	github.com/kitex-contrib/obs-opentelemetry v0.2.5
 	github.com/kitex-contrib/obs-opentelemetry/logging/zap v0.0.0-20231211030816-1f9e0f7bcee3
@@ -45,6 +46,8 @@ require (
 	github.com/cloudwego/localsession v0.0.2 // indirect
 	github.com/cloudwego/netpoll v0.5.1 // indirect
 	github.com/cloudwego/thriftgo v0.3.3 // indirect
+	github.com/coreos/go-semver v0.3.0 // indirect
+	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.16.0 // indirect
@@ -52,6 +55,7 @@ require (
 	github.com/go-logr/logr v1.3.0 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/pprof v0.0.0-20231212022811-ec68065c825e // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1 // indirect
@@ -90,6 +94,9 @@ require (
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
+	go.etcd.io/etcd/api/v3 v3.5.10 // indirect
+	go.etcd.io/etcd/client/pkg/v3 v3.5.10 // indirect
+	go.etcd.io/etcd/client/v3 v3.5.10 // indirect
 	go.opentelemetry.io/contrib/instrumentation/runtime v0.45.0 // indirect
 	go.opentelemetry.io/contrib/propagators/b3 v1.20.0 // indirect
 	go.opentelemetry.io/contrib/propagators/ot v1.20.0 // indirect

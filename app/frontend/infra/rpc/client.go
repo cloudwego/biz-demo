@@ -36,7 +36,6 @@ var (
 	CheckoutClient checkoutservice.Client
 	OrderClient    orderservice.Client
 	once           sync.Once
-	err            error
 )
 
 func InitClient() {
