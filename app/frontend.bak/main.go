@@ -29,7 +29,6 @@ func main() {
 	mtl.InitMtl()
 	rpc.InitClient()
 
-
 	h := server.Default(
 		server.WithExitWaitTime(time.Second),
 		server.WithDisablePrintRoute(false),
@@ -44,7 +43,6 @@ func main() {
 		server.WithHostPorts(":8080"),
 		tracer,
 	)
-
 
 	frontendutils.MustHandleError(err)
 
@@ -62,7 +60,6 @@ func main() {
 
 	h.LoadHTMLGlob("template/*")
 	h.Delims("{{", "}}")
-
 
 	h.Static("/static", "./")
 	h.Spin()

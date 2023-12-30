@@ -2,3 +2,5 @@
 app/**/.env
 app/**/nohup.out
 .idea/
+app/**/log/
+app/**/tmp/

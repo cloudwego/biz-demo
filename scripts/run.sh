@@ -3,5 +3,5 @@
 svcName=${1}
 
 if [ -d "app/${svcName}" ];then
-    cd app/${svcName} && go run .
+    cd app/${svcName} && air
 fi
