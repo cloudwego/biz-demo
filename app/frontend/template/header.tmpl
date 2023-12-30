@@ -62,7 +62,11 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+                                    <li>
+                                        <form class="d-flex ms-auto" action="/auth/logout" method="post">
+                                        <button class="dropdown-item" type="submit">Logout</button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>
                         {{ else }}
