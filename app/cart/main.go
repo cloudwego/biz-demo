@@ -2,19 +2,21 @@ package main
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/cart/infra/rpc"
 	"net"
 	"os"
 
 	"github.com/baiyutang/gomall/app/cart/biz/dal"
 	"github.com/baiyutang/gomall/app/cart/conf"
 	"github.com/baiyutang/gomall/app/cart/infra/mtl"
+	"github.com/baiyutang/gomall/app/cart/infra/rpc"
 	"github.com/baiyutang/gomall/app/cart/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/server"
 	"github.com/joho/godotenv"
+	"github.com/kitex-contrib/config-etcd/etcd"
+	etcdServer "github.com/kitex-contrib/config-etcd/server"
 	prometheus "github.com/kitex-contrib/monitor-prometheus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
@@ -37,7 +39,6 @@ func main() {
 }
 
 func kitexInit() (opts []server.Option) {
-	dal.Init()
 	// address
 	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
 	if err != nil {
@@ -45,10 +46,16 @@ func kitexInit() (opts []server.Option) {
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
+	serviceName := conf.GetConf().Kitex.Service
+	etcdClient, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
 	opts = append(opts,
 		server.WithMetaHandler(transmeta.ServerHTTP2Handler),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
 		server.WithTracer(prometheus.NewServerTracer("", "", prometheus.WithDisableServer(true), prometheus.WithRegistry(mtl.Registry))),
+		server.WithSuite(etcdServer.NewSuite(serviceName, etcdClient)),
 	)
 
 	if os.Getenv("REGISTRY_ENABLE") == "true" {

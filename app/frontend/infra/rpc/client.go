@@ -2,8 +2,6 @@ package rpc
 
 import (
 	"context"
-	"github.com/cloudwego/kitex/pkg/transmeta"
-	"github.com/cloudwego/kitex/transport"
 	"os"
 	"sync"
 
@@ -19,11 +17,17 @@ import (
 	"github.com/cloudwego/kitex/pkg/circuitbreak"
 	"github.com/cloudwego/kitex/pkg/fallback"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
+	"github.com/cloudwego/kitex/pkg/transmeta"
+	"github.com/cloudwego/kitex/transport"
+	configEtcd "github.com/kitex-contrib/config-etcd/client"
+	"github.com/kitex-contrib/config-etcd/etcd"
 	prometheus "github.com/kitex-contrib/monitor-prometheus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	consul "github.com/kitex-contrib/registry-consul"
 )
+
+const curServiceName = "frontend"
 
 var (
 	ProductClient  productcatalogservice.Client
@@ -54,8 +58,17 @@ func initProductClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8881"))
 	}
+
+	configCli, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
 	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
+	opts = append(opts,
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
+		client.WithSuite(tracing.NewClientSuite()),
+		client.WithSuite(configEtcd.NewSuite("product", curServiceName, configCli)),
+	)
 
 	cbs := circuitbreak.NewCBSuite(func(ri rpcinfo.RPCInfo) string {
 		return circuitbreak.RPCInfo2Key(ri)
@@ -97,6 +110,11 @@ func initUserClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8882"))
 	}
+	configCli, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
+	opts = append(opts, client.WithSuite(configEtcd.NewSuite("user", curServiceName, configCli)))
 
 	UserClient, err = userservice.NewClient("user", opts...)
 	frontendutils.MustHandleError(err)
@@ -112,11 +130,18 @@ func initCartClient() {
 		opts = append(opts, client.WithHostPorts("localhost:8883"))
 	}
 	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
+
+	configCli, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
+
 	opts = append(opts,
 		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
 		client.WithSuite(tracing.NewClientSuite()),
 		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
 		client.WithTransportProtocol(transport.GRPC),
+		client.WithSuite(configEtcd.NewSuite("cart", curServiceName, configCli)),
 	)
 
 	CartClient, err = cartservice.NewClient("cart", opts...)
@@ -134,7 +159,16 @@ func initCheckoutClient() {
 	}
 	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
 
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
+	configCli, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
+
+	opts = append(opts,
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
+		client.WithSuite(tracing.NewClientSuite()),
+		client.WithSuite(configEtcd.NewSuite("checkout", curServiceName, configCli)),
+	)
 	CheckoutClient, err = checkoutservice.NewClient("checkout", opts...)
 	frontendutils.MustHandleError(err)
 }
@@ -148,9 +182,18 @@ func initOrderClient() {
 	} else {
 		opts = append(opts, client.WithHostPorts("localhost:8885"))
 	}
+	configCli, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
+
 	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
 
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}), client.WithSuite(tracing.NewClientSuite()))
+	opts = append(opts,
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
+		client.WithSuite(tracing.NewClientSuite()),
+		client.WithSuite(configEtcd.NewSuite("order", curServiceName, configCli)),
+	)
 	OrderClient, err = orderservice.NewClient("order", opts...)
 	frontendutils.MustHandleError(err)
 }

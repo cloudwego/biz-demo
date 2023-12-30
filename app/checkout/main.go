@@ -13,6 +13,8 @@ import (
 	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/server"
 	"github.com/joho/godotenv"
+	"github.com/kitex-contrib/config-etcd/etcd"
+	etcdServer "github.com/kitex-contrib/config-etcd/server"
 	prometheus "github.com/kitex-contrib/monitor-prometheus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
@@ -41,10 +43,18 @@ func kitexInit() (opts []server.Option) {
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
+	serviceName := conf.GetConf().Kitex.Service
+	etcdClient, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
+
+	// service info
 	opts = append(opts,
 		server.WithMetaHandler(transmeta.ServerHTTP2Handler),
-		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
+		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: serviceName}),
 		server.WithTracer(prometheus.NewServerTracer("", "", prometheus.WithDisableServer(true), prometheus.WithRegistry(mtl.Registry))),
+		server.WithSuite(etcdServer.NewSuite(serviceName, etcdClient)),
 	)
 
 	if os.Getenv("REGISTRY_ENABLE") == "true" {

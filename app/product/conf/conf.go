@@ -22,6 +22,8 @@ type Config struct {
 	MySQL    MySQL    `yaml:"mysql"`
 	Redis    Redis    `yaml:"redis"`
 	Registry Registry `yaml:"registry"`
+	// Centralized Config Server
+	ConfigServer ConfigServer `yaml:"configServer"`
 }
 
 type MySQL struct {
@@ -53,6 +55,9 @@ type Registry struct {
 	RegistryAddress []string `yaml:"registry_address"`
 	Username        string   `yaml:"username"`
 	Password        string   `yaml:"password"`
+}
+
+type ConfigServer struct {
 }
 
 // GetConf gets configuration instance

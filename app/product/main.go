@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/cloudwego/kitex/pkg/transmeta"
 	"log"
 	"net"
 	"os"
+
+	"github.com/cloudwego/kitex/pkg/transmeta"
 
 	"github.com/baiyutang/gomall/app/product/biz/dal"
 	"github.com/baiyutang/gomall/app/product/conf"
@@ -14,6 +15,8 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	"github.com/joho/godotenv"
+	"github.com/kitex-contrib/config-etcd/etcd"
+	etcdServer "github.com/kitex-contrib/config-etcd/server"
 	prometheus "github.com/kitex-contrib/monitor-prometheus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
@@ -27,6 +30,7 @@ func main() {
 	}
 
 	mtl.InitMtl()
+	dal.Init()
 	opts := kitexInit()
 
 	svr := productcatalogservice.NewServer(new(ProductCatalogServiceImpl), opts...)
@@ -35,15 +39,21 @@ func main() {
 
 func kitexInit() (opts []server.Option) {
 	// address
-	dal.Init()
 	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
 	if err != nil {
 		panic(err)
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
+	serviceName := conf.GetConf().Kitex.Service
+	etcdClient, err := etcd.NewClient(etcd.Options{})
+	if err != nil {
+		panic(err)
+	}
+
 	opts = append(opts,
 		server.WithSuite(tracing.NewServerSuite()),
+		server.WithSuite(etcdServer.NewSuite(serviceName, etcdClient)),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
 		server.WithMetaHandler(transmeta.ServerHTTP2Handler),
 		server.WithTracer(prometheus.NewServerTracer("", "", prometheus.WithDisableServer(true), prometheus.WithRegistry(mtl.Registry))),
