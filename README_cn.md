@@ -1,4 +1,6 @@
 ## Gomall
+[EN](README.md)
+
 新人学习 CloudWeGo 的教学项目
 
 ## 技术栈

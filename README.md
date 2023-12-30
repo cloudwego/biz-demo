@@ -1,4 +1,6 @@
 ## Gomall
+[中文](README_cn.md)
+
 This is a teaching project for newbie using CloudWeGo
 
 ## Technology Stack
