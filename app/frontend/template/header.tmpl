@@ -86,6 +86,12 @@
             not an
             actual shop.
         </div>
+        {{ if .error }}
+            <div class="alert alert-danger text-center" role="alert">{{ .error }}</div>
+         {{ end }}
+        {{ if .warning }}
+            <div class="alert alert-warning text-center" role="alert">{{ .warning }}</div>
+        {{ end }}
     </header>
     <main role="main" class="home pt-5" style="min-height:calc(100vh - 212px);">
         <div class="container">
