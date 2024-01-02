@@ -1,20 +1,22 @@
-## Gomall
+# Gomall
 [中文](README_cn.md)
 
 This is a teaching project for newbie using CloudWeGo
 
 ## Technology Stack
 | technology | introduce |
-|------------|-----------|
-| cwgo       | -         |
-| kitex      | -         |
-| Hertz      | -         |
-| MySQL      | -         |
-| Redis      | -         |
-| ES         | -         |
-| Prometheus | -         |
-| Jaeger     | -         |
-| Docker     | -         |
+|---------------|----|
+| cwgo          | -  |
+| kitex         | -  |
+| [bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) | Bootstrap is a powerful, feature-packed frontend toolkit. Build anything—from prototype to production—in minutes.  |
+| Hertz         | -  |
+| MySQL         | -  |
+| Redis         | -  |
+| ES            | -  |
+| Prometheus    | -  |
+| Jaeger        | -  |
+| Docker        | -  |
+
 
 ## Biz Logic
 - [x] The pages check auth

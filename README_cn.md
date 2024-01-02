@@ -1,20 +1,21 @@
-## Gomall
+# Gomall
 [EN](README.md)
 
 新人学习 CloudWeGo 的教学项目
 
 ## 技术栈
-| 技术         | 介绍 |
-|------------|----|
-| cwgo       | -  |
-| kitex      | -  |
-| Hertz      | -  |
-| MySQL      | -  |
-| Redis      | -  |
-| ES         | -  |
-| Prometheus | -  |
-| Jaeger     | -  |
-| Docker     | -  |
+| 技术            | 介绍 |
+|---------------|----|
+| cwgo          | -  |
+| kitex         | -  |
+| [bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/) | Bootstrap is a powerful, feature-packed frontend toolkit. Build anything—from prototype to production—in minutes.  |
+| Hertz         | -  |
+| MySQL         | -  |
+| Redis         | -  |
+| ES            | -  |
+| Prometheus    | -  |
+| Jaeger        | -  |
+| Docker        | -  |
 
 ## 业务逻辑
 - [x] 页面访问认证检查
