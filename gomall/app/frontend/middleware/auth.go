@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/baiyutang/gomall/app/frontend/utils"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/hertz-contrib/sessions"
 )

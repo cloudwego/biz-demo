@@ -2,11 +2,11 @@ package service
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/checkout"
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
-	rpccheckout "github.com/baiyutang/gomall/app/frontend/kitex_gen/checkout"
-	rpcpayment "github.com/baiyutang/gomall/app/frontend/kitex_gen/payment"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/checkout"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
+	rpccheckout "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/checkout"
+	rpcpayment "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/payment"
+	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )

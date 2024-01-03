@@ -3,7 +3,7 @@ package checkout
 import (
 	"context"
 
-	checkout "github.com/baiyutang/gomall/app/frontend/kitex_gen/checkout"
+	checkout "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/checkout"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"
 )

@@ -3,7 +3,7 @@
 package productcatalogservice
 
 import (
-	product "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
+	product "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/product"
 	server "github.com/cloudwego/kitex/server"
 )
 

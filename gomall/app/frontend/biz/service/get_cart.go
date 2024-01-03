@@ -4,11 +4,11 @@ import (
 	"context"
 	"strconv"
 
-	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
-	rpccart "github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
-	rpcproduct "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
+	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
+	rpccart "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/cart"
+	rpcproduct "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/product"
+	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )

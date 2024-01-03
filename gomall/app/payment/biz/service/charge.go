@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/baiyutang/gomall/app/payment/biz/dal/mysql"
-	"github.com/baiyutang/gomall/app/payment/biz/model"
-	payment "github.com/baiyutang/gomall/app/payment/kitex_gen/payment"
+	"github.com/cloudwego/biz-demo/gomall/app/payment/biz/dal/mysql"
+	"github.com/cloudwego/biz-demo/gomall/app/payment/biz/model"
+	payment "github.com/cloudwego/biz-demo/gomall/app/payment/kitex_gen/payment"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	creditcard "github.com/durango/go-credit-card"
 	"github.com/google/uuid"

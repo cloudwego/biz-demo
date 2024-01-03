@@ -4,7 +4,7 @@ package order
 
 import (
 	fmt "fmt"
-	cart "github.com/baiyutang/gomall/app/order/kitex_gen/cart"
+	cart "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/cart"
 	fastpb "github.com/cloudwego/fastpb"
 )
 

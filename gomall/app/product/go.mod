@@ -1,4 +1,4 @@
-module github.com/baiyutang/gomall/app/product
+module github.com/cloudwego/biz-demo/gomall/app/product
 
 go 1.20
 

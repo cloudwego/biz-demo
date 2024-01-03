@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	cart "github.com/baiyutang/gomall/app/cart/kitex_gen/cart"
+	cart "github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/cart"
 	"testing"
 )
 

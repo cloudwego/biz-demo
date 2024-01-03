@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/baiyutang/gomall/app/cart/biz/model"
-	"github.com/baiyutang/gomall/app/cart/conf"
-	"github.com/baiyutang/gomall/app/cart/infra/mtl"
+	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/model"
+	"github.com/cloudwego/biz-demo/gomall/app/cart/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/cart/infra/mtl"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/plugin/opentelemetry/tracing"

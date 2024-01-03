@@ -3,7 +3,7 @@ package suite
 import (
 	"os"
 
-	"github.com/baiyutang/gomall/app/common/utils"
+	"github.com/cloudwego/biz-demo/gomall/app/common/utils"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/transmeta"

@@ -8,7 +8,7 @@ package order
 
 import (
 	context "context"
-	cart "github.com/baiyutang/gomall/app/checkout/kitex_gen/cart"
+	cart "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/cart"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

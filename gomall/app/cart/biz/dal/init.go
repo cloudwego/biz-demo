@@ -1,7 +1,7 @@
 package dal
 
 import (
-	"github.com/baiyutang/gomall/app/cart/biz/dal/mysql"
+	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/dal/mysql"
 )
 
 func Init() {

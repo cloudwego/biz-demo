@@ -4,7 +4,7 @@ package productcatalogservice
 
 import (
 	"context"
-	product "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
+	product "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/product"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"

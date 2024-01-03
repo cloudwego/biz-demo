@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	payment "github.com/baiyutang/gomall/app/payment/kitex_gen/payment"
+	payment "github.com/cloudwego/biz-demo/gomall/app/payment/kitex_gen/payment"
 	"testing"
 )
 

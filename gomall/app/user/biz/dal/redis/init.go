@@ -3,7 +3,7 @@ package redis
 import (
 	"context"
 
-	"github.com/baiyutang/gomall/app/user/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/user/conf"
 	"github.com/redis/go-redis/v9"
 )
 

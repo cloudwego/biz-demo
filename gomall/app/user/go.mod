@@ -1,4 +1,4 @@
-module github.com/baiyutang/gomall/app/user
+module github.com/cloudwego/biz-demo/gomall/app/user
 
 go 1.21
 

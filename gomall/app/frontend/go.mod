@@ -1,4 +1,4 @@
-module github.com/baiyutang/gomall/app/frontend
+module github.com/cloudwego/biz-demo/gomall/app/frontend
 
 go 1.21.4
 

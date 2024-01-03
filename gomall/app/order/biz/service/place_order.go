@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/baiyutang/gomall/app/order/biz/dal/mysql"
-	"github.com/baiyutang/gomall/app/order/biz/model"
-	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
+	"github.com/cloudwego/biz-demo/gomall/app/order/biz/dal/mysql"
+	"github.com/cloudwego/biz-demo/gomall/app/order/biz/model"
+	order "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )

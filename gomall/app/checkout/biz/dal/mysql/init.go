@@ -3,7 +3,7 @@ package mysql
 import (
 	"os"
 
-	"github.com/baiyutang/gomall/app/checkout/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

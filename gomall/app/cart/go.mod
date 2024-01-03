@@ -1,4 +1,4 @@
-module github.com/baiyutang/gomall/app/cart
+module github.com/cloudwego/biz-demo/gomall/app/cart
 
 go 1.20
 

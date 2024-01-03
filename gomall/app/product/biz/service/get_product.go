@@ -3,10 +3,10 @@ package service
 import (
 	"context"
 
-	"github.com/baiyutang/gomall/app/product/biz/dal/mysql"
-	"github.com/baiyutang/gomall/app/product/biz/dal/redis"
-	"github.com/baiyutang/gomall/app/product/biz/model"
-	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
+	"github.com/cloudwego/biz-demo/gomall/app/product/biz/dal/mysql"
+	"github.com/cloudwego/biz-demo/gomall/app/product/biz/dal/redis"
+	"github.com/cloudwego/biz-demo/gomall/app/product/biz/model"
+	product "github.com/cloudwego/biz-demo/gomall/app/product/kitex_gen/product"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 )
 

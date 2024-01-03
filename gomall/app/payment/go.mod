@@ -1,4 +1,4 @@
-module github.com/baiyutang/gomall/app/payment
+module github.com/cloudwego/biz-demo/gomall/app/payment
 
 go 1.21.4
 

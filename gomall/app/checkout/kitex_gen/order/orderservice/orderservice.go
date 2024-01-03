@@ -5,7 +5,7 @@ package orderservice
 import (
 	"context"
 	"fmt"
-	order "github.com/baiyutang/gomall/app/checkout/kitex_gen/order"
+	order "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/order"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"

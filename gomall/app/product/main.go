@@ -6,10 +6,10 @@ import (
 
 	"github.com/cloudwego/kitex/pkg/transmeta"
 
-	"github.com/baiyutang/gomall/app/product/biz/dal"
-	"github.com/baiyutang/gomall/app/product/conf"
-	"github.com/baiyutang/gomall/app/product/infra/mtl"
-	"github.com/baiyutang/gomall/app/product/kitex_gen/product/productcatalogservice"
+	"github.com/cloudwego/biz-demo/gomall/app/product/biz/dal"
+	"github.com/cloudwego/biz-demo/gomall/app/product/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/product/infra/mtl"
+	"github.com/cloudwego/biz-demo/gomall/app/product/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"

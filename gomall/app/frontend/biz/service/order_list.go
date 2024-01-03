@@ -4,12 +4,12 @@ import (
 	"context"
 	"time"
 
-	common "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/common"
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
-	rpcorder "github.com/baiyutang/gomall/app/frontend/kitex_gen/order"
-	rpcproduct "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
-	"github.com/baiyutang/gomall/app/frontend/types"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
+	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
+	rpcorder "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/order"
+	rpcproduct "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/product"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/types"
+	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )

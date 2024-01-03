@@ -3,9 +3,9 @@ package utils
 import (
 	"context"
 
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
-	"github.com/baiyutang/gomall/app/frontend/kitex_gen/cart"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/cart"
+	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 
 	"github.com/cloudwego/hertz/pkg/app"
 )

@@ -1,4 +1,4 @@
-module github.com/baiyutang/gomall/app/order
+module github.com/cloudwego/biz-demo/gomall/app/order
 
 go 1.21.4
 

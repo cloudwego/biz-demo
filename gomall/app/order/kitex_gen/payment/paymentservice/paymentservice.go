@@ -5,7 +5,7 @@ package paymentservice
 import (
 	"context"
 	"fmt"
-	payment "github.com/baiyutang/gomall/app/order/kitex_gen/payment"
+	payment "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/payment"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"

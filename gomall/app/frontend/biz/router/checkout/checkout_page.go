@@ -3,7 +3,7 @@
 package checkout
 
 import (
-	checkout "github.com/baiyutang/gomall/app/frontend/biz/handler/checkout"
+	checkout "github.com/cloudwego/biz-demo/gomall/app/frontend/biz/handler/checkout"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

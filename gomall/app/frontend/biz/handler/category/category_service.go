@@ -3,9 +3,9 @@ package category
 import (
 	"context"
 
-	"github.com/baiyutang/gomall/app/frontend/biz/service"
-	"github.com/baiyutang/gomall/app/frontend/biz/utils"
-	category "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/category"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/biz/service"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/biz/utils"
+	category "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/category"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 )

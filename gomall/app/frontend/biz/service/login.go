@@ -2,10 +2,10 @@ package service
 
 import (
 	"context"
-	auth "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/auth"
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
-	rpcuser "github.com/baiyutang/gomall/app/frontend/kitex_gen/user"
-	frontendutils "github.com/baiyutang/gomall/app/frontend/utils"
+	auth "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/auth"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
+	rpcuser "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/user"
+	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/hertz-contrib/sessions"
 )

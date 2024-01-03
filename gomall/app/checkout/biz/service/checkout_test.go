@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	checkout "github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout"
+	checkout "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/checkout"
 	"testing"
 )
 

@@ -4,7 +4,7 @@ package productcatalogservice
 
 import (
 	"context"
-	product "github.com/baiyutang/gomall/app/cart/kitex_gen/product"
+	product "github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/product"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
 )

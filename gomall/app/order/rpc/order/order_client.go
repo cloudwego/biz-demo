@@ -3,9 +3,9 @@ package order
 import (
 	"context"
 
-	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
+	order "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order"
 
-	"github.com/baiyutang/gomall/app/order/kitex_gen/order/orderservice"
+	"github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order/orderservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )

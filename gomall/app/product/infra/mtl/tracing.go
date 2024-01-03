@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/cloudwego/kitex/server"
 
-	"github.com/baiyutang/gomall/app/product/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/product/conf"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/sdk/resource"

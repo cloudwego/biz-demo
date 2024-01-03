@@ -2,7 +2,7 @@ package user
 
 import (
 	"context"
-	user "github.com/baiyutang/gomall/app/user/kitex_gen/user"
+	user "github.com/cloudwego/biz-demo/gomall/app/user/kitex_gen/user"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"
 )

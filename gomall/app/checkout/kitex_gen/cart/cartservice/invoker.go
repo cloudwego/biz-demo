@@ -3,7 +3,7 @@
 package cartservice
 
 import (
-	cart "github.com/baiyutang/gomall/app/checkout/kitex_gen/cart"
+	cart "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/cart"
 	server "github.com/cloudwego/kitex/server"
 )
 

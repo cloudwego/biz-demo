@@ -5,7 +5,7 @@ package userservice
 import (
 	"context"
 	"fmt"
-	user "github.com/baiyutang/gomall/app/user/kitex_gen/user"
+	user "github.com/cloudwego/biz-demo/gomall/app/user/kitex_gen/user"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"

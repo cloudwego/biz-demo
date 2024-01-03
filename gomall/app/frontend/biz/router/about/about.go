@@ -3,7 +3,7 @@
 package about
 
 import (
-	about "github.com/baiyutang/gomall/app/frontend/biz/handler/about"
+	about "github.com/cloudwego/biz-demo/gomall/app/frontend/biz/handler/about"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

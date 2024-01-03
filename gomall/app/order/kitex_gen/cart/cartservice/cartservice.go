@@ -5,7 +5,7 @@ package cartservice
 import (
 	"context"
 	"fmt"
-	cart "github.com/baiyutang/gomall/app/order/kitex_gen/cart"
+	cart "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/cart"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
 	streaming "github.com/cloudwego/kitex/pkg/streaming"

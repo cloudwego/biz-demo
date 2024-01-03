@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	user "github.com/baiyutang/gomall/app/user/kitex_gen/user"
+	user "github.com/cloudwego/biz-demo/gomall/app/user/kitex_gen/user"
 )
 
 func TestLogin_Run(t *testing.T) {

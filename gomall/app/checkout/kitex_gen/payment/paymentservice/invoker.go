@@ -3,7 +3,7 @@
 package paymentservice
 
 import (
-	payment "github.com/baiyutang/gomall/app/checkout/kitex_gen/payment"
+	payment "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/payment"
 	server "github.com/cloudwego/kitex/server"
 )
 

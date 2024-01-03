@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	order "github.com/baiyutang/gomall/app/order/kitex_gen/order"
+	order "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order"
 	"testing"
 )
 

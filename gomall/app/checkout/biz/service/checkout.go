@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/baiyutang/gomall/app/checkout/infra/rpc"
-	"github.com/baiyutang/gomall/app/checkout/kitex_gen/cart"
-	checkout "github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout"
-	"github.com/baiyutang/gomall/app/checkout/kitex_gen/order"
-	"github.com/baiyutang/gomall/app/checkout/kitex_gen/payment"
-	"github.com/baiyutang/gomall/app/checkout/kitex_gen/product"
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/rpc"
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/cart"
+	checkout "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/checkout"
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/order"
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/payment"
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/product"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 

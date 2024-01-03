@@ -3,7 +3,7 @@ package mtl
 import (
 	"context"
 	"fmt"
-	"github.com/baiyutang/gomall/app/frontend/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 	"net"
 	"net/http"

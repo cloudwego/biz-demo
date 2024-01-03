@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"github.com/baiyutang/gomall/app/cart/biz/service"
-	cart "github.com/baiyutang/gomall/app/cart/kitex_gen/cart"
+	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/service"
+	cart "github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/cart"
 )
 
 // CartServiceImpl implements the last service interface defined in the IDL.

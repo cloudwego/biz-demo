@@ -3,7 +3,7 @@
 package product
 
 import (
-	product "github.com/baiyutang/gomall/app/frontend/biz/handler/product"
+	product "github.com/cloudwego/biz-demo/gomall/app/frontend/biz/handler/product"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

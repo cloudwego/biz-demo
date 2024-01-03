@@ -20,15 +20,15 @@ gen: ## gen client code of {svc}. example: make gen svc=product
 
 .PHONY: gen-checkout-client
 gen-checkout-client:
-	cd app/frontend && cwgo client -I ../../idl --type RPC --service checkout --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/checkout.proto
+	cd app/frontend && cwgo client -I ../../idl --type RPC --service checkout --module github.com/cloudwego/biz-demo/gomall/app/frontend --idl ../../idl/checkout.proto
 
 .PHONY: gen-order-client
 gen-order-client:
-	cd app/frontend && cwgo client -I ../../idl --type RPC --service order --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/order.proto
+	cd app/frontend && cwgo client -I ../../idl --type RPC --service order --module github.com/cloudwego/biz-demo/gomall/app/frontend --idl ../../idl/order.proto
 
 .PHONY: gen-frontend
 gen-frontend:
-	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/baiyutang/gomall/app/frontend --idl ../../idl/frontend/checkout_page.proto
+	cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/cloudwego/biz-demo/gomall/app/frontend --idl ../../idl/frontend/checkout_page.proto
 
 ##@ Build
 

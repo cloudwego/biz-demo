@@ -3,7 +3,7 @@
 package auth
 
 import (
-	auth "github.com/baiyutang/gomall/app/frontend/biz/handler/auth"
+	auth "github.com/cloudwego/biz-demo/gomall/app/frontend/biz/handler/auth"
 	"github.com/cloudwego/hertz/pkg/app/server"
 )
 

@@ -3,9 +3,9 @@ package service
 import (
 	"context"
 
-	product "github.com/baiyutang/gomall/app/frontend/hertz_gen/frontend/product"
-	"github.com/baiyutang/gomall/app/frontend/infra/rpc"
-	rpcproduct "github.com/baiyutang/gomall/app/frontend/kitex_gen/product"
+	product "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/product"
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
+	rpcproduct "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/product"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )

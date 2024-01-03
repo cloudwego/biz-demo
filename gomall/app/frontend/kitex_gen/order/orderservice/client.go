@@ -4,7 +4,7 @@ package orderservice
 
 import (
 	"context"
-	order "github.com/baiyutang/gomall/app/frontend/kitex_gen/order"
+	order "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/order"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
 )

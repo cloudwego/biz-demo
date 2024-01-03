@@ -2,7 +2,7 @@
 package checkoutservice
 
 import (
-	checkout "github.com/baiyutang/gomall/app/checkout/kitex_gen/checkout"
+	checkout "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/checkout"
 	server "github.com/cloudwego/kitex/server"
 )
 

@@ -4,7 +4,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/baiyutang/gomall/app/order/conf"
+	"github.com/cloudwego/biz-demo/gomall/app/order/conf"
 	"github.com/cloudwego/kitex/pkg/registry"
 	"github.com/cloudwego/kitex/server"
 	consul "github.com/kitex-contrib/registry-consul"

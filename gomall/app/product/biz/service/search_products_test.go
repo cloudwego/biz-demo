@@ -2,7 +2,7 @@ package service
 
 import (
 	"context"
-	product "github.com/baiyutang/gomall/app/product/kitex_gen/product"
+	product "github.com/cloudwego/biz-demo/gomall/app/product/kitex_gen/product"
 	"testing"
 )
 

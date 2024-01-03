@@ -2,7 +2,7 @@
 package userservice
 
 import (
-	user "github.com/baiyutang/gomall/app/frontend/kitex_gen/user"
+	user "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/user"
 	server "github.com/cloudwego/kitex/server"
 )
 

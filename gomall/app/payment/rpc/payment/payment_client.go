@@ -2,9 +2,9 @@ package payment
 
 import (
 	"context"
-	payment "github.com/baiyutang/gomall/app/payment/kitex_gen/payment"
+	payment "github.com/cloudwego/biz-demo/gomall/app/payment/kitex_gen/payment"
 
-	"github.com/baiyutang/gomall/app/payment/kitex_gen/payment/paymentservice"
+	"github.com/cloudwego/biz-demo/gomall/app/payment/kitex_gen/payment/paymentservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )
