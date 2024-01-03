@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: {{ .Values.service.name }}
+    app.kubernetes.io/name: {{ .Values.service.name }}
+  name: {{ .Values.service.name }}-v1
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Values.service.name }}
+      app.kubernetes.io/name: {{ .Values.service.name }}
+      version: v1
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+        checksum/config: {{ include (print $.Template.BasePath "/ratings.cm.yaml") . | sha256sum }}
+      labels:
+        app.kubernetes.io/instance: {{ .Values.service.name }}
+        app.kubernetes.io/name: {{ .Values.service.name }}
+        version: v1
+    spec:
+      containers:
+        - args:
+            - {{ .Values.service.name }}
+            - --config=config/{{ .Values.service.name }}.yaml
+          env:
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: service.version=v1
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: {{ .Values.global.otel.endpoint }}
+            - name: RATINGS_VALUE
+              value: "1"
+            - name: TZ
+              value: Asia/Shanghai
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: CONSUL_HTTP_HOST
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.hostIP
+            - name: METRICS_LOG_LEVEL
+              value: err
+          image: {{ .Values.global.image }}
+          imagePullPolicy: Always
+          name: server
+          ports:
+          - containerPort: {{ .Values.service.port }}
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - mountPath: /app/config
+              name: config-volume
+      restartPolicy: Always
+      serviceAccountName: default
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: {{ .Values.service.name }}
+          name: config-volume
+

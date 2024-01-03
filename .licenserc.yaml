@@ -1,0 +1,23 @@
+header:
+  license:
+    spdx-id: Apache-2.0
+    copyright-owner: CloudWeGo Authors
+
+  paths:
+    - '**/*.go'
+    - '**/*.s'
+
+  paths-ignore:
+    - bookinfo/kitex_gen/**
+    - bookinfo/internal/server/**/wire_gen.go
+    - open-payment-platform/kitex_gen/**
+    - open-payment-platform/cmd/**/wire_gen.go
+    - open-payment-platform/internal/**/infrastructure/ent/**
+    - easy_note/kitex_gen/**
+    - easy_note/cmd/api/biz/model/**
+    - easy_note/cmd/api/biz/router/**
+    - easy_note/cmd/api/router_gen.go
+    - book-shop/kitex_gen/**
+    - book-shop/docs/**
+
+  comment: on-failure

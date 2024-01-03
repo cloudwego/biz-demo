@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  {{ .Values.service.name }}.yaml: |
+    server:
+      addr: "0.0.0.0:{{ .Values.service.port }}"
+    reviews:
+      endpoint: {{ .Values.upstreamServices.reviews.endpoints }}
+      enableXDS: {{ .Values.upstreamServices.reviews.enableXDS }}
+      xdsAddr: {{ .Values.global.xdsAddr }}
+      xdsAuth: {{ .Values.global.xdsAuth }}
+    details:
+      endpoint: {{ .Values.upstreamServices.details.endpoint }}
+kind: ConfigMap
+metadata:
+  name: {{ .Values.service.name }}
+

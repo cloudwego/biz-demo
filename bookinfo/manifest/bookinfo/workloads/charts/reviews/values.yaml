@@ -1,0 +1,14 @@
+service:
+  name: reviews
+  port: 8082
+  logLevel: debug
+
+upstreamServices:
+  ratings:
+    endpoints: ratings.default.svc.cluster.local:8083
+    enableXDS: true
+
+image: cr-cn-beijing.volces.com/proxyless-test/bookinfo
+
+otel:
+  endpoint: http://host.docker.internal:4317

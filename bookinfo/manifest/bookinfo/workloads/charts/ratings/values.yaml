@@ -1,0 +1,10 @@
+service:
+  name: ratings
+  port: 8083
+
+upstreamServices:
+  ratings:
+    endpoints: ratings.default.svc.cluster.local:8083
+    enableXDS: true
+
+image: cr-cn-beijing.volces.com/proxyless-test/bookinfo

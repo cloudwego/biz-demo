@@ -1,0 +1,8 @@
+global:
+  image: cr-cn-beijing.volces.com/cloudwego-demo/bookinfo:v1.0
+  multiCluster:
+    clusterName: "" # Get the value using "kubectl config get-clusters"
+  xdsAddr: istiod.istio-system.svc:15010 # Set the address of the xDS Server
+  xdsAuth: false
+  otel:
+    endpoint: http://bookinfo-demo-collector:4317

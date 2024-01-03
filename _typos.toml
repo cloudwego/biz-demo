@@ -1,0 +1,6 @@
+# Typo check: https://github.com/crate-ci/typos
+
+[files]
+extend-exclude = ["go.mod", "go.sum", "hack/*", "check_branch_name.sh", "*/licenses/*"]
+
+[default.extend-identifiers]

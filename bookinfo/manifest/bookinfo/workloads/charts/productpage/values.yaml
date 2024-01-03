@@ -1,0 +1,15 @@
+service:
+  name: productpage
+  port: 8081
+
+image: cr-cn-beijing.volces.com/proxyless-test/bookinfo
+
+upstreamServices:
+  reviews:
+    endpoints: reviews.default.svc.cluster.local:8082
+    enableXDS: true
+  details:
+    endpoint: details.default.svc.cluster.local:8084
+
+otel:
+  endpoint: http://host.docker.internal:4317

@@ -1,0 +1,504 @@
+basePath: /
+definitions:
+  model.AddProductRequest:
+    properties:
+      description:
+        type: string
+      isbn:
+        type: string
+      name:
+        type: string
+      pic:
+        type: string
+      price:
+        type: integer
+      spu_name:
+        type: string
+      spu_price:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  model.CancelOrderReq:
+    properties:
+      order_id:
+        type: string
+    type: object
+  model.CreateOrderReq:
+    properties:
+      address:
+        type: string
+      product_id:
+        type: string
+      stock_num:
+        type: integer
+    type: object
+  model.EditProductRequest:
+    properties:
+      description:
+        type: string
+      isbn:
+        type: string
+      name:
+        type: string
+      pic:
+        type: string
+      price:
+        type: integer
+      product_id:
+        type: string
+      spu_name:
+        type: string
+      spu_price:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  model.ListOrderReq:
+    properties:
+      status:
+        type: integer
+    type: object
+  model.ListProductReq:
+    properties:
+      name:
+        type: string
+      spu_name:
+        type: string
+      status:
+        type: integer
+    type: object
+  model.LoginResponse:
+    properties:
+      code:
+        type: integer
+      expire:
+        type: string
+      token:
+        type: string
+    type: object
+  model.OperateProductReq:
+    properties:
+      product_id:
+        type: string
+    type: object
+  model.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+    type: object
+  model.SearchProductReq:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      spu_name:
+        type: string
+    type: object
+  model.UserParam:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: conduct@cloudwego.io
+    name: CloudWeGo
+    url: https://github.com/cloudwego
+  description: This is a book-shop demo using Hertz and KiteX.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Book-Shop
+  version: "1.0"
+paths:
+  /item2b/add:
+    post:
+      consumes:
+      - application/json
+      description: add product
+      parameters:
+      - description: request param of adding product
+        in: body
+        name: addProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: add product
+      tags:
+      - product module
+  /item2b/del:
+    post:
+      consumes:
+      - application/json
+      description: delete product
+      parameters:
+      - description: request param of operating product
+        in: body
+        name: delProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: delete product
+      tags:
+      - product module
+  /item2b/edit:
+    post:
+      consumes:
+      - application/json
+      description: edit product
+      parameters:
+      - description: request param of editing product
+        in: body
+        name: editProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.EditProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: edit product
+      tags:
+      - product module
+  /item2b/get:
+    get:
+      consumes:
+      - application/json
+      description: get product by product_id
+      parameters:
+      - description: product_id
+        in: query
+        name: product_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: get product by product_id
+      tags:
+      - product module
+  /item2b/list:
+    post:
+      consumes:
+      - application/json
+      description: get product list
+      parameters:
+      - description: request param of listing products
+        in: body
+        name: listProductReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.ListProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: get product list
+      tags:
+      - product module
+  /item2b/offline:
+    post:
+      consumes:
+      - application/json
+      description: offline product
+      parameters:
+      - description: request param of operating product
+        in: body
+        name: offlineProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: offline product
+      tags:
+      - product module
+  /item2b/online:
+    post:
+      consumes:
+      - application/json
+      description: online product
+      parameters:
+      - description: request param of operating product
+        in: body
+        name: onlineProductRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.OperateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: online product
+      tags:
+      - product module
+  /item2c/mget:
+    get:
+      consumes:
+      - application/json
+      description: batch get products by product_id (2C interface)
+      parameters:
+      - description: product-ids separated by commas
+        in: query
+        name: product_ids
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: batch get products by product_id (2C interface)
+      tags:
+      - product module(2C)
+  /item2c/search:
+    post:
+      consumes:
+      - application/json
+      description: search products (2C interface)
+      parameters:
+      - description: request param of searching products
+        in: body
+        name: searchProductReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.SearchProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: search products (2C interface)
+      tags:
+      - product module(2C)
+  /order/cancel:
+    post:
+      consumes:
+      - application/json
+      description: consumer cancels order
+      parameters:
+      - description: request param to cancel one order
+        in: body
+        name: cancelOrderReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.CancelOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: consumer cancels order
+      tags:
+      - order module
+  /order/create:
+    post:
+      consumes:
+      - application/json
+      description: consumer creates order
+      parameters:
+      - description: request param to create one order
+        in: body
+        name: createOrderReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.CreateOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: consumer creates order
+      tags:
+      - order module
+  /order/get:
+    get:
+      consumes:
+      - application/json
+      description: get order by order_id
+      parameters:
+      - description: order id
+        in: query
+        name: order_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: get order by order_id
+      tags:
+      - order module
+  /order/list:
+    post:
+      consumes:
+      - application/json
+      description: get order list of a consumer
+      parameters:
+      - description: request param to get order list
+        in: body
+        name: listOrderReq
+        required: true
+        schema:
+          $ref: '#/definitions/model.ListOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      security:
+      - TokenAuth: []
+      summary: get order list of a consumer
+      tags:
+      - order module
+  /shop/login:
+    post:
+      consumes:
+      - application/json
+      description: shop login
+      parameters:
+      - description: login param
+        in: body
+        name: userParam
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LoginResponse'
+      summary: shop login
+      tags:
+      - shop module
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: user login
+      parameters:
+      - description: login param
+        in: body
+        name: userParam
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LoginResponse'
+      summary: user login
+      tags:
+      - user module
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: user register
+      parameters:
+      - description: register param
+        in: body
+        name: userParam
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+      summary: user register
+      tags:
+      - user module
+schemes:
+- http
+securityDefinitions:
+  TokenAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
