@@ -1,5 +1,5 @@
 .DS_Store
-app/**/.env
+app/cart/.env
 app/**/nohup.out
 .idea/
 app/**/log/
