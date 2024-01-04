@@ -50,6 +50,9 @@ func (s *ChargeService) Run(req *payment.ChargeRequest) (resp *payment.ChargeRes
 	}
 
 	translationId, err := uuid.NewRandom()
+	if err != nil {
+		return nil, err
+	}
 	err = model.CreatePaymentLog(mysql.DB, s.ctx, &model.PaymentLog{
 		UserId:        req.UserId,
 		OrderId:       req.OrderId,

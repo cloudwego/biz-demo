@@ -41,7 +41,7 @@ func Init() {
 		panic(err)
 	}
 	if os.Getenv("GO_ENV") != "online" {
-		DB.AutoMigrate(
+		DB.AutoMigrate( //nolint:errcheck
 			&model.PaymentLog{},
 		)
 	}

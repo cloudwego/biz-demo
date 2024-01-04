@@ -16,6 +16,7 @@ package mtl
 
 import (
 	"context"
+
 	"github.com/cloudwego/kitex/server"
 
 	"github.com/cloudwego/biz-demo/gomall/app/payment/conf"
@@ -34,7 +35,7 @@ func initTracing() {
 		panic(err)
 	}
 	server.RegisterShutdownHook(func() {
-		exporter.Shutdown(context.Background())
+		exporter.Shutdown(context.Background()) //nolint:errcheck
 	})
 	processor := tracesdk.NewBatchSpanProcessor(exporter)
 	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(conf.GetConf().Kitex.Service)))
