@@ -16,6 +16,7 @@ package user
 
 import (
 	"context"
+
 	user "github.com/cloudwego/biz-demo/gomall/app/user/kitex_gen/user"
 
 	"github.com/cloudwego/biz-demo/gomall/app/user/kitex_gen/user/userservice"
