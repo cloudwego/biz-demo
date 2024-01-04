@@ -43,16 +43,6 @@ func (o Order) TableName() string {
 	return "order"
 }
 
-type OrderState string
-
-const (
-	OrderStatePlaced    OrderState = "placed"
-	OrderStatePayed     OrderState = "payed"
-	OrderStateCanceled  OrderState = "canceled"
-	OrderStateDelivered OrderState = "delivered"
-	OrderStateReceived  OrderState = "received"
-)
-
 func ListOrder(db *gorm.DB, ctx context.Context, userId uint32) (orders []Order, err error) {
 	err = db.Debug().Model(&Order{}).Where(&Order{UserId: userId}).Preload("OrderItems").Find(&orders).Error
 	return
