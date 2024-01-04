@@ -16,8 +16,9 @@ package service
 
 import (
 	"context"
-	order "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order"
 	"testing"
+
+	order "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order"
 )
 
 func TestPlaceOrder_Run(t *testing.T) {
@@ -34,5 +35,4 @@ func TestPlaceOrder_Run(t *testing.T) {
 		t.Errorf("unexpected nil response")
 	}
 	// todo: edit your unit test
-
 }
