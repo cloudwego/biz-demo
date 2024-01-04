@@ -16,8 +16,9 @@ package service
 
 import (
 	"context"
-	checkout "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/checkout"
 	"testing"
+
+	checkout "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/checkout"
 )
 
 func TestCheckout_Run(t *testing.T) {
@@ -34,5 +35,4 @@ func TestCheckout_Run(t *testing.T) {
 		t.Errorf("unexpected nil response")
 	}
 	// todo: edit your unit test
-
 }

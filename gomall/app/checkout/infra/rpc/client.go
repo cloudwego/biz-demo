@@ -42,9 +42,7 @@ var (
 	err           error
 )
 
-var (
-	commonOpts []client.Option
-)
+var commonOpts []client.Option
 
 func InitClient() {
 	once.Do(func() {

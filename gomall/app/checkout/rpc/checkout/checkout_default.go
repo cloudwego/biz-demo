@@ -16,6 +16,7 @@ package checkout
 
 import (
 	"context"
+
 	checkout "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/checkout"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"

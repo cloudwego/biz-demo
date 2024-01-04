@@ -16,6 +16,7 @@ package payment
 
 import (
 	"context"
+
 	payment "github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/payment"
 
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/payment/paymentservice"

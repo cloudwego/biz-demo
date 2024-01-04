@@ -15,12 +15,10 @@
 package mysql
 
 import (
-	"os"
-
-	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
 )
 
 var (
@@ -37,8 +35,5 @@ func Init() {
 	)
 	if err != nil {
 		panic(err)
-	}
-	if os.Getenv("GO_ENV") != "online" {
-		DB.AutoMigrate()
 	}
 }

@@ -48,9 +48,9 @@ func initMetric() {
 	_ = r.Register(registryInfo)
 
 	server.RegisterShutdownHook(func() {
-		r.Deregister(registryInfo)
+		r.Deregister(registryInfo) //nolint:errcheck
 	})
 
 	http.Handle("/metrics", promhttp.HandlerFor(Registry, promhttp.HandlerOpts{}))
-	go http.ListenAndServe(conf.GetConf().Kitex.MetricsPort, nil)
+	go http.ListenAndServe(conf.GetConf().Kitex.MetricsPort, nil) //nolint:errcheck
 }

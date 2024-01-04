@@ -124,7 +124,8 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 			CreditCardExpirationYear:  req.CreditCard.CreditCardExpirationYear,
 			CreditCardExpirationMonth: req.CreditCard.CreditCardExpirationMonth,
 			CreditCardCvv:             req.CreditCard.CreditCardCvv,
-		}}
+		},
+	}
 	paymentResult, err := rpc.PaymentClient.Charge(s.ctx, payReq)
 	if err != nil {
 		err = fmt.Errorf("Charge.err:%v", err)
