@@ -19,5 +19,4 @@ import (
 )
 
 func TestCheckout_Run(t *testing.T) {
-
 }

@@ -43,6 +43,7 @@ tidy: ## run `go mod tidy` for all go module
 .PHONY: lint
 lint: ## run `gofmt` for all go module
 	@gofmt -l -w app
+	@gofumpt -l -w  app
 
 .PHONY: vet
 vet: ## run `go vet` for all go module

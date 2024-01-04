@@ -19,5 +19,4 @@ import (
 )
 
 func TestCharge_Run(t *testing.T) {
-
 }
