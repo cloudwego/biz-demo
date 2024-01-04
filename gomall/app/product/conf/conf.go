@@ -71,8 +71,7 @@ type Registry struct {
 	Password        string   `yaml:"password"`
 }
 
-type ConfigServer struct {
-}
+type ConfigServer struct{}
 
 // GetConf gets configuration instance
 func GetConf() *Config {

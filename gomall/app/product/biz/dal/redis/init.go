@@ -44,5 +44,5 @@ func Init() {
 	if err := mtl.Registry.Register(redisprometheus.NewCollector("default", "product", RedisClient)); err != nil {
 		klog.Error("redis metric collect error ", err)
 	}
-	redisotel.InstrumentTracing(RedisClient)
+	redisotel.InstrumentTracing(RedisClient) //nolint:errcheck
 }

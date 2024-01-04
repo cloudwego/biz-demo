@@ -16,6 +16,7 @@ package mtl
 
 import (
 	"context"
+
 	"github.com/cloudwego/kitex/server"
 
 	"github.com/cloudwego/biz-demo/gomall/app/product/conf"
@@ -31,7 +32,7 @@ var TracerProvider *tracesdk.TracerProvider
 func initTracing() {
 	exporter, err := otlptracegrpc.New(context.Background())
 	server.RegisterShutdownHook(func() {
-		exporter.Shutdown(context.Background())
+		exporter.Shutdown(context.Background()) //nolint:errcheck
 	})
 	if err != nil {
 		panic(err)
