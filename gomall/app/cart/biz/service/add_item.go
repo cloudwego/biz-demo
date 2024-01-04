@@ -53,5 +53,9 @@ func (s *AddItemService) Run(req *cart.AddItemRequest) (resp *cart.Empty, err er
 		Qty:       uint32(req.Item.Quantity),
 	})
 
+	if err != nil {
+		return nil, kerrors.NewBizStatusError(50000, err.Error())
+	}
+
 	return &cart.Empty{}, nil
 }

@@ -15,7 +15,6 @@
 package main
 
 import (
-	"context"
 	"net"
 	"os"
 
@@ -79,11 +78,10 @@ func kitexInit() (opts []server.Option) {
 		}
 		opts = append(opts, server.WithRegistry(r))
 	}
-	p := provider.NewOpenTelemetryProvider(
+	_ = provider.NewOpenTelemetryProvider(
 		provider.WithSdkTracerProvider(mtl.TracerProvider),
 		provider.WithEnableMetrics(false),
 	)
-	defer p.Shutdown(context.Background())
 	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
 	return
 }

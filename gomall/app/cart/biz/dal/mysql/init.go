@@ -45,6 +45,7 @@ func Init() {
 		panic(err)
 	}
 	if os.Getenv("GO_ENV") != "online" {
+		//nolint:errcheck
 		DB.AutoMigrate(
 			&model.Cart{},
 		)

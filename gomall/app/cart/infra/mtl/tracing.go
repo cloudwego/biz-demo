@@ -34,7 +34,7 @@ func initTracing() {
 		panic(err)
 	}
 	server.RegisterShutdownHook(func() {
-		exporter.Shutdown(context.Background())
+		_ = exporter.Shutdown(context.Background())
 	})
 	processor := tracesdk.NewBatchSpanProcessor(exporter)
 	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(conf.GetConf().Kitex.Service)))
@@ -43,7 +43,7 @@ func initTracing() {
 	}
 	TracerProvider = tracesdk.NewTracerProvider(tracesdk.WithSpanProcessor(processor), tracesdk.WithResource(res))
 	server.RegisterShutdownHook(func() {
-		TracerProvider.Shutdown(context.Background())
+		_ = TracerProvider.Shutdown(context.Background())
 	})
 	otel.SetTracerProvider(TracerProvider)
 }

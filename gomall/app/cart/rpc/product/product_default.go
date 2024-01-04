@@ -16,6 +16,7 @@ package product
 
 import (
 	"context"
+
 	product "github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/product"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"

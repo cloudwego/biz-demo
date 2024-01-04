@@ -15,10 +15,11 @@
 package rpc
 
 import (
-	"github.com/cloudwego/kitex/pkg/transmeta"
-	"github.com/cloudwego/kitex/transport"
 	"os"
 	"sync"
+
+	"github.com/cloudwego/kitex/pkg/transmeta"
+	"github.com/cloudwego/kitex/transport"
 
 	"github.com/cloudwego/biz-demo/gomall/app/cart/conf"
 	"github.com/cloudwego/biz-demo/gomall/app/cart/infra/mtl"
