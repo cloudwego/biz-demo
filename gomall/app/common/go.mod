@@ -1,6 +1,6 @@
 module github.com/cloudwego/biz-demo/gomall/app/common
 
-go 1.21.4
+go 1.21
 
 require (
 	github.com/cloudwego/kitex v0.8.0
