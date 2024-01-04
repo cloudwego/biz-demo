@@ -40,7 +40,6 @@ func (h *RegisterService) Run(req *auth.RegisterReq) (resp *common.Empty, err er
 		Password:        req.Password,
 		ConfirmPassword: req.Password,
 	})
-
 	if err != nil {
 		return nil, err
 	}

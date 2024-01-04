@@ -17,10 +17,11 @@ package mtl
 import (
 	"context"
 	"fmt"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
-	"github.com/cloudwego/hertz/pkg/common/utils"
 	"net"
 	"net/http"
+
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
+	"github.com/cloudwego/hertz/pkg/common/utils"
 
 	"github.com/cloudwego/hertz/pkg/app/server/registry"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -58,8 +59,8 @@ func initMetric() route.CtxCallback {
 	}
 
 	http.Handle("/metrics", promhttp.HandlerFor(Registry, promhttp.HandlerOpts{}))
-	go http.ListenAndServe(fmt.Sprintf(":%d", conf.GetConf().Hertz.MetricsPort), nil)
+	go http.ListenAndServe(fmt.Sprintf(":%d", conf.GetConf().Hertz.MetricsPort), nil) //nolint:errcheck
 	return func(ctx context.Context) {
-		r.Deregister(registryInfo)
+		r.Deregister(registryInfo) //nolint:errcheck
 	}
 }

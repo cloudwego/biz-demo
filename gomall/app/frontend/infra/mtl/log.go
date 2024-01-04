@@ -39,7 +39,7 @@ func initLog() {
 			FlushInterval: time.Minute,
 		}
 		server.RegisterShutdownHook(func() {
-			output.Sync()
+			output.Sync() //nolint:errcheck
 		})
 	}
 	log := hertzzap.NewLogger(opts...)

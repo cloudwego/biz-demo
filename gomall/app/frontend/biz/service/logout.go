@@ -34,6 +34,6 @@ func NewLogoutService(Context context.Context, RequestContext *app.RequestContex
 func (h *LogoutService) Run(req *common.Empty) (resp *common.Empty, err error) {
 	session := sessions.Default(h.RequestContext)
 	session.Clear()
-	session.Save()
+	session.Save() //nolint:errcheck
 	return
 }

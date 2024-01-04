@@ -42,6 +42,7 @@ func (h *CheckoutService) Run(req *checkout.CheckoutReq) (resp map[string]any, e
 
 	carts, err := rpc.CartClient.GetCart(h.Context, &rpccart.GetCartRequest{UserId: userId})
 	if err != nil {
+		return nil, err
 	}
 	var total float32
 	for _, v := range carts.Items {

@@ -42,6 +42,6 @@ func InitTracing() route.CtxCallback {
 	otel.SetTracerProvider(TracerProvider)
 
 	return route.CtxCallback(func(ctx context.Context) {
-		exporter.Shutdown(ctx)
+		exporter.Shutdown(ctx) //nolint:errcheck
 	})
 }

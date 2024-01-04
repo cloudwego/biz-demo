@@ -16,6 +16,7 @@ package service
 
 import (
 	"context"
+
 	auth "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/auth"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
 	rpcuser "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/user"

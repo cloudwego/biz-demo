@@ -16,6 +16,7 @@ package service
 
 import (
 	"context"
+
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/cart"
 	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
@@ -39,6 +40,7 @@ func (h *AddCartItemService) Run(req *cart.AddCartReq) (resp *common.Empty, err 
 		Item: &rpccart.CartItem{
 			ProductId: req.ProductId,
 			Quantity:  req.ProductNum,
-		}})
+		},
+	})
 	return
 }
