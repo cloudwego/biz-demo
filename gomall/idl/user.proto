@@ -6,7 +6,7 @@ option go_package="/user";
 
 service UserService {
     rpc Register(RegisterReq) returns (RegisterResp) {}
-    rpc Login(LoginReq) returns (LoginRes) {}
+    rpc Login(LoginReq) returns (LoginResp) {}
 }
 
 message RegisterReq {
@@ -24,6 +24,6 @@ message LoginReq {
     string password = 2;
 }
 
-message LoginRes {
+message LoginResp {
     int32 user_id = 1;
 }

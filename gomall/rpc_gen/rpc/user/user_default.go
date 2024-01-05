@@ -16,7 +16,7 @@ func Register(ctx context.Context, req *user.RegisterReq, callOptions ...callopt
 	return resp, nil
 }
 
-func Login(ctx context.Context, req *user.LoginReq, callOptions ...callopt.Option) (resp *user.LoginRes, err error) {
+func Login(ctx context.Context, req *user.LoginReq, callOptions ...callopt.Option) (resp *user.LoginResp, err error) {
 	resp, err = defaultClient.Login(ctx, req, callOptions...)
 	if err != nil {
 		klog.CtxErrorf(ctx, "Login call failed,err =%+v", err)

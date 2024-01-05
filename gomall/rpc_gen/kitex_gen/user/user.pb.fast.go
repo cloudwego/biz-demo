@@ -117,7 +117,7 @@ func (x *LoginReq) fastReadField2(buf []byte, _type int8) (offset int, err error
 	return offset, err
 }
 
-func (x *LoginRes) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
+func (x *LoginResp) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
 	case 1:
 		offset, err = x.fastReadField1(buf, _type)
@@ -134,10 +134,10 @@ func (x *LoginRes) FastRead(buf []byte, _type int8, number int32) (offset int, e
 SkipFieldError:
 	return offset, fmt.Errorf("%T cannot parse invalid wire-format data, error: %s", x, err)
 ReadFieldError:
-	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_LoginRes[number], err)
+	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_LoginResp[number], err)
 }
 
-func (x *LoginRes) fastReadField1(buf []byte, _type int8) (offset int, err error) {
+func (x *LoginResp) fastReadField1(buf []byte, _type int8) (offset int, err error) {
 	x.UserId, offset, err = fastpb.ReadInt32(buf, _type)
 	return offset, err
 }
@@ -217,7 +217,7 @@ func (x *LoginReq) fastWriteField2(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *LoginRes) FastWrite(buf []byte) (offset int) {
+func (x *LoginResp) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
 	}
@@ -225,7 +225,7 @@ func (x *LoginRes) FastWrite(buf []byte) (offset int) {
 	return offset
 }
 
-func (x *LoginRes) fastWriteField1(buf []byte) (offset int) {
+func (x *LoginResp) fastWriteField1(buf []byte) (offset int) {
 	if x.UserId == 0 {
 		return offset
 	}
@@ -308,7 +308,7 @@ func (x *LoginReq) sizeField2() (n int) {
 	return n
 }
 
-func (x *LoginRes) Size() (n int) {
+func (x *LoginResp) Size() (n int) {
 	if x == nil {
 		return n
 	}
@@ -316,7 +316,7 @@ func (x *LoginRes) Size() (n int) {
 	return n
 }
 
-func (x *LoginRes) sizeField1() (n int) {
+func (x *LoginResp) sizeField1() (n int) {
 	if x.UserId == 0 {
 		return n
 	}
@@ -339,6 +339,6 @@ var fieldIDToName_LoginReq = map[int32]string{
 	2: "Password",
 }
 
-var fieldIDToName_LoginRes = map[int32]string{
+var fieldIDToName_LoginResp = map[int32]string{
 	1: "UserId",
 }
