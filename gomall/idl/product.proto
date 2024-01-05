@@ -5,9 +5,9 @@ package product;
 option go_package = "/product";
 
 service ProductCatalogService {
-  rpc ListProducts(ListProductsReq) returns (ListProductsResponse) {}
-  rpc GetProduct(GetProductRequest) returns (Product) {}
-  rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse) {}
+  rpc ListProducts(ListProductsReq) returns (ListProductsResp) {}
+  rpc GetProduct(GetProductReq) returns (GetProductResp) {}
+  rpc SearchProducts(SearchProductsReq) returns (SearchProductsResp) {}
 }
 
 message ListProductsReq{
@@ -27,18 +27,22 @@ message Product {
   repeated string categories = 6;
 }
 
-message ListProductsResponse {
+message ListProductsResp {
   repeated Product products = 1;
 }
 
-message GetProductRequest {
+message GetProductReq {
   uint32 id = 1;
 }
 
-message SearchProductsRequest {
+message GetProductResp {
+  Product product = 1;
+}
+
+message SearchProductsReq {
   string query = 1;
 }
 
-message SearchProductsResponse {
+message SearchProductsResp {
   repeated Product results = 1;
 }

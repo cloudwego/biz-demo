@@ -7,7 +7,7 @@ import "payment.proto";
 option go_package = "/checkout";
 
 service CheckoutService {
-  rpc Checkout(CheckoutReq) returns (CheckoutRes) {}
+  rpc Checkout(CheckoutReq) returns (CheckoutResp) {}
 }
 
 message Address {
@@ -27,7 +27,7 @@ message CheckoutReq {
   payment.CreditCardInfo credit_card = 6;
 }
 
-message CheckoutRes{
+message CheckoutResp {
   string order_id = 1;
   string transaction_id = 2;
 }

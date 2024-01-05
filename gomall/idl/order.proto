@@ -7,8 +7,8 @@ import "cart.proto";
 option go_package = "order";
 
 service OrderService {
-  rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse) {}
-  rpc ListOrder(ListOrderRequest) returns (ListOrderResponse) {}
+  rpc PlaceOrder(PlaceOrderReq) returns (PlaceOrderResp) {}
+  rpc ListOrder(ListOrderReq) returns (ListOrderResp) {}
 }
 
 message Address {
@@ -19,13 +19,13 @@ message Address {
   int32 zip_code = 5;
 }
 
-message PlaceOrderRequest {
+message PlaceOrderReq {
   uint32 user_id = 1;
   string user_currency = 2;
 
   Address address = 3;
-  string email = 5;
-  repeated OrderItem orderItems = 6;
+  string email = 4;
+  repeated OrderItem order_items = 5;
 }
 
 message OrderItem {
@@ -37,16 +37,16 @@ message OrderResult {
   string order_id = 1;
 }
 
-message PlaceOrderResponse {
+message PlaceOrderResp {
   OrderResult order = 1;
 }
 
-message ListOrderRequest {
+message ListOrderReq {
   uint32 user_id = 1;
 }
 
 message Order {
-  repeated OrderItem orderItems = 1;
+  repeated OrderItem order_items = 1;
   string order_id = 2;
   uint32 user_id = 3;
   string user_currency = 4;
@@ -55,6 +55,6 @@ message Order {
   int32 created_at = 7;
 }
 
-message ListOrderResponse {
+message ListOrderResp {
   repeated Order orders = 1;
 }

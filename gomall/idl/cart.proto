@@ -5,9 +5,9 @@ package cart;
 option go_package = '/cart';
 
 service CartService {
-  rpc AddItem(AddItemRequest) returns (Empty) {}
-  rpc GetCart(GetCartRequest) returns (Cart) {}
-  rpc EmptyCart(EmptyCartRequest) returns (Empty) {}
+  rpc AddItem(AddItemReq) returns (AddItemResp) {}
+  rpc GetCart(GetCartReq) returns (GetCartResp) {}
+  rpc EmptyCart(EmptyCartReq) returns (EmptyCartResp) {}
 }
 
 message CartItem {
@@ -15,17 +15,23 @@ message CartItem {
   int32  quantity = 2;
 }
 
-message AddItemRequest {
+message AddItemReq {
   uint32 user_id = 1;
   CartItem item = 2;
 }
 
-message EmptyCartRequest {
+message AddItemResp {}
+
+message EmptyCartReq {
   uint32 user_id = 1;
 }
 
-message GetCartRequest {
+message GetCartReq {
   uint32 user_id = 1;
+}
+
+message GetCartResp {
+  Cart cart = 1;
 }
 
 message Cart {
@@ -33,4 +39,4 @@ message Cart {
   repeated CartItem items = 2;
 }
 
-message Empty {}
+message EmptyCartResp {}
