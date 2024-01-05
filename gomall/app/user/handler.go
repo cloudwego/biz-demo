@@ -32,7 +32,7 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.RegisterReq) (
 }
 
 // Login implements the UserServiceImpl interface.
-func (s *UserServiceImpl) Login(ctx context.Context, req *user.LoginReq) (resp *user.LoginRes, err error) {
+func (s *UserServiceImpl) Login(ctx context.Context, req *user.LoginReq) (resp *user.LoginResp, err error) {
 	resp, err = service.NewLoginService(ctx).Run(req)
 
 	return resp, err
