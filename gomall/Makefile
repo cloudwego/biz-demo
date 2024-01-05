@@ -20,11 +20,11 @@ gen: ## gen client code of {svc}. example: make gen svc=product
 
 .PHONY: gen-client
 gen-client: ## gen client code of {svc}. example: make gen svc=product
-	@cd rpc_gen && cwgo client -I ../idl --type RPC --service ${svc} --module github.com/cloudwego/biz-demo/gomall/rpc_gen --idl ../idl/${svc}.proto
+	@cd rpc_gen && cwgo client --type RPC --service ${svc} --module github.com/cloudwego/biz-demo/gomall/rpc_gen  -I ../idl  --idl ../idl/${svc}.proto
 
 .PHONY: gen-server
 gen-server: ## gen service code of {svc}. example: make gen-server svc=product
-	@cd app/${svc} && cwgo server -I ../idl --type RPC --service ${svc} --module github.com/cloudwego/biz-demo/gomall/rpc_gen --pass "-use github.com/cloudwego/biz-demo/gomall/rpc_gen" --idl ../idl/${svc}.proto
+	@cd app/${svc} && cwgo server --type RPC --service ${svc} --module github.com/cloudwego/biz-demo/gomall/app/${svc} --pass "-use github.com/cloudwego/biz-demo/gomall/rpc_gen"  -I ../../idl  --idl ../../idl/${svc}.proto
 
 .PHONY: gen-checkout-client
 gen-checkout-client:
