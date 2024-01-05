@@ -27,7 +27,7 @@ import (
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/payment/paymentservice"
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/kitex_gen/product/productcatalogservice"
 	checkoututils "github.com/cloudwego/biz-demo/gomall/app/checkout/utils"
-	"github.com/cloudwego/biz-demo/gomall/app/common/suite"
+	"github.com/cloudwego/biz-demo/gomall/common/suite"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	consul "github.com/kitex-contrib/registry-consul"

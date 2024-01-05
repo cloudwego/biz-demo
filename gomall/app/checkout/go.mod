@@ -5,7 +5,7 @@ go 1.21
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
 require (
-	github.com/cloudwego/biz-demo/gomall/app/common v0.0.0-00010101000000-000000000000
+	github.com/cloudwego/biz-demo/gomall/common v0.0.0-00010101000000-000000000000
 	github.com/cloudwego/fastpb v0.0.4
 	github.com/cloudwego/kitex v0.8.0
 	github.com/joho/godotenv v1.5.1
@@ -120,4 +120,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace github.com/cloudwego/biz-demo/gomall/app/common => ../common
+replace github.com/cloudwego/biz-demo/gomall/common => ./../../common
