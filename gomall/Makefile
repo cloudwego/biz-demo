@@ -49,6 +49,10 @@ lint: ## run `gofmt` for all go module
 vet: ## run `go vet` for all go module
 	@scripts/vet.sh
 
+.PHONY: lint-fix
+lint-fix: ## run `golangci-lint` for all go module
+	@scripts/fix.sh
+
 .PHONY: run
 run: ## run {svc} server. example: make run svc=product
 	@scripts/run.sh ${svc}
