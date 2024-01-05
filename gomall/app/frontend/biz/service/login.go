@@ -19,8 +19,8 @@ import (
 
 	auth "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/auth"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
-	rpcuser "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/user"
 	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
+	rpcuser "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/hertz-contrib/sessions"
 )
@@ -41,7 +41,7 @@ func (h *LoginService) Run(req *auth.LoginReq) (resp string, err error) {
 	}
 
 	session := sessions.Default(h.RequestContext)
-	session.Set("user_id", res.Userid)
+	session.Set("user_id", res.UserId)
 	err = session.Save()
 	frontendutils.MustHandleError(err)
 	redirect := "/"

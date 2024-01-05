@@ -23,8 +23,8 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/cart/conf"
 	"github.com/cloudwego/biz-demo/gomall/app/cart/infra/mtl"
-	"github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/product/productcatalogservice"
 	cartutils "github.com/cloudwego/biz-demo/gomall/app/cart/utils"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"

@@ -18,14 +18,14 @@ import (
 	"context"
 
 	"github.com/cloudwego/biz-demo/gomall/app/user/biz/service"
-	user "github.com/cloudwego/biz-demo/gomall/app/user/kitex_gen/user"
+	user "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
 type UserServiceImpl struct{}
 
 // Register implements the UserServiceImpl interface.
-func (s *UserServiceImpl) Register(ctx context.Context, req *user.RegisterReq) (resp *user.RegisterRes, err error) {
+func (s *UserServiceImpl) Register(ctx context.Context, req *user.RegisterReq) (resp *user.RegisterResp, err error) {
 	resp, err = service.NewRegisterService(ctx).Run(req)
 
 	return resp, err

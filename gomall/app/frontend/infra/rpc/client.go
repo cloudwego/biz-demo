@@ -20,13 +20,13 @@ import (
 	"sync"
 
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/mtl"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/cart/cartservice"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/checkout/checkoutservice"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/order/orderservice"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/product"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/product/productcatalogservice"
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/user/userservice"
 	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/circuitbreak"
 	"github.com/cloudwego/kitex/pkg/fallback"
@@ -96,7 +96,7 @@ func initProductClient() {
 		if methodName != "ListProducts" {
 			return resp, err
 		}
-		return &product.ListProductsResponse{
+		return &product.ListProductsResp{
 			Products: []*product.Product{
 				{
 					Price:       6.6,

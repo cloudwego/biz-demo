@@ -19,7 +19,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/user/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/user/biz/model"
-	user "github.com/cloudwego/biz-demo/gomall/app/user/kitex_gen/user"
+	user "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -43,5 +43,5 @@ func (s *LoginService) Run(req *user.LoginReq) (resp *user.LoginRes, err error) 
 	if err != nil {
 		return
 	}
-	return &user.LoginRes{Userid: int32(userRow.ID)}, nil
+	return &user.LoginRes{UserId: int32(userRow.ID)}, nil
 }

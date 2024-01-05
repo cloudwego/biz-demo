@@ -19,7 +19,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/model"
-	cart "github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/cart"
+	cart "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 )
 
@@ -31,7 +31,7 @@ func NewGetCartService(ctx context.Context) *GetCartService {
 }
 
 // Run create note info
-func (s *GetCartService) Run(req *cart.GetCartRequest) (resp *cart.Cart, err error) {
+func (s *GetCartService) Run(req *cart.GetCartReq) (resp *cart.GetCartResp, err error) {
 	// resp = &cart.Cart{}
 	// Finish your business logic.
 	carts, err := model.GetCartByUserId(mysql.DB, s.ctx, req.GetUserId())
@@ -43,5 +43,5 @@ func (s *GetCartService) Run(req *cart.GetCartRequest) (resp *cart.Cart, err err
 		items = append(items, &cart.CartItem{ProductId: v.ProductId, Quantity: int32(v.Qty)})
 	}
 
-	return &cart.Cart{UserId: req.GetUserId(), Items: items}, nil
+	return &cart.GetCartResp{Cart: &cart.Cart{UserId: req.GetUserId(), Items: items}}, nil
 }

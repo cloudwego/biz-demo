@@ -23,7 +23,7 @@ func TestSearchProducts_Run(t *testing.T) {
 	// s := NewSearchProductsService(ctx)
 	// // init req and assert value
 
-	// req := &product.SearchProductsRequest{}
+	// req := &product.SearchProductsReq{}
 	// resp, err := s.Run(req)
 	// if err != nil {
 	// 	t.Errorf("unexpected error: %v", err)

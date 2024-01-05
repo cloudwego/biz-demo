@@ -19,7 +19,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/product/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/product/biz/model"
-	product "github.com/cloudwego/biz-demo/gomall/app/product/kitex_gen/product"
+	product "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
 )
 
 type SearchProductsService struct {
@@ -30,7 +30,7 @@ func NewSearchProductsService(ctx context.Context) *SearchProductsService {
 }
 
 // Run create note info
-func (s *SearchProductsService) Run(req *product.SearchProductsRequest) (resp *product.SearchProductsResponse, err error) {
+func (s *SearchProductsService) Run(req *product.SearchProductsReq) (resp *product.SearchProductsResp, err error) {
 	// Finish your business logic.
 	p, err := model.SearchProduct(mysql.DB, s.ctx, req.Query)
 	var results []*product.Product
@@ -43,5 +43,5 @@ func (s *SearchProductsService) Run(req *product.SearchProductsRequest) (resp *p
 			Price:       v.Price,
 		})
 	}
-	return &product.SearchProductsResponse{Results: results}, err
+	return &product.SearchProductsResp{Results: results}, err
 }

@@ -21,7 +21,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/payment/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/payment/biz/model"
-	payment "github.com/cloudwego/biz-demo/gomall/app/payment/kitex_gen/payment"
+	payment "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/payment"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	creditcard "github.com/durango/go-credit-card"
 	"github.com/google/uuid"
@@ -35,7 +35,7 @@ func NewChargeService(ctx context.Context) *ChargeService {
 }
 
 // Run create note info
-func (s *ChargeService) Run(req *payment.ChargeRequest) (resp *payment.ChargeResponse, err error) {
+func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, err error) {
 	card := creditcard.Card{
 		Number: req.CreditCard.CreditCardNumber,
 		Cvv:    strconv.Itoa(int(req.CreditCard.CreditCardCvv)),
@@ -66,5 +66,5 @@ func (s *ChargeService) Run(req *payment.ChargeRequest) (resp *payment.ChargeRes
 	if err != nil {
 		return nil, err
 	}
-	return &payment.ChargeResponse{TransactionId: translationId.String()}, nil
+	return &payment.ChargeResp{TransactionId: translationId.String()}, nil
 }

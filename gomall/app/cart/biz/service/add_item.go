@@ -16,14 +16,13 @@ package service
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/cart/biz/model"
 	"github.com/cloudwego/biz-demo/gomall/app/cart/infra/rpc"
 
-	cart "github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/cart"
-	"github.com/cloudwego/biz-demo/gomall/app/cart/kitex_gen/product"
+	cart "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 )
 
@@ -35,15 +34,14 @@ func NewAddItemService(ctx context.Context) *AddItemService {
 }
 
 // Run create note info
-func (s *AddItemService) Run(req *cart.AddItemRequest) (resp *cart.Empty, err error) {
+func (s *AddItemService) Run(req *cart.AddItemReq) (resp *cart.AddItemResp, err error) {
 	// Finish your business logic.
-	getProduct, err := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductRequest{Id: req.Item.GetProductId()})
+	getProduct, err := rpc.ProductClient.GetProduct(s.ctx, &product.GetProductReq{Id: req.Item.GetProductId()})
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("%#v", getProduct)
 
-	if getProduct.Id == 0 {
+	if getProduct.Product == nil || getProduct.Product.Id == 0 {
 		return nil, kerrors.NewBizStatusError(40004, "product not exist")
 	}
 
@@ -57,5 +55,5 @@ func (s *AddItemService) Run(req *cart.AddItemRequest) (resp *cart.Empty, err er
 		return nil, kerrors.NewBizStatusError(50000, err.Error())
 	}
 
-	return &cart.Empty{}, nil
+	return &cart.AddItemResp{}, nil
 }

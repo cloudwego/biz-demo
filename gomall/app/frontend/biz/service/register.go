@@ -20,7 +20,7 @@ import (
 	auth "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/auth"
 	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
-	rpcuser "github.com/cloudwego/biz-demo/gomall/app/frontend/kitex_gen/user"
+	rpcuser "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/hertz-contrib/sessions"
 )
@@ -45,7 +45,7 @@ func (h *RegisterService) Run(req *auth.RegisterReq) (resp *common.Empty, err er
 	}
 
 	session := sessions.Default(h.RequestContext)
-	session.Set("user_id", res.Userid)
+	session.Set("user_id", res.UserId)
 	err = session.Save()
 
 	if err != nil {

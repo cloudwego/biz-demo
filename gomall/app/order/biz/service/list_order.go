@@ -19,8 +19,8 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/model"
-	"github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/cart"
-	order "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
+	order "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order"
 	"github.com/cloudwego/kitex/pkg/klog"
 )
 
@@ -32,7 +32,7 @@ func NewListOrderService(ctx context.Context) *ListOrderService {
 }
 
 // Run create note info
-func (s *ListOrderService) Run(req *order.ListOrderRequest) (resp *order.ListOrderResponse, err error) {
+func (s *ListOrderService) Run(req *order.ListOrderReq) (resp *order.ListOrderResp, err error) {
 	// Finish your business logic.
 	orders, err := model.ListOrder(mysql.DB, s.ctx, req.UserId)
 	if err != nil {
@@ -67,7 +67,7 @@ func (s *ListOrderService) Run(req *order.ListOrderRequest) (resp *order.ListOrd
 		}
 		list = append(list, o)
 	}
-	resp = &order.ListOrderResponse{
+	resp = &order.ListOrderResp{
 		Orders: list,
 	}
 	return

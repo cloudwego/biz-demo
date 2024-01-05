@@ -44,7 +44,7 @@ func addItemHandler(ctx context.Context, handler interface{}, arg, result interf
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(cart.AddItemRequest)
+		req := new(cart.AddItemReq)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
@@ -74,12 +74,12 @@ func newAddItemResult() interface{} {
 }
 
 type AddItemArgs struct {
-	Req *cart.AddItemRequest
+	Req *cart.AddItemReq
 }
 
 func (p *AddItemArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetReq() {
-		p.Req = new(cart.AddItemRequest)
+		p.Req = new(cart.AddItemReq)
 	}
 	return p.Req.FastRead(buf, _type, number)
 }
@@ -106,7 +106,7 @@ func (p *AddItemArgs) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *AddItemArgs) Unmarshal(in []byte) error {
-	msg := new(cart.AddItemRequest)
+	msg := new(cart.AddItemReq)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -114,9 +114,9 @@ func (p *AddItemArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var AddItemArgs_Req_DEFAULT *cart.AddItemRequest
+var AddItemArgs_Req_DEFAULT *cart.AddItemReq
 
-func (p *AddItemArgs) GetReq() *cart.AddItemRequest {
+func (p *AddItemArgs) GetReq() *cart.AddItemReq {
 	if !p.IsSetReq() {
 		return AddItemArgs_Req_DEFAULT
 	}
@@ -132,14 +132,14 @@ func (p *AddItemArgs) GetFirstArgument() interface{} {
 }
 
 type AddItemResult struct {
-	Success *cart.Empty
+	Success *cart.AddItemResp
 }
 
-var AddItemResult_Success_DEFAULT *cart.Empty
+var AddItemResult_Success_DEFAULT *cart.AddItemResp
 
 func (p *AddItemResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetSuccess() {
-		p.Success = new(cart.Empty)
+		p.Success = new(cart.AddItemResp)
 	}
 	return p.Success.FastRead(buf, _type, number)
 }
@@ -166,7 +166,7 @@ func (p *AddItemResult) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *AddItemResult) Unmarshal(in []byte) error {
-	msg := new(cart.Empty)
+	msg := new(cart.AddItemResp)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -174,7 +174,7 @@ func (p *AddItemResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *AddItemResult) GetSuccess() *cart.Empty {
+func (p *AddItemResult) GetSuccess() *cart.AddItemResp {
 	if !p.IsSetSuccess() {
 		return AddItemResult_Success_DEFAULT
 	}
@@ -182,7 +182,7 @@ func (p *AddItemResult) GetSuccess() *cart.Empty {
 }
 
 func (p *AddItemResult) SetSuccess(x interface{}) {
-	p.Success = x.(*cart.Empty)
+	p.Success = x.(*cart.AddItemResp)
 }
 
 func (p *AddItemResult) IsSetSuccess() bool {
@@ -197,7 +197,7 @@ func getCartHandler(ctx context.Context, handler interface{}, arg, result interf
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(cart.GetCartRequest)
+		req := new(cart.GetCartReq)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
@@ -227,12 +227,12 @@ func newGetCartResult() interface{} {
 }
 
 type GetCartArgs struct {
-	Req *cart.GetCartRequest
+	Req *cart.GetCartReq
 }
 
 func (p *GetCartArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetReq() {
-		p.Req = new(cart.GetCartRequest)
+		p.Req = new(cart.GetCartReq)
 	}
 	return p.Req.FastRead(buf, _type, number)
 }
@@ -259,7 +259,7 @@ func (p *GetCartArgs) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *GetCartArgs) Unmarshal(in []byte) error {
-	msg := new(cart.GetCartRequest)
+	msg := new(cart.GetCartReq)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -267,9 +267,9 @@ func (p *GetCartArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var GetCartArgs_Req_DEFAULT *cart.GetCartRequest
+var GetCartArgs_Req_DEFAULT *cart.GetCartReq
 
-func (p *GetCartArgs) GetReq() *cart.GetCartRequest {
+func (p *GetCartArgs) GetReq() *cart.GetCartReq {
 	if !p.IsSetReq() {
 		return GetCartArgs_Req_DEFAULT
 	}
@@ -285,14 +285,14 @@ func (p *GetCartArgs) GetFirstArgument() interface{} {
 }
 
 type GetCartResult struct {
-	Success *cart.Cart
+	Success *cart.GetCartResp
 }
 
-var GetCartResult_Success_DEFAULT *cart.Cart
+var GetCartResult_Success_DEFAULT *cart.GetCartResp
 
 func (p *GetCartResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetSuccess() {
-		p.Success = new(cart.Cart)
+		p.Success = new(cart.GetCartResp)
 	}
 	return p.Success.FastRead(buf, _type, number)
 }
@@ -319,7 +319,7 @@ func (p *GetCartResult) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *GetCartResult) Unmarshal(in []byte) error {
-	msg := new(cart.Cart)
+	msg := new(cart.GetCartResp)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -327,7 +327,7 @@ func (p *GetCartResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *GetCartResult) GetSuccess() *cart.Cart {
+func (p *GetCartResult) GetSuccess() *cart.GetCartResp {
 	if !p.IsSetSuccess() {
 		return GetCartResult_Success_DEFAULT
 	}
@@ -335,7 +335,7 @@ func (p *GetCartResult) GetSuccess() *cart.Cart {
 }
 
 func (p *GetCartResult) SetSuccess(x interface{}) {
-	p.Success = x.(*cart.Cart)
+	p.Success = x.(*cart.GetCartResp)
 }
 
 func (p *GetCartResult) IsSetSuccess() bool {
@@ -350,7 +350,7 @@ func emptyCartHandler(ctx context.Context, handler interface{}, arg, result inte
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(cart.EmptyCartRequest)
+		req := new(cart.EmptyCartReq)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
@@ -380,12 +380,12 @@ func newEmptyCartResult() interface{} {
 }
 
 type EmptyCartArgs struct {
-	Req *cart.EmptyCartRequest
+	Req *cart.EmptyCartReq
 }
 
 func (p *EmptyCartArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetReq() {
-		p.Req = new(cart.EmptyCartRequest)
+		p.Req = new(cart.EmptyCartReq)
 	}
 	return p.Req.FastRead(buf, _type, number)
 }
@@ -412,7 +412,7 @@ func (p *EmptyCartArgs) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *EmptyCartArgs) Unmarshal(in []byte) error {
-	msg := new(cart.EmptyCartRequest)
+	msg := new(cart.EmptyCartReq)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -420,9 +420,9 @@ func (p *EmptyCartArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var EmptyCartArgs_Req_DEFAULT *cart.EmptyCartRequest
+var EmptyCartArgs_Req_DEFAULT *cart.EmptyCartReq
 
-func (p *EmptyCartArgs) GetReq() *cart.EmptyCartRequest {
+func (p *EmptyCartArgs) GetReq() *cart.EmptyCartReq {
 	if !p.IsSetReq() {
 		return EmptyCartArgs_Req_DEFAULT
 	}
@@ -438,14 +438,14 @@ func (p *EmptyCartArgs) GetFirstArgument() interface{} {
 }
 
 type EmptyCartResult struct {
-	Success *cart.Empty
+	Success *cart.EmptyCartResp
 }
 
-var EmptyCartResult_Success_DEFAULT *cart.Empty
+var EmptyCartResult_Success_DEFAULT *cart.EmptyCartResp
 
 func (p *EmptyCartResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetSuccess() {
-		p.Success = new(cart.Empty)
+		p.Success = new(cart.EmptyCartResp)
 	}
 	return p.Success.FastRead(buf, _type, number)
 }
@@ -472,7 +472,7 @@ func (p *EmptyCartResult) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *EmptyCartResult) Unmarshal(in []byte) error {
-	msg := new(cart.Empty)
+	msg := new(cart.EmptyCartResp)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -480,7 +480,7 @@ func (p *EmptyCartResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *EmptyCartResult) GetSuccess() *cart.Empty {
+func (p *EmptyCartResult) GetSuccess() *cart.EmptyCartResp {
 	if !p.IsSetSuccess() {
 		return EmptyCartResult_Success_DEFAULT
 	}
@@ -488,7 +488,7 @@ func (p *EmptyCartResult) GetSuccess() *cart.Empty {
 }
 
 func (p *EmptyCartResult) SetSuccess(x interface{}) {
-	p.Success = x.(*cart.Empty)
+	p.Success = x.(*cart.EmptyCartResp)
 }
 
 func (p *EmptyCartResult) IsSetSuccess() bool {
@@ -509,7 +509,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) AddItem(ctx context.Context, Req *cart.AddItemRequest) (r *cart.Empty, err error) {
+func (p *kClient) AddItem(ctx context.Context, Req *cart.AddItemReq) (r *cart.AddItemResp, err error) {
 	var _args AddItemArgs
 	_args.Req = Req
 	var _result AddItemResult
@@ -519,7 +519,7 @@ func (p *kClient) AddItem(ctx context.Context, Req *cart.AddItemRequest) (r *car
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetCart(ctx context.Context, Req *cart.GetCartRequest) (r *cart.Cart, err error) {
+func (p *kClient) GetCart(ctx context.Context, Req *cart.GetCartReq) (r *cart.GetCartResp, err error) {
 	var _args GetCartArgs
 	_args.Req = Req
 	var _result GetCartResult
@@ -529,7 +529,7 @@ func (p *kClient) GetCart(ctx context.Context, Req *cart.GetCartRequest) (r *car
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) EmptyCart(ctx context.Context, Req *cart.EmptyCartRequest) (r *cart.Empty, err error) {
+func (p *kClient) EmptyCart(ctx context.Context, Req *cart.EmptyCartReq) (r *cart.EmptyCartResp, err error) {
 	var _args EmptyCartArgs
 	_args.Req = Req
 	var _result EmptyCartResult

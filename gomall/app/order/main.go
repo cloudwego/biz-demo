@@ -21,7 +21,7 @@ import (
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/dal"
 	"github.com/cloudwego/biz-demo/gomall/app/order/conf"
 	"github.com/cloudwego/biz-demo/gomall/app/order/infra/mtl"
-	"github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order/orderservice"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/transmeta"

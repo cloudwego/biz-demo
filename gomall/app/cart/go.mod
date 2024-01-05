@@ -4,8 +4,10 @@ go 1.21
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
+replace github.com/cloudwego/biz-demo/gomall/rpc_gen => ../../rpc_gen
+
 require (
-	github.com/cloudwego/fastpb v0.0.4
+	github.com/cloudwego/biz-demo/gomall/rpc_gen v0.0.0-00010101000000-000000000000
 	github.com/cloudwego/kitex v0.8.0
 	github.com/joho/godotenv v1.5.1
 	github.com/kitex-contrib/config-etcd v0.1.0
@@ -20,7 +22,6 @@ require (
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.21.0
 	go.opentelemetry.io/otel/sdk v1.21.0
 	go.uber.org/zap v1.26.0
-	google.golang.org/protobuf v1.32.0
 	gopkg.in/validator.v2 v2.0.1
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/driver/mysql v1.5.2
@@ -41,6 +42,7 @@ require (
 	github.com/choleraehyq/pid v0.0.17 // indirect
 	github.com/cloudwego/configmanager v0.2.0 // indirect
 	github.com/cloudwego/dynamicgo v0.1.6 // indirect
+	github.com/cloudwego/fastpb v0.0.4 // indirect
 	github.com/cloudwego/frugal v0.1.12 // indirect
 	github.com/cloudwego/localsession v0.0.2 // indirect
 	github.com/cloudwego/netpoll v0.5.1 // indirect
@@ -117,5 +119,6 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20231120223509-83a465c0220f // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231212172506-995d672761c0 // indirect
 	google.golang.org/grpc v1.59.0 // indirect
+	google.golang.org/protobuf v1.32.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -18,6 +18,14 @@ init: ## Just copy `.env.example` to `.env` with one click, executed once.
 gen: ## gen client code of {svc}. example: make gen svc=product
 	@scripts/gen.sh ${svc}
 
+.PHONY: gen-client
+gen-client: ## gen client code of {svc}. example: make gen svc=product
+	@cd rpc_gen && cwgo client -I ../idl --type RPC --service ${svc} --module github.com/cloudwego/biz-demo/gomall/rpc_gen --idl ../idl/${svc}.proto
+
+.PHONY: gen-server
+gen-server: ## gen service code of {svc}. example: make gen svc=product
+	@cd app/${svc} && cwgo server -I ../../idl --type RPC --service ${svc} --module github.com/cloudwego/biz-demo/gomall/app/${svc} --idl ../../idl/${svc}.proto
+
 .PHONY: gen-checkout-client
 gen-checkout-client:
 	@cd app/frontend && cwgo client -I ../../idl --type RPC --service checkout --module github.com/cloudwego/biz-demo/gomall/app/frontend --idl ../../idl/checkout.proto

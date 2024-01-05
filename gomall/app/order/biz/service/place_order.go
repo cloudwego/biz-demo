@@ -20,7 +20,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/model"
-	order "github.com/cloudwego/biz-demo/gomall/app/order/kitex_gen/order"
+	order "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
@@ -33,7 +33,7 @@ func NewPlaceOrderService(ctx context.Context) *PlaceOrderService {
 }
 
 // Run create note info
-func (s *PlaceOrderService) Run(req *order.PlaceOrderRequest) (resp *order.PlaceOrderResponse, err error) {
+func (s *PlaceOrderService) Run(req *order.PlaceOrderReq) (resp *order.PlaceOrderResp, err error) {
 	// Finish your business logic.
 	if len(req.OrderItems) == 0 {
 		err = fmt.Errorf("OrderItems empty")
@@ -74,7 +74,7 @@ func (s *PlaceOrderService) Run(req *order.PlaceOrderRequest) (resp *order.Place
 		if err := tx.Create(&itemList).Error; err != nil {
 			return err
 		}
-		resp = &order.PlaceOrderResponse{
+		resp = &order.PlaceOrderResp{
 			Order: &order.OrderResult{
 				OrderId: orderId.String(),
 			},
