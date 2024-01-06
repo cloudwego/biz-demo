@@ -20,6 +20,11 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/mq"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/email"
+	"github.com/nats-io/nats.go"
+	"google.golang.org/protobuf/proto"
+
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/rpc"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	checkout "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/checkout"
@@ -135,6 +140,15 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		err = fmt.Errorf("Charge.err:%v", err)
 		return
 	}
+	data, _ := proto.Marshal(&email.EmailReq{
+		From:        "from@example.com",
+		To:          "to@example.com",
+		ContentType: "text/plain",
+		Subject:     "You just created an order in CloudWeGo shop",
+		Content:     "You just created an order in CloudWeGo shop",
+	})
+	msg := &nats.Msg{Subject: "email", Data: data}
+	_ = mq.Nc.PublishMsg(msg)
 
 	klog.Info(paymentResult)
 	// change order state

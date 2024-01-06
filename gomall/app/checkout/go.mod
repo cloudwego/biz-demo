@@ -9,7 +9,6 @@ replace github.com/cloudwego/biz-demo/gomall/rpc_gen => ../../rpc_gen
 require (
 	github.com/cloudwego/biz-demo/gomall/common v0.0.0-00010101000000-000000000000
 	github.com/cloudwego/biz-demo/gomall/rpc_gen v0.0.0-00010101000000-000000000000
-	github.com/cloudwego/fastpb v0.0.4
 	github.com/cloudwego/kitex v0.8.0
 	github.com/joho/godotenv v1.5.1
 	github.com/kitex-contrib/config-etcd v0.1.0
@@ -18,6 +17,7 @@ require (
 	github.com/kitex-contrib/obs-opentelemetry/logging/zap v0.0.0-20231211030816-1f9e0f7bcee3
 	github.com/kitex-contrib/registry-consul v0.0.0-20230406075225-7d341f036654
 	github.com/kr/pretty v0.3.1
+	github.com/nats-io/nats.go v1.31.0
 	github.com/prometheus/client_golang v1.18.0
 	github.com/redis/go-redis/v9 v9.3.1
 	go.opentelemetry.io/otel v1.21.0
@@ -44,6 +44,7 @@ require (
 	github.com/choleraehyq/pid v0.0.17 // indirect
 	github.com/cloudwego/configmanager v0.2.0 // indirect
 	github.com/cloudwego/dynamicgo v0.1.6 // indirect
+	github.com/cloudwego/fastpb v0.0.4 // indirect
 	github.com/cloudwego/frugal v0.1.12 // indirect
 	github.com/cloudwego/localsession v0.0.2 // indirect
 	github.com/cloudwego/netpoll v0.5.1 // indirect
@@ -75,6 +76,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.6 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
@@ -85,6 +87,8 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/gls v0.0.0-20220109145502-612d0167dce5 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
+	github.com/nats-io/nkeys v0.4.5 // indirect
+	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/oleiade/lane v1.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/prometheus/client_model v0.5.0 // indirect
@@ -111,6 +115,7 @@ require (
 	go.opentelemetry.io/proto/otlp v1.0.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.6.0 // indirect
+	golang.org/x/crypto v0.16.0 // indirect
 	golang.org/x/exp v0.0.0-20231214170342-aacd6d4b4611 // indirect
 	golang.org/x/net v0.19.0 // indirect
 	golang.org/x/sync v0.5.0 // indirect
