@@ -2,6 +2,7 @@ package email
 
 import (
 	"github.com/cloudwego/biz-demo/gomall/app/email/infra/mq"
+	"github.com/cloudwego/biz-demo/gomall/app/email/infra/notify"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/server"
 	"github.com/nats-io/nats.go"
@@ -19,7 +20,8 @@ func ConsumerInit() {
 		if err != nil {
 			klog.Error(err)
 		}
-		klog.Infof("Received a message: %#v", &req)
+		noopEmail := notify.NewNoopEmail()
+		_ = noopEmail.Send(&req)
 	})
 	if err != nil {
 		panic(err)

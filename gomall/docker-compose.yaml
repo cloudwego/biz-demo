@@ -41,3 +41,9 @@ services:
     ports:
       - 2379:2379
       - 2380:2380
+  nats:
+    image: nats:latest
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
