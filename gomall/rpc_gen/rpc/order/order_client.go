@@ -2,6 +2,7 @@ package order
 
 import (
 	"context"
+
 	order "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order"
 
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
@@ -14,6 +15,7 @@ type RPCClient interface {
 	Service() string
 	PlaceOrder(ctx context.Context, Req *order.PlaceOrderReq, callOptions ...callopt.Option) (r *order.PlaceOrderResp, err error)
 	ListOrder(ctx context.Context, Req *order.ListOrderReq, callOptions ...callopt.Option) (r *order.ListOrderResp, err error)
+	MarkOrderPaid(ctx context.Context, Req *order.MarkOrderPaidReq, callOptions ...callopt.Option) (r *order.MarkOrderPaidResp, err error)
 }
 
 func NewRPCClient(dstService string, opts ...client.Option) (RPCClient, error) {
@@ -48,4 +50,8 @@ func (c *clientImpl) PlaceOrder(ctx context.Context, Req *order.PlaceOrderReq, c
 
 func (c *clientImpl) ListOrder(ctx context.Context, Req *order.ListOrderReq, callOptions ...callopt.Option) (r *order.ListOrderResp, err error) {
 	return c.kitexClient.ListOrder(ctx, Req, callOptions...)
+}
+
+func (c *clientImpl) MarkOrderPaid(ctx context.Context, Req *order.MarkOrderPaidReq, callOptions ...callopt.Option) (r *order.MarkOrderPaidResp, err error) {
+	return c.kitexClient.MarkOrderPaid(ctx, Req, callOptions...)
 }

@@ -75,8 +75,8 @@ env-start:  ## launch all middleware software as the docker
 env-stop: ## stop all docker
 	@docker-compose down
 
-.PHONY: cleanup
-cleanup: ## clern up all the tmp files
+.PHONY: clean
+clean: ## clern up all the tmp files
 	@rm -r app/**/log/ app/**/tmp/
 
 ##@ Open Browser
