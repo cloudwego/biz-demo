@@ -5,8 +5,7 @@ import (
 	"github.com/kr/pretty"
 )
 
-type NoopEmail struct {
-}
+type NoopEmail struct{}
 
 func (e *NoopEmail) Send(req *email.EmailReq) error {
 	pretty.Printf("%v", req)
