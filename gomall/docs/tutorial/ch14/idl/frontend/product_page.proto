@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package frontend.product;
+
+import "frontend/common.proto";
+import "api.proto";
+
+option go_package = "frontend/product";
+
+message ProductReq { uint32 id = 1 [ (api.query) = "id" ]; }
+
+service ProductService {
+  rpc GetProduct(ProductReq) returns (common.Empty) {
+    option (api.get) = "/product";
+  };
+}

@@ -1,0 +1,12 @@
+version: "3"
+services:
+  consul:
+    image: "consul:1.15.4"
+    ports:
+      - "8500:8500"
+  mysql:
+    image: "mysql:latest"
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root

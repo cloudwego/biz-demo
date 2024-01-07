@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pbapi;
+
+option go_package = "/pbapi";
+
+message Request {
+  string message = 1;
+}
+
+message Response {
+  string message = 1;
+}
+
+service Echo {
+  rpc Echo (Request) returns (Response) {}
+}

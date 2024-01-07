@@ -1,5 +1,0 @@
-# Gomall
-
-## Target
-
-
