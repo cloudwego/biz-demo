@@ -37,3 +37,10 @@ func (s *OrderServiceImpl) ListOrder(ctx context.Context, req *order.ListOrderRe
 
 	return resp, err
 }
+
+// MarkOrderPaid implements the OrderServiceImpl interface.
+func (s *OrderServiceImpl) MarkOrderPaid(ctx context.Context, req *order.MarkOrderPaidReq) (resp *order.MarkOrderPaidResp, err error) {
+	resp, err = service.NewMarkOrderPaidService(ctx).Run(req)
+
+	return resp, err
+}

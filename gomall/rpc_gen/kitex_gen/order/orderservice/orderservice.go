@@ -21,8 +21,9 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "OrderService"
 	handlerType := (*order.OrderService)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"PlaceOrder": kitex.NewMethodInfo(placeOrderHandler, newPlaceOrderArgs, newPlaceOrderResult, false),
-		"ListOrder":  kitex.NewMethodInfo(listOrderHandler, newListOrderArgs, newListOrderResult, false),
+		"PlaceOrder":    kitex.NewMethodInfo(placeOrderHandler, newPlaceOrderArgs, newPlaceOrderResult, false),
+		"ListOrder":     kitex.NewMethodInfo(listOrderHandler, newListOrderArgs, newListOrderResult, false),
+		"MarkOrderPaid": kitex.NewMethodInfo(markOrderPaidHandler, newMarkOrderPaidArgs, newMarkOrderPaidResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "order",
@@ -345,6 +346,159 @@ func (p *ListOrderResult) GetResult() interface{} {
 	return p.Success
 }
 
+func markOrderPaidHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	switch s := arg.(type) {
+	case *streaming.Args:
+		st := s.Stream
+		req := new(order.MarkOrderPaidReq)
+		if err := st.RecvMsg(req); err != nil {
+			return err
+		}
+		resp, err := handler.(order.OrderService).MarkOrderPaid(ctx, req)
+		if err != nil {
+			return err
+		}
+		if err := st.SendMsg(resp); err != nil {
+			return err
+		}
+	case *MarkOrderPaidArgs:
+		success, err := handler.(order.OrderService).MarkOrderPaid(ctx, s.Req)
+		if err != nil {
+			return err
+		}
+		realResult := result.(*MarkOrderPaidResult)
+		realResult.Success = success
+	}
+	return nil
+}
+func newMarkOrderPaidArgs() interface{} {
+	return &MarkOrderPaidArgs{}
+}
+
+func newMarkOrderPaidResult() interface{} {
+	return &MarkOrderPaidResult{}
+}
+
+type MarkOrderPaidArgs struct {
+	Req *order.MarkOrderPaidReq
+}
+
+func (p *MarkOrderPaidArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetReq() {
+		p.Req = new(order.MarkOrderPaidReq)
+	}
+	return p.Req.FastRead(buf, _type, number)
+}
+
+func (p *MarkOrderPaidArgs) FastWrite(buf []byte) (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.FastWrite(buf)
+}
+
+func (p *MarkOrderPaidArgs) Size() (n int) {
+	if !p.IsSetReq() {
+		return 0
+	}
+	return p.Req.Size()
+}
+
+func (p *MarkOrderPaidArgs) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetReq() {
+		return out, nil
+	}
+	return proto.Marshal(p.Req)
+}
+
+func (p *MarkOrderPaidArgs) Unmarshal(in []byte) error {
+	msg := new(order.MarkOrderPaidReq)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Req = msg
+	return nil
+}
+
+var MarkOrderPaidArgs_Req_DEFAULT *order.MarkOrderPaidReq
+
+func (p *MarkOrderPaidArgs) GetReq() *order.MarkOrderPaidReq {
+	if !p.IsSetReq() {
+		return MarkOrderPaidArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+
+func (p *MarkOrderPaidArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *MarkOrderPaidArgs) GetFirstArgument() interface{} {
+	return p.Req
+}
+
+type MarkOrderPaidResult struct {
+	Success *order.MarkOrderPaidResp
+}
+
+var MarkOrderPaidResult_Success_DEFAULT *order.MarkOrderPaidResp
+
+func (p *MarkOrderPaidResult) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
+	if !p.IsSetSuccess() {
+		p.Success = new(order.MarkOrderPaidResp)
+	}
+	return p.Success.FastRead(buf, _type, number)
+}
+
+func (p *MarkOrderPaidResult) FastWrite(buf []byte) (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.FastWrite(buf)
+}
+
+func (p *MarkOrderPaidResult) Size() (n int) {
+	if !p.IsSetSuccess() {
+		return 0
+	}
+	return p.Success.Size()
+}
+
+func (p *MarkOrderPaidResult) Marshal(out []byte) ([]byte, error) {
+	if !p.IsSetSuccess() {
+		return out, nil
+	}
+	return proto.Marshal(p.Success)
+}
+
+func (p *MarkOrderPaidResult) Unmarshal(in []byte) error {
+	msg := new(order.MarkOrderPaidResp)
+	if err := proto.Unmarshal(in, msg); err != nil {
+		return err
+	}
+	p.Success = msg
+	return nil
+}
+
+func (p *MarkOrderPaidResult) GetSuccess() *order.MarkOrderPaidResp {
+	if !p.IsSetSuccess() {
+		return MarkOrderPaidResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+func (p *MarkOrderPaidResult) SetSuccess(x interface{}) {
+	p.Success = x.(*order.MarkOrderPaidResp)
+}
+
+func (p *MarkOrderPaidResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *MarkOrderPaidResult) GetResult() interface{} {
+	return p.Success
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -370,6 +524,16 @@ func (p *kClient) ListOrder(ctx context.Context, Req *order.ListOrderReq) (r *or
 	_args.Req = Req
 	var _result ListOrderResult
 	if err = p.c.Call(ctx, "ListOrder", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) MarkOrderPaid(ctx context.Context, Req *order.MarkOrderPaidReq) (r *order.MarkOrderPaidResp, err error) {
+	var _args MarkOrderPaidArgs
+	_args.Req = Req
+	var _result MarkOrderPaidResult
+	if err = p.c.Call(ctx, "MarkOrderPaid", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

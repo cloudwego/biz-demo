@@ -9,6 +9,7 @@ option go_package = "order";
 service OrderService {
   rpc PlaceOrder(PlaceOrderReq) returns (PlaceOrderResp) {}
   rpc ListOrder(ListOrderReq) returns (ListOrderResp) {}
+  rpc MarkOrderPaid(MarkOrderPaidReq) returns (MarkOrderPaidResp) {}
 }
 
 message Address {
@@ -58,3 +59,10 @@ message Order {
 message ListOrderResp {
   repeated Order orders = 1;
 }
+
+message MarkOrderPaidReq {
+  uint32 user_id = 1;
+  string order_id = 2;
+}
+
+message MarkOrderPaidResp {}
