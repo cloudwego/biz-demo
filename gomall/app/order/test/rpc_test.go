@@ -19,5 +19,4 @@ import (
 )
 
 func TestMarkPaid(t *testing.T) {
-
 }

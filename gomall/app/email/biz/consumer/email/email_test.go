@@ -19,5 +19,4 @@ import (
 )
 
 func TestEmailConsumer(t *testing.T) {
-
 }
