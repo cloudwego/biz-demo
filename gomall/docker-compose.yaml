@@ -13,7 +13,7 @@ services:
     ports:
       - 6379:6379
   consul:
-    image: "consul:1.15.4"
+    image: "hashicorp/consul:latest"
     ports:
       - "8500:8500"
     environment:
