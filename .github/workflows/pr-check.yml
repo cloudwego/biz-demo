@@ -1,10 +1,10 @@
 name: Pull Request Check
 
-on: [ pull_request ]
+on: [pull_request]
 
 jobs:
   compliant:
-    runs-on: [ self-hosted, X64 ]
+    runs-on: [self-hosted, X64]
     steps:
       - uses: actions/checkout@v3
 
@@ -33,6 +33,10 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.resolve-modules.outputs.matrix) }}
     steps:
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
       - uses: actions/checkout@v3
       - name: Lint
         uses: golangci/golangci-lint-action@v3
