@@ -19,10 +19,7 @@ header:
     - easy_note/cmd/api/router_gen.go
     - book-shop/kitex_gen/**
     - book-shop/docs/**
-    - gomall/app/**/kitex_gen/**
-    - gomall/app/**/rpc/**
     - gomall/app/frontend/hertz_gen/**
-    - gomall/app/frontend/rpc/**
     - gomall/rpc_gen/**
     - gomall/docs/**
 
