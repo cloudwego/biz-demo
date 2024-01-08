@@ -23,5 +23,7 @@ header:
     - gomall/app/**/rpc/**
     - gomall/app/frontend/hertz_gen/**
     - gomall/app/frontend/rpc/**
+    - gomall/rpc_gen/**
+    - gomall/docs/**
 
   comment: on-failure
