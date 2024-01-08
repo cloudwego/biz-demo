@@ -28,12 +28,12 @@ import (
 
 var Registry *prometheus.Registry
 
-func InitMetric(serviceName string, metricsPort string, registyAddr string) {
+func InitMetric(serviceName string, metricsPort string, registryAddr string) {
 	Registry = prometheus.NewRegistry()
 	Registry.MustRegister(collectors.NewGoCollector())
 	Registry.MustRegister(collectors.NewProcessCollector(collectors.ProcessCollectorOpts{}))
 
-	r, _ := consul.NewConsulRegister(registyAddr)
+	r, _ := consul.NewConsulRegister(registryAddr)
 
 	addr, _ := net.ResolveTCPAddr("tcp", metricsPort)
 
