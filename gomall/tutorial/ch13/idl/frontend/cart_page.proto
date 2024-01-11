@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package frontend.cart;
+
+option go_package = "/frontend/cart";
+
+import "frontend/common.proto";
+import "api.proto";
+
+message AddCartReq {
+  uint32 product_id = 1 [(api.form) = "productId"];
+  int32 product_num = 2 [(api.form) = "productNum"];
+}
+
+service CartService {
+  rpc AddCartItem(AddCartReq) returns (common.Empty) {
+    option (api.post) = "/cart";
+  }
+  rpc GetCart(common.Empty) returns (common.Empty) {
+    option (api.get) = "/cart";
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "app/frontend"
+    },
+    {
+      "path": "app/product"
+    },
+    {
+      "path": "app/user"
+    },
+    {
+      "path": "app/payment"
+    },
+    {
+      "path": "app/order"
+    },
+    {
+      "path": "app/checkout"
+    },
+    {
+      "path": "app/cart"
+    },
+    {
+      "path": "idl"
+    }
+  ],
+  "settings": {}
+}

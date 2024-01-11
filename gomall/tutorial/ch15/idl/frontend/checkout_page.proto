@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package frontend.checkout;
+
+option go_package = "/frontend/checkout";
+
+import "frontend/common.proto";
+import "api.proto";
+
+message CheckoutReq {
+  string email = 1 [(api.form) = "email"];
+  string firstname = 2 [(api.form) = "firstname"];
+  string lastname = 3 [(api.form) = "lastname"];
+  string street = 4 [(api.form) = "street"];
+  string zipcode = 5 [(api.form) = "zipcode"];
+  string province = 6 [(api.form) = "province"];
+  string country = 7 [(api.form) = "country"];
+  string city = 8 [(api.form) = "city"];
+  string card_num = 9 [(api.form) = "cardNum"];
+  int32 expiration_month = 10 [(api.form) = "expirationMonth"];
+  int32 expiration_year = 11 [(api.form) = "expirationYear"];
+  int32 cvv = 12 [(api.form) = "cvv"];
+  string payment = 13 [(api.form) = "payment"];
+}
+
+service CheckoutService {
+  rpc Checkout(CheckoutReq) returns (common.Empty) {
+    option (api.get) = "/checkout";
+  }
+  rpc CheckoutWaiting(common.Empty) returns (common.Empty) {
+    option (api.post) = "/checkout/waiting";
+  }
+  rpc CheckoutResult(common.Empty) returns (common.Empty) {
+    option (api.get) = "/checkout/result";
+  }
+}

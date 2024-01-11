@@ -1,0 +1,99 @@
+{{ define "header" }}
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        {{ if $.redirect }}
+            <meta http-equiv="refresh" content="5;url=/checkout/result"/>
+        {{ end}}
+        <title>
+            CloudWeGo Shop
+        </title>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+              integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    </head>
+
+    <body class="min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <img src="/static/image/logo.jpg" style="height: 50px" alt=""> CloudWego Shop
+                </a>
+                <div class=" ms-lg-3 d-block d-lg-none d-xl-none">
+                    {{ template "cart-num" . }}
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 w-100">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/category/t-shirt">T-shirt</a></li>
+                                <li><a class="dropdown-item" href="/category/sticker">Sticker</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <form class="d-flex ms-auto" role="search" action="/search" method="get">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Search"
+                                   aria-label="Search" value="{{ .q }}">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                        {{ if .user_id }}
+                            <div class="nav-item dropdown ms-3">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                   aria-expanded="false"><i class="fa-solid fa-user me-2"></i>Hello</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/order">Order Center</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <form class="d-flex ms-auto" action="/auth/logout" method="post">
+                                        <button class="dropdown-item" type="submit">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        {{ else }}
+                            <div class="btn-group ms-3" role="group" aria-label="Basic mixed styles example">
+                                <a href="/sign-in" class="btn btn-primary">Sign in</a>
+                            </div>
+                        {{ end }}
+                    </ul>
+                </div>
+                <div class="ms-lg-3 d-none d-lg-block d-xl-block">
+                    {{ template "cart-num" . }}
+                </div>
+
+            </div>
+        </nav>
+        <div class="bg-primary text-center text-white pt-1 pb-1">This website is hosted for demo purposes only. It is
+            not an
+            actual shop.
+        </div>
+        {{ if .error }}
+            <div class="alert alert-danger text-center" role="alert">{{ .error }}</div>
+         {{ end }}
+        {{ if .warning }}
+            <div class="alert alert-warning text-center" role="alert">{{ .warning }}</div>
+        {{ end }}
+    </header>
+    <main role="main" class="home pt-5" style="min-height:calc(100vh - 212px);">
+        <div class="container">
+            <h1 class="text-center">{{ $.title }}</h1>
+{{end}}

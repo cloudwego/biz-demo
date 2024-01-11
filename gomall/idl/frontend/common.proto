@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package frontend.common;
+
+option go_package = "frontend/common";
+
+message Base {
+  string title = 1;
+  uint32 user_id = 2;
+}
+
+message Empty {}

@@ -1,0 +1,38 @@
+version: "3"
+services:
+  consul:
+    image: "consul:1.15.4"
+    ports:
+      - "8500:8500"
+  mysql:
+    image: "mysql:latest"
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./db/sql/ini:/docker-entrypoint-initdb.d
+  redis:
+    image: "redis:latest"
+    ports:
+      - 6379:6379
+  nats:
+    image: nats:latest
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+  # Jaeger
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./deploy/config/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"

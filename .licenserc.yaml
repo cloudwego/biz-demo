@@ -4,8 +4,8 @@ header:
     copyright-owner: CloudWeGo Authors
 
   paths:
-    - '**/*.go'
-    - '**/*.s'
+    - "**/*.go"
+    - "**/*.s"
 
   paths-ignore:
     - bookinfo/kitex_gen/**
@@ -19,5 +19,9 @@ header:
     - easy_note/cmd/api/router_gen.go
     - book-shop/kitex_gen/**
     - book-shop/docs/**
+    - gomall/app/frontend/hertz_gen/**
+    - gomall/rpc_gen/**
+    - gomall/tutorial/**
 
   comment: on-failure
+
