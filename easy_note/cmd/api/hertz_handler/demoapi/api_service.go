@@ -41,7 +41,7 @@ func CreateUser(ctx context.Context, c *app.RequestContext) {
 		SendResponse(c, errno.ConvertErr(err), nil)
 		return
 	}
-	err = rpc.CreateUser(context.Background(), &demouser.CreateUserRequest{
+	err = rpc.CreateUser(ctx, &demouser.CreateUserRequest{
 		Username: req.Username,
 		Password: req.Password,
 	})
@@ -69,7 +69,7 @@ func CreateNote(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
-	err = rpc.CreateNote(context.Background(), &demonote.CreateNoteRequest{
+	err = rpc.CreateNote(ctx, &demonote.CreateNoteRequest{
 		Title:   req.Title,
 		Content: req.Content,
 		UserId:  v.(*demoapi.User).UserID,
@@ -92,7 +92,7 @@ func QueryNote(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
-	notes, total, err := rpc.QueryNotes(context.Background(), &demonote.QueryNoteRequest{
+	notes, total, err := rpc.QueryNotes(ctx, &demonote.QueryNoteRequest{
 		UserId:    v.(*demoapi.User).UserID,
 		SearchKey: req.SearchKey,
 		Offset:    req.Offset,
@@ -119,7 +119,7 @@ func UpdateNote(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
-	err = rpc.UpdateNote(context.Background(), &demonote.UpdateNoteRequest{
+	err = rpc.UpdateNote(ctx, &demonote.UpdateNoteRequest{
 		NoteId:  req.NoteID,
 		UserId:  v.(*demoapi.User).UserID,
 		Title:   req.Title,
@@ -143,7 +143,7 @@ func DeleteNote(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	v, _ := c.Get(consts.IdentityKey)
-	err = rpc.DeleteNote(context.Background(), &demonote.DeleteNoteRequest{
+	err = rpc.DeleteNote(ctx, &demonote.DeleteNoteRequest{
 		NoteId: req.NoteID,
 		UserId: v.(*demoapi.User).UserID,
 	})
