@@ -18,13 +18,16 @@
 package main
 
 import (
+	"context"
 	"github.com/cloudwego/biz-demo/easy_note/cmd/api/mw"
 	"github.com/cloudwego/biz-demo/easy_note/cmd/api/rpc"
+	"github.com/cloudwego/biz-demo/easy_note/pkg/consts"
 	"github.com/cloudwego/hertz/pkg/app/server"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	hertzlogrus "github.com/hertz-contrib/obs-opentelemetry/logging/logrus"
 	"github.com/hertz-contrib/obs-opentelemetry/tracing"
 	"github.com/hertz-contrib/pprof"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
 )
 
 func Init() {
@@ -36,6 +39,13 @@ func Init() {
 }
 
 func main() {
+	p := provider.NewOpenTelemetryProvider(
+		provider.WithServiceName(consts.ApiServiceName),
+		provider.WithExportEndpoint(consts.ExportEndpoint),
+		provider.WithInsecure(),
+	)
+	defer p.Shutdown(context.Background()) // nolint:errcheck
+
 	Init()
 	tracer, cfg := tracing.NewServerTracer()
 	h := server.New(

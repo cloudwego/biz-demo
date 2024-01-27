@@ -25,7 +25,6 @@ import (
 	"github.com/cloudwego/biz-demo/easy_note/pkg/mw"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
-	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	"github.com/kitex-contrib/obs-opentelemetry/tracing"
 	etcd "github.com/kitex-contrib/registry-etcd"
 )
@@ -37,14 +36,6 @@ func initUser() {
 	if err != nil {
 		panic(err)
 	}
-	p := provider.NewOpenTelemetryProvider(
-		provider.WithServiceName(consts.ApiServiceName),
-		provider.WithExportEndpoint(consts.ExportEndpoint),
-		provider.WithInsecure(),
-	)
-	defer func(ctx context.Context, p provider.OtelProvider) {
-		_ = p.Shutdown(ctx)
-	}(context.Background(), p)
 	c, err := userservice.NewClient(
 		consts.UserServiceName,
 		client.WithResolver(r),
