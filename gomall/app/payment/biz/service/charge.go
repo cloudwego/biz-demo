@@ -44,7 +44,6 @@ func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, e
 	}
 
 	err = card.Validate(true)
-
 	if err != nil {
 		return nil, kerrors.NewBizStatusError(400, err.Error())
 	}

@@ -16,9 +16,9 @@
 package auth
 
 import (
+	"crypto/rand"
 	"encoding/hex"
 	"errors"
-	"math/rand"
 )
 
 type SignType string
@@ -54,6 +54,6 @@ func (a *authSM3) Verify(sign string, data map[string]interface{}) bool {
 
 func (a *authSM3) Sign(data map[string]interface{}) string {
 	result := make([]byte, 10)
-	rand.Read(result)
+	rand.Read(result) //nolint:errcheck
 	return hex.EncodeToString(result)
 }

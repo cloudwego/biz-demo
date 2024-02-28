@@ -76,7 +76,6 @@ func (c CachedProductQuery) GetById(productId int) (product Product, err error) 
 		}
 		return nil
 	}()
-
 	if err != nil {
 		product, err = c.productQuery.GetById(productId)
 		if err != nil {

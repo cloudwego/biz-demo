@@ -47,7 +47,6 @@ func (h *RegisterService) Run(req *auth.RegisterReq) (resp *common.Empty, err er
 	session := sessions.Default(h.RequestContext)
 	session.Set("user_id", res.UserId)
 	err = session.Save()
-
 	if err != nil {
 		return nil, err
 	}
