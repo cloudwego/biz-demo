@@ -53,7 +53,6 @@ func initMetric() route.CtxCallback {
 	}
 	registryInfo := &registry.Info{Addr: ip, ServiceName: "prometheus", Weight: 1}
 	err = r.Register(registryInfo)
-
 	if err != nil {
 		hlog.Error(err)
 	}

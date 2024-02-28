@@ -50,7 +50,6 @@ func (s *AddItemService) Run(req *cart.AddItemReq) (resp *cart.AddItemResp, err 
 		ProductId: req.Item.ProductId,
 		Qty:       uint32(req.Item.Quantity),
 	})
-
 	if err != nil {
 		return nil, kerrors.NewBizStatusError(50000, err.Error())
 	}
