@@ -21,17 +21,18 @@ import (
 	"strconv"
 
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/mq"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/email"
-	"github.com/nats-io/nats.go"
-	"google.golang.org/protobuf/proto"
-
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/rpc"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	checkout "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/checkout"
+	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/email"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/payment"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/nats-io/nats.go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/propagation"
+	"google.golang.org/protobuf/proto"
 )
 
 type CheckoutService struct {
@@ -147,7 +148,11 @@ func (s *CheckoutService) Run(req *checkout.CheckoutReq) (resp *checkout.Checkou
 		Subject:     "You just created an order in CloudWeGo shop",
 		Content:     "You just created an order in CloudWeGo shop",
 	})
-	msg := &nats.Msg{Subject: "email", Data: data}
+	msg := &nats.Msg{Subject: "email", Data: data, Header: make(nats.Header)}
+
+	// otel inject
+	otel.GetTextMapPropagator().Inject(s.ctx, propagation.HeaderCarrier(msg.Header))
+
 	_ = mq.Nc.PublishMsg(msg)
 
 	klog.Info(paymentResult)
