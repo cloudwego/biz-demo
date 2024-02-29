@@ -17,14 +17,15 @@ package main
 import (
 	"net"
 
-	"github.com/cloudwego/biz-demo/gomall/app/cart/infra/mtl"
 	"github.com/cloudwego/biz-demo/gomall/app/email/biz/consumer"
 	"github.com/cloudwego/biz-demo/gomall/app/email/conf"
 	"github.com/cloudwego/biz-demo/gomall/app/email/infra/mq"
+	"github.com/cloudwego/biz-demo/gomall/app/email/infra/mtl"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/email/emailservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
 )
 
 func main() {
@@ -48,6 +49,11 @@ func kitexInit() (opts []server.Option) {
 		panic(err)
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
+
+	_ = provider.NewOpenTelemetryProvider(
+		provider.WithSdkTracerProvider(mtl.TracerProvider),
+		provider.WithEnableMetrics(false),
+	)
 
 	// service info
 	opts = append(opts, server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
