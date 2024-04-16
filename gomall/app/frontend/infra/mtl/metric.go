@@ -21,7 +21,7 @@ import (
 	"net/http"
 
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
-	"github.com/cloudwego/hertz/pkg/common/utils"
+	"github.com/cloudwego/biz-demo/gomall/common/utils"
 
 	"github.com/cloudwego/hertz/pkg/app/server/registry"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -46,7 +46,7 @@ func initMetric() route.CtxCallback {
 		Tags: []string{"service:frontend"},
 	}))
 
-	localIp := utils.LocalIP()
+	localIp := utils.MustGetLocalIPv4()
 	ip, err := net.ResolveTCPAddr("tcp", fmt.Sprintf("%s:%d", localIp, conf.GetConf().Hertz.MetricsPort))
 	if err != nil {
 		hlog.Error(err)

@@ -17,8 +17,10 @@ package mtl
 import (
 	"net"
 	"net/http"
+	"strings"
 
 	"github.com/cloudwego/biz-demo/gomall/app/email/conf"
+	"github.com/cloudwego/biz-demo/gomall/common/utils"
 	"github.com/cloudwego/kitex/pkg/registry"
 	"github.com/cloudwego/kitex/server"
 	consul "github.com/kitex-contrib/registry-consul"
@@ -36,7 +38,12 @@ func initMetric() {
 
 	r, _ := consul.NewConsulRegister(conf.GetConf().Registry.RegistryAddress[0])
 
-	addr, _ := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.MetricsPort)
+	metricsPort := conf.GetConf().Kitex.MetricsPort
+	if strings.HasPrefix(metricsPort, ":") {
+		localIp := utils.MustGetLocalIPv4()
+		metricsPort = localIp + metricsPort
+	}
+	addr, _ := net.ResolveTCPAddr("tcp", metricsPort)
 
 	registryInfo := &registry.Info{
 		ServiceName: "prometheus",

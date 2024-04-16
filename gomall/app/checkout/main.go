@@ -17,11 +17,13 @@ package main
 import (
 	"net"
 	"os"
+	"strings"
 
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/mq"
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/mtl"
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/infra/rpc"
+	"github.com/cloudwego/biz-demo/gomall/common/utils"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
@@ -53,7 +55,12 @@ func main() {
 
 func kitexInit() (opts []server.Option) {
 	// address
-	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
+	address := conf.GetConf().Kitex.Address
+	if strings.HasPrefix(address, ":") {
+		localIp := utils.MustGetLocalIPv4()
+		address = localIp + address
+	}
+	addr, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
 		panic(err)
 	}
