@@ -18,6 +18,7 @@ import (
 	"net"
 	"strings"
 
+	"github.com/joho/godotenv"
 	"gopkg.in/natefinch/lumberjack.v2"
 
 	"github.com/cloudwego/biz-demo/gomall/app/email/biz/consumer"
@@ -35,6 +36,7 @@ import (
 var serviceName = conf.GetConf().Kitex.Service
 
 func main() {
+	_ = godotenv.Load()
 	opts := kitexInit()
 
 	mtl.InitLog(&lumberjack.Logger{

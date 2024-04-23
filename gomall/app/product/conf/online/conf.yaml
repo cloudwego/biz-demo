@@ -1,7 +1,7 @@
 kitex:
   service: "product"
-  address: ":8881"
-  metrics_port: ":9991"
+  address: ":8882"
+  metrics_port: ":9992"
   log_level: info
   log_file_name: "log/kitex.log"
   log_max_size: 10

@@ -1,6 +1,6 @@
 kitex:
   service: "email"
-  address: ":8888"
+  address: ":8887"
   log_level: info
   log_file_name: "log/kitex.log"
   log_max_size: 10
