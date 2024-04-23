@@ -16,11 +16,12 @@ package rpc
 
 import (
 	"context"
-	"os"
 	"sync"
 
+	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/mtl"
 	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
+	"github.com/cloudwego/biz-demo/gomall/common/clientsuite"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
@@ -31,17 +32,8 @@ import (
 	"github.com/cloudwego/kitex/pkg/circuitbreak"
 	"github.com/cloudwego/kitex/pkg/fallback"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
-	"github.com/cloudwego/kitex/pkg/transmeta"
-	"github.com/cloudwego/kitex/transport"
-	configEtcd "github.com/kitex-contrib/config-etcd/client"
-	"github.com/kitex-contrib/config-etcd/etcd"
 	prometheus "github.com/kitex-contrib/monitor-prometheus"
-	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/obs-opentelemetry/tracing"
-	consul "github.com/kitex-contrib/registry-consul"
 )
-
-const curServiceName = "frontend"
 
 var (
 	ProductClient  productcatalogservice.Client
@@ -50,10 +42,18 @@ var (
 	CheckoutClient checkoutservice.Client
 	OrderClient    orderservice.Client
 	once           sync.Once
+	err            error
+	registryAddr   string
+	commonSuite    client.Option
 )
 
 func InitClient() {
 	once.Do(func() {
+		registryAddr = conf.GetConf().Hertz.RegistryAddr
+		commonSuite = client.WithSuite(clientsuite.CommonGrpcClientSuite{
+			RegistryAddr:       registryAddr,
+			CurrentServiceName: frontendutils.ServiceName,
+		})
 		initProductClient()
 		initUserClient()
 		initCartClient()
@@ -64,31 +64,13 @@ func InitClient() {
 
 func initProductClient() {
 	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		frontendutils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8881"))
-	}
-
-	configCli, err := etcd.NewClient(etcd.Options{})
-	if err != nil {
-		panic(err)
-	}
-	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-	opts = append(opts,
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
-		client.WithSuite(tracing.NewClientSuite()),
-		client.WithSuite(configEtcd.NewSuite("product", curServiceName, configCli)),
-	)
 
 	cbs := circuitbreak.NewCBSuite(func(ri rpcinfo.RPCInfo) string {
 		return circuitbreak.RPCInfo2Key(ri)
 	})
 	cbs.UpdateServiceCBConfig("shop-frontend/product/GetProduct", circuitbreak.CBConfig{Enable: true, ErrRate: 0.5, MinSample: 2})
 
-	opts = append(opts, client.WithCircuitBreaker(cbs), client.WithFallback(fallback.NewFallbackPolicy(fallback.UnwrapHelper(func(ctx context.Context, req, resp interface{}, err error) (fbResp interface{}, fbErr error) {
+	opts = append(opts, commonSuite, client.WithCircuitBreaker(cbs), client.WithFallback(fallback.NewFallbackPolicy(fallback.UnwrapHelper(func(ctx context.Context, req, resp interface{}, err error) (fbResp interface{}, fbErr error) {
 		methodName := rpcinfo.GetRPCInfo(ctx).To().Method()
 		if err == nil {
 			return resp, err
@@ -115,98 +97,21 @@ func initProductClient() {
 }
 
 func initUserClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		frontendutils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8882"))
-	}
-	configCli, err := etcd.NewClient(etcd.Options{})
-	if err != nil {
-		panic(err)
-	}
-	opts = append(opts, client.WithSuite(configEtcd.NewSuite("user", curServiceName, configCli)))
-
-	UserClient, err = userservice.NewClient("user", opts...)
+	UserClient, err = userservice.NewClient("user", commonSuite)
 	frontendutils.MustHandleError(err)
 }
 
 func initCartClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		frontendutils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8883"))
-	}
-	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-
-	configCli, err := etcd.NewClient(etcd.Options{})
-	if err != nil {
-		panic(err)
-	}
-
-	opts = append(opts,
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
-		client.WithSuite(tracing.NewClientSuite()),
-		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
-		client.WithTransportProtocol(transport.GRPC),
-		client.WithSuite(configEtcd.NewSuite("cart", curServiceName, configCli)),
-	)
-
-	CartClient, err = cartservice.NewClient("cart", opts...)
+	CartClient, err = cartservice.NewClient("cart", commonSuite)
 	frontendutils.MustHandleError(err)
 }
 
 func initCheckoutClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		frontendutils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8884"))
-	}
-	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-
-	configCli, err := etcd.NewClient(etcd.Options{})
-	if err != nil {
-		panic(err)
-	}
-
-	opts = append(opts,
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
-		client.WithSuite(tracing.NewClientSuite()),
-		client.WithSuite(configEtcd.NewSuite("checkout", curServiceName, configCli)),
-	)
-	CheckoutClient, err = checkoutservice.NewClient("checkout", opts...)
+	CheckoutClient, err = checkoutservice.NewClient("checkout", commonSuite)
 	frontendutils.MustHandleError(err)
 }
 
 func initOrderClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		frontendutils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8885"))
-	}
-	configCli, err := etcd.NewClient(etcd.Options{})
-	if err != nil {
-		panic(err)
-	}
-
-	_ = provider.NewOpenTelemetryProvider(provider.WithSdkTracerProvider(mtl.TracerProvider), provider.WithEnableMetrics(false))
-
-	opts = append(opts,
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: frontendutils.ServiceName}),
-		client.WithSuite(tracing.NewClientSuite()),
-		client.WithSuite(configEtcd.NewSuite("order", curServiceName, configCli)),
-	)
-	OrderClient, err = orderservice.NewClient("order", opts...)
+	OrderClient, err = orderservice.NewClient("order", commonSuite)
 	frontendutils.MustHandleError(err)
 }

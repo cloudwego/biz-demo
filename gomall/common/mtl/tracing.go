@@ -17,7 +17,6 @@ package mtl
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/gomall/app/user/conf"
 	"github.com/cloudwego/kitex/server"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -28,7 +27,7 @@ import (
 
 var TracerProvider *tracesdk.TracerProvider
 
-func initTracing() {
+func InitTracing(serviceName string) {
 	exporter, err := otlptracegrpc.New(context.Background())
 	if err != nil {
 		panic(err)
@@ -37,7 +36,7 @@ func initTracing() {
 		exporter.Shutdown(context.Background()) //nolint:errcheck
 	})
 	processor := tracesdk.NewBatchSpanProcessor(exporter)
-	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(conf.GetConf().Kitex.Service)))
+	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(serviceName)))
 	if err != nil {
 		res = resource.Default()
 	}

@@ -16,31 +16,33 @@ package main
 
 import (
 	"net"
-	"os"
 	"strings"
-
-	"github.com/cloudwego/kitex/pkg/transmeta"
 
 	"github.com/cloudwego/biz-demo/gomall/app/product/biz/dal"
 	"github.com/cloudwego/biz-demo/gomall/app/product/conf"
-	"github.com/cloudwego/biz-demo/gomall/app/product/infra/mtl"
+	"github.com/cloudwego/biz-demo/gomall/common/mtl"
+	"github.com/cloudwego/biz-demo/gomall/common/serversuite"
 	"github.com/cloudwego/biz-demo/gomall/common/utils"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	"github.com/joho/godotenv"
-	"github.com/kitex-contrib/config-etcd/etcd"
-	etcdServer "github.com/kitex-contrib/config-etcd/server"
-	prometheus "github.com/kitex-contrib/monitor-prometheus"
 	"github.com/kitex-contrib/obs-opentelemetry/provider"
-	"github.com/kitex-contrib/obs-opentelemetry/tracing"
-	consul "github.com/kitex-contrib/registry-consul"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
+
+var serviceName = conf.GetConf().Kitex.Service
 
 func main() {
 	_ = godotenv.Load()
-	mtl.InitMtl()
+	mtl.InitLog(&lumberjack.Logger{
+		Filename:   conf.GetConf().Kitex.LogFileName,
+		MaxSize:    conf.GetConf().Kitex.LogMaxSize,
+		MaxBackups: conf.GetConf().Kitex.LogMaxBackups,
+		MaxAge:     conf.GetConf().Kitex.LogMaxAge,
+	})
+	mtl.InitTracing(serviceName)
+	mtl.InitMetric(serviceName, conf.GetConf().Kitex.MetricsPort, conf.GetConf().Registry.RegistryAddress[0])
 	dal.Init()
 	opts := kitexInit()
 
@@ -64,32 +66,11 @@ func kitexInit() (opts []server.Option) {
 	}
 	opts = append(opts, server.WithServiceAddr(addr))
 
-	serviceName := conf.GetConf().Kitex.Service
-	etcdClient, err := etcd.NewClient(etcd.Options{})
-	if err != nil {
-		panic(err)
-	}
-
-	opts = append(opts,
-		server.WithSuite(tracing.NewServerSuite()),
-		server.WithSuite(etcdServer.NewSuite(serviceName, etcdClient)),
-		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
-		server.WithMetaHandler(transmeta.ServerHTTP2Handler),
-		server.WithTracer(prometheus.NewServerTracer("", "", prometheus.WithDisableServer(true), prometheus.WithRegistry(mtl.Registry))),
-	)
-
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulRegister(os.Getenv("REGISTRY_ADDR"))
-		if err != nil {
-			klog.Fatal(err)
-		}
-		opts = append(opts, server.WithRegistry(r))
-	}
-
 	_ = provider.NewOpenTelemetryProvider(
 		provider.WithSdkTracerProvider(mtl.TracerProvider),
 		provider.WithEnableMetrics(false),
 	)
-	opts = append(opts, server.WithSuite(tracing.NewServerSuite()))
+
+	opts = append(opts, server.WithSuite(serversuite.CommonServerSuite{CurrentServiceName: serviceName, RegistryAddr: conf.GetConf().Registry.RegistryAddress[0]}))
 	return
 }
