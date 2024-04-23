@@ -19,10 +19,9 @@ import (
 	"sync"
 
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
-	"github.com/cloudwego/biz-demo/gomall/common/clientsuite"
-
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/mtl"
 	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
+	"github.com/cloudwego/biz-demo/gomall/common/clientsuite"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/checkout/checkoutservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
@@ -44,15 +43,17 @@ var (
 	OrderClient    orderservice.Client
 	once           sync.Once
 	err            error
-	registryAddr   = conf.GetConf().Hertz.RegistryAddr
-	commonSuite    = client.WithSuite(clientsuite.CommonGrpcClientSuite{
-		RegistryAddr:       registryAddr,
-		CurrentServiceName: frontendutils.ServiceName,
-	})
+	registryAddr   string
+	commonSuite    client.Option
 )
 
 func InitClient() {
 	once.Do(func() {
+		registryAddr = conf.GetConf().Hertz.RegistryAddr
+		commonSuite = client.WithSuite(clientsuite.CommonGrpcClientSuite{
+			RegistryAddr:       registryAddr,
+			CurrentServiceName: frontendutils.ServiceName,
+		})
 		initProductClient()
 		initUserClient()
 		initCartClient()

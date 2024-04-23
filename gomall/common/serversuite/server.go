@@ -41,7 +41,6 @@ func (s CommonServerSuite) Options() []server.Option {
 	}
 
 	r, err := registryconsul.NewConsulRegister(s.RegistryAddr)
-
 	if err != nil {
 		klog.Fatal(err)
 	}

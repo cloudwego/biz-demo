@@ -34,16 +34,19 @@ var (
 	OrderClient   orderservice.Client
 	once          sync.Once
 	err           error
-	registryAddr  = conf.GetConf().Registry.RegistryAddress[0]
-	serviceName   = conf.GetConf().Kitex.Service
-	commonSuite   = client.WithSuite(clientsuite.CommonGrpcClientSuite{
-		CurrentServiceName: serviceName,
-		RegistryAddr:       registryAddr,
-	})
+	registryAddr  string
+	serviceName   string
+	commonSuite   client.Option
 )
 
 func InitClient() {
 	once.Do(func() {
+		registryAddr = conf.GetConf().Registry.RegistryAddress[0]
+		serviceName = conf.GetConf().Kitex.Service
+		commonSuite = client.WithSuite(clientsuite.CommonGrpcClientSuite{
+			CurrentServiceName: serviceName,
+			RegistryAddr:       registryAddr,
+		})
 		initCartClient()
 		initProductClient()
 		initPaymentClient()

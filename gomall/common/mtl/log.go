@@ -15,10 +15,11 @@
 package mtl
 
 import (
-	"github.com/cloudwego/kitex/server"
 	"io"
 	"os"
 	"time"
+
+	"github.com/cloudwego/kitex/server"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	kitexzap "github.com/kitex-contrib/obs-opentelemetry/logging/zap"

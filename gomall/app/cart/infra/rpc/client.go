@@ -29,12 +29,14 @@ var (
 	ProductClient productcatalogservice.Client
 	once          sync.Once
 	err           error
-	registryAddr  = conf.GetConf().Registry.RegistryAddress[0]
-	serviceName   = conf.GetConf().Kitex.Service
+	registryAddr  string
+	serviceName   string
 )
 
 func InitClient() {
 	once.Do(func() {
+		registryAddr = conf.GetConf().Registry.RegistryAddress[0]
+		serviceName = conf.GetConf().Kitex.Service
 		initProductClient()
 	})
 }
