@@ -15,22 +15,16 @@
 package rpc
 
 import (
-	"os"
 	"sync"
 
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
-	"github.com/cloudwego/kitex/pkg/transmeta"
-	"github.com/cloudwego/kitex/transport"
-
 	checkoututils "github.com/cloudwego/biz-demo/gomall/app/checkout/utils"
-	"github.com/cloudwego/biz-demo/gomall/common/suite"
+	"github.com/cloudwego/biz-demo/gomall/common/clientsuite"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order/orderservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/payment/paymentservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
 	"github.com/cloudwego/kitex/client"
-	"github.com/cloudwego/kitex/pkg/rpcinfo"
-	consul "github.com/kitex-contrib/registry-consul"
 )
 
 var (
@@ -40,9 +34,13 @@ var (
 	OrderClient   orderservice.Client
 	once          sync.Once
 	err           error
+	registryAddr  = conf.GetConf().Registry.RegistryAddress[0]
+	serviceName   = conf.GetConf().Kitex.Service
+	commonSuite   = client.WithSuite(clientsuite.CommonGrpcClientSuite{
+		CurrentServiceName: serviceName,
+		RegistryAddr:       registryAddr,
+	})
 )
-
-var commonOpts []client.Option
 
 func InitClient() {
 	once.Do(func() {
@@ -54,61 +52,21 @@ func InitClient() {
 }
 
 func initProductClient() {
-	ProductClient, err = productcatalogservice.NewClient(
-		"product",
-		client.WithSuite(suite.CommonGrpcClientSuite{
-			DestServiceAddr:    "localhost:8881",
-			CurrentServiceName: "checkout",
-		}),
-	)
+	ProductClient, err = productcatalogservice.NewClient("product", commonSuite)
 	checkoututils.MustHandleError(err)
 }
 
 func initCartClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		checkoututils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8883"))
-	}
-	opts = append(opts,
-		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
-		client.WithTransportProtocol(transport.GRPC),
-		client.WithMetaHandler(transmeta.ServerHTTP2Handler),
-	)
-	opts = append(opts, commonOpts...)
-	CartClient, err = cartservice.NewClient("cart", opts...)
+	CartClient, err = cartservice.NewClient("cart", commonSuite)
 	checkoututils.MustHandleError(err)
 }
 
 func initPaymentClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		checkoututils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8886"))
-	}
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}), client.WithTransportProtocol(transport.GRPC), client.WithMetaHandler(transmeta.ClientHTTP2Handler))
-	opts = append(opts, commonOpts...)
-	PaymentClient, err = paymentservice.NewClient("payment", opts...)
+	PaymentClient, err = paymentservice.NewClient("payment", commonSuite)
 	checkoututils.MustHandleError(err)
 }
 
 func initOrderClient() {
-	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		checkoututils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8885"))
-	}
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}), client.WithTransportProtocol(transport.GRPC), client.WithMetaHandler(transmeta.ClientHTTP2Handler))
-	opts = append(opts, commonOpts...)
-	OrderClient, err = orderservice.NewClient("order", opts...)
+	OrderClient, err = orderservice.NewClient("order", commonSuite)
 	checkoututils.MustHandleError(err)
 }

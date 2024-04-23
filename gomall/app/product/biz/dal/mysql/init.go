@@ -18,9 +18,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/cloudwego/biz-demo/gomall/common/mtl"
+
 	"github.com/cloudwego/biz-demo/gomall/app/product/biz/model"
 	"github.com/cloudwego/biz-demo/gomall/app/product/conf"
-	"github.com/cloudwego/biz-demo/gomall/app/product/infra/mtl"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/plugin/opentelemetry/tracing"

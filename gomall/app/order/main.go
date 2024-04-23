@@ -15,10 +15,11 @@
 package main
 
 import (
-	"github.com/cloudwego/biz-demo/gomall/common/serversuite"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"net"
 	"strings"
+
+	"github.com/cloudwego/biz-demo/gomall/common/serversuite"
+	"gopkg.in/natefinch/lumberjack.v2"
 
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/dal"
 	"github.com/cloudwego/biz-demo/gomall/app/order/conf"
