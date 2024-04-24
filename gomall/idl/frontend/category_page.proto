@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package frontend.category;
 
-option go_package = "/frontend/category";
-
-import "frontend/common.proto";
 import "api.proto";
+import "frontend/common.proto";
+
+option go_package = "/frontend/category";
 
 message CategoryReq { string category = 1; }
 
