@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package frontend.auth;
 
-option go_package = "/frontend/auth";
-
-import "frontend/common.proto";
 import "api.proto";
+import "frontend/common.proto";
+
+option go_package = "/frontend/auth";
 
 message RegisterReq {
   string email = 1 [(api.form) = "email"];

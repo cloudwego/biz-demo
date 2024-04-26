@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package frontend.checkout;
 
-option go_package = "/frontend/checkout";
-
-import "frontend/common.proto";
 import "api.proto";
+import "frontend/common.proto";
+
+option go_package = "/frontend/checkout";
 
 message CheckoutReq {
   string email = 1 [(api.form) = "email"];

@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package frontend.order;
 
-option go_package = "/frontend/order";
-
-import "frontend/common.proto";
 import "api.proto";
+import "frontend/common.proto";
+
+option go_package = "/frontend/order";
 
 service OrderService {
   rpc OrderList(common.Empty) returns (common.Empty) {
