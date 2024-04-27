@@ -5,6 +5,7 @@ go 1.21
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
 require (
+	github.com/bytedance/gopkg v0.0.0-20230728082804-614d0af6619b
 	github.com/cloudwego/fastpb v0.0.4
 	github.com/cloudwego/kitex v0.8.0
 	github.com/joho/godotenv v1.5.1
@@ -24,7 +25,6 @@ require (
 require (
 	github.com/apache/thrift v0.13.0 // indirect
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
-	github.com/bytedance/gopkg v0.0.0-20230728082804-614d0af6619b // indirect
 	github.com/bytedance/sonic v1.10.2 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
