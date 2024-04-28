@@ -12,25 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package redis
+package middleware
 
 import (
 	"context"
+	"fmt"
+	"time"
 
-	"github.com/cloudwego/biz-demo/gomall/demo/demo_proto/conf"
-	"github.com/redis/go-redis/v9"
+	"github.com/cloudwego/kitex/pkg/endpoint"
 )
 
-var RedisClient *redis.Client
-
-func Init() {
-	RedisClient = redis.NewClient(&redis.Options{
-		Addr:     conf.GetConf().Redis.Address,
-		Username: conf.GetConf().Redis.Username,
-		Password: conf.GetConf().Redis.Password,
-		DB:       conf.GetConf().Redis.DB,
-	})
-	if err := RedisClient.Ping(context.Background()).Err(); err != nil {
-		panic(err)
+func Middleware(next endpoint.Endpoint) endpoint.Endpoint {
+	return func(ctx context.Context, req, resp interface{}) (err error) {
+		begin := time.Now()
+		err = next(ctx, req, resp)
+		fmt.Println(time.Since(begin))
+		return err
 	}
 }

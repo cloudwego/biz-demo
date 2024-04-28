@@ -17,6 +17,7 @@ package service
 import (
 	"context"
 	"testing"
+
 	pbapi "github.com/cloudwego/biz-demo/gomall/demo/demo_proto/kitex_gen/pbapi"
 )
 
@@ -31,5 +32,4 @@ func TestEcho_Run(t *testing.T) {
 	t.Logf("resp: %v", resp)
 
 	// todo: edit your unit test
-
 }
