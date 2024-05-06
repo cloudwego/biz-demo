@@ -41,6 +41,6 @@ func Init() {
 	if err != nil {
 		panic(err)
 	}
-	DB.AutoMigrate(model.User{})
+	DB.AutoMigrate(&model.User{})
 	fmt.Printf("%#v", DB.Debug().Exec("select version()"))
 }
