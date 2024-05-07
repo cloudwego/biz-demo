@@ -18,45 +18,69 @@ package main
 
 import (
 	"context"
+	"time"
 
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/biz/router"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
+	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/app/middlewares/server/recovery"
 	"github.com/cloudwego/hertz/pkg/app/server"
+	"github.com/cloudwego/hertz/pkg/common/hlog"
+	"github.com/cloudwego/hertz/pkg/common/utils"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/hertz-contrib/cors"
 	"github.com/hertz-contrib/gzip"
 	"github.com/hertz-contrib/logger/accesslog"
-	hertzotelprovider "github.com/hertz-contrib/obs-opentelemetry/provider"
+	hertzlogrus "github.com/hertz-contrib/logger/logrus"
 	"github.com/hertz-contrib/pprof"
-	"github.com/joho/godotenv"
+	"go.uber.org/zap/zapcore"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func main() {
-	_ = godotenv.Load()
-
+	// init dal
+	// dal.Init()
 	address := conf.GetConf().Hertz.Address
-
-	p := hertzotelprovider.NewOpenTelemetryProvider(
-		hertzotelprovider.WithEnableMetrics(false),
-	)
-	defer p.Shutdown(context.Background())
-
 	h := server.New(server.WithHostPorts(address))
-	h.LoadHTMLGlob("template/*")
-	h.Delims("{{", "}}")
+
+	registerMiddleware(h)
+
+	// add a ping route to test
+	h.GET("/ping", func(c context.Context, ctx *app.RequestContext) {
+		ctx.JSON(consts.StatusOK, utils.H{"ping": "pong"})
+	})
 
 	router.GeneratedRegister(h)
-
+	h.LoadHTMLGlob("template/*")
 	h.Static("/static", "./")
 
 	h.Spin()
 }
 
 func registerMiddleware(h *server.Hertz) {
+	// log
+	logger := hertzlogrus.NewLogger()
+	hlog.SetLogger(logger)
+	hlog.SetLevel(conf.LogLevel())
+	asyncWriter := &zapcore.BufferedWriteSyncer{
+		WS: zapcore.AddSync(&lumberjack.Logger{
+			Filename:   conf.GetConf().Hertz.LogFileName,
+			MaxSize:    conf.GetConf().Hertz.LogMaxSize,
+			MaxBackups: conf.GetConf().Hertz.LogMaxBackups,
+			MaxAge:     conf.GetConf().Hertz.LogMaxAge,
+		}),
+		FlushInterval: time.Minute,
+	}
+	hlog.SetOutput(asyncWriter)
+	h.OnShutdown = append(h.OnShutdown, func(ctx context.Context) {
+		asyncWriter.Sync()
+	})
+
 	// pprof
 	if conf.GetConf().Hertz.EnablePprof {
 		pprof.Register(h)
 	}
+
 	// gzip
 	if conf.GetConf().Hertz.EnableGzip {
 		h.Use(gzip.Gzip(gzip.DefaultCompression))

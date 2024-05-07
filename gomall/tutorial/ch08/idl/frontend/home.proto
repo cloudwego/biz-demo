@@ -1,12 +1,15 @@
-syntax = 'proto3';
+syntax = "proto3";
 
-package frontend.common;
+package frontend.home;
 
 import "api.proto";
-import "frontend/common.proto";
 
 option go_package = "frontend/home";
 
+message Empty {}
+
 service HomeService {
-  rpc Home(common.Empty) returns (Empty) { option (api.get) = "/"; }
+   rpc Home(Empty) returns(Empty) {
+      option (api.get) = "/";
+   }
 }
