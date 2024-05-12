@@ -17,26 +17,29 @@ package service
 import (
 	"context"
 
-	category "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/category"
+	product "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/product"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
+	rpcproduct "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
 )
 
-type CategoryService struct {
+type SearchProducsService struct {
 	RequestContext *app.RequestContext
 	Context        context.Context
 }
 
-func NewCategoryService(Context context.Context, RequestContext *app.RequestContext) *CategoryService {
-	return &CategoryService{RequestContext: RequestContext, Context: Context}
+func NewSearchProducsService(Context context.Context, RequestContext *app.RequestContext) *SearchProducsService {
+	return &SearchProducsService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *CategoryService) Run(req *category.CategoryReq) (resp map[string]any, err error) {
-	p, _ := rpc.ProductClient.ListProducts(h.Context, &product.ListProductsReq{CategoryName: req.Category})
+func (h *SearchProducsService) Run(req *product.SearchProductsReq) (resp map[string]any, err error) {
+	p, err := rpc.ProductClient.SearchProducts(h.Context, &rpcproduct.SearchProductsReq{Query: req.Q})
+	if err != nil {
+		return nil, err
+	}
 	return utils.H{
-		"title": "Category",
-		"items": p.Products,
+		"items": p.Results,
+		"q":     req.Q,
 	}, nil
 }
