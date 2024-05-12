@@ -7,7 +7,9 @@ import "frontend/common.proto";
 
 option go_package = "/frontend/category";
 
-message CategoryReq { string category = 1; }
+message CategoryReq {
+  string category = 1 [(api.path) = "category"];
+}
 
 service CategoryService {
   rpc Category(CategoryReq) returns (common.Empty) {

@@ -29,3 +29,8 @@ func _getproductMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _searchproducsMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
