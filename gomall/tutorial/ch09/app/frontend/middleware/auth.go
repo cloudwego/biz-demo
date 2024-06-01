@@ -19,6 +19,7 @@ import (
 
 	frontendUtils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/hertz/pkg/app"
+	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/hertz-contrib/sessions"
 )
 
@@ -35,7 +36,7 @@ func Auth() app.HandlerFunc {
 		s := sessions.Default(c)
 		userId := s.Get("user_id")
 		if userId == nil {
-			c.Redirect(302, []byte("/sign-in?next="+c.FullPath()))
+			c.Redirect(consts.StatusFound, []byte("/sign-in?next="+c.FullPath()))
 			c.Abort()
 			return
 		}
