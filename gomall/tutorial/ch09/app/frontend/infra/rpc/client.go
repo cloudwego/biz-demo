@@ -18,7 +18,7 @@ import (
 	"sync"
 
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
-	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
+	frontendUtils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
 	consul "github.com/kitex-contrib/registry-consul"
@@ -26,7 +26,8 @@ import (
 
 var (
 	UserClient userservice.Client
-	once       sync.Once
+
+	once sync.Once
 )
 
 func InitClient() {
@@ -36,11 +37,8 @@ func InitClient() {
 }
 
 func initUserClient() {
-	var opts []client.Option
 	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
-	frontendutils.MustHandleError(err)
-	opts = append(opts, client.WithResolver(r))
-
-	UserClient, err = userservice.NewClient("user", opts...)
-	frontendutils.MustHandleError(err)
+	frontendUtils.MustHandleError(err)
+	UserClient, err = userservice.NewClient("user", client.WithResolver(r))
+	frontendUtils.MustHandleError(err)
 }

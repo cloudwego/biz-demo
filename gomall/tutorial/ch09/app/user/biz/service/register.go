@@ -20,7 +20,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/user/biz/dal/mysql"
 	"github.com/cloudwego/biz-demo/gomall/app/user/biz/model"
-	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user"
+	user "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/user"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -34,20 +34,23 @@ func NewRegisterService(ctx context.Context) *RegisterService {
 // Run create note info
 func (s *RegisterService) Run(req *user.RegisterReq) (resp *user.RegisterResp, err error) {
 	// Finish your business logic.
-	if req.Password != req.ConfirmPassword {
-		err = errors.New("Password must be the same as ConfirmPassword")
-		return
+	if req.Email == "" || req.Password == "" || req.PasswordConfirm == "" {
+		return nil, errors.New("email or password is empty")
 	}
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+	if req.Password != req.PasswordConfirm {
+		return nil, errors.New("password not match")
+	}
+	passwordHashed, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
-		return
+		return nil, err
 	}
 	newUser := &model.User{
 		Email:          req.Email,
-		PasswordHashed: string(hashedPassword),
+		PasswordHashed: string(passwordHashed),
 	}
-	if err = model.Create(mysql.DB, s.ctx, newUser); err != nil {
-		return
+	err = model.Create(s.ctx, mysql.DB, newUser)
+	if err != nil {
+		return nil, err
 	}
 
 	return &user.RegisterResp{UserId: int32(newUser.ID)}, nil
