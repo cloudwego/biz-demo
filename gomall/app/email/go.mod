@@ -12,6 +12,7 @@ require (
 	github.com/cloudwego/biz-demo/gomall/common v0.0.0-00010101000000-000000000000
 	github.com/cloudwego/biz-demo/gomall/rpc_gen v0.0.0-00010101000000-000000000000
 	github.com/cloudwego/kitex v0.8.0
+	github.com/joho/godotenv v1.5.1
 	github.com/kitex-contrib/obs-opentelemetry v0.2.6
 	github.com/kr/pretty v0.3.1
 	github.com/nats-io/nats.go v1.31.0

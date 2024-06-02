@@ -48,7 +48,7 @@ func (x *ListProductsReq) fastReadField1(buf []byte, _type int8) (offset int, er
 }
 
 func (x *ListProductsReq) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	x.PageSize, offset, err = fastpb.ReadInt64(buf, _type)
+	x.PageSize, offset, err = fastpb.ReadInt32(buf, _type)
 	return offset, err
 }
 
@@ -299,7 +299,7 @@ func (x *ListProductsReq) fastWriteField2(buf []byte) (offset int) {
 	if x.PageSize == 0 {
 		return offset
 	}
-	offset += fastpb.WriteInt64(buf[offset:], 2, x.GetPageSize())
+	offset += fastpb.WriteInt32(buf[offset:], 2, x.GetPageSize())
 	return offset
 }
 
@@ -480,7 +480,7 @@ func (x *ListProductsReq) sizeField2() (n int) {
 	if x.PageSize == 0 {
 		return n
 	}
-	n += fastpb.SizeInt64(2, x.GetPageSize())
+	n += fastpb.SizeInt32(2, x.GetPageSize())
 	return n
 }
 

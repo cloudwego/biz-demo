@@ -1,28 +1,26 @@
-{{ define "sign-up" }}
-    {{ template "header" . }}
-    <div class="container row p-5">
-        <div class="col-3"></div>
-        <form method="post" class="col-6" action="/auth/register">
+{{define "sign-up"}}
+{{ template "header" . }}
+    <div class="row justify-content-center">
+        <div class="col-4">
+        <form method="post" action="/auth/register">
             <div class="mb-3">
-                <label for="email" class="form-label">Email {{template "required"}}</label>
-                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password {{template "required"}}</label>
-                <input type="password" class="form-control" id="password" name="password">
+              <label for="email" class="form-label">Email {{template "required"}}</label>
+              <input type="email" class="form-control" id="email" name="email">
             </div>
             <div class="mb-3">
-                <label for="password-confirm" class="form-label">Password confirm {{template "required"}}</label>
-                <input type="password" class="form-control" id="password-confirm" name="password-confirm">
+              <label for="password" class="form-label">Password {{template "required"}}</label>
+              <input type="password" class="form-control" id="password" name="password">
             </div>
             <div class="mb-3">
-                Already have account, click here to <a href="/sign-in">Sign in</a>
+                <label for="password_confirm" class="form-label">Password Confirm {{template "required"}}</label>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+              </div>
+            <div class="mb-3">
+                Already have a account, click here to <a href="/sign-in">Sign In</a>.
             </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Sign up</button>
-            </div>
-        </form>
-        <div class="col-3"></div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </form>
     </div>
-    {{ template "footer" . }}
-{{ end }}
+</div>
+{{ template "footer" .}}
+{{end}}
