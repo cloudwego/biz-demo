@@ -16,8 +16,9 @@ package service
 
 import (
 	"context"
-	api "github.com/cloudwego/biz-demo/gomall/demo/demo_thrift/kitex_gen/api"
 	"testing"
+
+	api "github.com/cloudwego/biz-demo/gomall/demo/demo_thrift/kitex_gen/api"
 )
 
 func TestEcho_Run(t *testing.T) {
