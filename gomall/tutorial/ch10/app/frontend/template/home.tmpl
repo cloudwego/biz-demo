@@ -3,11 +3,13 @@
     <div class="row">
       {{range .items}}
       <div class="card col-xl-3 col-lg-4 col-md-6 col-sm-12 p-5 border-0" >
-        <img src="{{.Picture}}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">{{ .Name}}</p>
-          <h5 class="card-title">{{ .Price}}</h5>
-        </div>
+        <a href="/product?id={{ .Id }}" class="btn">
+          <img src="{{.Picture}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">{{ .Name}}</p>
+            <h5 class="card-title">{{ .Price}}</h5>
+          </div>
+        </a>
       </div>
       {{end}}
     </div>
