@@ -32,8 +32,15 @@ func NewLogoutService(Context context.Context, RequestContext *app.RequestContex
 }
 
 func (h *LogoutService) Run(req *common.Empty) (resp *common.Empty, err error) {
+	//defer func() {
+	// hlog.CtxInfof(h.Context, "req = %+v", req)
+	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
+	//}()
 	session := sessions.Default(h.RequestContext)
 	session.Clear()
-	session.Save() //nolint:errcheck
+	err = session.Save()
+	if err != nil {
+		return nil, err
+	}
 	return
 }

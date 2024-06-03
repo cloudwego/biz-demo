@@ -16,6 +16,6 @@ package middleware
 
 import "github.com/cloudwego/hertz/pkg/app/server"
 
-func RegisterMiddleware(h *server.Hertz) {
+func Register(h *server.Hertz) {
 	h.Use(GlobalAuth())
 }

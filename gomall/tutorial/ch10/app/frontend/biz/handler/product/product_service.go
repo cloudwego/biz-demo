@@ -40,5 +40,26 @@ func GetProduct(ctx context.Context, c *app.RequestContext) {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
 	}
-	c.HTML(consts.StatusOK, "product", utils.WarpResponse(ctx, c, resp))
+
+	c.HTML(consts.StatusOK, "product", resp)
+}
+
+// SearchProducts .
+// @router /search [GET]
+func SearchProducts(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req product.SearchProductsReq
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+
+	resp, err := service.NewSearchProductsService(ctx, c).Run(&req)
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+
+	c.HTML(consts.StatusOK, "search", resp)
 }

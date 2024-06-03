@@ -1,11 +1,11 @@
 export ROOT_MOD=github.com/cloudwego/biz-demo/gomall
 .PHONY: gen-demo-proto
 gen-demo-proto:
-	@cd demo/demo_proto && cwgo server -I ../../idl --module github.com/cloudwego/biz-demo/gomall/demo/demo_proto --service demo_proto --idl ../../idl/echo.proto
+	@cd demo/demo_proto && cwgo server -I ../../idl --module ${ROOT_MOD}/demo/demo_proto --service demo_proto --idl ../../idl/echo.proto
 
 .PHONY: gen-demo-thrift
 gen-demo-thrift:
-	@cd demo/demo_thrift && cwgo server --module github.com/cloudwego/biz-demo/gomall/demo/demo_thrift --service demo_thrift --idl ../../idl/echo.thrift
+	@cd demo/demo_thrift && cwgo server --module  ${ROOT_MOD}/demo/demo_thrift --service demo_thrift --idl ../../idl/echo.thrift
 
 .PHONY: demo-link-fix
 demo-link-fix:
@@ -13,7 +13,7 @@ demo-link-fix:
 
 .PHONY: gen-frontend
 gen-frontend:
-	@cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module github.com/cloudwego/biz-demo/gomall/app/frontend --idl ../../idl/frontend/category_page.proto
+	@cd app/frontend && cwgo server -I ../../idl --type HTTP --service frontend --module  ${ROOT_MOD}/app/frontend --idl ../../idl/frontend/category_page.proto
 
 .PHONY: gen-user
 gen-user: 
