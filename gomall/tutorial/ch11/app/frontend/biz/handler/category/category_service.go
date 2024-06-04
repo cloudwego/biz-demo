@@ -40,5 +40,6 @@ func Category(ctx context.Context, c *app.RequestContext) {
 		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
 		return
 	}
+
 	c.HTML(consts.StatusOK, "category", utils.WarpResponse(ctx, c, resp))
 }

@@ -17,6 +17,7 @@ package service
 import (
 	"context"
 	"testing"
+
 	pbapi "github.com/cloudwego/biz-demo/gomall/demo/demo_proto/kitex_gen/pbapi"
 )
 
