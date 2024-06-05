@@ -22,7 +22,6 @@ import (
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product"
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/utils"
-	"github.com/cloudwego/kitex/pkg/klog"
 )
 
 type HomeService struct {
@@ -35,15 +34,13 @@ func NewHomeService(Context context.Context, RequestContext *app.RequestContext)
 }
 
 func (h *HomeService) Run(req *common.Empty) (res map[string]any, err error) {
-	ctx := h.Context
-	p, err := rpc.ProductClient.ListProducts(ctx, &product.ListProductsReq{})
+	products, err := rpc.ProductClient.ListProducts(h.Context, &product.ListProductsReq{})
 	if err != nil {
-		klog.Error(err)
+		return nil, err
 	}
-	var cartNum int
+
 	return utils.H{
-		"title":    "Hot sale",
-		"cart_num": cartNum,
-		"items":    p.Products,
+		"title": "Hot sale",
+		"items": products.Products,
 	}, nil
 }

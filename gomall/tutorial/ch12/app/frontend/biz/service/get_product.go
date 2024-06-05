@@ -34,10 +34,11 @@ func NewGetProductService(Context context.Context, RequestContext *app.RequestCo
 }
 
 func (h *GetProductService) Run(req *product.ProductReq) (resp map[string]any, err error) {
-	p, err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductReq{Id: req.GetId()})
+	p, err := rpc.ProductClient.GetProduct(h.Context, &rpcproduct.GetProductReq{Id: req.Id})
 	if err != nil {
 		return nil, err
 	}
+
 	return utils.H{
 		"item": p.Product,
 	}, nil

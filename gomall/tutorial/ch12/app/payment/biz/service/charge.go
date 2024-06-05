@@ -36,6 +36,7 @@ func NewChargeService(ctx context.Context) *ChargeService {
 
 // Run create note info
 func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, err error) {
+	// Finish your business logic.
 	card := creditcard.Card{
 		Number: req.CreditCard.CreditCardNumber,
 		Cvv:    strconv.Itoa(int(req.CreditCard.CreditCardCvv)),
@@ -44,27 +45,24 @@ func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, e
 	}
 
 	err = card.Validate(true)
-
 	if err != nil {
-		return nil, kerrors.NewBizStatusError(400, err.Error())
+		return nil, kerrors.NewGRPCBizStatusError(4004001, err.Error())
+	}
+	transactionId, err := uuid.NewRandom()
+	if err != nil {
+		return nil, kerrors.NewGRPCBizStatusError(4005001, err.Error())
 	}
 
-	translationId, err := uuid.NewRandom()
-	if err != nil {
-		return nil, err
-	}
 	err = model.CreatePaymentLog(mysql.DB, s.ctx, &model.PaymentLog{
 		UserId:        req.UserId,
 		OrderId:       req.OrderId,
-		TransactionId: translationId.String(),
+		TransactionId: transactionId.String(),
 		Amount:        req.Amount,
 		PayAt:         time.Now(),
 	})
 	if err != nil {
-		return nil, err
+		return nil, kerrors.NewGRPCBizStatusError(4005002, err.Error())
 	}
-	if err != nil {
-		return nil, err
-	}
-	return &payment.ChargeResp{TransactionId: translationId.String()}, nil
+
+	return &payment.ChargeResp{TransactionId: transactionId.String()}, nil
 }

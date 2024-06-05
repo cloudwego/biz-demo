@@ -20,6 +20,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/payment/biz/model"
 	"github.com/cloudwego/biz-demo/gomall/app/payment/conf"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -37,12 +38,8 @@ func Init() {
 			SkipDefaultTransaction: true,
 		},
 	)
+	DB.AutoMigrate(&model.PaymentLog{})
 	if err != nil {
 		panic(err)
-	}
-	if os.Getenv("GO_ENV") != "online" {
-		DB.AutoMigrate( //nolint:errcheck
-			&model.PaymentLog{},
-		)
 	}
 }

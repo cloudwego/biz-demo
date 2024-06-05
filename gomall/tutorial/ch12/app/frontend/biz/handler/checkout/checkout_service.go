@@ -30,7 +30,7 @@ import (
 // @router /checkout [GET]
 func Checkout(ctx context.Context, c *app.RequestContext) {
 	var err error
-	var req checkout.CheckoutReq
+	var req common.Empty
 	err = c.BindAndValidate(&req)
 	if err != nil {
 		c.HTML(consts.StatusOK, "checkout", utils.WarpResponse(ctx, c, hertzUtils.H{"warning": err}))

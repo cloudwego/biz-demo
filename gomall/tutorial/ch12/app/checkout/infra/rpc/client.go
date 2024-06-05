@@ -15,11 +15,9 @@
 package rpc
 
 import (
-	"os"
 	"sync"
 
 	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
-	checkoututils "github.com/cloudwego/biz-demo/gomall/app/checkout/utils"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart/cartservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/payment/paymentservice"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/product/productcatalogservice"
@@ -38,8 +36,6 @@ var (
 	err           error
 )
 
-var commonOpts []client.Option
-
 func InitClient() {
 	once.Do(func() {
 		initCartClient()
@@ -48,51 +44,59 @@ func InitClient() {
 	})
 }
 
-func initProductClient() {
+func initCartClient() {
 	var opts []client.Option
 	r, err := consul.NewConsulResolver(conf.GetConf().Registry.RegistryAddress[0])
-	checkoututils.MustHandleError(err)
+	if err != nil {
+		panic(err)
+	}
+
 	opts = append(opts, client.WithResolver(r))
 	opts = append(opts,
 		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
 		client.WithTransportProtocol(transport.GRPC),
 		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
 	)
-
-	ProductClient, err = productcatalogservice.NewClient("product", opts...)
-	checkoututils.MustHandleError(err)
+	CartClient, err = cartservice.NewClient("cart", opts...)
+	if err != nil {
+		panic(err)
+	}
 }
 
-func initCartClient() {
+func initProductClient() {
 	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		checkoututils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8883"))
+	r, err := consul.NewConsulResolver(conf.GetConf().Registry.RegistryAddress[0])
+	if err != nil {
+		panic(err)
 	}
+
+	opts = append(opts, client.WithResolver(r))
 	opts = append(opts,
 		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
 		client.WithTransportProtocol(transport.GRPC),
-		client.WithMetaHandler(transmeta.ServerHTTP2Handler),
+		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
 	)
-	opts = append(opts, commonOpts...)
-	CartClient, err = cartservice.NewClient("cart", opts...)
-	checkoututils.MustHandleError(err)
+	ProductClient, err = productcatalogservice.NewClient("product", opts...)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func initPaymentClient() {
 	var opts []client.Option
-	if os.Getenv("REGISTRY_ENABLE") == "true" {
-		r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
-		checkoututils.MustHandleError(err)
-		opts = append(opts, client.WithResolver(r))
-	} else {
-		opts = append(opts, client.WithHostPorts("localhost:8886"))
+	r, err := consul.NewConsulResolver(conf.GetConf().Registry.RegistryAddress[0])
+	if err != nil {
+		panic(err)
 	}
-	opts = append(opts, client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}), client.WithTransportProtocol(transport.GRPC), client.WithMetaHandler(transmeta.ClientHTTP2Handler))
-	opts = append(opts, commonOpts...)
+
+	opts = append(opts, client.WithResolver(r))
+	opts = append(opts,
+		client.WithClientBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: conf.GetConf().Kitex.Service}),
+		client.WithTransportProtocol(transport.GRPC),
+		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
+	)
 	PaymentClient, err = paymentservice.NewClient("payment", opts...)
-	checkoututils.MustHandleError(err)
+	if err != nil {
+		panic(err)
+	}
 }

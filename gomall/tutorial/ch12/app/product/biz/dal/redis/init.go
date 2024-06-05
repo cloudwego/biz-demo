@@ -18,7 +18,6 @@ import (
 	"context"
 
 	"github.com/cloudwego/biz-demo/gomall/app/product/conf"
-	"github.com/redis/go-redis/extra/redisotel/v9"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -34,5 +33,4 @@ func Init() {
 	if err := RedisClient.Ping(context.Background()).Err(); err != nil {
 		panic(err)
 	}
-	redisotel.InstrumentTracing(RedisClient) //nolint:errcheck
 }
