@@ -38,8 +38,14 @@ func Init() {
 			SkipDefaultTransaction: true,
 		},
 	)
-	DB.AutoMigrate(&model.Cart{})
 	if err != nil {
 		panic(err)
+	}
+
+	if os.Getenv("GO_ENV") != "online" {
+		err = DB.AutoMigrate(&model.Cart{})
+		if err != nil {
+			panic(err)
+		}
 	}
 }
