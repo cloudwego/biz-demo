@@ -30,9 +30,9 @@ func GeneratedRegister(r *server.Hertz) {
 	//INSERT_POINT: DO NOT DELETE THIS LINE!
 	cart.Register(r)
 
-	product.Register(r)
-
 	category.Register(r)
+
+	product.Register(r)
 
 	auth.Register(r)
 

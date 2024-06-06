@@ -32,9 +32,10 @@ func NewSearchProductsService(ctx context.Context) *SearchProductsService {
 // Run create note info
 func (s *SearchProductsService) Run(req *product.SearchProductsReq) (resp *product.SearchProductsResp, err error) {
 	// Finish your business logic.
-	p, err := model.SearchProduct(mysql.DB, s.ctx, req.Query)
+	productQuery := model.NewProductQuery(s.ctx, mysql.DB)
+	products, err := productQuery.SearchProducts(req.Query)
 	var results []*product.Product
-	for _, v := range p {
+	for _, v := range products {
 		results = append(results, &product.Product{
 			Id:          uint32(v.ID),
 			Name:        v.Name,
@@ -43,5 +44,6 @@ func (s *SearchProductsService) Run(req *product.SearchProductsReq) (resp *produ
 			Price:       v.Price,
 		})
 	}
+
 	return &product.SearchProductsResp{Results: results}, err
 }
