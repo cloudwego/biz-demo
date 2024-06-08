@@ -1,6 +1,6 @@
 module github.com/cloudwego/biz-demo/gomall/hello_world
 
-go 1.21.4
+go 1.21.5
 
 require github.com/cloudwego/hertz v0.7.3
 

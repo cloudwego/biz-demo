@@ -22,7 +22,7 @@ import (
 )
 
 type PaymentLog struct {
-	Base
+	gorm.Model
 	UserId        uint32    `json:"user_id"`
 	OrderId       string    `json:"order_id"`
 	TransactionId string    `json:"transaction_id"`
@@ -31,7 +31,7 @@ type PaymentLog struct {
 }
 
 func (p PaymentLog) TableName() string {
-	return "payment"
+	return "payment_log"
 }
 
 func CreatePaymentLog(db *gorm.DB, ctx context.Context, payment *PaymentLog) error {

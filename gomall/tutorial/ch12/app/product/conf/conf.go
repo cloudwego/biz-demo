@@ -15,6 +15,7 @@
 package conf
 
 import (
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sync"
@@ -36,8 +37,6 @@ type Config struct {
 	MySQL    MySQL    `yaml:"mysql"`
 	Redis    Redis    `yaml:"redis"`
 	Registry Registry `yaml:"registry"`
-	// Centralized Config Server
-	ConfigServer ConfigServer `yaml:"configServer"`
 }
 
 type MySQL struct {
@@ -54,7 +53,6 @@ type Redis struct {
 type Kitex struct {
 	Service         string `yaml:"service"`
 	Address         string `yaml:"address"`
-	MetricsPort     string `yaml:"metrics_port"`
 	EnablePprof     bool   `yaml:"enable_pprof"`
 	EnableGzip      bool   `yaml:"enable_gzip"`
 	EnableAccessLog bool   `yaml:"enable_access_log"`
@@ -71,8 +69,6 @@ type Registry struct {
 	Password        string   `yaml:"password"`
 }
 
-type ConfigServer struct{}
-
 // GetConf gets configuration instance
 func GetConf() *Config {
 	once.Do(initConf)
@@ -82,7 +78,7 @@ func GetConf() *Config {
 func initConf() {
 	prefix := "conf"
 	confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
-	content, err := os.ReadFile(confFileRelPath)
+	content, err := ioutil.ReadFile(confFileRelPath)
 	if err != nil {
 		panic(err)
 	}

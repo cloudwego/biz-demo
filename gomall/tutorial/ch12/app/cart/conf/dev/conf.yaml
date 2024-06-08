@@ -1,7 +1,6 @@
 kitex:
   service: "cart"
   address: ":8883"
-  metrics_port: ":9993"
   log_level: info
   log_file_name: "log/kitex.log"
   log_max_size: 10
@@ -15,7 +14,7 @@ registry:
   password: ""
 
 mysql:
-  dsn: "%s:%s@tcp(%s:3306)/product?charset=utf8mb4&parseTime=True&loc=Local"
+  dsn: "%s:%s@tcp(%s:3306)/cart?charset=utf8mb4&parseTime=True&loc=Local"
 
 redis:
   address: "127.0.0.1:6379"
