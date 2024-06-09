@@ -21,29 +21,31 @@ import (
 )
 
 type Consignee struct {
-	Email string
-
+	Email         string
 	StreetAddress string
 	City          string
 	State         string
 	Country       string
-	ZipCode       int32
+	ZipCode       string
 }
 
 type Order struct {
-	Base
-	OrderId      string `gorm:"uniqueIndex;size:256"`
-	UserId       uint32
-	UserCurrency string
-	Consignee    Consignee   `gorm:"embedded"`
-	OrderItems   []OrderItem `gorm:"foreignKey:OrderIdRefer;references:OrderId"`
+	gorm.Model
+	OrderId    string      `gorm:"type:varchar(100);uniqueIndex"`
+	UserId     uint32      `gorm:"type:int(11)"`
+	Consignee  Consignee   `gorm:"embedded"`
+	OrderItems []OrderItem `gorm:"foreignKey:OrderIdRefer;references:OrderId"`
 }
 
-func (o Order) TableName() string {
+func (Order) TableName() string {
 	return "order"
 }
 
-func ListOrder(db *gorm.DB, ctx context.Context, userId uint32) (orders []Order, err error) {
-	err = db.Debug().Model(&Order{}).Where(&Order{UserId: userId}).Preload("OrderItems").Find(&orders).Error
-	return
+func ListOrder(ctx context.Context, db *gorm.DB, userId uint32) ([]*Order, error) {
+	var orders []*Order
+	err := db.WithContext(ctx).Where("user_id = ?", userId).Preload("OrderItems").Find(&orders).Error
+	if err != nil {
+		return nil, err
+	}
+	return orders, nil
 }

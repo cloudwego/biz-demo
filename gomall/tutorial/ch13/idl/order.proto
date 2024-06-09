@@ -4,57 +4,55 @@ package order;
 
 import "cart.proto";
 
-option go_package = "order";
+option go_package = "/order";
 
 service OrderService {
-  rpc PlaceOrder(PlaceOrderReq) returns (PlaceOrderResp) {}
-  rpc ListOrder(ListOrderReq) returns (ListOrderResp) {}
+  rpc PlaceOrder (PlaceOrderReq) returns (PlaceOrderResp) {}
+  rpc ListOrder (ListOrderReq) returns (ListOrderResp) {}
 }
 
 message Address {
-  string street_address = 1;
-  string city = 2;
-  string state = 3;
-  string country = 4;
-  int32 zip_code = 5;
-}
-
-message PlaceOrderReq {
-  uint32 user_id = 1;
-  string user_currency = 2;
-
-  Address address = 3;
-  string email = 4;
-  repeated OrderItem order_items = 5;
+    string street_address = 1;
+    string city = 2;
+    string state = 3;
+    string country = 4;
+    string zip_code = 5;
 }
 
 message OrderItem {
-  cart.CartItem item = 1;
-  float cost = 2;
+    cart.CartItem item = 1;
+    float cost = 2;
+}
+
+message PlaceOrderReq {
+    uint32 user_id = 1;
+
+    Address address = 3;
+    string email = 4;
+    repeated OrderItem items = 5;
 }
 
 message OrderResult {
-  string order_id = 1;
+    string order_id = 1;
 }
 
 message PlaceOrderResp {
-  OrderResult order = 1;
+    OrderResult order = 1;
 }
 
 message ListOrderReq {
-  uint32 user_id = 1;
+    uint32 user_id = 1;
 }
 
 message Order {
-  repeated OrderItem order_items = 1;
-  string order_id = 2;
-  uint32 user_id = 3;
-  string user_currency = 4;
-  Address address = 5;
-  string email = 6;
-  int32 created_at = 7;
+    repeated OrderItem items = 1;
+    string order_id = 2;
+    uint32 user_id = 3;
+    Address address = 4;
+    string email = 5;
+    int32 created_at = 6;
 }
 
 message ListOrderResp {
-  repeated Order orders = 1;
+    repeated Order orders = 1;
 }

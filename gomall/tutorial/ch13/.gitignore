@@ -1,0 +1,4 @@
+app/*/log
+app/*/tmp
+app/*/.env
+go.work.sum

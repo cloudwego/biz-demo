@@ -36,9 +36,9 @@ func GeneratedRegister(r *server.Hertz) {
 
 	cart.Register(r)
 
-	product.Register(r)
-
 	category.Register(r)
+
+	product.Register(r)
 
 	auth.Register(r)
 

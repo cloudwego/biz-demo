@@ -1,7 +1,6 @@
 kitex:
   service: "order"
-  address: ":8885"
-  metrics_port: ":9995"
+  address: ":8884"
   log_level: info
   log_file_name: "log/kitex.log"
   log_max_size: 10

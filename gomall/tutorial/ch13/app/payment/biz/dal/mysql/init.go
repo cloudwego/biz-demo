@@ -20,6 +20,8 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/payment/biz/model"
 	"github.com/cloudwego/biz-demo/gomall/app/payment/conf"
+	"github.com/cloudwego/kitex/pkg/klog"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -41,8 +43,8 @@ func Init() {
 		panic(err)
 	}
 	if os.Getenv("GO_ENV") != "online" {
-		DB.AutoMigrate( //nolint:errcheck
-			&model.PaymentLog{},
-		)
+		if err = DB.AutoMigrate(&model.PaymentLog{}); err != nil {
+			klog.Error(err)
+		}
 	}
 }
