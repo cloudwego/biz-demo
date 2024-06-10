@@ -55,3 +55,18 @@ services:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     ports:
       - "3000:3000"
+
+  loki:
+    image: grafana/loki:2.9.2
+    volumes:
+      - ./deploy/config/loki.yml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    volumes:
+      - ./deploy/config/promtail.yml:/etc/promtail/config.yml
+      - ./app/frontend/log:/logs/frontend
+    command: -config.file=/etc/promtail/config.yml
