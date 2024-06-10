@@ -7,10 +7,10 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  - url: http://localhost:3100/loki/api/v1/push
+  - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: kitex
+  - job_name: hertz
     pipeline_stages:
       - json:
           expressions:
@@ -21,5 +21,5 @@ scrape_configs:
       - targets:
           - localhost
         labels:
-          job: demo_proto
-          __path__: demo/demo_proto/log/kitex.log
+          app: frontend
+          __path__: /logs/frontend/hertz.log
