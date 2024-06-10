@@ -123,6 +123,7 @@ github.com/cloudwego/frugal v0.1.6/go.mod h1:9ElktKsh5qd2zDBQ5ENhPSQV7F2dZ/mXlr1
 github.com/cloudwego/frugal v0.1.12 h1:/AFrjnMVOBBd6d5Vn59bU2IhlOP2vs/jQCsJ2seJBfs=
 github.com/cloudwego/frugal v0.1.12/go.mod h1:zFBA63ne4+Tz4qayRZFZf+ZVwGqTzb+1Xe3ZDCq+Wfc=
 github.com/cloudwego/hertz v0.7.3 h1:VM1DxditA6vxI97rG5SBu4hHB24xdzDbKBQfUy7sfVE=
+github.com/cloudwego/hertz v0.7.3/go.mod h1:WliNtVbwihWHHgAaIQEbVXl0O3aWj0ks1eoPrcEAnjs=
 github.com/cloudwego/kitex v0.3.2/go.mod h1:/XD07VpUD9VQWmmoepASgZ6iw//vgWikVA9MpzLC5i0=
 github.com/cloudwego/kitex v0.4.4/go.mod h1:3FcH5h9Qw+dhRljSzuGSpWuThttA8DvK0BsL7HUYydo=
 github.com/cloudwego/kitex v0.5.1/go.mod h1:B3oH+MTQ7/wBL3BrCAMlyeyjAqOpi4pRzCvQcXN7RgM=
@@ -328,6 +329,7 @@ github.com/hertz-contrib/obs-opentelemetry/provider v0.2.3 h1:SO/KKRPhh2lbheQf89
 github.com/hertz-contrib/obs-opentelemetry/provider v0.2.3/go.mod h1:neuPg2FGeUZ5z1dxzkrvcPTtmOBcHhsXVGlprpGOwts=
 github.com/iancoleman/strcase v0.2.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
 github.com/iancoleman/strcase v0.3.0 h1:nTXanmYxhfFAMjZL34Ov6gkzEsSJZ5DbhxWjvSASxEI=
+github.com/iancoleman/strcase v0.3.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
 github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/ianlancetaylor/demangle v0.0.0-20220319035150-800ac71e25c2/go.mod h1:aYm2/VgdVmcIU8iMfdMvDMsRAQjcfZSKFby6HOFvi/w=
 github.com/jhump/protoreflect v1.8.2 h1:k2xE7wcUomeqwY0LDCYA16y4WWfyTcMx5mKhk0d4ua0=

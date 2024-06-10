@@ -15,7 +15,6 @@
 package clientsuite
 
 import (
-	checkoututils "github.com/cloudwego/biz-demo/gomall/app/checkout/utils"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/pkg/transmeta"
@@ -31,7 +30,9 @@ type CommonGrpcClientSuite struct {
 
 func (s CommonGrpcClientSuite) Options() []client.Option {
 	r, err := consul.NewConsulResolver(s.RegistryAddr)
-	checkoututils.MustHandleError(err)
+	if err != nil {
+		panic(err)
+	}
 	opts := []client.Option{
 		client.WithResolver(r),
 		client.WithMetaHandler(transmeta.ClientHTTP2Handler),
