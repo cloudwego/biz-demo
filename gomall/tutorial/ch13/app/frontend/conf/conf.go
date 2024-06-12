@@ -51,7 +51,6 @@ type Redis struct {
 
 type Hertz struct {
 	Address         string `yaml:"address"`
-	MetricsPort     int    `yaml:"metrics_port"`
 	EnablePprof     bool   `yaml:"enable_pprof"`
 	EnableGzip      bool   `yaml:"enable_gzip"`
 	EnableAccessLog bool   `yaml:"enable_access_log"`

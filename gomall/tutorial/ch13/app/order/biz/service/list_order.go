@@ -21,7 +21,7 @@ import (
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/model"
 	"github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	order "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/order"
-	"github.com/cloudwego/kitex/pkg/klog"
+	"github.com/cloudwego/kitex/pkg/kerrors"
 )
 
 type ListOrderService struct {
@@ -34,41 +34,40 @@ func NewListOrderService(ctx context.Context) *ListOrderService {
 // Run create note info
 func (s *ListOrderService) Run(req *order.ListOrderReq) (resp *order.ListOrderResp, err error) {
 	// Finish your business logic.
-	orders, err := model.ListOrder(mysql.DB, s.ctx, req.UserId)
+	list, err := model.ListOrder(s.ctx, mysql.DB, req.UserId)
 	if err != nil {
-		klog.Errorf("model.ListOrder.err:%v", err)
-		return nil, err
+		return nil, kerrors.NewBizStatusError(500001, err.Error())
 	}
-	var list []*order.Order
-	for _, v := range orders {
+
+	var orders []*order.Order
+	for _, v := range list {
 		var items []*order.OrderItem
-		for _, v := range v.OrderItems {
+		for _, oi := range v.OrderItems {
 			items = append(items, &order.OrderItem{
-				Cost: v.Cost,
 				Item: &cart.CartItem{
-					ProductId: v.ProductId,
-					Quantity:  v.Quantity,
+					ProductId: oi.ProductId,
+					Quantity:  oi.Quantity,
 				},
+				Cost: oi.Cost,
 			})
 		}
-		o := &order.Order{
-			OrderId:      v.OrderId,
-			UserId:       v.UserId,
-			UserCurrency: v.UserCurrency,
-			Email:        v.Consignee.Email,
-			CreatedAt:    int32(v.CreatedAt.Unix()),
+		orders = append(orders, &order.Order{
+			CreatedAt: int32(v.CreatedAt.Unix()),
+			OrderId:   v.OrderId,
+			UserId:    v.UserId,
+			Email:     v.Consignee.Email,
 			Address: &order.Address{
+				StreetAddress: v.Consignee.StreetAddress,
 				Country:       v.Consignee.Country,
 				City:          v.Consignee.City,
-				StreetAddress: v.Consignee.StreetAddress,
+				State:         v.Consignee.State,
 				ZipCode:       v.Consignee.ZipCode,
 			},
-			OrderItems: items,
-		}
-		list = append(list, o)
+			Items: items,
+		})
 	}
 	resp = &order.ListOrderResp{
-		Orders: list,
+		Orders: orders,
 	}
 	return
 }

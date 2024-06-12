@@ -15,10 +15,10 @@
 package mysql
 
 import (
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-
-	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
 )
 
 var (

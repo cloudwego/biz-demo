@@ -17,10 +17,10 @@ package service
 import (
 	"context"
 
-	"github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/cart"
+	cart "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/cart"
 	common "github.com/cloudwego/biz-demo/gomall/app/frontend/hertz_gen/frontend/common"
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/infra/rpc"
-	frontendutils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
+	frontendUtils "github.com/cloudwego/biz-demo/gomall/app/frontend/utils"
 	rpccart "github.com/cloudwego/biz-demo/gomall/rpc_gen/kitex_gen/cart"
 	"github.com/cloudwego/hertz/pkg/app"
 )
@@ -34,13 +34,20 @@ func NewAddCartItemService(Context context.Context, RequestContext *app.RequestC
 	return &AddCartItemService{RequestContext: RequestContext, Context: Context}
 }
 
-func (h *AddCartItemService) Run(req *cart.AddCartReq) (resp *common.Empty, err error) {
+func (h *AddCartItemService) Run(req *cart.AddCartItemReq) (resp *common.Empty, err error) {
+	//defer func() {
+	// hlog.CtxInfof(h.Context, "req = %+v", req)
+	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
+	//}()
 	_, err = rpc.CartClient.AddItem(h.Context, &rpccart.AddItemReq{
-		UserId: frontendutils.GetUserIdFromCtx(h.Context),
+		UserId: uint32(frontendUtils.GetUserIdFromCtx(h.Context)),
 		Item: &rpccart.CartItem{
 			ProductId: req.ProductId,
-			Quantity:  req.ProductNum,
+			Quantity:  uint32(req.ProductNum),
 		},
 	})
+	if err != nil {
+		return nil, err
+	}
 	return
 }

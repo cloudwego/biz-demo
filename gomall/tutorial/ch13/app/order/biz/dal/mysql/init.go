@@ -20,6 +20,7 @@ import (
 
 	"github.com/cloudwego/biz-demo/gomall/app/order/biz/model"
 	"github.com/cloudwego/biz-demo/gomall/app/order/conf"
+	"github.com/cloudwego/kitex/pkg/klog"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -42,9 +43,8 @@ func Init() {
 		panic(err)
 	}
 	if os.Getenv("GO_ENV") != "online" {
-		DB.AutoMigrate( //nolint:errcheck
-			&model.Order{},
-			&model.OrderItem{},
-		)
+		if err := DB.AutoMigrate(&model.Order{}, &model.OrderItem{}); err != nil {
+			klog.Error(err)
+		}
 	}
 }
