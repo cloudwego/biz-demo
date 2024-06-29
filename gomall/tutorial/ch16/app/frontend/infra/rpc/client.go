@@ -16,7 +16,6 @@ package rpc
 
 import (
 	"context"
-	"os"
 	"sync"
 
 	"github.com/cloudwego/biz-demo/gomall/app/frontend/conf"
@@ -112,7 +111,7 @@ func initProductClient() {
 
 func initCartClient() {
 	var opts []client.Option
-	r, err := consul.NewConsulResolver(os.Getenv("REGISTRY_ADDR"))
+	r, err := consul.NewConsulResolver(conf.GetConf().Hertz.RegistryAddr)
 	frontendutils.MustHandleError(err)
 	opts = append(opts, client.WithResolver(r), client.WithSuite(clientsuite.CommonGrpcClientSuite{
 		CurrentServiceName: frontendutils.ServiceName,
