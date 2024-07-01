@@ -15,6 +15,7 @@
 package mq
 
 import (
+	"github.com/cloudwego/biz-demo/gomall/app/checkout/conf"
 	"github.com/nats-io/nats.go"
 )
 
@@ -24,7 +25,7 @@ var (
 )
 
 func Init() {
-	Nc, err = nats.Connect(nats.DefaultURL)
+	Nc, err = nats.Connect(conf.GetConf().Nats.Address)
 	if err != nil {
 		panic(err)
 	}

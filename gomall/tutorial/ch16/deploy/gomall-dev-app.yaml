@@ -1,0 +1,523 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+spec:
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      containers:
+      - name: product
+        image: "product:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: product-config
+          mountPath: /opt/gomall/product/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+        - name: MYSQL_HOST
+          value: "mysql-svc"
+        - name: MYSQL_USER
+          value: "root"
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-paasword
+              key: password
+      volumes:
+      - name: product-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: product-app-config
+            path: conf.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: "frontend:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: frontend-config
+          mountPath: /opt/gomall/frontend/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+        - name: SESSION_SECRET
+          value: "4UFIOADJFIJIASOFJI"
+        - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+          value: "http://jaeger-svc:4317"
+        - name: OTEL_EXPORTER_OTLP_INSECURE
+          value: "true"
+      volumes:
+      - name: frontend-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: frontend-app-config
+            path: conf.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+spec:
+  selector:
+    matchLabels:
+      app: cart
+  template:
+    metadata:
+      labels:
+        app: cart
+    spec:
+      containers:
+      - name: cart
+        image: "cart:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: cart-config
+          mountPath: /opt/gomall/cart/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+        - name: MYSQL_HOST
+          value: "mysql-svc"
+        - name: MYSQL_USER
+          value: "root"
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-paasword
+              key: password
+      volumes:
+      - name: cart-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: cart-app-config
+            path: conf.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkout
+spec:
+  selector:
+    matchLabels:
+      app: checkout
+  template:
+    metadata:
+      labels:
+        app: checkout
+    spec:
+      containers:
+      - name: checkout
+        image: "checkout:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+     
+        volumeMounts:
+        - name: checkout-config
+          mountPath: /opt/gomall/checkout/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+        - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+          value: "http://jaeger-svc:4317"
+        - name: OTEL_EXPORTER_OTLP_INSECURE
+          value: "true"
+      volumes:
+      - name: checkout-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: checkout-app-config
+            path: conf.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email
+spec:
+  selector:
+    matchLabels:
+      app: email
+  template:
+    metadata:
+      labels:
+        app: email
+    spec:
+      containers:
+      - name: email
+        image: "email:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: email-config
+          mountPath: /opt/gomall/email/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+      volumes:
+      - name: email-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: email-app-config
+            path: conf.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+spec:
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+      - name: order
+        image: "order:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: order-config
+          mountPath: /opt/gomall/order/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+        - name: MYSQL_HOST
+          value: "mysql-svc"
+        - name: MYSQL_USER
+          value: "root"
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-paasword
+              key: password
+      volumes:
+      - name: order-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: order-app-config
+            path: conf.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+spec:
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+      - name: payment
+        image: "payment:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: payment-config
+          mountPath: /opt/gomall/payment/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+        - name: MYSQL_HOST
+          value: "mysql-svc"
+        - name: MYSQL_USER
+          value: "root"
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-paasword
+              key: password
+      volumes:
+      - name: payment-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: payment-app-config
+            path: conf.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+spec:
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+      - name: user
+        image: "user:v1.1.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: user-config
+          mountPath: /opt/gomall/user/conf/dev
+        env:
+        - name: GO_ENV
+          value: "dev"
+        - name: MYSQL_HOST
+          value: "mysql-svc"
+        - name: MYSQL_USER
+          value: "root"
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-paasword
+              key: password
+      volumes:
+      - name: user-config
+        configMap:
+          name: gomall-config
+          items:
+          - key: user-app-config
+            path: conf.yaml
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gomall-config
+data:
+  product-app-config: |
+    kitex:
+      service: "product"
+      address: ":8881"
+      metrics_port: ":9991"
+      log_level: info
+      log_file_name: "log/kitex.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+    registry:
+      registry_address:
+        - consul-svc:8500
+      username: ""
+      password: ""
+    mysql:
+      dsn: "%s:%s@tcp(%s:3306)/product?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "redis-svc:6379"
+      username: ""
+      password: ""
+      db: 0
+  frontend-app-config: |
+    hertz:
+      address: ":8080"
+      metrics_port: 8090
+      enable_pprof: false
+      enable_gzip: true
+      enable_access_log: true
+      log_level: info
+      log_file_name: "log/hertz.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+      registry_addr: "consul-svc:8500"
+    mysql:
+      dsn: "gorm:gorm@tcp(127.0.0.1:3306)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "redis-svc:6379"
+      username: ""
+      password: ""
+      db: 0
+  cart-app-config: |
+    kitex:
+      service: "cart"
+      address: ":8883"
+      metrics_port: ":9993"
+      log_level: info
+      log_file_name: "log/kitex.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+    registry:
+      registry_address:
+        - consul-svc:8500
+      username: ""
+      password: ""
+    mysql:
+      dsn: "%s:%s@tcp(%s:3306)/product?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "redis-svc:6379"
+      username: ""
+      password: ""
+      db: 0
+  checkout-app-config: |
+    kitex:
+      service: "checkout"
+      address: ":8884"
+      metrics_port: ":9994"
+      log_level: info
+      log_file_name: "log/kitex.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+    registry:
+      registry_address:
+        - consul-svc:8500
+      username: ""
+      password: ""
+    mysql:
+      dsn: "gorm:gorm@tcp(127.0.0.1:3306)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "redis-svc:6379"
+      username: ""
+      password: ""
+      db: 0
+    nats:
+      address: "nats-svc:4222"
+  email-app-config: |
+    kitex:
+      service: "email"
+      address: ":8888"
+      log_level: info
+      log_file_name: "log/kitex.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+    registry:
+      registry_address:
+        - consul-svc:2379
+      username: ""
+      password: ""
+    mysql:
+      dsn: "gorm:gorm@tcp(127.0.0.1:3306)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "127.0.0.1:6379"
+      username: ""
+      password: ""
+      db: 0
+    nats:
+      address: "nats-svc:4222"
+  order-app-config: |
+    kitex:
+      service: "order"
+      address: ":8885"
+      metrics_port: ":9995"
+      log_level: info
+      log_file_name: "log/kitex.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+    registry:
+      registry_address:
+        - consul-svc:8500
+      username: ""
+      password: ""
+    mysql:
+      dsn: "%s:%s@tcp(%s:3306)/order?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "redis-svc:6379"
+      username: ""
+      password: ""
+      db: 0
+  payment-app-config: |
+    kitex:
+      service: "payment"
+      address: ":8886"
+      metrics_port: ":9996"
+      log_level: info
+      log_file_name: "log/kitex.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+    registry:
+      registry_address:
+        - consul-svc:8500
+      username: ""
+      password: ""
+    mysql:
+      dsn: "%s:%s@tcp(%s:3306)/payment?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "127.0.0.1:6379"
+      username: ""
+      password: ""
+      db: 0
+  user-app-config: |
+    kitex:
+      service: "user"
+      address: ":8882"
+      metrics_port: ":9992"
+      log_level: debug
+      log_file_name: "log/kitex.log"
+      log_max_size: 10
+      log_max_age: 3
+      log_max_backups: 50
+    registry:
+      registry_address:
+        - consul-svc:8500
+      username: ""
+      password: ""
+    mysql:
+      dsn: "%s:%s@tcp(%s:3306)/user?charset=utf8mb4&parseTime=True&loc=Local"
+    redis:
+      address: "redis-svc:6379"
+      username: ""
+      password: ""
+      db: 0
+
+

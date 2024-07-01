@@ -1,0 +1,259 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: "mysql:latest"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-paasword
+              key: password
+        volumeMounts:
+        - mountPath: /docker-entrypoint-initdb.d
+          name: initdb
+      volumes:
+      - name: initdb
+        hostPath: 
+          path: /opt/gomall/db/sql/ini
+          type: Directory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+spec:
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+    targetPort: 3306
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consul
+spec:
+  selector:
+    matchLabels:
+      app: consul
+  template:
+    metadata:
+      labels:
+        app: consul
+    spec:
+      containers:
+      - name: consul
+        image: "consul:1.15.4"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8500
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consul-svc
+spec:
+  selector:
+    app: consul
+  ports:
+  - port: 8500
+    targetPort: 8500
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: "redis:latest"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-svc
+spec:
+  selector:
+    app: redis
+  ports:
+  - port: 6379
+    targetPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats
+spec:
+  selector:
+    matchLabels:
+      app: nats
+  template:
+    metadata:
+      labels:
+        app: nats
+    spec:
+      containers:
+      - name: nats
+        image: "nats:latest"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 4222
+        - containerPort: 8222
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats-svc
+spec:
+  selector:
+    app: nats
+  ports:
+  - port: 4222
+    targetPort: 4222
+    name: "4222"
+  - port: 8222
+    targetPort: 8222
+    name: "8222"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+spec:
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+      - name: jaeger
+        image: "jaegertracing/all-in-one:latest"
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 16686
+        - containerPort: 4317
+        - containerPort: 4318
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-svc
+spec:
+  selector:
+    app: jaeger
+  ports:
+  - port: 16686
+    targetPort: 16686
+    name: "16686"
+  - port: 4317
+    targetPort: 4317
+    name: "4317"
+  - port: 4318
+    targetPort: 4318
+    name: "4318"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: "prom/prometheus:latest"
+        imagePullPolicy: IfNotPresent
+        args:
+          - "--config.file=/etc/prometheus/prometheus.yml"
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - mountPath: /etc/prometheus/prometheus.yml
+          name: prom-config
+      volumes:
+      - name: prom-config
+        hostPath: 
+          path: /opt/gomall/deploy/config/prometheus.yml
+          type: File
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-svc
+spec:
+  selector:
+    app: prometheus
+  ports:
+  - port: 9090
+    targetPort: 9090
+    name: "9090"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-paasword
+type: Opaque
+data:
+  password: cm9vdA==

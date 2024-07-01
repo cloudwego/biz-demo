@@ -22,3 +22,6 @@ redis:
   username: ""
   password: ""
   db: 0
+
+nats:
+  address: "nats://127.0.0.1:4222"

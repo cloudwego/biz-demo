@@ -1,0 +1,32 @@
+FROM golang:1.21 AS builder
+
+ARG SVC
+
+WORKDIR /usr/src/gomall
+
+# Set the GOPROXY environment variable to use the goproxy.io proxy (for China)
+ENV GOPROXY=https://goproxy.io,direct
+
+# pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
+COPY app/${SVC}/go.mod app/${SVC}/go.sum ./app/${SVC}/
+COPY rpc_gen rpc_gen
+COPY common common
+
+RUN cd common && go mod download && go mod verify
+RUN cd app/${SVC}/ && go mod download && go mod verify
+
+COPY app/${SVC} app/${SVC}
+
+RUN cd app/${SVC}/ && CGO_ENABLED=0 go build -v -o /opt/gomall/${SVC}/server
+
+FROM busybox
+
+ARG SVC
+
+COPY --from=builder /opt/gomall/${SVC}/server /opt/gomall/${SVC}/server
+
+COPY app/${SVC}/conf /opt/gomall/${SVC}/conf
+
+WORKDIR /opt/gomall/${SVC}
+
+CMD ["./server"]
