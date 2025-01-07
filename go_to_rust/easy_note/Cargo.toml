@@ -16,6 +16,7 @@ serde = "*"
 tracing = "*"
 motore = "*"
 serde_json = "*"
+mime = "*"
 
 [profile.release]
 opt-level = 3
