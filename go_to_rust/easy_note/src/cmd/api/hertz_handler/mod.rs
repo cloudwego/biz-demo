@@ -7,6 +7,7 @@ use volo_http::request::ServerRequest;
 use volo_http::response::ServerResponse;
 use volo_http::server::response::IntoResponse;
 use volo_http::json::Json;
+use serde_json;
 
 // Ping函数用于处理传入的HTTP请求，并返回一个JSON响应。
 pub async fn ping(
