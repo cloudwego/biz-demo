@@ -48,22 +48,20 @@ func (s *ChargeService) Run(req *payment.ChargeReq) (resp *payment.ChargeResp, e
 		return nil, kerrors.NewBizStatusError(400, err.Error())
 	}
 
-	translationId, err := uuid.NewRandom()
+	transactionId, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err
 	}
 	err = model.CreatePaymentLog(mysql.DB, s.ctx, &model.PaymentLog{
 		UserId:        req.UserId,
 		OrderId:       req.OrderId,
-		TransactionId: translationId.String(),
+		TransactionId: transactionId.String(),
 		Amount:        req.Amount,
 		PayAt:         time.Now(),
 	})
 	if err != nil {
 		return nil, err
 	}
-	if err != nil {
-		return nil, err
-	}
-	return &payment.ChargeResp{TransactionId: translationId.String()}, nil
+	
+	return &payment.ChargeResp{TransactionId: transactionId.String()}, nil
 }
