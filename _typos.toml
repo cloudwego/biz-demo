@@ -4,11 +4,12 @@
 extend-exclude = [
     "go.mod",
     "go.sum",
-    "hack/*",
+    "go.work.sum",
     "check_branch_name.sh",
     "*/licenses/*",
     "bootstrap.*.js",
-    "go.work.sum"
+    "hack/*",
+    "open-payment-platform/internal/payment/infrastructure/ent/*",
 ]
 
 [default.extend-identifiers]
