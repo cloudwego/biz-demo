@@ -35,9 +35,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Lint
-        uses: golangci/golangci-lint-action@v5
+        uses: golangci/golangci-lint-action@v6
         with:
           version: latest
           working-directory: ${{ matrix.workdir }}
           args: --timeout 30m -E gofumpt --go 1.21
-          skip-pkg-cache: true
+          only-new-issues: true
