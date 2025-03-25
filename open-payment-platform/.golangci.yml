@@ -1,3 +1,7 @@
 run:
-  skip-dirs:
+  timeout: 3m
+
+issues:
+  exclude-use-default: true
+  exclude-dirs:
     - internal/payment/infrastructure/ent
