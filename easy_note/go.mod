@@ -10,7 +10,7 @@ require (
 	github.com/apache/thrift v0.16.0
 	github.com/cloudwego/hertz v0.9.5
 	github.com/cloudwego/kitex v0.11.3
-	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/hertz-contrib/gzip v0.0.3
 	github.com/hertz-contrib/jwt v1.0.2
 	github.com/hertz-contrib/obs-opentelemetry/logging/logrus v0.1.1
