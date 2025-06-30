@@ -5,7 +5,6 @@ extend-exclude = [
     "go.mod",
     "go.sum",
     "go.work.sum",
-    "check_branch_name.sh",
     "*/licenses/*",
     "bootstrap.*.js",
     "hack/*",

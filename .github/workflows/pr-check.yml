@@ -1,20 +1,52 @@
 name: Pull Request Check
 
-on: [pull_request]
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - labeled
+      - reopened
+
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
-  compliant:
-    runs-on: [self-hosted, X64]
+  check-user-trust:
+    runs-on: ubuntu-latest
+    outputs:
+      is-trusted: ${{ steps.check.outputs.is_trusted }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Check if PR sender is trusted
+        id: check
+        run: |
+          ASSOC="${{ github.event.sender.author_association }}"
+          echo "Sender association: $ASSOC"
+          if [[ "$ASSOC" == "OWNER" || "$ASSOC" == "MEMBER" || "$ASSOC" == "COLLABORATOR" ]]; then
+            echo "trusted=true" >> $GITHUB_OUTPUT
+          else
+            echo "trusted=false" >> $GITHUB_OUTPUT
+          fi
+
+  compliant-check:
+    needs: check-user-trust
+    if: needs.check-user-trust.outputs.is_trusted == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Check License Header
         uses: apache/skywalking-eyes/header@v0.4.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: typos-action
         uses: crate-ci/typos@master
 
   resolve-modules:
+    needs: check-user-trust
+    if: needs.check-user-trust.outputs.is_trusted == 'true'
     name: resolve module
     runs-on: ubuntu-latest
     outputs:
@@ -29,7 +61,10 @@ jobs:
   lint:
     name: lint module
     runs-on: ubuntu-latest
-    needs: resolve-modules
+    permissions:
+      pull-requests: write
+    needs: [check-user-trust, resolve-modules]
+    if: needs.check-user-trust.outputs.is_trusted == 'true'
     strategy:
       matrix: ${{ fromJson(needs.resolve-modules.outputs.matrix) }}
     steps:
@@ -41,3 +76,24 @@ jobs:
           working-directory: ${{ matrix.workdir }}
           args: --timeout 30m -E gofumpt --go 1.21
           only-new-issues: true
+
+  ut:
+    needs: check-user-trust
+    if: needs.check-user-trust.outputs.is_trusted == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.21
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Unit Test
+        run: make test
