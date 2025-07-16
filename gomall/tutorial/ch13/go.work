@@ -1,12 +1,14 @@
-go 1.21.5
+go 1.23.0
+
+toolchain go1.23.11
 
 use (
 	./app/cart
 	./app/checkout
 	./app/frontend
+	./app/order
 	./app/payment
 	./app/product
-	./app/order
 	./app/user
 	./demo/demo_proto
 	./demo/demo_thrift
