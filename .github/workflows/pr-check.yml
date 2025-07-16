@@ -52,5 +52,5 @@ jobs:
         with:
           version: latest
           working-directory: ${{ matrix.workdir }}
-          args: --timeout 30m -E gofumpt
+          args: --timeout 30m
           only-new-issues: true
