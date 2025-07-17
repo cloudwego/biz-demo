@@ -1,6 +1,8 @@
 module github.com/cloudwego/biz-demo/gomall/app/frontend
 
-go 1.21.5
+go 1.23.0
+
+toolchain go1.23.11
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
@@ -50,5 +52,5 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
-	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
+	golang.org/x/sys v0.34.0 // indirect
 )

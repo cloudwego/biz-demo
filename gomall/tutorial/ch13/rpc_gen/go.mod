@@ -1,6 +1,8 @@
 module github.com/cloudwego/biz-demo/gomall/rpc_gen
 
-go 1.21.5
+go 1.23.0
+
+toolchain go1.23.11
 
 replace github.com/apache/thrift => github.com/apache/thrift v0.13.0
 
@@ -42,10 +44,10 @@ require (
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	golang.org/x/arch v0.2.0 // indirect
-	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/sync v0.16.0 // indirect
+	golang.org/x/sys v0.34.0 // indirect
+	golang.org/x/text v0.27.0 // indirect
 	google.golang.org/genproto v0.0.0-20210513213006-bf773b8c8384 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

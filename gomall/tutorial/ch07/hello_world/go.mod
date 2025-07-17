@@ -1,6 +1,8 @@
 module github.com/cloudwego/biz-demo/gomall/hello_world
 
-go 1.21.4
+go 1.23.0
+
+toolchain go1.23.11
 
 require github.com/cloudwego/hertz v0.7.3
 
@@ -26,6 +28,6 @@ require (
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	golang.org/x/arch v0.2.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
+	golang.org/x/sys v0.34.0 // indirect
 	google.golang.org/protobuf v1.32.0 // indirect
 )

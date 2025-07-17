@@ -1,6 +1,8 @@
 module github.com/cloudwego/biz-demo/gomall/app/user
 
-go 1.21.5
+go 1.23.0
+
+toolchain go1.23.11
 
 replace (
 	github.com/apache/thrift => github.com/apache/thrift v0.13.0
@@ -16,7 +18,7 @@ require (
 	github.com/kr/pretty v0.3.1
 	github.com/redis/go-redis/v9 v9.5.1
 	go.uber.org/zap v1.27.0
-	golang.org/x/crypto v0.23.0
+	golang.org/x/crypto v0.40.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gopkg.in/validator.v2 v2.0.1
 	gopkg.in/yaml.v2 v2.4.0
@@ -81,10 +83,10 @@ require (
 	go.opentelemetry.io/otel/trace v1.19.0 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/arch v0.2.0 // indirect
-	golang.org/x/net v0.21.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
-	golang.org/x/text v0.15.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/sync v0.16.0 // indirect
+	golang.org/x/sys v0.34.0 // indirect
+	golang.org/x/text v0.27.0 // indirect
 	google.golang.org/genproto v0.0.0-20210513213006-bf773b8c8384 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

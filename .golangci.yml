@@ -1,0 +1,26 @@
+version: "2"
+run:
+  timeout: "30m"
+linters:
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - open-payment-platform/internal/payment/infrastructure/ent
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+  settings:
+    gofumpt:
+      extra-rules: true
