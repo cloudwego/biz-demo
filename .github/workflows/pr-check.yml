@@ -50,7 +50,7 @@ jobs:
       - name: Lint
         uses: golangci/golangci-lint-action@v8
         with:
-          version: latest
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
           working-directory: ${{ matrix.workdir }}
           args: --config=${{ github.workspace }}/.golangci.yml
           only-new-issues: true
