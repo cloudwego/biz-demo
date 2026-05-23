@@ -15,17 +15,20 @@
 
 package consts
 
+import (
+	"fmt"
+	"os"
+)
+
 const (
 	NoteTableName   = "note"
 	UserTableName   = "user"
-	SecretKey       = "secret key"
 	IdentityKey     = "id"
 	Total           = "total"
 	Notes           = "notes"
 	ApiServiceName  = "demoapi"
 	NoteServiceName = "demonote"
 	UserServiceName = "demouser"
-	MySQLDefaultDSN = "gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True&loc=Local"
 	TCP             = "tcp"
 	UserServiceAddr = ":9000"
 	NoteServiceAddr = ":10000"
@@ -33,3 +36,25 @@ const (
 	ETCDAddress     = "127.0.0.1:2379"
 	DefaultLimit    = 10
 )
+
+// SecretKey returns the JWT signing key from the JWT_SECRET_KEY environment variable.
+// Terminates at startup if the variable is not set, preventing silent insecure defaults.
+func SecretKey() string {
+	key := os.Getenv("JWT_SECRET_KEY")
+	if key == "" {
+		fmt.Fprintf(os.Stderr, "fatal: JWT_SECRET_KEY is not set. Generate one with: openssl rand -base64 32\n")
+		os.Exit(1)
+	}
+	return key
+}
+
+// MySQLDSN returns the database connection string from the DB_DSN environment variable.
+// Terminates at startup if the variable is not set.
+func MySQLDSN() string {
+	dsn := os.Getenv("DB_DSN")
+	if dsn == "" {
+		fmt.Fprintf(os.Stderr, "fatal: DB_DSN is not set. Example: user:password@tcp(localhost:3306)/dbname?charset=utf8&parseTime=True&loc=Local\n")
+		os.Exit(1)
+	}
+	return dsn
+}
